@@ -1,0 +1,30 @@
+{
+  "author": "Florian Kraft",
+  "name": "consulted-frontend",
+  "version": "0.0.1",
+  "licenses": {
+    "type": "Private license",
+    "url": "https://consulted.co"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-recess": "~0.3.0",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-karma": "~0.5.0",
+    "karma-mocha": "latest",
+    "grunt-html2js": "~0.1.3",
+    "grunt-contrib-coffee": "latest",
+    "grunt-coffeelint": "0.0.6",
+    "grunt-conventional-changelog": "~0.1.1",
+    "grunt-bump": "0.0.6",
+    "grunt-devserver": "~0.4.1"
+  }
+}

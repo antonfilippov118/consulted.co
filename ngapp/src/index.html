@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="frontend-boilerplate" ng-controller="AppCtrl">
+  <head>
+    <title>Frontend Boilerplate</title>
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+  </head>
+  <body>
+    <p>Body code goes here.</p>
+    <p>Here is a variable: {{foo}}</p>
+    <p test-template></p>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+  </body>
+</html>

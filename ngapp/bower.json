@@ -1,0 +1,14 @@
+{
+  "name": "frontend-boilerplate",
+  "version": "0.0.1",
+  "devDependencies": {
+    "angular": "1.2.3",
+    "angular-mocks": "1.2.3",
+    "bootstrap": "3.0.0",
+    "angular-route": "1.2.3",
+    "angular-cookies": "~1.2.3",
+    "should": "~2.1.0",
+    "chai": "~1.8.1"
+  },
+  "dependencies": {}
+}
