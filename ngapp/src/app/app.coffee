@@ -1,4 +1,4 @@
-app = angular.module "frontend-boilerplate", ['templates-app']
+app = angular.module "consulted", ['templates-app']
 
 app.controller "AppCtrl", ['$scope', (scope) ->
   scope.foo = "New Frontend project"

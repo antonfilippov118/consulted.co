@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html ng-app="frontend-boilerplate" ng-controller="AppCtrl">
+<html ng-app="consulted"lang="en">
   <head>
-    <title>Frontend Boilerplate</title>
+    <title>consulted.co</title>
 
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
-    <p>Body code goes here.</p>
-    <p>Here is a variable: {{foo}}</p>
-    <p test-template></p>
-
+    <header class="navbar navbar-inverse navbar-fixed-top navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="logo" href="#!/">consulted.co</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#!/categories">Featured categories</a></li>
+          <li><a href="#!/experts">Browse Experts</a></li>
+          <li><a href="#!/use_cases">Typical use cases</a></li>
+          <li><a href="#!/how_it_works">How it works</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#!/signup">Signup</a></li>
+          <li><a href="#!/login">Login</a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="content" class="container" ng-view></div>
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
   </body>
