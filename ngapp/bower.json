@@ -1,5 +1,5 @@
 {
-  "name": "frontend-boilerplate",
+  "name": "consulted-frontend",
   "version": "0.0.1",
   "devDependencies": {
     "angular": "1.2.3",
@@ -10,5 +10,8 @@
     "should": "~2.1.0",
     "chai": "~1.8.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "resolutions": {
+    "angular": "1.2.3"
+  }
 }

@@ -2,7 +2,6 @@ module.exports = (grunt) ->
   [
     "contrib-clean"
     "contrib-copy"
-    "contrib-jshint"
     "contrib-concat"
     "contrib-watch"
     "contrib-uglify"
@@ -12,8 +11,8 @@ module.exports = (grunt) ->
     "coffeelint"
     "recess"
     "karma"
-    "ngmin"
     "html2js"
+    "shell"
     "devserver"
   ].forEach (name) ->
     grunt.loadNpmTasks "grunt-#{name}"
@@ -107,7 +106,11 @@ module.exports = (grunt) ->
           cwd: "<%= build_dir %>/assets"
           expand: yes
         ]
-
+    shell:
+      copy_rails:
+        options:
+          stdout: no
+        command: "cp -r bin/ ../public/"
     concat:
       build_css:
         src: ["<%= vendor_files.css %>", "<%= recess.build.dest %>"]
@@ -260,7 +263,7 @@ module.exports = (grunt) ->
     'index:compile'
   ]
 
-  grunt.registerTask "default", ["build", "compile"]
+  grunt.registerTask "default", ["build", "compile", "shell:copy_rails"]
 
   filterForJS = (files) ->
     files.filter (file) ->
