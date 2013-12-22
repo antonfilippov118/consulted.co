@@ -15,3 +15,5 @@
 /log/*.log
 /tmp
 public
+consulted.sublime-project
+consulted.sublime-workspace
