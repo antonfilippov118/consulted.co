@@ -171,6 +171,9 @@ module.exports = (grunt) ->
         files:
           src: ["<%= app_files.coffeeunit %>"]
 
+      options:
+        max_line_length: 120
+
     html2js:
       app:
         options:

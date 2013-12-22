@@ -27,7 +27,26 @@
 }
 
 #content {
-  .container {
-    background: @fourth;
+  background: @fourth;
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+#footer {
+  height: 60px;
+  background: @second;
+
+  .footer-links {
+    padding-top: 20px;
+    li {
+      display: inline;
+      padding: 0 2px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
   }
 }

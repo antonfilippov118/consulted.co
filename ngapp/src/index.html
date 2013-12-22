@@ -30,6 +30,19 @@
       </div>
     </header>
     <div id="content" class="container" ng-view></div>
+    <div id="footer">
+      <div class="container">
+        <ul class="footer-links">
+          <li><a href="#!/legal">Legal notice</a></li>
+          <li class="muted"></li>
+          <li><a href="#!/sitemap">Sitemap</a></li>
+          <li class="muted"></li>
+          <li><a href="#!/contact">Contact us</a></li>
+          <li class="muted"></li>
+          <li><a href="#!/career">Career</a></li>
+        </ul>
+      </div>
+    </div>
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
   </body>

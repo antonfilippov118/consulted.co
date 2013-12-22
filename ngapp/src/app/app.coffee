@@ -1,12 +1,17 @@
-app = angular.module "consulted", ['templates-app']
-
-app.controller "AppCtrl", ['$scope', (scope) ->
-  scope.foo = "New Frontend project"
+app = angular.module "consulted", [
+  'templates-app',
+  'ngRoute',
+  "consulted.directives"
 ]
 
-app.directive "testTemplate", [() ->
-  scope: yes
-  templateUrl: "views/foo.tpl.html"
-  link: (scope) ->
-    scope.foo = "Bar from Template"
+app.config [
+  "$locationProvider",
+  "$routeProvider",
+  (locationProvider, routeProvider) ->
+    locationProvider.hashPrefix "!"
+
+    routeProvider
+      .when "/",
+        template: "<div consulted-startpage></div>"
+      .otherwise redirectTo: "/"
 ]
