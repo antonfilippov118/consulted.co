@@ -1,0 +1,44 @@
+<div class="signup">
+  <div class="logo">
+    consulted.co
+  </div>
+  <div class="tagline">
+    Giving quality advice since 1985
+  </div>
+  <div class="content">
+    <form ng-submit="signup()">
+      <div ng-switch on="type">
+        <div ng-switch-when="email" class="email">
+          <p>Your email is never shared.</p>
+          <input ng-model="user.email" type="email" placeholder="Your email address">
+          <input ng-model="user.password" type="password" placeholder="Your password">
+          <input ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+          <label>
+            <input type="checkbox" ng-model="user.newsletter">
+            I want to receive the newsletter
+          </label>
+
+          <input type="submit" class="btn btn-primary" value="Complete signup">
+          <hr>
+          <p>You can also connect your social profiles</p>
+          <p>
+            <a ng-click="switch()">Signup with one of your profiles</a>
+          </p>
+        </div>
+        <div ng-switch-default class="profile">
+          <a href="#!/signup/linkedin"><i class="fa fa-linkedin"></i> Connect with LinkedIn</a>
+          <a href="#!/signup/facebook"><i class="fa fa-facebook"></i>  Connect with Facebook</a>
+          <hr>
+          <p>Of course, we won't post anything to your profile</p>
+          <p>- or -</p>
+          <p>
+            <a ng-click="switch()">Signup with your email</a>
+          </p>
+        </div>
+      </div>
+      <div class="terms">
+        <a href="#!/terms">Terms and conditions</a>
+      </div>
+    </form>
+  </div>
+</div>

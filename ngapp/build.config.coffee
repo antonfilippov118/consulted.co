@@ -33,5 +33,7 @@ module.exports =
       'vendor/angular-route/angular-route.js'
       'vendor/angular-animate/angular-animate.js'
     ],
-    css: []
+    css: [
+      'vendor/animate.css/animate.min.css'
+    ]
     assets: []

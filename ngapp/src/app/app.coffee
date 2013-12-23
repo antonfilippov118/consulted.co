@@ -1,7 +1,8 @@
 app = angular.module "consulted", [
-  'templates-app',
-  'ngRoute',
+  'templates-app'
+  'ngRoute'
   "consulted.directives"
+  "consulted.controllers"
 ]
 
 app.config [
@@ -13,5 +14,8 @@ app.config [
     routeProvider
       .when "/",
         template: "<div consulted-startpage></div>"
+      .when "/signup",
+        controller: "SignupController"
+        templateUrl: "views/signup.tpl.html"
       .otherwise redirectTo: "/"
 ]

@@ -9,9 +9,9 @@
     "angular-route": "1.2.5",
     "angular-cookies": "~1.2.5",
     "should": "~2.1.0",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "animate-less": "~2.0.1"
   },
-  "dependencies": {},
   "resolutions": {
     "angular": "1.2.5"
   }
