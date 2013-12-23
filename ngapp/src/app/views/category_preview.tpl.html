@@ -1,0 +1,16 @@
+<div class="categories_preview">
+  <h2><i class="fa fa-book"></i> Featured categories</h2>
+  <div class="loading" ng-show="loading">
+    <i class="fa fa-spinner fa-5x"></i>
+  </div>
+  <div class="error" ng-show="error" ng-hide="loading">
+    <p><i class="fa fa-warning fa-2x"></i></p>
+    <p>{{error}}</p>
+  </div>
+  <div ng-hide="error || loading">
+    <div class="featured_category" ng-repeat="category in categories | limitTo:4"></div>
+    <div class="show_all">
+      <a href="#!/categories">Show all categories</a>
+    </div>
+  </div>
+</div>

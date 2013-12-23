@@ -3,6 +3,20 @@
   .box {
     margin-top: 10px;
     border-bottom: 1px solid #ccc;
+
+    .error {
+      .text-center();
+      color: @highlight;
+    }
+
+    .loading {
+      .make-xs-column(12);
+      .text-center();
+    }
+
+    .show_all {
+      .pull-right();
+    }
   }
 
   h2 {
@@ -17,7 +31,7 @@
     width: 100%;
     padding: 10px;
     margin: 0;
-    background: url(../assets/busy_man.jpg) 0px -140px;
+    background: url(busy_man.jpg) 0px -140px;
     min-height: 270px;
 
     h1, p {
@@ -54,7 +68,7 @@
       i {
         &.fa-fill {
           color: @third;
-          font-size: 23em;
+          font-size: 20em;
         }
       }
     }
@@ -69,13 +83,28 @@
 
   }
 
-  .experts_preview {
+  .experts_preview, .categories_preview, .group_preview, .use_case_preview {
     .box();
     .container();
+  }
 
-    .error {
-      .text-center();
-      color: @highlight;
+  .use_case_preview {
+    .row {
+      margin: 10px;
+    }
+    .image {
+      .make-md-column(4);
+      min-height: 200px;
+
+      &#handshake {
+        background: url(handshake.jpg) 23px -64px;
+      }
+      &#help {
+        background: url(professional_help.jpg) -45px -78px;
+      }
+    }
+    .explanation {
+      .make-md-column(8);
     }
   }
 }
