@@ -1,0 +1,14 @@
+<div class="experts_preview">
+  <h2><i class="fa fa-phone"></i> Benefit from top tier professional service experts like these - <em>one</em> call away</h2>
+  <div class="loading" ng-show="loading">
+    <i class="fa fa-spinner fa-5x"></i>
+  </div>
+  <div class="error" ng-show="error" ng-hide="loading">
+    {{error}}
+  </div>
+  <div class="error" ng-hide="error || loading">
+    <ul class="experts">
+      <li ng-repeat="expert in experts | limitTo:3">{{expert.name}}</li>
+    </ul>
+  </div>
+</div>
