@@ -4,9 +4,10 @@
     <i class="fa fa-spinner fa-5x"></i>
   </div>
   <div class="error" ng-show="error" ng-hide="loading">
-    {{error}}
+    <p><i class="fa fa-warning fa-2x"></i></p>
+    <p>{{error}}</p>
   </div>
-  <div class="error" ng-hide="error || loading">
+  <div ng-hide="error || loading">
     <ul class="experts">
       <li ng-repeat="expert in experts | limitTo:3">{{expert.name}}</li>
     </ul>
