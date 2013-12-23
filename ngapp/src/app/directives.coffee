@@ -3,7 +3,7 @@ app = angular.module "consulted.directives", [
 ]
 
 primitives = [
-  "marketing", "startpage", "use_case_preview"
+  "marketing", "startpage", "use_case_preview", "how_it_works"
 ]
 
 buildPrimitive = (name) ->

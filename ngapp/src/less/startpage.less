@@ -16,6 +16,12 @@
 
     .show_all {
       .pull-right();
+      margin: 10px 0 10px 0;
+      a {
+        .btn();
+        .btn-primary();
+        font-size:16px;
+      }
     }
   }
 
@@ -83,7 +89,7 @@
 
   }
 
-  .experts_preview, .categories_preview, .group_preview, .use_case_preview {
+  .experts_preview, .categories_preview, .group_preview, .use_case_preview, .how_it_works {
     .box();
     .container();
   }
@@ -105,6 +111,26 @@
     }
     .explanation {
       .make-md-column(8);
+    }
+  }
+
+  .how_it_works {
+    .step {
+      .make-md-column(4);
+      .image {
+        min-height: 200px;
+        margin-bottom: 10px;
+
+        &#step1 {
+          background: url(idea.png) no-repeat 50px 6px;
+        }
+        &#step2 {
+          background: url(telephone.png) no-repeat 80px;
+        }
+        &#step3 {
+          background:url(success.png) no-repeat 33px -2px;
+        }
+      }
     }
   }
 }
