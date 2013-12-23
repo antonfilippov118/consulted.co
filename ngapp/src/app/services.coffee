@@ -12,6 +12,15 @@ app.service "Experts", [
         results.reject err
 
       results.promise
+
+    getTestimonials: ->
+      results = q.defer()
+      http.get("/testimonials.json").then (data) ->
+        resultes.resolve data.testimonials
+      , (err) ->
+        results.reject err
+
+      results.promise
 ]
 
 app.factory "Categories", [

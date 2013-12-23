@@ -23,6 +23,11 @@
         font-size:16px;
       }
     }
+
+    .signup {
+      .make-xs-column(2);
+      .text-center();
+    }
   }
 
   h2 {
@@ -63,10 +68,6 @@
         font-weight: bold;
       }
     }
-    .signup {
-      .make-xs-column(2);
-      .text-center();
-    }
     .graph {
       .make-xs-column(4);
       .visible-md();
@@ -89,7 +90,7 @@
 
   }
 
-  .experts_preview, .categories_preview, .group_preview, .use_case_preview, .how_it_works {
+  .experts_preview, .categories_preview, .group_preview, .use_case_preview, .how_it_works , .satisfaction, .testimonials {
     .box();
     .container();
   }
@@ -131,6 +132,14 @@
           background:url(success.png) no-repeat 33px -2px;
         }
       }
+    }
+  }
+
+  .testimonials {
+    .signup {
+      .make-xs-column(12);
+      .text-center();
+      margin-top: 10px;
     }
   }
 }

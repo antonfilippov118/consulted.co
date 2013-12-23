@@ -3,7 +3,11 @@ app = angular.module "consulted.directives", [
 ]
 
 primitives = [
-  "marketing", "startpage", "use_case_preview", "how_it_works"
+  "marketing"
+  "startpage"
+  "use_case_preview"
+  "how_it_works"
+  "satisfaction"
 ]
 
 buildPrimitive = (name) ->
@@ -73,4 +77,24 @@ app.directive "consultedGroupPreview", [
       .finally () ->
         scope.loading = no
 ]
+
+app.directive "consultedTestimonials", [
+  "Experts",
+  (experts) ->
+    replace: yes
+    templateUrl: "views/testimonials.tpl.html"
+    scope: yes
+    link: (scope) ->
+      scope.error   = no
+      scope.loading = yes
+
+      experts.getTestimonials().then (data) ->
+        scope.experts = data
+      , (err) ->
+        scope.error = "There was an error loading the data."
+      .finally () ->
+        scope.loading = no
+]
+
+
 

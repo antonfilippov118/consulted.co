@@ -8,7 +8,7 @@
     <p>{{error}}</p>
   </div>
   <div ng-hide="error || loading">
-    <div class="featured_category" ng-repeat="category in categories | limitTo:4"></div>
+    <div class="featured" ng-repeat="category in categories | limitTo:4"></div>
     <div class="show_all">
       <a href="#!/categories">Show all categories</a>
     </div>
