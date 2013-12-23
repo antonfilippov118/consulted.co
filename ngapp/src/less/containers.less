@@ -1,0 +1,52 @@
+.navigation {
+  background: @second;
+
+  .logo {
+    .navbar-brand();
+    color: #fff;
+    font-size: 22px;
+    font-family: 'Nixie One', sans-serif;
+    &:hover {
+      text-shadow: 1px 1px 2px @highlight;
+    }
+  }
+
+  ul.nav {
+    li {
+      a {
+        font-size: 16px;
+        &:hover {
+          color: @highlight;
+        }
+      }
+      &:hover {
+        background: @first;
+      }
+    }
+  }
+}
+
+#content {
+  background: @fourth;
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 50px 0 60px 0;
+}
+
+#footer {
+  height: 60px;
+  background: @second;
+
+  .footer-links {
+    padding-top: 20px;
+    li {
+      display: inline;
+      padding: 0 2px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+}

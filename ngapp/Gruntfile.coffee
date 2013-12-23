@@ -39,8 +39,8 @@ module.exports = (grunt) ->
 
     devserver:
       options:
-        port: 3000
-        base: './bin'
+        port: 8000
+        base: './build'
 
     bump:
       options:
@@ -111,6 +111,7 @@ module.exports = (grunt) ->
         options:
           stdout: no
         command: "cp -r bin/ ../public/"
+
     concat:
       build_css:
         src: ["<%= vendor_files.css %>", "<%= recess.build.dest %>"]
@@ -149,6 +150,7 @@ module.exports = (grunt) ->
           noUnderscores: no
           noIDs: no
           zeroUnits: no
+          includePath: ['vendor/bootstrap/less']
 
       compile:
         src: ["<%= recess.build.dest %>"]
@@ -168,6 +170,9 @@ module.exports = (grunt) ->
       test:
         files:
           src: ["<%= app_files.coffeeunit %>"]
+
+      options:
+        max_line_length: 120
 
     html2js:
       app:
