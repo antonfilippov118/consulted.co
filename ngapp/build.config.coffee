@@ -31,6 +31,7 @@ module.exports =
     js: [
       'vendor/angular/angular.js',
       'vendor/angular-route/angular-route.js'
+      'vendor/angular-animate/angular-animate.js'
     ],
     css: []
     assets: []
