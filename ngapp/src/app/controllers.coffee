@@ -10,10 +10,11 @@ app.controller "SignupController", [
     scope.type = "email"
 
     scope.signup = () ->
+      console.log 'here'
       return if scope.saving is yes
       return if scope.type is "profile"
       scope.saving = yes
-      scope.
+
       user.signup(scope.user).then (status) ->
         scope.success = yes
       , (err) ->

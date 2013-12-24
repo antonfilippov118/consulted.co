@@ -6,19 +6,36 @@
     Giving quality advice since 1985
   </div>
   <div class="content">
-    <form ng-submit="signup()">
+    <form ng-submit="signup()" name="signupForm">
       <div ng-switch on="type">
         <div ng-switch-when="email" class="email">
           <p>Your email is never shared.</p>
-          <input ng-model="user.email" type="email" placeholder="Your email address">
-          <input ng-model="user.password" type="password" placeholder="Your password">
-          <input ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+          <div>
+            <input name="email" ng-model="user.email" type="email" placeholder="Your email address">
+            <span ng-show="signupForm.email.$dirty">
+              <i ng-show="signupForm.email.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.email.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
+          <div>
+            <input name="pw" ng-model="user.password" type="password" placeholder="Your password">
+            <span ng-show="signupForm.pw.$dirty">
+              <i ng-show="signupForm.pw.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.pw.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
+          <div>
+            <input name="pw_repeat" ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+            <span ng-show="signupForm.pw_repeat.$dirty">
+              <i ng-show="signupForm.pw_repeat.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.pw_repeat.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
           <label>
             <input type="checkbox" ng-model="user.newsletter">
             I want to receive the newsletter
-          </label>
-
-          <input type="submit" class="btn btn-primary" value="Complete signup">
+          </label><br>
+          <input ng-disabled="signupForm.$invalid || signupForm.$pristine || saving" type="submit" class="btn btn-primary" value="Complete signup">
           <hr>
           <p>You can also connect your social profiles</p>
           <p>
