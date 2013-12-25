@@ -23,7 +23,7 @@
         <div ng-show="loginForm.$dirty && !!user.email">
           <input type="password" placeholder="Your password">
         </div>
-        <input ng-show="loginForm.$dirty && !!user.email" type="submit" value="Sign in" ng-disabled="loginForm.$invalid">
+        <input ng-show="loginForm.$dirty && !!user.email" ng-disabled="loginForm.$invalid || loggingIn" type="submit" value="Sign in">
       </form>
     </div>
   </div>

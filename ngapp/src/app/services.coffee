@@ -35,6 +35,16 @@ app.service "User", [
         results.reject err
 
       results.promise
+
+    login: (user) ->
+      results = q.defer()
+      http.post("/login.json", {user: user}).then (data) ->
+        results.resolve data.status
+      , (err) ->
+        results.reject err
+
+      results.promise
+
 ]
 
 app.factory "Categories", [

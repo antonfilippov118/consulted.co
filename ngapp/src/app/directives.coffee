@@ -8,6 +8,8 @@ primitives = [
   "use_case_preview"
   "how_it_works"
   "satisfaction"
+  "description"
+  "graph_description"
 ]
 
 buildPrimitive = (name) ->
