@@ -46,4 +46,29 @@ app.controller "LoginController", [
         scope.error = "There was an error during login."
       .finally () ->
         scope.loggingIn = no
+
+    scope.loginWithProfile = (profile) ->
+      return unless !!profile or scope.loggingIn is yes
+      scope.loggingIn = yes
+      switch profile
+        when "linkedin" then promise = user.linkedInLogin()
+        when "facebook" then promise = user.facebookLogin()
+        when "google" then promise = user.googlePlusLogin()
+
+      return unless promise
+
+      promise.then (user) ->
+        location.path "/profile/#{user.hash}"
+      , (err) ->
+        scope.error = "There was an error during login."
+      .finally () ->
+        scope.loggingIn = no
+
+
+
+
+
+
+
+
 ]

@@ -6,6 +6,12 @@
     Giving quality advice since 1985
   </div>
   <div class="content">
+    <div class="error" ng-show="error && !saving">
+      {{error}}
+    </div>
+    <div class="loading" ng-show="saving">
+      <i class="fa fa-spinner"></i>
+    </div>
     <form ng-submit="signup()" name="signupForm">
       <div ng-switch on="type">
         <div ng-switch-when="email" class="email">

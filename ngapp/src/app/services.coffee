@@ -27,6 +27,11 @@ app.service "User", [
   "$http"
   "$q"
   (http, q) ->
+    reject = () ->
+      results = q.defer()
+      results.reject()
+      results.promise
+
     signup: (user) ->
       results = q.defer()
       http.post("/signup.json", {user: user}).then (data) ->
@@ -45,6 +50,14 @@ app.service "User", [
 
       results.promise
 
+    linkedInLogin: () ->
+      reject()
+
+    facebookLogin: () ->
+      reject()
+
+    googlePlusLogin: () ->
+      reject()
 ]
 
 app.factory "Categories", [
