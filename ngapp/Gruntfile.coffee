@@ -76,7 +76,7 @@ module.exports = (grunt) ->
 
       build_vendor_assets:
         files: [
-          src: ["<%= vendor_files.assets %>"]
+          src: ["<%= vendor_files.assets %>", "<%= vendor_files.css %>"]
           dest: "<%= build_dir %>/assets/"
           cwd: "."
           expand: yes
@@ -150,7 +150,7 @@ module.exports = (grunt) ->
           noUnderscores: no
           noIDs: no
           zeroUnits: no
-          includePath: ['vendor/bootstrap/less']
+          includePath: ['vendor/bootstrap/less', 'vendor/animate-less/less']
 
       compile:
         src: ["<%= recess.build.dest %>"]
@@ -276,16 +276,17 @@ module.exports = (grunt) ->
 
   filterForCSS = (files) ->
     files.filter (file) ->
-      file.match /\.css$/
+      file.match(/\.css$/) and !file.match(/vendor/)
 
   grunt.registerMultiTask "index", "Process index.html template", ->
-    dirRE = new RegExp("^(#{grunt.config("build_dir")}|#{grunt.config("compile_dir")})/", "g")
+    dirRE    = new RegExp("^(#{grunt.config("build_dir")}|#{grunt.config("compile_dir")})/", "g")
     jsFiles = filterForJS(@filesSrc).map((file) ->
-      file.replace dirRE, ""
+      file = file.replace dirRE, ""
     )
     cssFiles = filterForCSS(@filesSrc).map((file) ->
-      file.replace dirRE, ""
+      file = file.replace dirRE, ""
     )
+
     grunt.file.copy "src/index.html", "#{@data.dir}/index.html",
       process: (contents, path) ->
         grunt.template.process contents,

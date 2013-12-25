@@ -1,8 +1,8 @@
 app = angular.module "consulted.services", []
 
 app.service "Experts", [
-  "$http",
-  "$q",
+  "$http"
+  "$q"
   (http, q) ->
     getExperts: () ->
       results = q.defer()
@@ -23,9 +23,23 @@ app.service "Experts", [
       results.promise
 ]
 
+app.service "User", [
+  "$http"
+  "$q"
+  (http, q) ->
+    signup: (user) ->
+      results = q.defer()
+      http.post("/signup.json", {user: user}).then (data) ->
+        results.resolve data.status
+      , (err) ->
+        results.reject err
+
+      results.promise
+]
+
 app.factory "Categories", [
-  "$http",
-  "$q",
+  "$http"
+  "$q"
   (http, q) ->
     categories = http.get("/categories.json")
 

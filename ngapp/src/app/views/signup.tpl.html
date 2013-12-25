@@ -1,0 +1,62 @@
+<div class="signup">
+  <div class="logo">
+    consulted.co
+  </div>
+  <div class="tagline">
+    Giving quality advice since 1985
+  </div>
+  <div class="content">
+    <form ng-submit="signup()" name="signupForm">
+      <div ng-switch on="type">
+        <div ng-switch-when="email" class="email">
+          <p>Your email is never shared.</p>
+          <div>
+            <input name="email" ng-model="user.email" type="email" placeholder="Your email address">
+            <span ng-show="signupForm.email.$dirty">
+              <i ng-show="signupForm.email.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.email.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
+          <div>
+            <input name="pw" ng-model="user.password" type="password" placeholder="Your password">
+            <span ng-show="signupForm.pw.$dirty">
+              <i ng-show="signupForm.pw.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.pw.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
+          <div>
+            <input name="pw_repeat" ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+            <span ng-show="signupForm.pw_repeat.$dirty">
+              <i ng-show="signupForm.pw_repeat.$valid" class="fa fa-check valid"></i>
+              <i ng-show="signupForm.pw_repeat.$invalid" class="fa fa-minus-circle invalid"></i>
+            </span>
+          </div>
+          <label>
+            <input type="checkbox" ng-model="user.newsletter">
+            I want to receive the newsletter
+          </label><br>
+          <input ng-disabled="signupForm.$invalid || signupForm.$pristine || saving" type="submit" class="btn btn-primary" value="Complete signup">
+          <hr>
+          <p>You can also connect your social profiles</p>
+          <p>
+            <a ng-click="switch()">Signup with one of your profiles</a>
+          </p>
+        </div>
+        <div ng-switch-default class="profile">
+          <a href="#!/signup/linkedin"><i class="fa fa-linkedin"></i> Connect with LinkedIn</a>
+          <a href="#!/signup/facebook"><i class="fa fa-facebook"></i>  Connect with Facebook</a>
+          <a href="#!/signup/googleplus"><i class="fa fa-google-plus"></i>  Connect with Google+</a>
+          <hr>
+          <p>Of course, we won't post to your profile</p>
+          <p>- or -</p>
+          <p>
+            <a ng-click="switch()">Signup with your email</a>
+          </p>
+        </div>
+      </div>
+      <div class="terms">
+        <a href="#!/terms">Terms and conditions</a>
+      </div>
+    </form>
+  </div>
+</div>

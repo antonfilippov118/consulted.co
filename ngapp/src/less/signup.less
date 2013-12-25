@@ -1,0 +1,76 @@
+.signup {
+  .make-xs-column(12);
+  .make-sm-column(8);
+  .make-sm-column-offset(2);
+  .make-md-column(6);
+  .make-md-column-offset(3);
+  .make-lg-column(4);
+  .make-lg-column-offset(4);
+  margin: 60px auto;
+  padding: 10px;
+  border: 1px solid @third;
+  background: @second;
+  color: @fourth;
+
+  div {
+    .make-xs-column(12);
+    .text-center();
+  }
+
+  .tagline {
+    font-size: 10px;
+  }
+
+  .content {
+    margin-top: 10px;
+
+    .email {
+      div {
+        border: 1px solid @first;
+        width: 100%;
+        margin-top: 10px;
+        padding:5px;
+        background: @fourth;
+
+        input {
+          margin:0;
+          padding:0;
+        }
+
+        input[type=text], input[type=password], input[type=email] {
+          .pull-left();
+          width:90%;
+          border: none;
+          background: @fourth;
+        }
+
+        input[type="submit"], input[type="checkbox"] {
+          margin-top:10px;
+        }
+
+        input + span {
+          .pull-right();
+
+          .invalid {
+            color: @error;
+          }
+          .valid {
+            color: @success;
+          }
+        }
+      }
+    }
+
+    .profile, .email {
+      a, i {
+        font-size: 16px;
+      }
+
+      a {
+        display:block;
+        margin-top: 5px;
+        background: @fourth;
+      }
+    }
+  }
+}
