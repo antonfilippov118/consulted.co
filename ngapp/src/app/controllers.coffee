@@ -10,7 +10,6 @@ app.controller "SignupController", [
     scope.type = "email"
 
     scope.signup = () ->
-      console.log 'here'
       return if scope.saving is yes
       return if scope.type is "profile"
       scope.saving = yes
@@ -27,6 +26,49 @@ app.controller "SignupController", [
         scope.type = "email"
       else
         scope.type = "profile"
+]
+
+app.controller "LoginController", [
+  "$scope"
+  "$location"
+  "User"
+  (scope, location, user) ->
+    scope.error = no
+
+    scope.user = {}
+
+    scope.login = () ->
+      return if scope.loggingIn
+      scope.loggingIn = yes
+      user.login(scope.user).then (user) ->
+        location.path "/profile/#{user.hash}"
+      , (err) ->
+        scope.error = "There was an error during login."
+      .finally () ->
+        scope.loggingIn = no
+
+    scope.loginWithProfile = (profile) ->
+      return unless !!profile or scope.loggingIn is yes
+      scope.loggingIn = yes
+      switch profile
+        when "linkedin" then promise = user.linkedInLogin()
+        when "facebook" then promise = user.facebookLogin()
+        when "google" then promise = user.googlePlusLogin()
+
+      return unless promise
+
+      promise.then (user) ->
+        location.path "/profile/#{user.hash}"
+      , (err) ->
+        scope.error = "There was an error during login."
+      .finally () ->
+        scope.loggingIn = no
+
+
+
+
+
+
 
 
 ]

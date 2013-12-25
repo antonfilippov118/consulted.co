@@ -1,0 +1,36 @@
+<div class="signup login">
+  <div class="logo">
+    consulted.co
+  </div>
+  <div class="tagline">
+    Giving quality advice since 1985
+  </div>
+  <div class="content">
+    <div class="error" ng-show="error && !loggingIn">
+      {{error}}
+    </div>
+    <div class="loading" ng-show="loggingIn">
+      <i class="fa fa-spinner"></i>
+    </div>
+    <div class="profile">
+      <a ng-click="loginWithProfile('linkedin')"><i class="fa fa-linkedin"></i> Connect with LinkedIn</a>
+      <a ng-click="loginWithProfile('facebook')"><i class="fa fa-facebook"></i>  Connect with Facebook</a>
+      <a ng-click="loginWithProfile('google')"><i class="fa fa-google-plus"></i>  Connect with Google+</a>
+    </div>
+    <div class="email">
+      <form ng-submit="login()" name="loginForm">
+        <div>
+          <input type="email" name="email" ng-model="user.email" placeholder="Signup with your email">
+          <span ng-show="loginForm.email.$dirty">
+            <i ng-show="loginForm.email.$valid" class="fa fa-check valid"></i>
+            <i ng-show="loginForm.email.$invalid" class="fa fa-minus-circle invalid"></i>
+          </span>
+        </div>
+        <div ng-show="loginForm.$dirty && !!user.email">
+          <input type="password" placeholder="Your password">
+        </div>
+        <input ng-show="loginForm.$dirty && !!user.email" ng-disabled="loginForm.$invalid || loggingIn" type="submit" value="Sign in">
+      </form>
+    </div>
+  </div>
+</div>

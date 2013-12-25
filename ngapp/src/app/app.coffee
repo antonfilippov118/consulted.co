@@ -17,5 +17,8 @@ app.config [
       .when "/signup",
         controller: "SignupController"
         templateUrl: "views/signup.tpl.html"
+      .when "/login",
+        controller: "LoginController"
+        templateUrl: "views/login.tpl.html"
       .otherwise redirectTo: "/"
 ]
