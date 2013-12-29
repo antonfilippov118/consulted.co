@@ -23,10 +23,9 @@ end
 
 group :test do
   gem "guard"
-  gem "guard-minitest"
-  gem "minitest"
-  gem "minitest-rails"
-  gem "minitest-emoji"
+  gem "guard-rspec"
+  gem "rspec-rails"
+  gem "nyan-cat-formatter"
 end
 
 group :db do
