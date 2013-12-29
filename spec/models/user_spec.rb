@@ -1,5 +1,5 @@
 class User
-
+  attr_accessor :name
 end
 
 describe User do
