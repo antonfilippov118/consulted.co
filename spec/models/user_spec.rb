@@ -3,10 +3,12 @@ class User
 end
 
 describe User do
+  context "create" do
+    it "can be assigned a name" do
+      u = User.new
+      u.name = "Florian"
 
-  400.times do
-    it "exists" do
-      User.is_a? Class
+      expect(u.name).to eql "Florian"
     end
   end
 end
