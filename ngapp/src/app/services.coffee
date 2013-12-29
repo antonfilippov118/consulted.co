@@ -84,3 +84,16 @@ app.factory "Categories", [
 
       results.promise
 ]
+
+app.service "Contact", [
+  "$http"
+  "$q"
+  (http, q) ->
+    submit: (message) ->
+      results = q.defer()
+      http.post("/contact.json", message).then (data) ->
+        results.resolve data.data
+      , (err) ->
+        results.reject err
+      results.promise
+]

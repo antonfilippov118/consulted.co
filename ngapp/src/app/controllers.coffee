@@ -63,7 +63,26 @@ app.controller "LoginController", [
         scope.error = "There was an error during login."
       .finally () ->
         scope.loggingIn = no
+]
 
+app.controller "ContactController", [
+  "$scope"
+  "Contact"
+  "User"
+  (scope, contact) ->
+    scope.error   = no
+    scope.message = {}
+
+    scope.contact = () ->
+      return if scope.sending is yes
+      scope.sending = yes
+
+      contact.submit(scope.message).then (status) ->
+        scope.status = status
+      , (err) ->
+        scope.error = "There was an error sending the contact form."
+      .finally () ->
+        scope.sending = no
 
 
 
