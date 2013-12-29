@@ -27,5 +27,11 @@ describe User do
       u.email =  "florian@consulted.co"
       expect(u.email).to eql "florian@consulted.co"
     end
+
+    it "can be initialized with an email" do
+      u = User.new email: "florian@consulted.co"
+
+      expect(u.name).to eql "florian@consulted.co"
+    end
   end
 end
