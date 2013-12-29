@@ -10,5 +10,11 @@ describe User do
 
       expect(u.name).to eql "Florian"
     end
+
+    it "can be initialized with a user name" do
+      u = User.new name: "Florian"
+
+      expect(u.name).to eql "Florian"
+    end
   end
 end
