@@ -2,14 +2,14 @@ class User
   attr_accessor :name, :email
 
   def initialize(args={})
-    @name  = args[:name]
-    @email = args[:email]
+    @name     = args[:name]
+    @email    = args[:email]
   end
 end
 
 describe User do
   context "create" do
-    [:name, :email].each do |sym|
+    [:name, :email, :password].each do |sym|
       it "can be assigned a #{sym}" do
         u = User.new
 
