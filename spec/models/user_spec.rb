@@ -1,9 +1,10 @@
 class User
-  attr_accessor :name, :email
+  attr_accessor :name, :email, :password
 
   def initialize(args={})
     @name     = args[:name]
     @email    = args[:email]
+    @password = args[:password]
   end
 end
 
