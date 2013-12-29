@@ -86,7 +86,14 @@ app.factory "Categories", [
 ]
 
 app.service "Contact", [
-  () ->
-    send: (message) ->
-      console.log "Message sent!"
+  "$http"
+  "$q"
+  (http, q) ->
+    submit: (message) ->
+      results = q.defer()
+      http.post("/contact.json", message).then (data) ->
+        results.resolve data.data
+      , (err) ->
+        results.reject err
+      results.promise
 ]
