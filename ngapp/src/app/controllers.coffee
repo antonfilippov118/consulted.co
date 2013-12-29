@@ -84,10 +84,46 @@ app.controller "ContactController", [
       .finally () ->
         scope.sending = no
 
+]
 
+app.controller "CategoriesController", [
+  "$scope"
+  (scope) ->
+    console.log "Categories"
+]
 
+app.controller "LegalController", [
+  "$scope"
+  (scope) ->
+    console.log "Legal"
+]
 
+app.controller "FaqController", [
+  "$scope"
+  (scope) ->
+    console.log "FAQ"
+]
 
+app.controller "CareerController", [
+  "$scope"
+  (scope) ->
+    console.log "Career"
+]
 
+app.controller "ExpertsController", [
+  "$scope"
+  (scope) ->
+    console.log "Experts"
+]
 
+app.controller "UseCasesController", [
+  "$scope"
+  (scope) ->
+    console.log "Use cases"
+]
+
+app.controller "SitemapController", [
+  "$scope"
+  (scope) ->
+    console.log "Sitemap"
 ]
