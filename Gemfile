@@ -16,11 +16,17 @@ group :server do
   gem "torquebox-server", "3.0.1"
 end
 
-group :development do |variable|
+group :development do
   gem "pry", ">= 0.9.12.4"
   gem "pry-rails"
+end
 
+group :test do
   gem "guard"
+  gem "guard-minitest"
+  gem "minitest"
+  gem "minitest-rails"
+  gem "minitest-emoji"
 end
 
 group :db do
