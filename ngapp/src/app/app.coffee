@@ -20,5 +20,8 @@ app.config [
       .when "/login",
         controller: "LoginController"
         templateUrl: "views/login.tpl.html"
+      .when "/contact",
+        controller: "ContactController"
+        templateUrl: "views/contact.tpl.html"
       .otherwise redirectTo: "/"
 ]

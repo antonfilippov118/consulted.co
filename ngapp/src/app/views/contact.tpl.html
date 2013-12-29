@@ -1,0 +1,48 @@
+<div class="contact">
+  <h1>Contact us</h1>
+  <p>We are all about creating a fair and productive experience for all out members - How can we help?</p>
+  <p ng-hide="loggedIn">Note: If you have an account with us, please <a href="#!/login">login</a> first - so we can be sure it's you.</p>
+  <form ng-submit="contact()" name="contactForm" role="form">
+    <div class="group">
+      <label for="name">Your name</label>
+      <div class="element">
+        <input type="text" placeholder="Your name" ng-model="message.name" id="name" name="name" required>
+      </div>
+      <div class="status">
+        <i class="fa fa-asterisk invalid" ng-show="contactForm.name.$invalid"></i>
+        <i class="fa fa-check okay" ng-show="contactForm.name.$valid"></i>
+      </div>
+    </div>
+    <div class="group">
+      <label for="email">Your email</label>
+      <div class="element">
+        <input type="email" placeholder="Your email" ng-model="message.email" id="email" name="email" required>
+      </div>
+      <div class="status">
+        <i class="fa fa-asterisk invalid" ng-show="contactForm.email.$invalid"></i>
+        <i class="fa fa-check okay" ng-show="contactForm.email.$valid"></i>
+      </div>
+    </div>
+    <div class="group">
+      <label for="subject">Subject</label>
+      <div class="element">
+        <input type="text" placeholder="Subject" ng-model="message.subject" id="subject" name="subject">
+      </div>
+    </div>
+    <div class="group">
+      <label for="message">Message</label>
+      <div class="element">
+        <textarea ng-model="message.text" rows="12" placeholder="Your message" name="message" id="message" required>
+        </textarea>
+      </div>
+      <div class="status">
+        <i class="fa fa-asterisk invalid" ng-show="contactForm.message.$invalid"></i>
+        <i class="fa fa-check okay" ng-show="contactForm.message.$valid"></i>
+      </div>
+    </div>
+    <!-- TODO: Captcha -->
+    <div class="buttons">
+      <input type="submit" value="Send" ng-disabled="contactForm.$invalid || sending">
+    </div>
+  </form>
+</div>

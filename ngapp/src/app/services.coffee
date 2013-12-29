@@ -84,3 +84,9 @@ app.factory "Categories", [
 
       results.promise
 ]
+
+app.service "Contact", [
+  () ->
+    send: (message) ->
+      console.log "Message sent!"
+]

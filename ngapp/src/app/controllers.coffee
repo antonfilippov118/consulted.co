@@ -63,12 +63,12 @@ app.controller "LoginController", [
         scope.error = "There was an error during login."
       .finally () ->
         scope.loggingIn = no
+]
 
-
-
-
-
-
-
-
+app.controller "ContactController", [
+  "$scope"
+  "Contact"
+  "User"
+  (scope, contact) ->
+    scope.message = {}
 ]

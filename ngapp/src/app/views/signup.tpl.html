@@ -17,21 +17,21 @@
         <div ng-switch-when="email" class="email">
           <p>Your email is never shared.</p>
           <div>
-            <input name="email" ng-model="user.email" type="email" placeholder="Your email address">
+            <input required name="email" ng-model="user.email" type="email" placeholder="Your email address">
             <span ng-show="signupForm.email.$dirty">
               <i ng-show="signupForm.email.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.email.$invalid" class="fa fa-minus-circle invalid"></i>
             </span>
           </div>
           <div>
-            <input name="pw" ng-model="user.password" type="password" placeholder="Your password">
+            <input required name="pw" ng-model="user.password" type="password" placeholder="Your password">
             <span ng-show="signupForm.pw.$dirty">
               <i ng-show="signupForm.pw.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.pw.$invalid" class="fa fa-minus-circle invalid"></i>
             </span>
           </div>
           <div>
-            <input name="pw_repeat" ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+            <input required name="pw_repeat" ng-model="user.password_repeat" type="password" placeholder="Password repeat">
             <span ng-show="signupForm.pw_repeat.$dirty">
               <i ng-show="signupForm.pw_repeat.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.pw_repeat.$invalid" class="fa fa-minus-circle invalid"></i>
@@ -41,7 +41,7 @@
             <input type="checkbox" ng-model="user.newsletter">
             I want to receive the newsletter
           </label><br>
-          <input ng-disabled="signupForm.$invalid || signupForm.$pristine || saving" type="submit" value="Complete signup">
+          <input ng-disabled="signupForm.$invalid || saving" type="submit" value="Complete signup">
           <hr>
           <p>You can also connect your social profiles</p>
           <p>
