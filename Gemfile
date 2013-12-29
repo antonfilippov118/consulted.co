@@ -19,6 +19,8 @@ end
 group :development do |variable|
   gem "pry", ">= 0.9.12.4"
   gem "pry-rails"
+
+  gem "guard"
 end
 
 group :db do
