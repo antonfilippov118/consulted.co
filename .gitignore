@@ -19,3 +19,5 @@ consulted.sublime-project
 consulted.sublime-workspace
 .ruby-gemset
 .ruby-version
+.rspec
+bin
