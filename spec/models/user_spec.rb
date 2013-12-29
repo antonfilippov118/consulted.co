@@ -20,5 +20,11 @@ describe User do
 
       expect(u.name).to eql "Florian"
     end
+
+    it "can be assigned an email" do
+      u = User.new
+      u.email =  "florian@consulted.co"
+      expect(u.email).to eql "florian@consulted.co"
+    end
   end
 end
