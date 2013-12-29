@@ -88,8 +88,20 @@ app.controller "ContactController", [
 
 app.controller "CategoriesController", [
   "$scope"
-  (scope) ->
-    console.log "Categories"
+  "Categories"
+  "$timeout"
+  (scope, categories, timeout) ->
+
+    scope.loading = yes
+    scope.error   = no
+
+    categories.getCategories().then (categories) ->
+      scope.categories = categories
+    , (err) ->
+      scope.error = "There was an error loading the data."
+    .finally () ->
+      scope.loading = no
+
 ]
 
 app.controller "LegalController", [
@@ -112,8 +124,17 @@ app.controller "CareerController", [
 
 app.controller "ExpertsController", [
   "$scope"
-  (scope) ->
-    console.log "Experts"
+  "Experts"
+  (scope, experts) ->
+    scope.error = no
+    scope.loading = yes
+    experts.getExperts(limit: 25).then (experts) ->
+      scope.experts = experts
+    , (err) ->
+      scope.error = "There was an error fetching the data."
+    .finally () ->
+      scope.loading = no
+
 ]
 
 app.controller "UseCasesController", [
