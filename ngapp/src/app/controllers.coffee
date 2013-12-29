@@ -84,10 +84,67 @@ app.controller "ContactController", [
       .finally () ->
         scope.sending = no
 
+]
 
+app.controller "CategoriesController", [
+  "$scope"
+  "Categories"
+  "$timeout"
+  (scope, categories, timeout) ->
 
+    scope.loading = yes
+    scope.error   = no
 
+    categories.getCategories().then (categories) ->
+      scope.categories = categories
+    , (err) ->
+      scope.error = "There was an error loading the data."
+    .finally () ->
+      scope.loading = no
 
+]
 
+app.controller "LegalController", [
+  "$scope"
+  (scope) ->
+    console.log "Legal"
+]
 
+app.controller "FaqController", [
+  "$scope"
+  (scope) ->
+    console.log "FAQ"
+]
+
+app.controller "CareerController", [
+  "$scope"
+  (scope) ->
+    console.log "Career"
+]
+
+app.controller "ExpertsController", [
+  "$scope"
+  "Experts"
+  (scope, experts) ->
+    scope.error = no
+    scope.loading = yes
+    experts.getExperts(limit: 25).then (experts) ->
+      scope.experts = experts
+    , (err) ->
+      scope.error = "There was an error fetching the data."
+    .finally () ->
+      scope.loading = no
+
+]
+
+app.controller "UseCasesController", [
+  "$scope"
+  (scope) ->
+    console.log "Use cases"
+]
+
+app.controller "SitemapController", [
+  "$scope"
+  (scope) ->
+    console.log "Sitemap"
 ]

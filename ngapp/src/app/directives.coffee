@@ -98,5 +98,12 @@ app.directive "consultedTestimonials", [
         scope.loading = no
 ]
 
+app.directive "errorLoading", [
+  () ->
+    scope: no
+    replace: yes
+    templateUrl: "views/error_loading.tpl.html"
+]
+
 
 
