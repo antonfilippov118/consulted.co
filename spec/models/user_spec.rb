@@ -35,4 +35,13 @@ describe User do
       should validate_uniqueness_of :email
     }
   end
+
+  context "authentication" do
+    it "should make use of secure password" do
+      u = User.new
+      expect {
+        u.password = "foo"
+      }.not_to raise_error
+    end
+  end
 end
