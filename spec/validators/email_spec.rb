@@ -3,7 +3,9 @@ require "spec_helper"
 module Validators
   class Email < ActiveModel::Validator
     def validate(record)
-      record.errors.add :email, "is not properly formatted!"
+      if (regexp =~ record.email).nil?
+        record.errors.add :email, "is not properly formatted!"
+      end
     end
 
   private

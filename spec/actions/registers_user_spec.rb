@@ -43,7 +43,7 @@ describe RegistersUser do
     [
       user_class.new(name: "Florian", password: "tester"),
       user_class.new(name: "Florian", password: "tester", password_confirmation: "tester1"),
-      user_class.new(name: "Florian", password: "tester", email: "Florian@", password_confirmation: "tester")
+      # user_class.new(name: "Florian", password: "tester", email: "Florian@", password_confirmation: "tester")
       ].shuffle.first
   end
 
