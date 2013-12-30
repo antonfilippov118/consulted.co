@@ -7,8 +7,9 @@ class User
     field _field, type: String
   end
 
-  validates_presence_of :name
-  validates_presence_of :email
+  [:name, :email].each do |_field|
+    validates_presence_of _field
+  end
 end
 
 describe User do
@@ -41,6 +42,5 @@ describe User do
     it {
       should validate_presence_of :email
     }
-
   end
 end
