@@ -20,9 +20,10 @@ describe Validators::Email do
   end
 
   it "passes users with a valid email" do
-    validator.validate user_with_valid_email
+    user = user_with_valid_email
+    validator.validate user
 
-    expect(user_with_valid_email.errors).to be_empty
+    expect(user.errors).to be_empty
   end
 
   def user_with_valid_email
