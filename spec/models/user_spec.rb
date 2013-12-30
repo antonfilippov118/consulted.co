@@ -6,6 +6,8 @@ class User
   [:name, :email, :telephone].each do |_field|
     field _field, type: String
   end
+
+  validates_presence_of :name
 end
 
 describe User do
