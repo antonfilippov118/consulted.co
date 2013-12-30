@@ -32,3 +32,8 @@ group :db do
   gem "mongoid", "~> 4.0.0.alpha1"
   gem "bson"
 end
+
+
+group :security do
+  gem "bcrypt-ruby"
+end
