@@ -2,6 +2,10 @@ require "spec_helper"
 
 class User
   include Mongoid::Document
+
+  [:name, :email, :telephone].each do |_field|
+    field _field, type: String
+  end
 end
 
 describe User do
