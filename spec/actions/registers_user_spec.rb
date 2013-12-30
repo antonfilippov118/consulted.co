@@ -22,6 +22,11 @@ class RegistersUser
     include LightService::Action
     executed do |context|
       user = context.fetch :user
+      begin
+        user.save!
+      rescue Exception => e
+        next context.set_failure! e
+      end
     end
   end
 end
