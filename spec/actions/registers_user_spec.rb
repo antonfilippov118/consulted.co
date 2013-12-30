@@ -4,7 +4,8 @@ class RegistersUser
   include LightService::Organizer
   def self.for_new(user)
     with(user: user).reduce [
-      ValidatesUserAction
+      ValidatesUserAction,
+      SavesUserAction
     ]
   end
 
