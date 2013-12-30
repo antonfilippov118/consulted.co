@@ -4,8 +4,17 @@ class RegistersUser
   include LightService::Organizer
   def self.for_new(user)
     with(user: user).reduce [
-
+      ValidatesUserAction
     ]
+  end
+
+  class ValidatesUserAction
+    include LightService::Action
+
+    executed do |context|
+      user = context.fetch :user
+      next context.set_failure! "User is invalid!" unless user.valid?
+    end
   end
 end
 
@@ -21,10 +30,15 @@ describe RegistersUser do
   end
 
   def valid_user
-    User.new name: "Florian", email: "florian@consulted.co", password: "tester"
+    user_class.new name: "Florian", email: "florian@consulted.co", password: "tester", password_confirmation: "tester"
   end
 
   def invalid_user
-    User.new email: "florian@consulted.co", password: "tester"
+    user_class.new name: "Florian", password: "tester"
+  end
+
+
+  def user_class
+    User
   end
 end
