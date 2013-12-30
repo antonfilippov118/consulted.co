@@ -4,7 +4,7 @@ module Validators
   class Email < ActiveModel::Validator
     def validate(record)
       if (regexp =~ record.email).nil?
-        record.errors.add :email, "is not properly formatted!"
+        record.errors.add :email, options[:message] || "is not properly formatted!"
       end
     end
 
