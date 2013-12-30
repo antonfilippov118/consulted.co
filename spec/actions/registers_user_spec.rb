@@ -27,6 +27,9 @@ class RegistersUser
 end
 
 describe RegistersUser do
+  before :each do
+    user_class.delete_all
+  end
   it "should be successful if user is valid" do
     result = RegistersUser.for_new valid_user
     expect(result.success?).to be_true
@@ -41,6 +44,21 @@ describe RegistersUser do
     user = user_class.new name: "Florian", email: "fdknflasf", password: "tester", password_confirmation: "tester"
     result = RegistersUser.for_new user
     expect(result.failure?).to be_true
+  end
+
+  it "should save the user to the db when successful" do
+    user = valid_user
+    result = RegistersUser.for_new user
+
+    expect(result.success?).to be_true
+    expect(user_class.count).to eql 1
+  end
+
+  it "should not save the user to the db when failed" do
+    user = invalid_user
+    result = RegistersUser.for_new user
+    expect(result.failure?).to be_true
+    expect(user_class.count).to eql 0
   end
 
   def valid_user
