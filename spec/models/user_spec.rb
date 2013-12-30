@@ -20,6 +20,12 @@ describe User do
         expect(u.send(sym)).to eql "test"
       end
     end
+
+    it "is created as an inactive user" do
+      user = User.new
+
+      expect(user.confirmed?).to be_false
+    end
   end
 
   context "validation" do
