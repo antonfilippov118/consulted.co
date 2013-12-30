@@ -4,13 +4,12 @@ class User
   def initialize(args={})
     @name     = args[:name]
     @email    = args[:email]
-    @password = args[:password]
   end
 end
 
 describe User do
   context "create" do
-    [:name, :email, :password].each do |sym|
+    [:name, :email ].each do |sym|
       it "can be assigned a #{sym}" do
         u = User.new
 
