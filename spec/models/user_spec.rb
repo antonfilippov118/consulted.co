@@ -29,4 +29,10 @@ describe User do
       end
     end
   end
+
+  context "validation" do
+    it {
+      should validate_presence_of :name
+    }
+  end
 end
