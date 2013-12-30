@@ -8,6 +8,7 @@ class User
   end
 
   validates_presence_of :name
+  validates_presence_of :email
 end
 
 describe User do
@@ -40,5 +41,6 @@ describe User do
     it {
       should validate_presence_of :email
     }
+
   end
 end
