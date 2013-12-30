@@ -2,8 +2,6 @@ require "spec_helper"
 
 describe ApplicationController do
   controller do
-    after_filter :set_csrf_token
-
     def index
       render nothing: true
     end
