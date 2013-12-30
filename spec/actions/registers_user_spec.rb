@@ -17,6 +17,13 @@ class RegistersUser
       next context.set_failure! "User is invalid!" unless user.valid?
     end
   end
+
+  class SavesUserAction
+    include LightService::Action
+    executed do |context|
+      user = context.fetch :user
+    end
+  end
 end
 
 describe RegistersUser do
@@ -44,7 +51,6 @@ describe RegistersUser do
     [
       user_class.new(name: "Florian", password: "tester"),
       user_class.new(name: "Florian", password: "tester", password_confirmation: "tester1"),
-      # user_class.new(name: "Florian", password: "tester", email: "Florian@", password_confirmation: "tester")
       ].shuffle.first
   end
 
