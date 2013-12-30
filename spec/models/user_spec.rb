@@ -10,6 +10,8 @@ class User
   [:name, :email].each do |_field|
     validates_presence_of _field
   end
+
+  validates_uniqueness_of :email
 end
 
 describe User do
@@ -41,6 +43,10 @@ describe User do
 
     it {
       should validate_presence_of :email
+    }
+
+    it {
+      should validate_uniqueness_of :email
     }
   end
 end
