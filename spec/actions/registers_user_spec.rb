@@ -15,7 +15,16 @@ describe RegistersUser do
     expect(result.success?).to be_true
   end
 
+  it "should be a failure with an invalid user data" do
+    result = RegistersUser.for_new invalid_user
+    expect(result.failure?).to be_true
+  end
+
   def valid_user
     User.new name: "Florian", email: "florian@consulted.co", password: "tester"
+  end
+
+  def invalid_user
+    User.new email: "florian@consulted.co", password: "tester"
   end
 end
