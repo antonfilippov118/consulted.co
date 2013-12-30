@@ -13,6 +13,7 @@ class User
   end
 
   field :confirmed, type: Boolean, default: false
+  field :active, type: Boolean, default: true
 
   validates_uniqueness_of :email
   validates_with EmailValidator

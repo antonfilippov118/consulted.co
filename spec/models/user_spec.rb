@@ -31,7 +31,6 @@ describe User do
       user = User.new
       expect(user.active?).to be_true
     end
-
   end
 
   context "validation" do
