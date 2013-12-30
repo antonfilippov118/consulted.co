@@ -30,7 +30,7 @@ describe RegistersUser do
   end
 
   it "should fail when a user does not give a correct email address" do
-    user = user_class.new name: "Florian", email: "florian@.co", password: "tester", password_confirmation: "tester"
+    user = user_class.new name: "Florian", email: "fdknflasf", password: "tester", password_confirmation: "tester"
     result = RegistersUser.for_new user
     expect(result.failure?).to be_true
   end

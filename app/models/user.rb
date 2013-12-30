@@ -13,4 +13,5 @@ class User
   end
 
   validates_uniqueness_of :email
+  validates_with EmailValidator
 end

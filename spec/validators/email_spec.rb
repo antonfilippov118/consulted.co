@@ -1,24 +1,9 @@
 require "spec_helper"
 
-module Validators
-  class Email < ActiveModel::Validator
-    def validate(record)
-      if (regexp =~ record.email).nil?
-        record.errors.add :email, options[:message] || "is not properly formatted!"
-      end
-    end
-
-  private
-    def regexp
-      /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-    end
-  end
-end
-
-describe Validators::Email do
+describe EmailValidator do
 
   let :validator do
-    Validators::Email.new
+    EmailValidator.new
   end
 
   it "passes users with a valid email" do
@@ -42,6 +27,13 @@ describe Validators::Email do
     expect(user.errors).not_to be_empty
   end
 
+  it "adds an error for malformed emails" do
+    user = user_with_malformed_email
+    validator.validate user
+
+    expect(user.errors).not_to be_empty
+  end
+
   def user_with_valid_email
     User.new email: "florian@consulted.co"
   end
@@ -52,5 +44,9 @@ describe Validators::Email do
 
   def user_with_empty_email
     User.new
+  end
+
+  def user_with_malformed_email
+    User.new email: "florian@.co"
   end
 end
