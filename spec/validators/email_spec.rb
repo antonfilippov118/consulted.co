@@ -10,7 +10,7 @@ module Validators
 
   private
     def regexp
-      /.*/
+      /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     end
   end
 end
@@ -30,6 +30,13 @@ describe Validators::Email do
 
   it "adds an error for a user with an invalid email address" do
     user = user_with_invalid_email
+    validator.validate user
+
+    expect(user.errors).not_to be_empty
+  end
+
+  it "adds an error for empty emails" do
+    user = user_with_empty_email
     validator.validate user
 
     expect(user.errors).not_to be_empty
