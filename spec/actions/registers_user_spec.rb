@@ -34,7 +34,10 @@ describe RegistersUser do
   end
 
   def invalid_user
-    user_class.new name: "Florian", password: "tester"
+    [
+      user_class.new(name: "Florian", password: "tester"),
+      user_class.new(name: "Florian", password: "tester", password_confirmation: "tester1")
+      ].shuffle.first
   end
 
 
