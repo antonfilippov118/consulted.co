@@ -1,7 +1,10 @@
 class User
   include Mongoid::Document
+  include ActiveModel::SecurePassword
 
-  [:name, :email, :telephone].each do |_field|
+  has_secure_password
+
+  [:name, :email, :telephone, :password_digest].each do |_field|
     field _field, type: String
   end
 
