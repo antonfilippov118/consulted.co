@@ -1,5 +1,5 @@
 class User
-  attr_accessor :name, :email, :password
+  attr_accessor :name, :email
 
   def initialize(args={})
     @name     = args[:name]
@@ -9,7 +9,7 @@ end
 
 describe User do
   context "create" do
-    [:name, :email ].each do |sym|
+    [:name, :email, :telephone].each do |sym|
       it "can be assigned a #{sym}" do
         u = User.new
 
