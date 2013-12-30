@@ -21,11 +21,17 @@ describe User do
       end
     end
 
-    it "is created as an inactive user" do
+    it "is created as an unconfirmed user" do
       user = User.new
 
       expect(user.confirmed?).to be_false
     end
+
+    it "is created as an active user" do
+      user = User.new
+      expect(user.active?).to be_true
+    end
+
   end
 
   context "validation" do
