@@ -33,7 +33,8 @@ group :db do
   gem "bson"
 end
 
-
 group :security do
   gem "bcrypt-ruby"
 end
+
+gem "light-service"

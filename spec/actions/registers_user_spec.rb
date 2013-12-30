@@ -1,0 +1,3 @@
+describe RegistersUser do
+
+end
