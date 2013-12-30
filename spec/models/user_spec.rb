@@ -1,10 +1,7 @@
-class User
-  attr_accessor :name, :email
+require "spec_helper"
 
-  def initialize(args={})
-    @name     = args[:name]
-    @email    = args[:email]
-  end
+class User
+  include Mongoid::Document
 end
 
 describe User do

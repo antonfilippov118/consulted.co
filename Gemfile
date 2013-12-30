@@ -25,7 +25,7 @@ group :test do
   gem "guard"
   gem "guard-rspec"
   gem "rspec-rails"
-  gem "nyan-cat-formatter"
+  gem "mongoid-rspec"
 end
 
 group :db do
