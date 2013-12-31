@@ -39,4 +39,12 @@ describe UsersController do
       expect(user_class.count).to eql 1
     end
   end
+
+  describe "GET #user" do
+    it "returns 'Forbidden' when user has no valid token" do
+      get :show
+      expect(response.status).to eql 403
+      expect(response).not_to be_success
+    end
+  end
 end

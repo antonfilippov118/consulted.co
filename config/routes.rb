@@ -1,3 +1,4 @@
 Consulted::Application.routes.draw do
-  resource :users, :only => [:create]
+  resource :user, only: [:show, :create] do
+  end
 end
