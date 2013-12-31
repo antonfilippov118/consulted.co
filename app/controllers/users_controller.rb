@@ -11,6 +11,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    head :forbidden
+  end
+
 private
   def user_class
     User
