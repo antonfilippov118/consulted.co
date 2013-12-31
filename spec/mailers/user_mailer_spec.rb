@@ -8,7 +8,8 @@ describe UserMailer do
 
     {
       subject: "Your consulted.co profile activation",
-      to: [user.email]
+      to: [user.email],
+      from: "registration@consulted.co"
     }.each_pair do |field, value|
       it "should correctly set the value of #{field}" do
         expect(mail.send field).to eql value
