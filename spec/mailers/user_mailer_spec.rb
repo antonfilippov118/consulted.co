@@ -10,7 +10,7 @@ describe UserMailer do
     end
 
     it "uses the user's email as an address" do
-      expect(mail.to).to eql user.email
+      expect(mail.to).to eql [user.email]
     end
   end
 
