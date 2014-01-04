@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Be sure to restart your server when you modify this file.
 
 # Your secret key is used for verifying the integrity of signed cookies.
@@ -9,4 +10,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Consulted::Application.config.secret_key_base = 'dd6fe1a1784a861750a2cd3ca72cb66fb40aae2a954ad71112e5f0a94f2a55e7506729feccfe56023915adf99efcea9af39bdc51a5cbbf7a9ff8c5e2f8039231'
+key = 'dd6fe1a1784a861750a2cd3ca72cb66fb40aae2a954ad71112e5'
+Consulted::Application.config.secret_key_base = key

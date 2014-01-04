@@ -1,4 +1,6 @@
-require "spec_helper"
+# encoding: utf-8
+
+require 'spec_helper'
 
 describe ApplicationController do
   controller do
@@ -7,8 +9,8 @@ describe ApplicationController do
     end
   end
 
-  describe "handling AccessDenied exceptions" do
-    it "redirects to the /401.html page" do
+  describe 'handling AccessDenied exceptions' do
+    it 'redirects to the /401.html page' do
       get :index
       expect(response).to be_success
     end
