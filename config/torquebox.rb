@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 TorqueBox.configure do
   web do
-    context "/"
+    context '/'
   end
 end

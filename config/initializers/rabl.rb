@@ -1,4 +1,4 @@
-# config/initializers/rabl_init.rb
+# encoding: utf-8
 require 'rabl'
 Rabl.configure do |config|
   # Commented as these are defaults

@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+# User class
+# base user class for all consulted.co customers
 class User
   include Mongoid::Document
   include ActiveModel::SecurePassword

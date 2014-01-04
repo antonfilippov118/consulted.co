@@ -1,3 +1,26 @@
+GIT
+  remote: https://github.com/dkubb/yardstick.git
+  revision: 4d8a57f5a69d49a408d4d778aebcc5a52a25c07a
+  specs:
+    yardstick (0.9.7)
+      yard (~> 0.8, >= 0.8.7.2)
+
+GIT
+  remote: https://github.com/mbj/mutant.git
+  revision: 26a6b0a7eba9f215e94e879e6786225a8f737598
+  specs:
+
+GIT
+  remote: https://github.com/mbj/unparser.git
+  revision: d6897bec21c0c499b3080350cb165a5211e7c2aa
+  specs:
+
+GIT
+  remote: https://github.com/rom-rb/devtools.git
+  revision: eafb8074efc2e35d17bbbee0a11f397ffd3f17fb
+  specs:
+    devtools (0.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,24 +49,35 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.1)
-    atomic (1.1.14)
+    ast (1.1.0)
     atomic (1.1.14-java)
-    bcrypt-ruby (3.1.2)
     bcrypt-ruby (3.1.2-java)
     blankslate (2.1.2.4)
-    bson (2.0.0)
+    bouncy-castle-java (1.5.0147)
     bson (2.0.0-java)
     builder (3.1.4)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
     connection_pool (1.2.0)
+    coveralls (0.7.0)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
     diff-lcs (1.2.5)
+    docile (1.1.1)
     edn (1.0.0)
       parslet (~> 1.4.0)
     erubis (2.7.0)
-    ffi (1.9.3)
     ffi (1.9.3-java)
+    flay (2.4.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
+    flog (4.2.0)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     formatador (0.2.4)
     guard (2.2.5)
       formatador (>= 0.2.4)
@@ -51,13 +85,27 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
+    guard-bundler (2.0.0)
+      bundler (~> 1.0)
+      guard (~> 2.2)
     guard-rspec (4.2.0)
       guard (>= 2.1.1)
       rspec (>= 2.14, < 4.0)
+    guard-rubocop (1.0.1)
+      guard (~> 2.0)
+      rubocop (~> 0.10)
     hike (1.2.3)
     i18n (0.6.9)
-    json (1.8.1)
+    jruby-lint (0.4.1)
+      jruby-openssl
+      nokogiri (>= 1.5.0.beta.4)
+      term-ansicolor
+    jruby-openssl (0.8.10)
+      bouncy-castle-java (>= 1.5.0147)
     json (1.8.1-java)
+    kramdown (1.3.0)
+    libnotify (0.8.2)
+      ffi (>= 1.0.11)
     light-service (0.0.12)
     listen (2.4.0)
       celluloid (>= 0.15.2)
@@ -69,6 +117,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     mongoid (4.0.0.alpha1)
       activemodel (~> 4.0.0)
@@ -84,15 +133,17 @@ GEM
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
     multi_json (1.8.2)
+    nokogiri (1.6.1-java)
+      mini_portile (~> 0.5.0)
     optionable (0.2.0)
     origin (1.1.0)
+    parser (2.1.1)
+      ast (~> 1.1)
+      slop (~> 3.4, >= 3.4.5)
     parslet (1.4.0)
       blankslate (~> 2.0)
     polyglot (0.3.3)
-    pry (0.9.12.4)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
-      slop (~> 3.4)
+    powerpack (0.0.9)
     pry (0.9.12.4-java)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -118,12 +169,23 @@ GEM
       activesupport (= 4.0.2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (1.99.1)
     rake (10.1.1)
+    rb-fchange (0.0.6)
+      ffi
     rb-fsevent (0.9.3)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    rb-notifu (0.0.4)
+    rbench (0.2.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    reek (1.3.6)
+      ruby2ruby (~> 2.0.7)
+      ruby_parser (~> 3.2)
+      sexp_processor
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -140,9 +202,24 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rubocop (0.16.0)
+      parser (~> 2.1)
+      powerpack (~> 0.0.6)
+      rainbow (>= 1.1.4)
+    ruby2ruby (2.0.7)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.2.2)
+      sexp_processor (~> 4.1)
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    sexp_processor (4.4.1)
+    simplecov (0.8.2)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slop (3.4.7)
     spoon (0.0.4)
       ffi
@@ -155,13 +232,15 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
+    terminal-notifier-guard (1.5.3)
     thor (0.18.1)
-    thread_safe (0.1.3)
-      atomic
     thread_safe (0.1.3-java)
       atomic
     tilt (1.4.1)
     timers (1.1.0)
+    tins (0.13.1)
     torquebox (3.0.1)
       thor (>= 0.14.6)
       torquebox-cache (= 3.0.1)
@@ -202,6 +281,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
+    yard (0.8.7.3)
 
 PLATFORMS
   java
@@ -209,16 +289,49 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   bson
-  guard
-  guard-rspec
+  coveralls (~> 0.7.0)
+  devtools!
+  flay (~> 2.4.0)
+  flog (~> 4.2.0)
+  guard (~> 2.2.4)
+  guard-bundler (~> 2.0.0)
+  guard-rspec (~> 4.2.0)
+  guard-rubocop (~> 1.0.0)
+  jruby-lint
+  jruby-openssl (~> 0.8.5)
+  json (~> 1.8.1)
+  kramdown (~> 1.3.0)
+  libnotify (~> 0.8.0)
   light-service
+  listen (~> 2.4.0)
   mongoid (~> 4.0.0.alpha1)
   mongoid-rspec
+  mutant (~> 0.3.0)!
   pry (>= 0.9.12.4)
   pry-rails
   rabl
+  racc (~> 1.4.10)
   rails (= 4.0.2)
+  rake (~> 10.1.0)
+  rb-fchange (~> 0.0.6)
+  rb-fsevent (~> 0.9.3)
+  rb-inotify (~> 0.9.0)
+  rb-notifu (~> 0.0.4)
+  rbench (~> 0.2.3)
+  reek (~> 1.3.2)
+  rspec (~> 2.14.1)
   rspec-rails
+  rubocop (~> 0.16.0)
+  rubysl-logger (~> 2.0.0)
+  rubysl-open-uri (~> 2.0.0)
+  rubysl-prettyprint (~> 2.0.2)
+  rubysl-singleton (~> 2.0.0)
   sdoc
+  simplecov (~> 0.8.2)
+  terminal-notifier-guard (~> 1.5.3)
   torquebox (= 3.0.1)
   torquebox-server (= 3.0.1)
+  unparser (~> 0.1.5)!
+  yard (~> 0.8.7)
+  yard-spellcheck (~> 0.1.5)
+  yardstick (~> 0.9.7)!

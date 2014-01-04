@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+# controller for the User class, mostly for the public methods
+# not requiring authorization
 class UsersController < ApplicationController
   respond_to :json
   def create
@@ -15,7 +19,8 @@ class UsersController < ApplicationController
     head :forbidden
   end
 
-private
+  private
+
   def user_class
     User
   end

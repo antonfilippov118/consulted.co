@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Consulted::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -18,7 +20,6 @@ Consulted::Application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
-
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
