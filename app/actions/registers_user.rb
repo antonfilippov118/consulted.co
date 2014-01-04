@@ -1,9 +1,10 @@
 class RegistersUser
   include LightService::Organizer
-  def self.for_new(user)
-    with(user: user).reduce [
+  def self.for_new(data)
+    with(user: data).reduce [
       ValidatesUserAction,
-      SavesUserAction
+      SavesUserAction,
+      SendsConfirmationEmailAction
     ]
   end
 
@@ -22,6 +23,19 @@ class RegistersUser
       user = context.fetch :user
       begin
         user.save!
+      rescue Exception => e
+        next context.set_failure! e
+      end
+    end
+  end
+
+  class SendsConfirmationEmailAction
+    include LightService::Action
+
+    executed do |context|
+      user = context.fetch :user
+      begin
+        UserMailer.confirmation(user).deliver!
       rescue Exception => e
         next context.set_failure! e
       end

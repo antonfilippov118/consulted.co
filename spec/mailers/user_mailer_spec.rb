@@ -4,7 +4,7 @@ describe UserMailer do
 
   describe "activation" do
     user = User.new name: "Florian", email: "FlorianKraft@gmx.de", single_access_token: "foo"
-    let(:mail) { UserMailer.activation user }
+    let(:mail) { UserMailer.confirmation user }
 
     {
       subject: "Your consulted.co profile activation",

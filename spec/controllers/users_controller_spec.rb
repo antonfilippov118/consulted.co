@@ -41,7 +41,7 @@ describe UsersController do
 
     it "sends an email for user confirmation after creation" do
       post :create, valid_params
-      expect(ActionMailer::Base.deliveries.last.to).to eql valid_params.email
+      expect(ActionMailer::Base.deliveries.last.to).to eql [valid_params[:email]]
       expect(ActionMailer::Base.deliveries.last.subject).to eql "Your consulted.co profile activation"
     end
   end

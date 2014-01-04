@@ -35,6 +35,14 @@ describe RegistersUser do
     expect(user_class.count).to eql 0
   end
 
+  it "should send a confirmation email after " do
+    user = valid_user
+    result = RegistersUser.for_new user
+
+    expect(ActionMailer::Base.deliveries.last.to).to eql [valid_user.email]
+    expect(ActionMailer::Base.deliveries.last.subject).to eql "Your consulted.co profile activation"
+  end
+
   def valid_user
     user_class.new name: "Florian", email: "florian@consulted.co", password: "tester", password_confirmation: "tester"
   end
