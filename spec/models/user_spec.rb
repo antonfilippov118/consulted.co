@@ -20,6 +20,17 @@ describe User do
         expect(u.send(sym)).to eql "test"
       end
     end
+
+    it "is created as an unconfirmed user" do
+      user = User.new
+
+      expect(user.confirmed?).to be_false
+    end
+
+    it "is created as an active user" do
+      user = User.new
+      expect(user.active?).to be_true
+    end
   end
 
   context "validation" do
@@ -34,5 +45,14 @@ describe User do
     it {
       should validate_uniqueness_of :email
     }
+  end
+
+  context "authentication" do
+    it "should make use of secure password" do
+      u = User.new
+      expect {
+        u.password = "foo"
+      }.not_to raise_error
+    end
   end
 end
