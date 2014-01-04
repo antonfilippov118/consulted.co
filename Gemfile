@@ -21,9 +21,11 @@ group :development do
   gem "pry-rails"
 end
 
+group :development, :test do
+  gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
+end
+
 group :test do
-  gem "guard"
-  gem "guard-rspec"
   gem "rspec-rails"
   gem "mongoid-rspec"
 end
@@ -38,3 +40,7 @@ group :security do
 end
 
 gem "light-service"
+
+
+# Added by devtools
+eval_gemfile 'Gemfile.devtools'

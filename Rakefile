@@ -4,3 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 Consulted::Application.load_tasks
+
+# Added by devtools
+require 'devtools'
+Devtools.init_rake_tasks
