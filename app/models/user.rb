@@ -8,7 +8,7 @@ class User
 
   has_secure_password
 
-  [:name, :email, :telephone, :password_digest, :single_access_token].each do |_field|
+  [:name, :email, :telephone, :password_digest].each do |_field|
     field _field, type: String
   end
 
@@ -18,6 +18,8 @@ class User
 
   field :confirmed, type: Boolean, default: false
   field :active, type: Boolean, default: true
+
+  field :single_access_token, type: String, default: Proc.new { SecureRandom.urlsafe_base64 }
 
   validates_uniqueness_of :email
   validates_with EmailValidator
