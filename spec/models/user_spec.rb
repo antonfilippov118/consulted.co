@@ -38,5 +38,9 @@ describe User do
     it 'should make use of secure password' do
       expect { user.password = 'foo' }.not_to raise_error
     end
+
+    it 'should have a resettable token for single access' do
+      expect(user.single_access_token).not_to be_nil
+    end
   end
 end
