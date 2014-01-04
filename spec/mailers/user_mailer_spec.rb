@@ -15,6 +15,10 @@ describe UserMailer do
         expect(mail.send field).to eql value
       end
     end
+
+    it "should have the name of the user in the email" do
+      expect(mail.body.encoded).to match user.name
+    end
   end
 
 end
