@@ -4,7 +4,7 @@ class User
 
   has_secure_password
 
-  [:name, :email, :telephone, :password_digest].each do |_field|
+  [:name, :email, :telephone, :password_digest, :single_access_token].each do |_field|
     field _field, type: String
   end
 

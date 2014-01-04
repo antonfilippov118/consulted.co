@@ -3,7 +3,7 @@ require "spec_helper"
 describe UserMailer do
 
   describe "activation" do
-    user = User.new name: "Florian", email: "FlorianKraft@gmx.de"
+    user = User.new name: "Florian", email: "FlorianKraft@gmx.de", single_access_token: "foo"
     let(:mail) { UserMailer.activation user }
 
     {
@@ -18,6 +18,10 @@ describe UserMailer do
 
     it "should have the name of the user in the email" do
       expect(mail.body.encoded).to match user.name
+    end
+
+    it "should contain the users hash token for verification" do
+      expect(mail.body.encoded).to match /confirm\/foo/
     end
   end
 
