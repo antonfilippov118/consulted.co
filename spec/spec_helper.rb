@@ -4,6 +4,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'mongoid'
+require 'helpers'
 require 'rspec/rails'
 require 'rspec/autorun'
 
@@ -17,6 +18,7 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |conf|
   conf.include Mongoid::Matchers, type: :model
+  conf.include Helpers
 
   # ## Mock Framework
   #
