@@ -4,6 +4,7 @@
 # not requiring authorization
 class UsersController < ApplicationController
   respond_to :json
+
   def create
     @user = user_class.new user_params
     result = RegistersUser.for_new @user

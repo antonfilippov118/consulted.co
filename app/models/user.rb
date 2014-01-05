@@ -19,7 +19,7 @@ class User
   field :confirmed, type: Boolean, default: false
   field :active, type: Boolean, default: true
 
-  field :access_token, type: String, default: Proc.new { SecureRandom.urlsafe_base64 }
+  field :access_token, type: String, default: proc { SecureRandom.urlsafe_base64 }
 
   validates_uniqueness_of :email
   validates_with EmailValidator
