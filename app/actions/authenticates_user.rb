@@ -4,8 +4,22 @@
 class AuthenticatesUser
   include LightService::Organizer
 
-  def self.check(user)
-    with(user: user).reduce [
+  def self.check(data)
+    with(data: data).reduce [
+      CheckExistenceAction
     ]
+  end
+
+  class CheckExistenceAction
+    include LightService::Action
+
+    executed do |context|
+      data = context.fetch(:data)
+      begin
+        context[:user] = User.find_by(email: data[:email])
+      rescue => e
+        context.set_failure! e
+      end
+    end
   end
 end
