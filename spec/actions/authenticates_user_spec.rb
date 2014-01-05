@@ -9,7 +9,8 @@ describe AuthenticatesUser do
   end
 
   it 'passes a user who gave correct data' do
-    User.create email: 'Florian@consulted.co', password: 'tester', password_confirmation: 'tester', name: 'Florian'
+    create_user
+
     data = {
       email: 'Florian@consulted.co',
       password: 'tester'
@@ -31,7 +32,7 @@ describe AuthenticatesUser do
   end
 
   it 'finds the user by email regardless of case ' do
-    User.create email: 'fLoriAn@conSulted.co', password: 'tester', password_confirmation: 'tester', name: 'Florian'
+    create_user email: 'fLoriAn@conSulted.co'
     data = {
       email: 'Florian@consulted.co',
       password: 'tester'
@@ -42,7 +43,7 @@ describe AuthenticatesUser do
   end
 
   it 'fails when a user does not give the right password' do
-    User.create email: 'Florian@consulted.co', password: 'tester', password_confirmation: 'tester', name: 'Florian'
+    create_user
     data = {
       email: 'Florian@consulted.co',
       password: 'foo'
@@ -55,5 +56,17 @@ describe AuthenticatesUser do
 
   def user_class
     User
+  end
+
+  def create_user(opts = {})
+    params = {
+      email: 'Florian@consulted.co',
+      password: 'tester',
+      password_confirmation: 'tester',
+      name: 'Florian',
+      confirmed: true
+    }.merge opts
+
+    User.create params
   end
 end
