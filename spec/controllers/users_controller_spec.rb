@@ -57,27 +57,28 @@ describe UsersController do
   end
 
   describe 'POST #auth' do
-    it 'returns an "Access denied" if requested with empty data' do
+    it 'returns an "Unauthorized" if requested with invalid data' do
+      create_user
       post :auth
       expect(response.status).to eql 401
       expect(response).not_to be_success
     end
 
     it 'returns an ok status if requested by a user with the correct credentials' do
-      params = {
-        name: 'florian',
-        email: 'Florian@consulted.co',
-        password: 'test',
-        password_confirmation: 'test',
-        confirmed: true
-      }
+      create_user
 
-      User.create params
-
-      post :auth, email: 'Florian@consulted.co', password: 'test'
+      post :auth, email: 'Florian@consulted.co', password: 'tester'
 
       expect(response.status).to eql 200
       expect(response).to be_success
+    end
+
+    it 'sets a cookie after successful authentication' do
+      create_user
+
+      post :auth, email: 'Florian@consulted.co', password: 'tester'
+
+      expect(response.cookies).to have_key '__consulted'
     end
   end
 end

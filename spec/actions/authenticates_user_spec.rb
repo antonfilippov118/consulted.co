@@ -50,23 +50,6 @@ describe AuthenticatesUser do
     expect(result.success?).to be_false
   end
 
-  def user_class
-    User
-  end
-
-  def create_user(opts = {})
-    params = {
-      email: 'Florian@consulted.co',
-      password: 'tester',
-      password_confirmation: 'tester',
-      name: 'Florian',
-      confirmed: true,
-      active: true
-    }.merge opts
-
-    User.create params
-  end
-
   def data(opts = {})
     {
       email: 'Florian@consulted.co',

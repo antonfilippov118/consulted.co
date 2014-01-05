@@ -21,7 +21,13 @@ class UsersController < ApplicationController
   end
 
   def auth
-    head :unauthorized
+    result = AuthenticatesUser.check auth_params
+
+    if result.failure?
+      head :unauthorized
+    else
+      head :ok
+    end
   end
 
   private
@@ -32,5 +38,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def auth_params
+    params.permit(:email, :password)
   end
 end
