@@ -54,6 +54,18 @@ describe AuthenticatesUser do
     expect(result.success?).to be_false
   end
 
+  it 'fails when a user is not confirmed' do
+    create_user confirmed: false
+    data = {
+      email: 'Florian@consulted.co',
+      password: 'tester'
+    }
+
+    result = AuthenticatesUser.check data
+
+    expect(result.success?).to be_false
+  end
+
   def user_class
     User
   end
