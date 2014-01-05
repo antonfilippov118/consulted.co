@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     head :forbidden
   end
 
+  def auth
+    head :unauthorized
+  end
+
   private
 
   def user_class
