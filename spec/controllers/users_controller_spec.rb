@@ -41,11 +41,6 @@ describe UsersController do
       expect(user_class.count).to eql 1
     end
 
-    it 'should render the create template' do
-      post :create, valid_params
-      expect(response).to render_template 'create'
-    end
-
     it 'sends an email for user confirmation after creation' do
       post :create, valid_params
       expect(ActionMailer::Base.deliveries.last.to).to eql [valid_params[:email]]
