@@ -23,4 +23,11 @@ class User
 
   validates_uniqueness_of :email
   validates_with EmailValidator
+
+  def generate_new_token!
+    self.access_token = loop do
+      access_token = SecureRandom.urlsafe_base64(nil, false)
+      break access_token unless self.class.where(access_token: access_token).exists?
+    end
+  end
 end

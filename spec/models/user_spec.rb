@@ -50,5 +50,9 @@ describe User do
       user.generate_new_token!
       expect(user.access_token).not_to equal token
     end
+
+    it 'provides a different token for each new user' do
+
+    end
   end
 end
