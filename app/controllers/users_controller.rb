@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       head :unauthorized
     else
       head :ok
+      set_auth_cookie
     end
   end
 
@@ -42,5 +43,12 @@ class UsersController < ApplicationController
 
   def auth_params
     params.permit(:email, :password)
+  end
+
+  def set_auth_cookie
+    cookies[:__consulted] = {
+      value: 'foo',
+      expires: 1.hour.from_now
+    }
   end
 end

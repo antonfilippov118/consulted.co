@@ -18,7 +18,7 @@ class AuthenticatesUser
       data = context.fetch(:data)
       begin
         requirements = {
-          email: Regexp.new(data[:email], Regexp::IGNORECASE),
+          email: Regexp.new(Regexp.escape(data[:email]), Regexp::IGNORECASE),
           confirmed: true, active: true
         }
         context[:user] = User.find_by requirements

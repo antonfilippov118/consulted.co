@@ -77,7 +77,6 @@ describe UsersController do
       create_user
 
       post :auth, email: 'Florian@consulted.co', password: 'tester'
-
       expect(response.cookies).to have_key '__consulted'
     end
   end
