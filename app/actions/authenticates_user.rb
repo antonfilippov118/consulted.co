@@ -17,7 +17,7 @@ class AuthenticatesUser
     executed do |context|
       data = context.fetch(:data)
       begin
-        context[:user] = User.find_by(email: Regexp.new(data[:email], Regexp::IGNORECASE))
+        context[:user] = User.find_by(email: Regexp.new(data[:email], Regexp::IGNORECASE), confirmed: true)
       rescue => e
         context.set_failure! e
       end
