@@ -56,7 +56,7 @@ describe UsersController do
     end
   end
 
-  describe 'POST #login' do
+  describe 'POST #auth' do
     it 'returns an "Access denied" if requested with wrong data' do
       post :auth
       expect(response.status).to eql 401
