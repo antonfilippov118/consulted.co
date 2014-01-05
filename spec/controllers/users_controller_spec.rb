@@ -55,4 +55,12 @@ describe UsersController do
       expect(response).not_to be_success
     end
   end
+
+  describe 'POST #login' do
+    it 'returns an "Access denied" if requested with wrong data' do
+      post :auth
+      expect(response.status).to eql 401
+      expect(response).not_to be_success
+    end
+  end
 end
