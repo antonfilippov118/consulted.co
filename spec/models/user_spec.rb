@@ -2,9 +2,9 @@
 require 'spec_helper'
 
 describe User do
-  subject(:user) { User.new }
   context 'create' do
-    [:name, :email, :telephone, :single_access_token].each do |sym|
+    subject(:user) { User.new }
+    [:name, :email, :telephone].each do |sym|
       it "can be assigned a #{sym}" do
         user.send "#{sym}=", 'test'
         expect(user.send(sym)).to eql 'test'
@@ -35,12 +35,20 @@ describe User do
   end
 
   context 'authentication' do
+    subject(:user) { User.new }
     it 'should make use of secure password' do
       expect { user.password = 'foo' }.not_to raise_error
     end
 
     it 'should have a resettable token for single access' do
-      expect(user.single_access_token).not_to be_nil
+      expect(user.access_token).not_to be_nil
+    end
+
+    it 'should have a reset method for the single access token' do
+      user = User.new
+      token = user.access_token
+      user.generate_new_token!
+      expect(user.access_token).not_to equal token
     end
   end
 end
