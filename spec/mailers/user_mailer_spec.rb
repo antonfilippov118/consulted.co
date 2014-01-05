@@ -5,7 +5,7 @@ require 'spec_helper'
 describe UserMailer do
 
   describe 'activation' do
-    user = User.new name: 'Florian', email: 'FlorianKraft@gmx.de', single_access_token: 'foo'
+    user = User.new name: 'Florian', email: 'FlorianKraft@gmx.de', access_token: 'foo'
     let(:mail) { UserMailer.confirmation user }
 
     {

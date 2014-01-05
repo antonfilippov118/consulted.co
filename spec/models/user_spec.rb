@@ -3,33 +3,25 @@ require 'spec_helper'
 
 describe User do
   context 'create' do
+    subject(:user) { User.new }
     [:name, :email, :telephone].each do |sym|
       it "can be assigned a #{sym}" do
-        u = User.new
-
-        u.send "#{sym}=", 'test'
-
-        expect(u.send(sym)).to eql 'test'
+        user.send "#{sym}=", 'test'
+        expect(user.send(sym)).to eql 'test'
       end
 
       it 'can be initialized with a user name' do
-        params = {
-          sym => 'test'
-        }
-        u = User.new params
+        user = User.new sym => 'test'
 
-        expect(u.send(sym)).to eql 'test'
+        expect(user.send(sym)).to eql 'test'
       end
     end
 
     it 'is created as an unconfirmed user' do
-      user = User.new
-
       expect(user.confirmed?).to be_false
     end
 
     it 'is created as an active user' do
-      user = User.new
       expect(user.active?).to be_true
     end
   end
@@ -43,9 +35,24 @@ describe User do
   end
 
   context 'authentication' do
+    subject(:user) { User.new }
     it 'should make use of secure password' do
-      u = User.new
-      expect { u.password = 'foo' }.not_to raise_error
+      expect { user.password = 'foo' }.not_to raise_error
+    end
+
+    it 'should have a resettable token for single access' do
+      expect(user.access_token).not_to be_nil
+    end
+
+    it 'should have a reset method for the single access token' do
+      user = User.new
+      token = user.access_token
+      user.generate_new_token!
+      expect(user.access_token).not_to equal token
+    end
+
+    it 'provides a different token for each new user' do
+
     end
   end
 end

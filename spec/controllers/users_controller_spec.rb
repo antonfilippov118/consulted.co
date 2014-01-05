@@ -55,4 +55,29 @@ describe UsersController do
       expect(response).not_to be_success
     end
   end
+
+  describe 'POST #auth' do
+    it 'returns an "Unauthorized" if requested with invalid data' do
+      create_user
+      post :auth
+      expect(response.status).to eql 401
+      expect(response).not_to be_success
+    end
+
+    it 'returns an ok status if requested by a user with the correct credentials' do
+      create_user
+
+      post :auth, email: 'Florian@consulted.co', password: 'tester'
+
+      expect(response.status).to eql 200
+      expect(response).to be_success
+    end
+
+    it 'sets a cookie after successful authentication' do
+      create_user
+
+      post :auth, email: 'Florian@consulted.co', password: 'tester'
+      expect(response.cookies).to have_key '__consulted'
+    end
+  end
 end
