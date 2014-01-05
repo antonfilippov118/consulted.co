@@ -19,6 +19,17 @@ describe AuthenticatesUser do
     expect(result.success?).to be_true
   end
 
+  it 'fails when a user does not exist' do
+    data = {
+      email: "florian@consulted.co",
+      password: "tester"
+    }
+
+    result = AuthenticatesUser.check data
+
+    expect(result.success?).to be_false
+  end
+
   def user_class
     User
   end
