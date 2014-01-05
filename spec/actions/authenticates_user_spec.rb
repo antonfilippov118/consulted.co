@@ -30,6 +30,17 @@ describe AuthenticatesUser do
     expect(result.success?).to be_false
   end
 
+  it 'finds the user by email regardless of case ' do
+    User.create email: 'fLoriAn@conSulted.co', password: 'tester', password_confirmation: 'tester', name: 'Florian'
+    data = {
+      email: 'Florian@consulted.co',
+      password: 'tester'
+    }
+
+    result = AuthenticatesUser.check data
+    expect(result.success?).to be_true
+  end
+
   def user_class
     User
   end
