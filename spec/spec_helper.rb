@@ -17,7 +17,7 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |conf|
   conf.include Mongoid::Matchers, type: :model
-  conf.include Devise::TestHelpers, :type => :controller
+  conf.include Devise::TestHelpers, type: :controller
 
   # ## Mock Framework
   #

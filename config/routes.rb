@@ -1,4 +1,3 @@
 Consulted::Application.routes.draw do
-  resource :user, only: [:show, :create] do
-  end
+  devise_for :users, controllers: { registrations: 'users/registrations' }, only: [:registrations]
 end

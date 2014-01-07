@@ -355,7 +355,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt-ruby
   bson
   bson_ext
   coveralls (~> 0.7.0)

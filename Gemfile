@@ -6,6 +6,8 @@ gem 'rabl'
 
 gem 'bson_ext', platform: :ruby
 
+gem 'devise'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -29,11 +31,6 @@ end
 group :db do
   gem 'mongoid', '~> 4.0.0.alpha1'
   gem 'bson'
-end
-
-group :security do
-  gem 'bcrypt-ruby'
-  gem 'devise'
 end
 
 gem 'light-service'
