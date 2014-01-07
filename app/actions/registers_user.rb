@@ -28,7 +28,7 @@ class RegistersUser
       user = context.fetch :user
       begin
         user.save!
-      rescue e
+      rescue => e
         next context.set_failure! e
       end
     end
@@ -42,7 +42,7 @@ class RegistersUser
       user = context.fetch :user
       begin
         UserMailer.confirmation(user).deliver!
-      rescue e
+      rescue => e
         next context.set_failure! e
       end
     end
