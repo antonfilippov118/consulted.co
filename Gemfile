@@ -4,6 +4,8 @@ gem 'rails', '4.0.2'
 
 gem 'rabl'
 
+gem 'bson_ext', platform: :ruby
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
