@@ -31,6 +31,7 @@ end
 
 group :security do
   gem 'bcrypt-ruby'
+  gem 'devise'
 end
 
 gem 'light-service'
