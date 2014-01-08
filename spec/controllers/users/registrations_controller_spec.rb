@@ -5,9 +5,10 @@ require 'spec_helper'
 describe Users::RegistrationsController do
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    User.delete_all
   end
   context '#POST users' do
-    it 'gives a bad request response when accessed without data' do
+    it 'gives a unprocessable entity response when accessed without data' do
       post :create
       expect(response.status).to eql 422
       expect(response).not_to be_success
@@ -20,6 +21,12 @@ describe Users::RegistrationsController do
       expect(response).to be_success
       expect(User.count).to eql 1
     end
+
+    it 'does not create a user when params are incorrect' do
+      post :create, invalid_params
+      expect(response).not_to be_success
+      expect(User.count).to eql 0
+    end
   end
 
   def valid_params
@@ -29,6 +36,17 @@ describe Users::RegistrationsController do
         email: 'Florian@consulted.co',
         password: 'password',
         password_confirmation: 'password'
+      }
+    }
+  end
+
+  def invalid_params
+    {
+      user: {
+        name: 'Florian',
+        email: 'Florian@consulted.co',
+        password: 'fasdfs',
+        password_confirmation: 'dsafndsofas'
       }
     }
   end
