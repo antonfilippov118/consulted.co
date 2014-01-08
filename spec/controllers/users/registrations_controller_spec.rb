@@ -33,7 +33,7 @@ describe Users::RegistrationsController do
 
       expect(response).to be_success
 
-      expect(ActionMailer::Base.deliveries.last.to).to eql ['Florian@consulted.co']
+      expect(ActionMailer::Base.deliveries.last.to.first.downcase).to eql 'florian@consulted.co'
     end
   end
 
