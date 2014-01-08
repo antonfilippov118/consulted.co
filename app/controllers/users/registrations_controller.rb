@@ -8,4 +8,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: resource.errors, status: :unprocessable_entity
     end
   end
+
 end

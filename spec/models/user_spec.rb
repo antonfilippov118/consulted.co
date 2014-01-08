@@ -7,4 +7,8 @@ describe User do
       User.new name: 'Florian'
     end.to_not raise_error
   end
+
+  [:email].each do |field|
+    it { should validate_uniqueness_of field }
+  end
 end
