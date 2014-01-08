@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
-    head :method_not_allowed
+    head :bad_request
   end
 end
