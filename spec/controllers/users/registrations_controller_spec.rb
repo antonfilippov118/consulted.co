@@ -27,6 +27,14 @@ describe Users::RegistrationsController do
       expect(response).not_to be_success
       expect(User.count).to eql 0
     end
+
+    it 'should send a confirmation email after registration' do
+      post :create, valid_params
+
+      expect(response).to be_success
+
+      expect(ActionMailer::Base.deliveries.last.to).to eql ['Florian@consulted.co']
+    end
   end
 
   def valid_params
