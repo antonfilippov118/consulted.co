@@ -11,19 +11,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def cancel
-    head :method_not_allowed
+  [:cancel, :edit, :destroy, :new].each do |action|
+    define_method action do
+      deny_method
+    end
   end
 
-  def edit
-    head :method_not_allowed
-  end
+  private
 
-  def new
-    head :method_not_allowed
-  end
-
-  def destroy
+  def deny_method
     head :method_not_allowed
   end
 
