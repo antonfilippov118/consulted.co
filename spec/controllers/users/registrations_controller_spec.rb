@@ -37,9 +37,15 @@ describe Users::RegistrationsController do
     end
   end
 
-  [:cancel, :new, :edit, :destroy].each do |action|
+  {
+    get: :cancel,
+    get: :new,
+    get: :edit,
+    delete: :destroy,
+  }.each_pair do |method, action|
     it "does not allow #{action}" do
-      post action
+      user = User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
+      send method, action, id: user.id
       expect(response).not_to be_success
       expect(response.status).to eql 405
     end
