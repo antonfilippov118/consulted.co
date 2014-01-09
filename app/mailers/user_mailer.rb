@@ -5,7 +5,8 @@ class UserMailer < ActionMailer::Base
 
   default from: 'system@consulted.co'
 
-  def confirmation_instructions(record)
+  def confirmation_instructions(record, token, opts = {})
+    @token = token
     devise_mail(record, :confirmation_instructions,  subject: 'Your consulted.co profile activation', from: 'registration@consulted.co')
   end
 end
