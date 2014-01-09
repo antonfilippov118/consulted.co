@@ -1,5 +1,9 @@
 Consulted::Application.routes.draw do
-  resource :user, only: [:show, :create] do
-    post :auth
-  end
+
+  controllers = {
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
+  devise_for :users, controllers: controllers, only: [:registrations, :confirmations]
+
 end

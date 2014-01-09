@@ -1,33 +1,35 @@
-# encoding: utf-8
-
-# User class
-# base user class for all consulted.co customers
 class User
   include Mongoid::Document
-  include ActiveModel::SecurePassword
 
-  has_secure_password
+  field :name, type: String
 
-  [:name, :email, :telephone, :password_digest].each do |_field|
-    field _field, type: String
-  end
+  #
+  # Devise
+  #
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :trackable, :validatable, :confirmable
 
-  [:name, :email].each do |_field|
-    validates_presence_of _field
-  end
+  ## Database authenticatable
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
 
-  field :confirmed, type: Boolean, default: false
-  field :active, type: Boolean, default: true
+  ## Trackable
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
 
-  field :access_token, type: String, default: proc { SecureRandom.urlsafe_base64 }
+  ## Confirmable
+  field :confirmation_token,   type: String
+  field :confirmed_at,         type: Time
+  field :confirmation_sent_at, type: Time
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-  validates_uniqueness_of :email
-  validates_with EmailValidator
-
-  def generate_new_token!
-    self.access_token = loop do
-      access_token = SecureRandom.urlsafe_base64(nil, false)
-      break access_token unless self.class.where(access_token: access_token).exists?
-    end
-  end
+  ## Lockable
+  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  # field :locked_at,       type: Time
 end
