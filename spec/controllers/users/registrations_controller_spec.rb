@@ -37,6 +37,14 @@ describe Users::RegistrationsController do
     end
   end
 
+  [:cancel, :new, :edit, :destroy].each do |action|
+    it "does not allow #{action}" do
+      post action
+      expect(response).not_to be_success
+      expect(response.status).to eql 405
+    end
+  end
+
   def valid_params
     {
       user: {
