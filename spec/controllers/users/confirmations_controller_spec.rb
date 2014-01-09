@@ -1,4 +1,4 @@
-require 'sepc_helper'
+require 'spec_helper'
 
 describe Users::ConfirmationsController do
 
