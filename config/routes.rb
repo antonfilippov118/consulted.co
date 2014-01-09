@@ -1,3 +1,7 @@
 Consulted::Application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations' }, only: [:registrations, :confirmations]
+  controllers = {
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
+  devise_for :users, controllers: controllers, only: [:registrations, :confirmations]
 end
