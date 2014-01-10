@@ -1,4 +1,3 @@
-
 class Users::UtilitiesController < ApplicationController
   def available
     available = !User.where(email: params[:email].downcase).exists?
