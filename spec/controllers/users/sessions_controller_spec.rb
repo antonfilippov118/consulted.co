@@ -13,5 +13,7 @@ describe Users::SessionsController do
 
     expect(response.success?).to be_true
     expect(response.status).to eql 200
+
+    expect(response.body).to eql({ success: true }.to_json)
   end
 end
