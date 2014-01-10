@@ -23,14 +23,14 @@
             </span>
           </div>
           <div>
-            <input required name="pw" ng-model="user.password" type="password" placeholder="Your password">
+            <input required name="pw" ng-minlength="6" ng-model="user.password" type="password" placeholder="Your password">
             <span ng-show="signupForm.pw.$dirty">
               <i ng-show="signupForm.pw.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.pw.$invalid" class="fa fa-minus-circle invalid"></i>
             </span>
           </div>
           <div>
-            <input required name="pw_repeat" ng-model="user.password_confirmation" type="password" placeholder="Password repeat">
+            <input required name="pw_repeat" password-confirmation="user.password" ng-model="user.password_confirmation" type="password" placeholder="Password repeat">
             <span ng-show="signupForm.pw_repeat.$dirty">
               <i ng-show="signupForm.pw_repeat.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.pw_repeat.$invalid" class="fa fa-minus-circle invalid"></i>

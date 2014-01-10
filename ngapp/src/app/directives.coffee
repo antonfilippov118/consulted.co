@@ -131,3 +131,26 @@ app.directive "checkEmail", [
         , 500
         return viewValue
 ]
+
+app.directive "passwordConfirmation", [
+  () ->
+    require: 'ngModel'
+    restrict: 'A'
+    scope:
+      passwordConfirmation: '='
+    link: (scope, el, attrs, ctrl) ->
+      scope.$watch () ->
+        if scope.passwordConfirmation || ctrl.$viewValue
+          return "#{scope.passwordConfirmation}_#{ctrl.$viewValue}"
+        return undefined
+      , (value) ->
+        if value
+          ctrl.$parsers.unshift (viewValue) ->
+            origin = scope.passwordConfirmation
+            if origin isnt viewValue
+              ctrl.$setValidity 'passwordConfirmation', no
+              return undefined
+            else
+              ctrl.$setValidity 'passwordConfirmation', yes
+              return viewValue
+]
