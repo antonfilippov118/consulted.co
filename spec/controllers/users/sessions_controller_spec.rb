@@ -16,4 +16,13 @@ describe Users::SessionsController do
 
     expect(response.body).to eql({ success: true }.to_json)
   end
+
+  it 'does not allow a session for invalid users' do
+    post :create, email: 'florian@consulted.co', password: 'tester'
+
+    expect(response.success?).to be_false
+    expect(response.status).to eql 401
+
+    expect(response.body).to eql({ success: false }.to_json)
+  end
 end
