@@ -6,18 +6,17 @@
     Giving quality advice since 1985
   </div>
   <div class="content">
-    <div class="error" ng-show="error && !saving">
-      {{error}}
-    </div>
-    <div class="loading" ng-show="saving">
-      <i class="fa fa-spinner"></i>
-    </div>
+    <div error-loading></div>
     <form ng-submit="signup()" name="signupForm">
       <div ng-switch on="type">
+        <div ng-switch-when="success">
+          <p>Thank you registering!</p>
+          <p>You can now log in - but be sure to check your email first.</p>
+        </div>
         <div ng-switch-when="email" class="email">
           <p>Your email is never shared.</p>
           <div>
-            <input required name="email" ng-model="user.email" type="email" placeholder="Your email address">
+            <input required check-email name="email" ng-model="user.email" type="email" placeholder="Your email address">
             <span ng-show="signupForm.email.$dirty">
               <i ng-show="signupForm.email.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.email.$invalid" class="fa fa-minus-circle invalid"></i>
@@ -31,7 +30,7 @@
             </span>
           </div>
           <div>
-            <input required name="pw_repeat" ng-model="user.password_repeat" type="password" placeholder="Password repeat">
+            <input required name="pw_repeat" ng-model="user.password_confirmation" type="password" placeholder="Password repeat">
             <span ng-show="signupForm.pw_repeat.$dirty">
               <i ng-show="signupForm.pw_repeat.$valid" class="fa fa-check valid"></i>
               <i ng-show="signupForm.pw_repeat.$invalid" class="fa fa-minus-circle invalid"></i>

@@ -5,21 +5,24 @@ app.controller "SignupController", [
   "User"
   (scope, user) ->
     scope.error = no
+    scope.loading = no
     scope.user = {}
 
     scope.type = "email"
 
     scope.signup = () ->
-      return if scope.saving is yes
+      return if scope.loading is yes
       return if scope.type is "profile"
-      scope.saving = yes
+      scope.loading = yes
 
       user.signup(scope.user).then (status) ->
-        scope.success = yes
+        scope.type = 'success'
+        scope.errors = no
       , (err) ->
-        scope.error = "There was an error during signup."
+        scope.error  = "There was an error during signup."
+        scope.errors = err.data
       .finally () ->
-        scope.saving = no
+        scope.loading = no
 
     scope.switch = () ->
       if scope.type is "profile"

@@ -105,5 +105,29 @@ app.directive "errorLoading", [
     templateUrl: "views/error_loading.tpl.html"
 ]
 
+app.directive "checkEmail", [
+  '$timeout',
+  '$http',
+  'User',
+  (timeout, http, user) ->
+    require: "ngModel"
+    restrict: "A"
+    link: (scope, el, attrs, ctrl) ->
+      checking = null
+      ctrl.$parsers.push (viewValue) ->
+        timeout.cancel checking if checking?
+        checking = timeout ->
+          ctrl.$setValidity 'emailAvailable', yes
 
-
+          if ctrl.$valid
+            ctrl.$setValidity 'checkingEmail', no
+            if viewValue isnt "" && viewValue isnt undefined
+              user.emailAvailable(viewValue).then (result) ->
+                ctrl.$setValidity 'emailAvailable', result
+                ctrl.$setValidity 'checkingEmail', result
+            else
+              ctrl.$setValidity 'emailAvailable', yes
+              ctrl.$setValidity 'checkingEmail', yes
+        , 500
+        return viewValue
+]
