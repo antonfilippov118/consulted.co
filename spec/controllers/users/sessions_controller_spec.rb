@@ -18,7 +18,7 @@ describe Users::SessionsController do
   end
 
   it 'allows an unconfirmed user to create a session' do
-    user = User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
+    User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
 
     post :create, user: { email: 'florian@consulted.co', password: 'tester' }
 
@@ -35,6 +35,4 @@ describe Users::SessionsController do
 
     expect(response.body).to eql({ success: false }.to_json)
   end
-
-
 end
