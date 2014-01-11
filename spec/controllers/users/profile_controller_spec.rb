@@ -20,7 +20,7 @@ describe Users::ProfileController do
     get :profile
 
     expect(response.success?).to be_false
-    expect(response.status).to eql 200
+    expect(response.status).to eql 401
   end
 
   def valid_params
