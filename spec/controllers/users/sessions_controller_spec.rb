@@ -17,6 +17,17 @@ describe Users::SessionsController do
     expect(response.body).to eql({ success: true }.to_json)
   end
 
+  it 'allows an unconfirmed user to create a session' do
+    User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
+
+    post :create, user: { email: 'florian@consulted.co', password: 'tester' }
+
+    expect(response.success?).to be_true
+    expect(response.status).to eql 200
+
+    expect(response.body).to eql({ success: true }.to_json)
+  end
+
   it 'does not allow a session for invalid users' do
     post :create, user: { email: 'florian@consulted.co', password: 'tester' }
     expect(response.success?).to be_false
