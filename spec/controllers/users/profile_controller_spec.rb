@@ -2,17 +2,25 @@ require 'spec_helper'
 
 describe Users::ProfileController do
   before(:each) do
-    User.delete_all
     request.env['devise.mapping'] = Devise.mappings[:user]
-    user = User.create valid_params
-    sign_in user
+    User.delete_all
   end
 
-  it 'shows the users data' do
+  it 'shows the users data when user is logged in' do
+    user = User.create valid_params
+    sign_in user
+
     get :profile
     expect(response.success?).to be_true
 
-    expect(response.body).to eql({ email: 'florian@consulted.co', name: 'Florian' }.to_json)
+    expect(response.status).to eql 200
+  end
+
+  it 'does not show the users data when signed out' do
+    get :profile
+
+    expect(response.success?).to be_false
+    expect(response.status).to eql 200
   end
 
   def valid_params
