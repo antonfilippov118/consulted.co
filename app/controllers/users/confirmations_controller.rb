@@ -6,6 +6,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     head :method_not_allowed
   end
 
+  def new
+    head :method_not_allowed
+  end
+
   # confirm user
   def show
     resource = User.confirm_by_token(params[:confirmation_token])
