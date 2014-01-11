@@ -29,6 +29,12 @@ describe Users::ConfirmationsController do
     expect(response.status).to eql 400
   end
 
+  it 'should not allow for a new confirmation page' do
+    get :new
+    expect(response.success?).to be_false
+    expect(response.status).to eql 405
+  end
+
   def create_new_user_and_send_email
     User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester', confirmation_sent_at: 1.day.ago, unconfirmed_email: 'florian@consulted.co'
 
