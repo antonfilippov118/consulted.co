@@ -2,7 +2,7 @@ class Users::ProfileController < Devise::SessionsController
   before_filter :authenticate!
 
   def profile
-    render json: { email: 'florian@consulted.co', name: 'Florian' }
+    render json: { email: current_user.email, name: current_user.name, confirmed: current_user.confirmed? }
   end
 
   private
