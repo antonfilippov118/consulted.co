@@ -9,9 +9,10 @@ describe Users::ProfileController do
   end
 
   it 'shows the users data' do
-    get :show
+    get :profile
+    expect(response.success?).to be_true
 
-    expect(response.succcess?).to be_true
+    expect(response.body).to eql({ email: 'florian@consulted.co', name: 'Florian' }.to_json)
   end
 
   def valid_params
