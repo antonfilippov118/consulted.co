@@ -9,7 +9,7 @@ describe Users::SessionsController do
     user = User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
     user.confirm!
 
-    post :create, email: 'florian@consulted.co', password: 'tester'
+    post :create, user: { email: 'florian@consulted.co', password: 'tester' }
 
     expect(response.success?).to be_true
     expect(response.status).to eql 200
@@ -18,8 +18,7 @@ describe Users::SessionsController do
   end
 
   it 'does not allow a session for invalid users' do
-    post :create, email: 'florian@consulted.co', password: 'tester'
-
+    post :create, user: { email: 'florian@consulted.co', password: 'tester' }
     expect(response.success?).to be_false
     expect(response.status).to eql 401
 
