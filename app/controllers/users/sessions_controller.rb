@@ -8,4 +8,10 @@ class Users::SessionsController < Devise::SessionsController
   def failure
     render json: { success: false }, status: 401
   end
+
+  [:new].each do |method|
+    define_method method do
+      head :method_not_allowed
+    end
+  end
 end

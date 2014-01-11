@@ -9,5 +9,6 @@ Consulted::Application.routes.draw do
 
   namespace :users do
     get :available, to: 'utilities#available'
+    get :profile, to: 'profile#profile'
   end
 end
