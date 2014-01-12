@@ -9,7 +9,7 @@ class User
   #
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :trackable, :validatable, :confirmable
 
   ## Database authenticatable
@@ -29,8 +29,27 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-  ## Lockable
-  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
-  # field :locked_at,       type: Time
+  ## Linkedin
+  field :provider
+  field :uid
+
+  embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
+
+  def connect_to_linkedin(auth)
+    self.provider = auth.provider
+    self.uid = auth.uid
+    self.user_linkedin_connection = User::LinkedinConnection.new(token: auth['extra']['access_token'].token, secret: auth['extra']['access_token'].secret)
+
+    unless save
+      return false
+    end
+    true
+  end
+
+  def disconnect_from_linkedin!
+    self.provider = nil
+    self.uid = nil
+    self.user_linkedin_connection = nil
+    save!
+  end
 end
