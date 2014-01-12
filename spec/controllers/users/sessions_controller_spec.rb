@@ -35,4 +35,14 @@ describe Users::SessionsController do
 
     expect(response.body).to eql({ success: false }.to_json)
   end
+
+  it 'allows the user to logout' do
+    user = User.create email: 'florian@consulted.co', password: 'tester', password_confirmation: 'tester'
+    sign_in user
+
+    expect(controller.current_user).to eql user
+
+    delete :destroy
+    expect(controller.current_user).to be_nil
+  end
 end
