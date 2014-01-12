@@ -2,8 +2,18 @@
   <div class="loading" ng-show="loading">
     <i class="fa fa-spinner fa-spin fa-2x"></i>
   </div>
-  <div class="error" ng-show="error" ng-hide="loading">
+  <div class="error" ng-show="error && !loading">
     <p><i class="fa fa-warning fa-2x"></i></p>
     <p>{{error}}</p>
+    <div ng-show="errors">
+      <ul>
+        <li ng-repeat="(field, texts) in errors">
+          <span ng-repeat="text in texts">
+            {{field}} {{text}}
+          </span>
+          <span ng-show="!$last">,</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

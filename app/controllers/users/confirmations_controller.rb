@@ -2,8 +2,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   respond_to :json
 
   # resend confirmation
-  def create
-    head :method_not_allowed
+  [:create, :new].each do |method|
+    define_method method do
+      head :method_not_allowed
+    end
   end
 
   # confirm user
