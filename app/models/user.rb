@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Omniauthable::Lookups
 
   field :name, type: String
   field :newsletter, type: Boolean
