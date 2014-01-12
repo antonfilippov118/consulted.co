@@ -1,0 +1,14 @@
+<div id="profile">
+  <h1 ng-show="!loading">Welcome, {{user.name}}!</h1>
+  <div error-loading></div>
+  <div>
+    <p>To be an expert, we have to check your contacts. You need at least <strong>1</strong> contact so that you may offer your time.</p>
+
+    <a ng-click="pullContacts()" class="btn btn-primary">Pull contact information now.</a>
+  </div>
+  <hr>
+  <div ng-hide="user.confirmed">
+    <p>It appears that you have not confirmed your account yet. Unless you do so, you cannot offer your time.</p>
+    <p>You can check your inbox for the confirmation email.</p>
+  </div>
+</div>

@@ -104,7 +104,20 @@ app.controller "CategoriesController", [
       scope.error = "There was an error loading the data."
     .finally () ->
       scope.loading = no
+]
 
+app.controller 'ProfileController', [
+  'User'
+  '$scope'
+  (user, scope) ->
+    scope.loading = yes
+    user.getProfile().then (user) ->
+      console.log user
+      scope.user = user
+    , (err) ->
+      scope.error = 'Your profile could not be loaded.'
+    .finally () ->
+      scope.loading = no
 ]
 
 app.controller "LegalController", [

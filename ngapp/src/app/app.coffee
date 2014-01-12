@@ -6,9 +6,32 @@ app = angular.module "consulted", [
 ]
 
 app.config [
-  "$locationProvider",
-  "$routeProvider",
-  (locationProvider, routeProvider) ->
+  "$locationProvider"
+  "$routeProvider"
+  "$httpProvider"
+  (locationProvider, routeProvider, httpProvider) ->
+
+    # use an interceptor to redirect to the login page
+    interceptor = [
+      '$location'
+      '$rootScope'
+      '$q'
+      (location, rootScope, q) ->
+        success = (response) ->
+          response
+
+        error = (response) ->
+          if response.status is 401
+            rootScope.$broadcast 'event:unauthorized'
+            location.path "/login"
+            return response
+          q.reject response
+
+        (promise) ->
+          promise.then success, error
+    ]
+
+    httpProvider.responseInterceptors.push interceptor
     locationProvider.hashPrefix "!"
 
     routeProvider
@@ -23,6 +46,9 @@ app.config [
       .when "/contact",
         controller: "ContactController"
         templateUrl: "views/contact.tpl.html"
+      .when "/profile",
+        controller: "ProfileController"
+        templateUrl: "views/profile.tpl.html"
       .otherwise redirectTo: "/"
 
     static_content = [

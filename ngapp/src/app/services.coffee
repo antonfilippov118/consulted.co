@@ -43,12 +43,21 @@ app.service "User", [
 
     login: (user) ->
       results = q.defer()
-      http.post("/login.json", {user: user}).then (data) ->
+      http.post("/users/sign_in", {user: user}).then (data) ->
         results.resolve data.status
       , (err) ->
         results.reject err
 
       results.promise
+
+    getProfile: () ->
+      user = q.defer()
+      http.get('/profile').then (response) ->
+        user.resolve response.data
+      , (err) ->
+        user.reject err
+
+      user.promise
 
     emailAvailable: (email) ->
       results = q.defer()
