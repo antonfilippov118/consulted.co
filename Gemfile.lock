@@ -140,6 +140,7 @@ GEM
     guard-rubocop (1.0.1)
       guard (~> 2.0)
       rubocop (~> 0.10)
+    hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.9)
     ice_nine (0.11.0)
@@ -177,6 +178,15 @@ GEM
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
     multi_json (1.8.2)
+    oauth (0.4.7)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-linkedin (0.1.0)
+      omniauth-oauth (~> 1.0)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     optionable (0.2.0)
     origin (1.1.0)
     orm_adapter (0.5.0)
@@ -368,6 +378,8 @@ DEPENDENCIES
   mongoid (~> 4.0.0.alpha1)
   mongoid-rspec
   mutant (~> 0.3.0)!
+  omniauth
+  omniauth-linkedin
   pry (>= 0.9.12.4)
   pry-rails
   rabl
