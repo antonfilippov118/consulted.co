@@ -8,8 +8,11 @@ Consulted::Application.routes.draw do
   }
   devise_for :users, controllers: controllers, only: controllers.keys
 
+  devise_scope :user do
+    get :profile, controller: 'users/profile', action: 'show'
+  end
+
   namespace :users do
     get :available, to: 'utilities#available'
-    get :profile, to: 'profile#profile'
   end
 end

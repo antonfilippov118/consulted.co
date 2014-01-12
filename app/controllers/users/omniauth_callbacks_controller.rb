@@ -7,13 +7,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def failure
+    redirect_to '/#!/signup'
+  end
+
   private
 
   def connect_via_linkedin
     if current_user.connect_to_linkedin request.env['omniauth.auth']
-      render json: { success: true }
+      redirect_to '/#!/profile'
     else
-      render json: { success: false }
+      redirect_to '/#!/signup'
     end
   end
 
@@ -25,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user, event: :authentication
       redirect_to '/#!/profile'
     else
-      render json: { success: false }
+      redirect_to '/#!/login'
     end
   end
 end

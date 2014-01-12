@@ -1,7 +1,8 @@
 class Users::ProfileController < Devise::SessionsController
   before_filter :authenticate!
+  skip_before_filter :authenticate_scope!, only: [:profile]
 
-  def profile
+  def show
     render json: { email: current_user.email, name: current_user.name, confirmed: current_user.confirmed? }
   end
 
