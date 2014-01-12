@@ -16,7 +16,7 @@ app.service "Experts", [
     getTestimonials: ->
       results = q.defer()
       http.get("/testimonials.json").then (data) ->
-        resultes.resolve data.testimonials
+        results.resolve data.testimonials
       , (err) ->
         results.reject err
 
@@ -34,7 +34,7 @@ app.service "User", [
 
     signup: (user) ->
       results = q.defer()
-      http.post("/signup.json", {user: user}).then (data) ->
+      http.post("/users", {user: user}).then (data) ->
         results.resolve data.status
       , (err) ->
         results.reject err
@@ -49,6 +49,19 @@ app.service "User", [
         results.reject err
 
       results.promise
+
+    emailAvailable: (email) ->
+      results = q.defer()
+      http.get("/users/available?email=#{email}").then (status) ->
+        results.resolve yes
+      , (err) ->
+        results.resolve no
+
+      results.promise
+
+
+
+
 
     linkedInLogin: () ->
       reject()
