@@ -104,7 +104,43 @@ app.controller "CategoriesController", [
       scope.error = "There was an error loading the data."
     .finally () ->
       scope.loading = no
+]
 
+app.controller 'ProfileController', [
+  'User'
+  '$scope'
+  (user, scope) ->
+    scope.loading = yes
+    user.getProfile().then (user) ->
+      scope.user = user
+    , (err) ->
+      scope.error = 'Your profile could not be loaded.'
+    .finally () ->
+      scope.loading = no
+
+    scope.pullContacts = () ->
+      scope.synching = yes
+      user.synchLinkedIn().then (user) ->
+        scope.user = user
+      , (err) ->
+        scope.synchError = yes
+      .finally ->
+        scope.synching = no
+
+    scope.canBeAnExpert = () ->
+      _user = scope.user
+      _user ||= {}
+      _user.confirmed && _user.linkedin_profile && _user.can_be_an_expert
+
+]
+
+app.controller 'NavigationController', [
+  '$scope'
+  'User'
+  (scope, user) ->
+    scope.logout = user.logout
+    scope.$on 'event:authchange', ->
+      scope.loggedIn = user.isLoggedIn()
 ]
 
 app.controller "LegalController", [

@@ -2,13 +2,20 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-group :tempalte do
+group :template do
   gem 'rabl'
 end
 
 gem 'bson_ext', platform: :ruby
 
 gem 'devise'
+
+gem "linkedin"
+
+group :authentication do
+  gem 'omniauth'
+  gem 'omniauth-linkedin'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

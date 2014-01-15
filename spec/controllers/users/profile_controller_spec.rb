@@ -11,14 +11,14 @@ describe Users::ProfileController do
     user.confirm!
     sign_in user
 
-    get :profile
+    get :show
 
     expect(response.success?).to be_true
     expect(response.status).to eql 200
   end
 
   it 'does not show the users data when signed out' do
-    get :profile
+    get :show
 
     expect(response.success?).to be_false
     expect(response.status).to eql 401
@@ -28,7 +28,7 @@ describe Users::ProfileController do
     user = User.create valid_params
     sign_in user
 
-    get :profile
+    get :show
 
     expect(response.success?).to be_true
     json_hash = JSON.parse response.body
