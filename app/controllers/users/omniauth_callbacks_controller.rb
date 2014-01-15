@@ -19,6 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       redirect_to '/#!/signup'
     end
+
   end
 
   def sign_in_via_linkedin
@@ -26,8 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user
       @user.connect_to_linkedin(request.env['omniauth.auth'])
-      sign_in @user, event: :authentication
-      redirect_to '/#!/profile'
+      sign_in_and_redirect @user, event: :authentication
     else
       redirect_to '/#!/login'
     end

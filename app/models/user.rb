@@ -33,6 +33,7 @@ class User
   ## Linkedin
   field :provider
   field :uid
+  field :linkedin_contacts, type: Integer, default: 0
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 

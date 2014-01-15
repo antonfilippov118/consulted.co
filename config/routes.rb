@@ -10,6 +10,7 @@ Consulted::Application.routes.draw do
 
   devise_scope :user do
     get :profile, controller: 'users/profile', action: 'show'
+    post :synch, controller: 'users/profile', action: 'synch_linkedin'
   end
 
   namespace :users do

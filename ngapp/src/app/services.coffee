@@ -23,14 +23,21 @@ app.service "Experts", [
       results.promise
 ]
 
-app.service "User", [
+app.factory "User", [
   "$http"
   "$q"
-  (http, q) ->
-    reject = () ->
-      results = q.defer()
-      results.reject()
-      results.promise
+  "$rootScope"
+  "$location"
+  (http, q, rootScope, location) ->
+
+    loggedIn = no
+    _user    = {}
+
+    rootScope.$on 'event:authchange', (scope, value) ->
+      loggedIn = value
+
+    rootScope.$on 'event:unauthorized', () ->
+      loggedIn = no
 
     signup: (user) ->
       results = q.defer()
@@ -45,15 +52,34 @@ app.service "User", [
       results = q.defer()
       http.post("/users/sign_in", {user: user}).then (data) ->
         results.resolve data.status
+        loggedIn = yes
       , (err) ->
         results.reject err
 
       results.promise
 
+    isLoggedIn: () ->
+      loggedIn
+
+    logout: () ->
+      result = q.defer()
+      http.delete('/users/sign_out').then (response) ->
+        result.resolve yes
+      , (err) ->
+        result.reject no
+      .finally ->
+        location.path "/"
+        rootScope.$broadcast 'event:authchange', no
+
+      result.promise
+
     getProfile: () ->
       user = q.defer()
       http.get('/profile').then (response) ->
+        _user = response.data
         user.resolve response.data
+
+        rootScope.$broadcast 'event:authchange', yes
       , (err) ->
         user.reject err
 
@@ -68,18 +94,14 @@ app.service "User", [
 
       results.promise
 
+    synchLinkedIn: () ->
+      results = q.defer()
+      http.post("/synch").then (response) ->
+        results.resolve response.data
+      , (err) ->
+        results.reject err
 
-
-
-
-    linkedInLogin: () ->
-      reject()
-
-    facebookLogin: () ->
-      reject()
-
-    googlePlusLogin: () ->
-      reject()
+      results.promise
 ]
 
 app.factory "Categories", [
