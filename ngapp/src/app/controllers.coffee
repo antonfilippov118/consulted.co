@@ -117,6 +117,17 @@ app.controller 'ProfileController', [
       scope.error = 'Your profile could not be loaded.'
     .finally () ->
       scope.loading = no
+
+    scope.pullContacts = () ->
+      scope.synching = yes
+      user.synchLinkedIn().then (user) ->
+        console.log user
+        scope.user = user
+      , (err) ->
+        scope.synchError = yes
+      .finally ->
+        scope.synching = no
+
 ]
 
 app.controller 'NavigationController', [
@@ -124,7 +135,8 @@ app.controller 'NavigationController', [
   'User'
   (scope, user) ->
     scope.logout = user.logout
-    scope.loggedIn = user.isLoggedIn()
+    scope.$on 'event:authchange', ->
+      scope.loggedIn = user.isLoggedIn()
 ]
 
 app.controller "LegalController", [

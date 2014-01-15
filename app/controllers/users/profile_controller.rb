@@ -3,7 +3,11 @@ class Users::ProfileController < Devise::SessionsController
   skip_before_filter :authenticate_scope!, only: [:profile]
 
   def show
-    render json: { email: current_user.email, name: current_user.name, confirmed: current_user.confirmed? }
+    show_user
+  end
+
+  def synch_linkedin
+    show_user
   end
 
   private
@@ -16,4 +20,13 @@ class Users::ProfileController < Devise::SessionsController
     render json: { error: 'Access denied!' }, status: 401
   end
 
+  def show_user
+    render json: {
+      email: current_user.email,
+      name: current_user.name,
+      confirmed: current_user.confirmed?,
+      linkedin_profile: current_user.provider == 'linkedin',
+      can_be_an_expert: current_user.linkedin_contacts >= 1
+    }
+  end
 end

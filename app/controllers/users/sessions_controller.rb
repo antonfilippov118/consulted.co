@@ -11,7 +11,11 @@ class Users::SessionsController < Devise::SessionsController
 
   [:new].each do |method|
     define_method method do
-      head :method_not_allowed
+      if current_user
+        redirect_to '/#!/profile'
+      else
+        redirect_to '/#!/login'
+      end
     end
   end
 end

@@ -26,9 +26,16 @@ app.service "Experts", [
 app.factory "User", [
   "$http"
   "$q"
-  (http, q) ->
+  "$rootScope"
+  "$location"
+  (http, q, rootScope, location) ->
 
     loggedIn = no
+
+    rootScope.$on 'event:authchange', (scope, value) ->
+      loggedIn = value
+    rootScope.$on 'event:unauthorized', () ->
+      loggedIn = no
 
     signup: (user) ->
       results = q.defer()
@@ -56,17 +63,19 @@ app.factory "User", [
       result = q.defer()
       http.delete('/users/sign_out').then (response) ->
         result.resolve yes
-        loggedIn = no
       , (err) ->
         result.reject no
+      .finally ->
+        location.path "/"
+        rootScope.$broadcast 'event:authchange', no
 
       result.promise
 
     getProfile: () ->
       user = q.defer()
       http.get('/profile').then (response) ->
-        loggedIn = yes
         user.resolve response.data
+        rootScope.$broadcast 'event:authchange', yes
       , (err) ->
         user.reject err
 
@@ -78,6 +87,15 @@ app.factory "User", [
         results.resolve yes
       , (err) ->
         results.resolve no
+
+      results.promise
+
+    synchLinkedIn: () ->
+      results = q.defer()
+      http.post("/synch").then (response) ->
+        results.resolve response.data
+      , (err) ->
+        results.reject err
 
       results.promise
 ]
