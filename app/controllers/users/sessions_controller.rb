@@ -6,12 +6,16 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def failure
-    render json: { success: false }, status: 401
+    render json: { success: false }, status: 400
   end
 
   [:new].each do |method|
     define_method method do
-      head :method_not_allowed
+      if current_user
+        redirect_to '/#!/profile'
+      else
+        redirect_to '/#!/login'
+      end
     end
   end
 end

@@ -8,8 +8,12 @@ Consulted::Application.routes.draw do
   }
   devise_for :users, controllers: controllers, only: controllers.keys
 
+  devise_scope :user do
+    get :profile, controller: 'users/profile', action: 'show'
+    post :synch, controller: 'users/profile', action: 'synch_linkedin'
+  end
+
   namespace :users do
     get :available, to: 'utilities#available'
-    get :profile, to: 'profile#profile'
   end
 end

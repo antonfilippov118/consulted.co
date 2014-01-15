@@ -44,6 +44,14 @@ app.directive "consultedExpertPreview", [
         scope.loading = no
 ]
 
+app.directive "navigation", [
+  () ->
+    replace: yes
+    scope: yes
+    templateUrl: 'views/navigation.tpl.html'
+    controller: 'NavigationController'
+]
+
 app.directive "consultedCategoryPreview", [
   "Categories",
   (categories) ->
