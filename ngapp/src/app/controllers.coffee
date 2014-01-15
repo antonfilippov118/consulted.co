@@ -121,12 +121,16 @@ app.controller 'ProfileController', [
     scope.pullContacts = () ->
       scope.synching = yes
       user.synchLinkedIn().then (user) ->
-        console.log user
         scope.user = user
       , (err) ->
         scope.synchError = yes
       .finally ->
         scope.synching = no
+
+    scope.canBeAnExpert = () ->
+      _user = scope.user
+      _user ||= {}
+      _user.confirmed && _user.linkedin_profile && _user.can_be_an_expert
 
 ]
 

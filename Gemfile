@@ -10,6 +10,8 @@ gem 'bson_ext', platform: :ruby
 
 gem 'devise'
 
+gem "linkedin"
+
 group :authentication do
   gem 'omniauth'
   gem 'omniauth-linkedin'

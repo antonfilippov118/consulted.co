@@ -31,9 +31,11 @@ app.factory "User", [
   (http, q, rootScope, location) ->
 
     loggedIn = no
+    _user    = {}
 
     rootScope.$on 'event:authchange', (scope, value) ->
       loggedIn = value
+
     rootScope.$on 'event:unauthorized', () ->
       loggedIn = no
 
@@ -74,7 +76,9 @@ app.factory "User", [
     getProfile: () ->
       user = q.defer()
       http.get('/profile').then (response) ->
+        _user = response.data
         user.resolve response.data
+
         rootScope.$broadcast 'event:authchange', yes
       , (err) ->
         user.reject err

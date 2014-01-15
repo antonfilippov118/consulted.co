@@ -1,11 +1,14 @@
 <div id="profile">
   <h1 ng-show="!loading">Welcome, {{user.name}}!</h1>
   <div error-loading></div>
-  <div ng-show="user.confirmed && user.linkedin_profile">
+  <div ng-show="canBeAnExpert()">
+    <p>Select an option from above.</p>
+  </div>
+  <div ng-show="!canBeAnExpert()">
     <p>To be an expert, we have to check your contacts. You need at least <strong>1</strong> contact so that you may offer your time.</p>
     <div>
       <a ng-click="pullContacts()" class="btn btn-primary">Pull contact information now.</a>
-      <i class="fa fa-spinner" ng-show="synching"></i>
+      <i class="fa fa-spinner fa-spin" ng-show="synching"></i>
       <p ng-show="synchError">We could not synchronize your profile. Sorry.</p>
     </div>
   </div>
