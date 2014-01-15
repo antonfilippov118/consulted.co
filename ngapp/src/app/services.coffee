@@ -23,14 +23,12 @@ app.service "Experts", [
       results.promise
 ]
 
-app.service "User", [
+app.factory "User", [
   "$http"
   "$q"
   (http, q) ->
-    reject = () ->
-      results = q.defer()
-      results.reject()
-      results.promise
+
+    loggedIn = no
 
     signup: (user) ->
       results = q.defer()
@@ -45,14 +43,29 @@ app.service "User", [
       results = q.defer()
       http.post("/users/sign_in", {user: user}).then (data) ->
         results.resolve data.status
+        loggedIn = yes
       , (err) ->
         results.reject err
 
       results.promise
 
+    isLoggedIn: () ->
+      loggedIn
+
+    logout: () ->
+      result = q.defer()
+      http.delete('/users/sign_out').then (response) ->
+        result.resolve yes
+        loggedIn = no
+      , (err) ->
+        result.reject no
+
+      result.promise
+
     getProfile: () ->
       user = q.defer()
       http.get('/profile').then (response) ->
+        loggedIn = yes
         user.resolve response.data
       , (err) ->
         user.reject err
@@ -67,19 +80,6 @@ app.service "User", [
         results.resolve no
 
       results.promise
-
-
-
-
-
-    linkedInLogin: () ->
-      reject()
-
-    facebookLogin: () ->
-      reject()
-
-    googlePlusLogin: () ->
-      reject()
 ]
 
 app.factory "Categories", [

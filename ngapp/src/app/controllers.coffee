@@ -112,12 +112,19 @@ app.controller 'ProfileController', [
   (user, scope) ->
     scope.loading = yes
     user.getProfile().then (user) ->
-      console.log user
       scope.user = user
     , (err) ->
       scope.error = 'Your profile could not be loaded.'
     .finally () ->
       scope.loading = no
+]
+
+app.controller 'NavigationController', [
+  '$scope'
+  'User'
+  (scope, user) ->
+    scope.logout = user.logout
+    scope.loggedIn = user.isLoggedIn()
 ]
 
 app.controller "LegalController", [
