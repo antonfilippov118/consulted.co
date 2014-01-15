@@ -1,33 +1,33 @@
 GIT
   remote: https://github.com/dkubb/yardstick.git
-  revision: 4d8a57f5a69d49a408d4d778aebcc5a52a25c07a
+  revision: 3d0b28f2044cb9e33353c962d3d8f833ed764045
   specs:
-    yardstick (0.9.7)
+    yardstick (0.9.9)
       yard (~> 0.8, >= 0.8.7.2)
 
 GIT
   remote: https://github.com/mbj/mutant.git
-  revision: 26a6b0a7eba9f215e94e879e6786225a8f737598
+  revision: 874ae9170954296d5a53cf300d15caa35b9d7dc7
   specs:
-    mutant (0.3.2)
+    mutant (0.3.5)
       abstract_type (~> 0.0.7)
       adamantium (~> 0.1)
-      anima (~> 0.1.1)
+      anima (~> 0.2.0)
       concord (~> 0.1.4)
       descendants_tracker (~> 0.0.1)
       equalizer (~> 0.0.7)
       ice_nine (~> 0.9)
       inflecto (~> 0.0.2)
-      parser (~> 2.1.0)
+      parser (~> 2.1.4)
       procto (~> 0.0.2)
       rspec (~> 2.14.1)
-      unparser (~> 0.1.6)
+      unparser (~> 0.1.8)
 
 GIT
   remote: https://github.com/mbj/unparser.git
-  revision: 9b237c1ea8d01672b9a224f6f9a29e03d251d5fc
+  revision: a605008c206ce9fd28099849c92ea257d94c8c26
   specs:
-    unparser (0.1.7)
+    unparser (0.1.9)
       abstract_type (~> 0.0.7)
       adamantium (~> 0.1)
       concord (~> 0.1.4)
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: https://github.com/rom-rb/devtools.git
-  revision: eafb8074efc2e35d17bbbee0a11f397ffd3f17fb
+  revision: d20eb8ea49d85386214f82b8b4cbef7bff9584bc
   specs:
     devtools (0.0.2)
 
@@ -72,10 +72,10 @@ GEM
     adamantium (0.1.0)
       ice_nine (~> 0.9)
       thread_safe (~> 0.1.2)
-    anima (0.1.1)
-      abstract_type (~> 0.0.6)
-      adamantium (~> 0.1.0)
-      equalizer (~> 0.0.7)
+    anima (0.2.0)
+      abstract_type (~> 0.0.7)
+      adamantium (~> 0.1)
+      equalizer (~> 0.0.8)
     arel (4.0.1)
     ast (1.1.0)
     atomic (1.1.14)
@@ -84,10 +84,20 @@ GEM
     bcrypt-ruby (3.1.2-java)
     blankslate (2.1.2.4)
     bouncy-castle-java (1.5.0147)
-    bson (2.0.0)
-    bson (2.0.0-java)
+    bson (2.1.1)
+    bson (2.1.1-java)
     bson_ext (1.5.1)
     builder (3.1.4)
+    capistrano (3.1.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.1)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2.0)
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
@@ -101,6 +111,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
+    daemons (1.1.9)
     descendants_tracker (0.0.3)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
@@ -109,11 +120,12 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docile (1.1.1)
+    docile (1.1.2)
     edn (1.0.0)
       parslet (~> 1.4.0)
     equalizer (0.0.9)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     ffi (1.9.3)
     ffi (1.9.3-java)
     ffi-hunspell (0.3.0)
@@ -134,8 +146,8 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
-    guard-rspec (4.2.0)
-      guard (>= 2.1.1)
+    guard-rspec (4.2.4)
+      guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
     guard-rubocop (1.0.1)
       guard (~> 2.0)
@@ -168,20 +180,23 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
-    mongoid (4.0.0.alpha1)
-      activemodel (~> 4.0.0)
-      moped (~> 2.0.beta4)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.37)
+    mongoid (4.0.0.alpha2)
+      activemodel (>= 4.0.0)
+      moped (~> 2.0.beta5)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
     mongoid-rspec (1.10.0)
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
-    moped (2.0.0.beta4)
-      bson (~> 2.0)
+    moped (2.0.0.beta5)
+      bson (~> 2.1)
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     oauth (0.4.7)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
@@ -192,9 +207,9 @@ GEM
       oauth
       omniauth (~> 1.0)
     optionable (0.2.0)
-    origin (1.1.0)
+    origin (2.1.0)
     orm_adapter (0.5.0)
-    parser (2.1.1)
+    parser (2.1.4)
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
     parslet (1.4.0)
@@ -215,7 +230,7 @@ GEM
       pry (>= 0.9.10)
     rabl (0.9.3)
       activesupport (>= 2.3.14)
-    racc (1.4.10)
+    racc (1.4.11)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -241,7 +256,7 @@ GEM
       ffi (>= 0.5.0)
     rb-notifu (0.0.4)
     rbench (0.2.3)
-    rdoc (3.12.2)
+    rdoc (4.1.1)
       json (~> 1.4)
     reek (1.3.6)
       ruby2ruby (~> 2.0.7)
@@ -272,15 +287,15 @@ GEM
     ruby2ruby (2.0.7)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
-    ruby_parser (3.2.2)
+    ruby_parser (3.3.0)
       sexp_processor (~> 4.1)
     rubysl-logger (2.0.0)
     rubysl-open-uri (2.0.0)
     rubysl-prettyprint (2.0.2)
     rubysl-singleton (2.0.0)
-    sdoc (0.3.20)
-      json (>= 1.1.3)
-      rdoc (~> 3.10)
+    sdoc (0.4.0)
+      json (~> 1.8)
+      rdoc (~> 4.0, < 5.0)
     sexp_processor (4.4.1)
     simplecov (0.8.2)
       docile (~> 1.1.0)
@@ -299,9 +314,17 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sshkit (1.3.0)
+      net-scp (>= 1.1.2)
+      net-ssh
+      term-ansicolor
     term-ansicolor (1.2.2)
       tins (~> 0.8)
     terminal-notifier-guard (1.5.3)
+    thin (1.6.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -364,6 +387,9 @@ PLATFORMS
 DEPENDENCIES
   bson
   bson_ext
+  capistrano
+  capistrano-bundler
+  capistrano-rvm
   coveralls (~> 0.7.0)
   devise
   devtools!
@@ -407,6 +433,7 @@ DEPENDENCIES
   sdoc
   simplecov (~> 0.8.2)
   terminal-notifier-guard (~> 1.5.3)
+  thin
   torquebox (= 3.0.1)
   torquebox-server (= 3.0.1)
   unparser (~> 0.1.5)!

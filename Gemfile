@@ -7,10 +7,14 @@ group :template do
 end
 
 gem 'bson_ext', platform: :ruby
-
 gem 'devise'
-
 gem "linkedin"
+
+group :deployment do
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+end
 
 group :authentication do
   gem 'omniauth'
@@ -112,3 +116,8 @@ platform :jruby do
   gem 'torquebox', '3.0.1'
   gem 'torquebox-server', '3.0.1'
 end
+
+platform :ruby do
+  gem 'thin'
+end
+
