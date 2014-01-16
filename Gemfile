@@ -8,7 +8,7 @@ end
 
 gem 'bson_ext', platform: :ruby
 gem 'devise'
-gem "linkedin"
+gem 'linkedin'
 
 group :deployment do
   gem 'capistrano'
@@ -120,4 +120,3 @@ end
 platform :ruby do
   gem 'thin'
 end
-

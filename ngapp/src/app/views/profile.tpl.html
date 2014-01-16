@@ -1,8 +1,8 @@
 <div id="profile">
-  <h1 ng-show="!loading">Welcome, {{user.name}}!</h1>
+  <h1 ng-show="!loading">Welcome<span ng-show="user.name"> {{user.name}}</span>!</h1>
   <div error-loading></div>
   <div ng-show="canBeAnExpert()">
-    <p>Select an option from above.</p>
+    <p>Select an option from above. You're eligible to be an expert, so go on ahead.</p>
   </div>
   <div ng-show="!canBeAnExpert()">
     <p>To be an expert, we have to check your contacts. You need at least <strong>1</strong> contact so that you may offer your time.</p>

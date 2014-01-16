@@ -38,21 +38,22 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-     on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :bundle, "exec thin restart -O -C config/thin.yml"
+        execute :bundle, 'exec thin restart -O -C config/thin.yml'
       end
     end
   end
 
   after :publishing, :restart
+  before :restart, 'rvm:hook'
 
   desc 'Copies assets from local compilation to current folder'
   task :copy_assets do
     file = 'assets.tar.gz'
     run_locally do
       execute 'cd ngapp && grunt && cd ..'
-      execute "tar cvzf --exclude='.DS_Store' #{file} public"
+      execute "tar cvzf #{file} public"
     end
 
     on roles(:app) do
@@ -63,7 +64,6 @@ namespace :deploy do
   end
 
   before :publishing, :copy_assets
-  before :restart, :bundler
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
