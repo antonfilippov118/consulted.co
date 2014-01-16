@@ -7,7 +7,7 @@ class Users::ProfileController < Devise::SessionsController
   end
 
   def synch_linkedin
-    SynchsLinkedinContacts.for current_user
+    SynchsLinkedin.for current_user
     show_user
   end
 
