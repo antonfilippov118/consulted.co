@@ -23,12 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def sign_in_via_linkedin
-    email = request.env['omniauth.auth']['info']['email']
-    begin
-      @user = User.find_by email: email
-    rescue => e
-      @user = User.find_for_linkedin_oauth(request.env['omniauth.auth'])
-    end
+    @user = find_user
 
     if @user
       @user.connect_to_linkedin(request.env['omniauth.auth'])
@@ -36,5 +31,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       redirect_to '/#!/login'
     end
+  end
+
+  def find_user
+    email = request.env['omniauth.auth']['info']['email']
+
+    begin
+      @user = User.find_by email: email
+    rescue
+      @user = User.find_for_linkedin_oauth(request.env['omniauth.auth'])
+    end
+    @user
   end
 end

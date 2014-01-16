@@ -3,7 +3,7 @@ class SynchsLinkedin
 
   def self.for(user)
     with(user: user).reduce [
-      SynchContactsAction
+      SynchContactsAction,
       SynchNameAction
     ]
   end
