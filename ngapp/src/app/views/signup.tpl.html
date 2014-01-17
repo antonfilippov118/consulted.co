@@ -11,7 +11,8 @@
       <div ng-switch on="type">
         <div ng-switch-when="success">
           <p>Thank you registering!</p>
-          <p>You can now log in - but be sure to check your email first.</p>
+          <p>Be sure to check your email for a confirmation.</p>
+          <a href="#!/profile" class="btn btn-primary">Continue to profile</a>
         </div>
         <div ng-switch-when="email" class="email">
           <p>Your email is never shared.</p>

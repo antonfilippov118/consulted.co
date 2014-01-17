@@ -2,13 +2,14 @@ app = angular.module "consulted.controllers", []
 
 app.controller "SignupController", [
   "$scope"
+  "$location"
   "User"
-  (scope, user) ->
+  (scope, location, user) ->
     scope.error = no
     scope.loading = no
     scope.user = {}
 
-    scope.type = "email"
+    scope.type = "profile"
 
     scope.signup = () ->
       return if scope.loading is yes
@@ -24,6 +25,8 @@ app.controller "SignupController", [
       .finally () ->
         scope.loading = no
 
+
+
     scope.switch = () ->
       if scope.type is "profile"
         scope.type = "email"
@@ -36,6 +39,7 @@ app.controller "LoginController", [
   "$location"
   "User"
   (scope, location, user) ->
+
     scope.error = no
 
     scope.user = {}

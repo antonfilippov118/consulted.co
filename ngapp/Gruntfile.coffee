@@ -107,10 +107,14 @@ module.exports = (grunt) ->
           expand: yes
         ]
     shell:
+      options:
+        stdout: no
       copy_rails:
-        options:
-          stdout: no
         command: "cp -r bin/ ../public/"
+      copy_rails_build:
+        command: "cp -r build/ ../public/"
+
+
 
     concat:
       build_css:
@@ -221,19 +225,19 @@ module.exports = (grunt) ->
           livereload: no
       coffeesrc:
         files: ["<%= app_files.coffee %>"]
-        tasks: ["coffeelint:src", "coffee:source", "karma:unit:run", "copy:build_appjs"]
+        tasks: ["coffeelint:src", "coffee:source", "karma:unit:run", "copy:build_appjs", "shell:copy_rails_build"]
       assets:
         files: ["src/assets/**/*"]
-        tasks: ["copy:build_assets"]
+        tasks: ["copy:build_assets", "shell:copy_rails_build"]
       html:
         files: ["<%= app_files.html %>"]
-        tasks: ["index:build"]
+        tasks: ["index:build", "shell:copy_rails_build"]
       tpls:
         files: ["<%= app_files.atpl %>", "<%= app_files.ctpl %>"]
-        tasks: ["html2js"]
+        tasks: ["html2js", "shell:copy_rails_build"]
       less:
         files: ["src/**/*.less"]
-        tasks: ["recess:build"]
+        tasks: ["recess:build", "shell:copy_rails_build"]
       coffeeunit:
         files: ["<%= app_files.coffeeunit %>"]
         tasks: ["coffeelint:test", "karma:unit:run"]

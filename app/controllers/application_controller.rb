@@ -6,10 +6,24 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
 
   def after_sign_in_path_for(resource)
-    '/#!/profile'
+    profile
+  end
+
+  def after_sign_in_path_for(resource)
+    profile
   end
 
   def after_sign_out_path_for(resource)
+    root
+  end
+
+  private
+
+  def profile
+    '/#!/profile'
+  end
+
+  def root
     '/#!/'
   end
 end
