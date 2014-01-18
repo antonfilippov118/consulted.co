@@ -3,7 +3,7 @@
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
 
-  default from: 'system@consulted.co', reply_to: "support@consulted.co"
+  default from: 'system@consulted.co', reply_to: 'support@consulted.co'
 
   def confirmation_instructions(record, token, opts = {})
     @token = token

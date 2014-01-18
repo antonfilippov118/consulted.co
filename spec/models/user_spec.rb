@@ -18,4 +18,10 @@ describe User do
       User.new.newsletter = true
     end.not_to raise_error
   end
+
+  context 'being an expert' do
+    it 'needs to be confirmed' do
+      expect(User.new.can_be_an_expert?).to be_false
+    end
+  end
 end
