@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Omniauthable::Lookups
+  include Omniauthable::Linkedin
 
   field :name, type: String
   field :newsletter, type: Boolean
@@ -37,21 +38,7 @@ class User
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 
-  def connect_to_linkedin(auth)
-    self.provider = auth.provider
-    self.uid = auth.uid
-    self.user_linkedin_connection = User::LinkedinConnection.new(token: auth['extra']['access_token'].token, secret: auth['extra']['access_token'].secret)
-
-    unless save
-      return false
-    end
-    true
-  end
-
-  def disconnect_from_linkedin!
-    self.provider = nil
-    self.uid = nil
-    self.user_linkedin_connection = nil
-    save!
+  def can_be_an_expert?
+    false
   end
 end

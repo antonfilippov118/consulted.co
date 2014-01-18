@@ -15,4 +15,24 @@ module Omniauthable
       end
     end
   end
+
+  module Linkedin
+    def connect_to_linkedin(auth)
+      self.provider = auth.provider
+      self.uid = auth.uid
+      self.user_linkedin_connection = User::LinkedinConnection.new(token: auth['extra']['access_token'].token, secret: auth['extra']['access_token'].secret)
+
+      unless save
+        return false
+      end
+      true
+    end
+
+    def disconnect_from_linkedin!
+      self.provider = nil
+      self.uid = nil
+      self.user_linkedin_connection = nil
+      save!
+    end
+  end
 end
