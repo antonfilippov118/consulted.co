@@ -23,5 +23,10 @@ describe User do
     it 'needs to be confirmed' do
       expect(User.new.can_be_an_expert?).to be_false
     end
+
+    it 'need to have at least 1 network contact in Linkedin' do
+      user = User.new linkedin_network: 1
+      expect(user.can_be_an_expert?).to be_true
+    end
   end
 end

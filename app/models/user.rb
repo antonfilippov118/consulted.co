@@ -34,11 +34,11 @@ class User
   ## Linkedin
   field :provider
   field :uid
-  field :linkedin_contacts, type: Integer, default: 0
+  field :linkedin_network, type: Integer, default: 0
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 
   def can_be_an_expert?
-    false
+    linkedin_network >= 1
   end
 end
