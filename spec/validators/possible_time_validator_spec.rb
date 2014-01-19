@@ -2,15 +2,28 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PossibleTimeValidator do
   let(:validator) { PossibleTimeValidator.new }
+
   before(:all) do
     User.delete_all
   end
 
   it 'should pass users without times scheduled' do
-    validator.validate user
-
-    expect(user.valid?).to be_true
+    expect(validator.validate user).to be_true
   end
+
+  context 'checking for maximum times' do
+    let(:validator) { PossibleTimeValidator::CountValidator.new }
+
+    it 'should fail users with too many times' do
+      _user = user
+      50.times do |number|
+        _user.possible_times << PossibleTime.new(length: 90)
+      end
+
+      expect(validator.validate user).to be_false
+    end
+  end
+
 
   def user
     User.new valid_params
