@@ -1,17 +1,10 @@
 <div id="profile">
   <h1 ng-show="!loading">Welcome<span ng-show="user.name"> {{user.name}}</span>!</h1>
   <div error-loading></div>
-  <div ng-show="canBeAnExpert()">
+  <div ng-show="user.can_be_an_expert">
     <p>Select an option from above. You're eligible to be an expert, so go on ahead.</p>
   </div>
-  <div ng-show="!canBeAnExpert()">
-    <p>To be an expert, we have to check your. You need at least <strong>1</strong> contact so that you may offer your time.</p>
-    <p ng-hide="user.confirmed">You should also confirm your account.</p>
-    <div>
-      <a ng-click="pullContacts()" class="btn btn-primary">Pull contact information now.</a>
-      <i class="fa fa-spinner fa-spin" ng-show="synching"></i>
-      <p ng-show="synchError">We could not synchronize your profile. Sorry.</p>
-    </div>
-  </div>
+  <div ng-hide="user.can_be_an_expert">
+    Go check your settings, please.
   <hr>
 </div>

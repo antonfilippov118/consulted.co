@@ -5,6 +5,7 @@ class User
 
   field :name, type: String
   field :newsletter, type: Boolean
+  field :reminder_time, type: Integer
 
   #
   # Devise
@@ -34,11 +35,16 @@ class User
   ## Linkedin
   field :provider
   field :uid
-  field :linkedin_contacts, type: Integer, default: 0
+  field :linkedin_network, type: Integer, default: 0
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 
   def can_be_an_expert?
-    false
+    return false unless confirmed?
+    linkedin_network >= 1
+  end
+
+  def linkedin?
+    provider == 'linkedin'
   end
 end

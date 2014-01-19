@@ -49,6 +49,9 @@ app.config [
       .when "/profile",
         controller: "ProfileController"
         templateUrl: "views/profile.tpl.html"
+      .when "/profile/settings",
+        controller: "SettingsController"
+        templateUrl: "views/settings.tpl.html"
       .otherwise redirectTo: "/"
 
     static_content = [
