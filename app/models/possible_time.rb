@@ -5,6 +5,7 @@ class PossibleTime
   field :length, type: Integer
 
   validate :period_possible?
+  validates_presence_of :user_id
 
   private
 
