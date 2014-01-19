@@ -6,4 +6,8 @@ describe Group do
       Group.new.name = 'Foo'
     end.not_to raise_error
   end
+
+  it do
+    should embed_many :categories
+  end
 end
