@@ -17,6 +17,12 @@
       <p ng-hide="user.linkedin">
         <i class="fa fa-minus-circle invalid"></i> You need to connect your profile to Linkedin!
       </p>
+      <p ng-show="user.linkedin && user.confirmed && !user.can_be_an_expert">
+        We need to verify you network, as you currently need to have <strong>1</strong> contact.<br>
+        <a ng-click="pullContacts()" class="btn btn-primary">Pull contact information</a>
+        <span ng-show="synching"><i class="fa fa-spinner fa-spinning"></i></span>
+      </p>
+
     </div>
     <div>
       <h3>PayPal</h3>

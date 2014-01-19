@@ -5,6 +5,7 @@ class User
 
   field :name, type: String
   field :newsletter, type: Boolean
+  field :reminder_time, type: Integer
 
   #
   # Devise

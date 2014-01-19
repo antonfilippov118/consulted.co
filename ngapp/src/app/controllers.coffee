@@ -76,7 +76,7 @@ app.controller "SettingsController", [
   '$scope'
   'User'
   '$timeout'
-  (scope, User) ->
+  (scope, User, $timeout) ->
     scope.loading = yes
     User.getProfile().then (user) ->
       scope.user = user
@@ -86,23 +86,25 @@ app.controller "SettingsController", [
       scope.loading = no
 
     scope.saveTime = () ->
+      hide = () ->
+        $timeout () ->
+          scope.saved = no
+          scope.err = no
+        , 2000
       User.saveProfile(scope.user).then (result) ->
         scope.saved = yes
       , (err) ->
         scope.err = yes
-      .finally () ->
-        $timeout () ->
-          scope.saved = no
-          scope.err = no
-        , 1000
+      .finally hide
 
-
-
-
-
-
-
-
+    scope.pullContacts = () ->
+      scope.synching = yes
+      User.synchLinkedIn().then (user) ->
+        scope.user = user
+      , (err) ->
+        scope.synchError = yes
+      .finally ->
+        scope.synching = no
 
 ]
 
@@ -155,21 +157,6 @@ app.controller 'ProfileController', [
       scope.error = 'Your profile could not be loaded.'
     .finally () ->
       scope.loading = no
-
-    scope.pullContacts = () ->
-      scope.synching = yes
-      user.synchLinkedIn().then (user) ->
-        scope.user = user
-      , (err) ->
-        scope.synchError = yes
-      .finally ->
-        scope.synching = no
-
-    scope.canBeAnExpert = () ->
-      _user = scope.user
-      _user ||= {}
-      _user.confirmed && _user.linkedin_profile && _user.can_be_an_expert
-
 ]
 
 app.controller 'NavigationController', [

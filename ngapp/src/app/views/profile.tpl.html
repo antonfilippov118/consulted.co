@@ -1,10 +1,10 @@
 <div id="profile">
   <h1 ng-show="!loading">Welcome<span ng-show="user.name"> {{user.name}}</span>!</h1>
   <div error-loading></div>
-  <div ng-show="canBeAnExpert()">
+  <div ng-show="user.can_be_an_expert">
     <p>Select an option from above. You're eligible to be an expert, so go on ahead.</p>
   </div>
-  <div ng-show="!canBeAnExpert()">
+  <div ng-hide="user.can_be_an_expert">
     Go check your settings, please.
   <hr>
 </div>

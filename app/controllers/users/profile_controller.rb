@@ -32,7 +32,8 @@ class Users::ProfileController < Devise::SessionsController
       name: current_user.name,
       confirmed: current_user.confirmed?,
       linkedin: current_user.linkedin?,
-      can_be_an_expert: current_user.can_be_an_expert?
+      can_be_an_expert: current_user.can_be_an_expert?,
+      reminder_time: current_user.reminder_time
     }
   end
 
