@@ -39,7 +39,6 @@ describe Users::ProfileController do
     end
   end
 
-
   context 'updating data' do
     it 'updates the user object' do
       user = User.create valid_params
@@ -47,7 +46,7 @@ describe Users::ProfileController do
 
       patch :update, name: 'Flori'
 
-      expect(user.name).to equal('Flori')
+      expect(User.first.name).to eql('Flori')
     end
   end
 

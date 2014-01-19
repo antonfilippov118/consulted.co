@@ -11,6 +11,11 @@ class Users::ProfileController < Devise::SessionsController
     show_user
   end
 
+  def update
+    current_user.update_attributes update_params
+    render json: { success: true }, status: 200
+  end
+
   private
 
   def authenticate!
@@ -29,5 +34,9 @@ class Users::ProfileController < Devise::SessionsController
       linkedin: current_user.linkedin?,
       can_be_an_expert: current_user.can_be_an_expert?
     }
+  end
+
+  def update_params
+    params.permit [:name, :newsletter, :email, :reminder_time]
   end
 end
