@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PossibleTime do
 
+  before(:all) do
+    User.delete_all
+  end
+
   context 'creation' do
     it 'should belong to a user' do
       should belong_to(:user)
@@ -13,10 +17,22 @@ describe PossibleTime do
       end.not_to raise_error
     end
 
-    it 'has a weekday' do
-      expect do
-        PossibleTime.new.weekday = PossibleTime::Monday
-      end.not_to raise_error
+    %w{Monday Tuesday Wednesday Thursday Friday Saturday Sunday}.each_with_index do |day, index|
+      it "allows #{day} as a value for a weekday" do
+        time = PossibleTime.new
+        time.weekday = index
+        time.user = User.create name: 'Florian'
+        time.length = 90
+        expect(time.valid?).to be_true
+      end
+    end
+
+    it 'should not allow any day outside the week' do
+      time = PossibleTime.new
+      time.user = User.create name: 'florian'
+      time.length = 90
+      time.weekday = 18
+      expect(time.valid?).to be_false
     end
   end
 
