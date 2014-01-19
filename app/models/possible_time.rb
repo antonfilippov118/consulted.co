@@ -2,8 +2,8 @@ class PossibleTime
   include Mongoid::Document
   belongs_to :user
 
-  field :length, type: Integer
-  field :weekday
+  field :length, type: Integer, default: 60
+  field :weekday, type: Integer, default: 0
 
   validate :length_possible?
   validate :weekday_possible?
@@ -18,6 +18,12 @@ class PossibleTime
   def length_possible?
     unless lengths_possible.include? length
       errors.add :length, 'is not a possible value'
+    end
+  end
+
+  def weekday_possible?
+    if possible_weekdays[weekday].nil?
+      errors.add :weekday, 'is not a possible value'
     end
   end
 
