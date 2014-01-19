@@ -72,6 +72,40 @@ app.controller "LoginController", [
         scope.loggingIn = no
 ]
 
+app.controller "SettingsController", [
+  '$scope'
+  'User'
+  '$timeout'
+  (scope, User) ->
+    scope.loading = yes
+    User.getProfile().then (user) ->
+      scope.user = user
+    , (err) ->
+      scope.error = yes
+    .finally () ->
+      scope.loading = no
+
+    scope.saveTime = () ->
+      User.saveProfile(scope.user).then (result) ->
+        scope.saved = yes
+      , (err) ->
+        scope.err = yes
+      .finally () ->
+        $timeout () ->
+          scope.saved = no
+          scope.err = no
+        , 1000
+
+
+
+
+
+
+
+
+
+]
+
 app.controller "ContactController", [
   "$scope"
   "Contact"

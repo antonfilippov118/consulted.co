@@ -42,4 +42,8 @@ class User
     return false unless confirmed?
     linkedin_network >= 1
   end
+
+  def linkedin?
+    provider == 'linkedin'
+  end
 end

@@ -85,6 +85,15 @@ app.factory "User", [
 
       user.promise
 
+    saveProfile: (user) ->
+      result = q.defer()
+      http(method: 'PATCH', url: '/profile', data: user).then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+
+      result.promise
+
     emailAvailable: (email) ->
       results = q.defer()
       http.get("/users/available?email=#{email}").then (status) ->

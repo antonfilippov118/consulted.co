@@ -26,7 +26,7 @@ class Users::ProfileController < Devise::SessionsController
       email: current_user.email,
       name: current_user.name,
       confirmed: current_user.confirmed?,
-      linkedin_profile: current_user.provider == 'linkedin',
+      linkedin: current_user.linkedin?,
       can_be_an_expert: current_user.can_be_an_expert?
     }
   end
