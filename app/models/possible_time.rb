@@ -3,6 +3,7 @@ class PossibleTime
   belongs_to :user
 
   field :length, type: Integer
+  field :weekday, type: Integer
 
   validate :period_possible?
   validates_presence_of :user_id
@@ -17,5 +18,8 @@ class PossibleTime
     unless possible_periods.include? length
       errors.add :time, 'is not a possible value'
     end
+  end
+
+  class Monday
   end
 end
