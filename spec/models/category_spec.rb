@@ -7,5 +7,11 @@ describe Category do
         Category.new.name = 'Foo'
       end.not_to raise_error
     end
+
+    it 'should have a readable name' do
+      category = Category.new
+      category.name = 'Foo'
+      expect(category.name).to eql('Foo')
+    end
   end
 end

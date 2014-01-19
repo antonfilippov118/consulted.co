@@ -1,3 +1,4 @@
 class Category
-  attr_writer :name
+  include Mongoid::Document
+  field :name, type: String
 end
