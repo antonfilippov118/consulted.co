@@ -1,0 +1,3 @@
+class PossibleTimeValidator
+
+end
