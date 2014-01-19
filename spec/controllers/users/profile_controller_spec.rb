@@ -48,6 +48,13 @@ describe Users::ProfileController do
 
       expect(User.first.name).to eql('Flori')
     end
+
+    it 'does not update the user object without permission' do
+      User.create valid_params
+      patch :update, name: 'Florian'
+
+      expect(response.success?).to be_false
+    end
   end
 
   def valid_params
