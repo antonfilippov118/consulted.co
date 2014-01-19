@@ -37,7 +37,6 @@ describe PossibleTime do
   end
 
   context 'validation' do
-
     it 'should only allow specific lengths' do
       time = PossibleTime.new
       time.length = 90
@@ -57,10 +56,5 @@ describe PossibleTime do
       time.length = 30
       expect(time.valid?).to be_false
     end
-
-    it 'should check against other times' do
-
-    end
   end
-
 end
