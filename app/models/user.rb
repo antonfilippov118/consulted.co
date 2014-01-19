@@ -39,6 +39,7 @@ class User
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 
   def can_be_an_expert?
+    return false unless confirmed?
     linkedin_network >= 1
   end
 end

@@ -20,13 +20,22 @@ describe User do
   end
 
   context 'being an expert' do
-    it 'needs to be confirmed' do
+    before(:all) do
+      User.delete_all
+    end
+    it 'should not be an expert right away' do
       expect(User.new.can_be_an_expert?).to be_false
     end
 
-    it 'need to have at least 1 network contact in Linkedin' do
-      user = User.new linkedin_network: 1
+    it 'needs to have at least 1 network contact in Linkedin' do
+      user = User.create name: 'Florian', password: 'tester', password_confirmation: 'tester', linkedin_network: 1, confirmation_sent_at: Time.now
+      user.confirm!
       expect(user.can_be_an_expert?).to be_true
+    end
+
+    it 'should be confirmed' do
+      user = User.create name: 'Florian', password: 'tester', password_confirmation: 'tester', linkedin_network: 1
+      expect(user.can_be_an_expert?).to be_false
     end
   end
 end
