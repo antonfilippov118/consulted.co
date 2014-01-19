@@ -10,4 +10,16 @@ describe PossibleTime do
       PossibleTime.new.length = 120
     end.not_to raise_error
   end
+
+  it 'only allows specific lengths' do
+    time = PossibleTime.new
+    time.length = 90
+
+    expect(time.valid?).to be_true
+
+    time = PossibleTime.new
+    time.length = 117
+
+    expect(time.valid?).to be_false
+  end
 end
