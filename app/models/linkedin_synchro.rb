@@ -14,7 +14,7 @@ class LinkedinSynchro
   def self.synch_contacts(user)
     client = authorize user
 
-    user.linkedin_contacts = client.connections['total']
+    user.linkedin_network = client.connections['total']
     user.save
   end
 

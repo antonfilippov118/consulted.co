@@ -1,0 +1,38 @@
+<div id="settings">
+  <div error-loading></div>
+  <div ng-show="!error && !loading">
+    <h1>Settings</h1>
+    <div>
+      <h3>Your Email address <span></span></h3>
+      <input type="email" ng-model="user.email">
+      <i ng-hide="user.confirmed" class="fa fa-minus-circle invalid"></i>
+      <i ng-show="user.confirmed" class="fa fa-check valid"></i>
+      <p ng-hide="user.confirmed">We need a confirmed email address so that we can send you meeting updates.</p>
+    </div>
+    <div>
+      <h3>Linkedin</h3>
+      <p ng-show="user.linkedin">
+        <i class="fa fa-check valid"></i> Connected to linkedin!
+      </p>
+      <p ng-hide="user.linkedin">
+        <i class="fa fa-minus-circle invalid"></i> You need to connect your profile to Linkedin!
+      </p>
+    </div>
+    <div>
+      <h3>PayPal</h3>
+      <p>Not yet implemented.</p>
+    </div>
+    <div>
+      <h3>Meeting Reminder</h3>
+      <p>
+        Remind me <input type="number" ng-change="saveTime()" ng-model="user.reminder_time"> minutes before the call.
+      </p>
+      <span ng-show="saved"><i class="fa fa-check valid"></i> Saved!</span>
+      <span ng-show="err"><i class="fa fa-minus-circle invalid"></i> Not saved!</span>
+    </div>
+    <div>
+      <h3>Timezone</h3>
+      <p>not yet implemented.</p>
+    </div>
+  </div>
+</div>
