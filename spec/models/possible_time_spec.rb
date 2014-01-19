@@ -12,6 +12,12 @@ describe PossibleTime do
         PossibleTime.new.length = 120
       end.not_to raise_error
     end
+
+    it 'has a weekday' do
+      expect do
+        PossibleTime.new.weekday = PossibleTime::Monday
+      end.not_to raise_error
+    end
   end
 
   context 'validation' do
