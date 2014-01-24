@@ -1,8 +1,8 @@
 class PossibleTimeValidator < ActiveModel::Validator
   def validate(time)
     return false if time.user.nil?
-    ExpertValidator.validate time
-    CountValidator.validate time
+    return false if ExpertValidator.validate time
+    return false if CountValidator.validate time
     IntervalValidator.validate time
   end
 
@@ -73,8 +73,8 @@ class PossibleTimeValidator < ActiveModel::Validator
   end
 
   class IntervalValidator
-    def self.validate(time)
-      return false if conflicting_times_for time
+    def self.validate(time, log = false)
+      return false if conflicting_times_for time, log
       true
     end
 
@@ -82,9 +82,26 @@ class PossibleTimeValidator < ActiveModel::Validator
 
     # TODO: This is an insufficient check
     # It does not cover containing case, e.g. where one time contains the other
-    def self.conflicting_times_for(time)
-      ends = time.starts + time.length.minutes
-      PossibleTime.for_user(time.user).where(starts: (time.starts..ends)).exists?
+    def self.conflicting_times_for(time, log = false)
+      conflicting = false
+      times_to_check_for(time).each do |_time|
+        conflicting = !(_time.starts.._time.ends).intersection(time.starts..time.ends).nil?
+      end
+      conflicting
+    end
+
+    def self.times_to_check_for(time)
+      times_today     = PossibleTime.for_user(time.user).on(time.weekday).in_week(time.week_of_year)
+      times_recurring = PossibleTime.for_user(time.user).on(time.weekday).recurring
+      (times_today + times_recurring).uniq
     end
   end
+end
+
+class Range
+  def intersection(other)
+    return nil if max < other.begin || other.max < self.begin
+    [self.begin, other.begin].max..[max, other.max].min
+  end
+  alias_method :&, :intersection
 end

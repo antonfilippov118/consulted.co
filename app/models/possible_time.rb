@@ -20,6 +20,10 @@ class PossibleTime
 
   validates_with PossibleTimeValidator
 
+  def ends
+    starts + length.minutes
+  end
+
   private
 
   def length_possible?
