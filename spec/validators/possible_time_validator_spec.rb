@@ -22,11 +22,24 @@ describe PossibleTimeValidator do
 
     it 'should fail users with too many times' do
       _user = user
+      _user.confirm!
+
       50.times do |number|
         _user.possible_times << PossibleTime.new(length: 90)
       end
 
       expect(validator.validate user).to be_false
+    end
+
+    it 'should pass users with the maximum amount of times' do
+      _user = user
+      _user.confirm!
+
+      10.times do |number|
+        _user.possible_times << PossibleTime.new(length: 60)
+      end
+
+      expect(validator.validate user).to be_true
     end
   end
 
