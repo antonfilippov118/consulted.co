@@ -5,7 +5,16 @@ class PossibleTimeValidator
 
   class CountValidator
     def validate(user)
-      false
+      if user.possible_times.count > maximum
+        return false
+      else
+        return true
+      end
+    end
+
+    # TODO: make this configurable
+    def maximum
+      10
     end
   end
 end
