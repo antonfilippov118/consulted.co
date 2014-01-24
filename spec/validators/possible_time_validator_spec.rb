@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PossibleTimeValidator do
-  let(:validator) { PossibleTimeValidator.new }
-
   before(:each) do
     User.delete_all
   end
@@ -41,8 +39,7 @@ describe PossibleTimeValidator do
       end
     end
 
-    context 'day based checks' do
-
+    context 'using day based checks' do
       it 'should check against the maximum minutes of a day' do
         time = PossibleTime.new length: 120, user: expert_user
 
@@ -69,7 +66,20 @@ describe PossibleTimeValidator do
   end
 
   context 'checking intervals' do
+    let(:validator) { PossibleTimeValidator::IntervalValidator }
 
+    it 'should dismiss conflicting intervals' do
+      PossibleTime.create length: 90, user: expert_user, starts: 1.hour.ago
+
+      time = PossibleTime.create length: 60, user: expert_user, starts: Time.now
+      expect(validator.validate time).to be_false
+    end
+
+    it 'should allow non-conflicting intervals' do
+      PossibleTime.create length: 90, user: expert_user, starts: 3.hours.ago
+      time = PossibleTime.create length: 60, user: expert_user, starts: Time.now
+      expect(validator.validate time).to be_true
+    end
   end
 
   def user

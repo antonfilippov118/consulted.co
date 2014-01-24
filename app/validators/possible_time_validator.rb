@@ -3,6 +3,7 @@ class PossibleTimeValidator < ActiveModel::Validator
     return false if time.user.nil?
     ExpertValidator.validate time
     CountValidator.validate time
+    IntervalValidator.validate time
   end
 
   class ExpertValidator
@@ -69,6 +70,11 @@ class PossibleTimeValidator < ActiveModel::Validator
     def self.maximum_minutes_per_day
       1440
     end
+  end
 
+  class IntervalValidator
+    def self.validate(time)
+      false
+    end
   end
 end
