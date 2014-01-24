@@ -6,6 +6,7 @@ class PossibleTime
   field :weekday, type: Integer, default: 0
   field :week_of_year, type: Integer, default: proc { current_week_number }
   field :recurring, type: Boolean, default: false
+  field :starts, type: DateTime, default: DateTime.now
 
   scope :recurring, -> { where recurring: true }
   scope :for_user, -> (user) { where user: user }
