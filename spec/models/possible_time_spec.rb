@@ -21,7 +21,7 @@ describe PossibleTime do
       it "allows #{day} as a value for a weekday" do
         time = PossibleTime.new
         time.weekday = index
-        time.user = User.create name: 'Florian'
+        time.user = user
         time.length = 90
         expect(time.valid?).to be_true
       end
@@ -57,12 +57,12 @@ describe PossibleTime do
     it 'should only allow specific lengths' do
       time = PossibleTime.new
       time.length = 90
+      time.user = user
 
-      time.user = User.create name: 'Florian'
       expect(time.valid?).to be_true
 
       time = PossibleTime.new
-      time.user = User.create name: 'Florian'
+      time.user = user
       time.length = 117
 
       expect(time.valid?).to be_false
@@ -73,5 +73,11 @@ describe PossibleTime do
       time.length = 30
       expect(time.valid?).to be_false
     end
+  end
+
+  def user
+    _user = User.create name: 'Florian', confirmation_sent_at: Time.now
+    _user.confirm!
+    _user
   end
 end

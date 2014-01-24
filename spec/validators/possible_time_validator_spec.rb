@@ -7,35 +7,27 @@ describe PossibleTimeValidator do
     User.delete_all
   end
 
-  it 'should pass users without times scheduled' do
-    expect(validator.validate confirmed_user).to be_true
-  end
+  context 'checking user' do
+    let(:validator) { PossibleTimeValidator::ExpertValidator }
 
-  it 'should fail unconfirmed users' do
-    expect(validator.validate user).to be_false
-  end
-
-  context 'checking for maximum times' do
-    let(:validator) { PossibleTimeValidator::CountValidator.new }
-
-    it 'should fail users with too many times' do
-      user = confirmed_user
-      50.times do |number|
-        user.possible_times << PossibleTime.new(length: 90)
-      end
-
-      expect(validator.validate user).to be_false
+    it 'should not pass times without a confirmed user' do
+      time = PossibleTime.new(length: 90, user: user)
+      expect(validator.validate time).to be_false
     end
 
-    it 'should pass users with the maximum amount of times' do
-      user = confirmed_user
-
-      10.times do |number|
-        user.possible_times << PossibleTime.new(length: 60)
-      end
-
-      expect(validator.validate user).to be_true
+    it 'should not pass users who cannot be experts' do
+      time = PossibleTime.new length: 90, user: confirmed_user
+      expect(validator.validate time).to be_false
     end
+
+    it 'should pass users who are experts' do
+      time = PossibleTime.new length: 120, user: expert_user
+      expect(validator.validate time).to be_true
+    end
+  end
+
+  context 'checking for maximum times in one week' do
+    let(:validator) { PossibleTimeValidator::CountValidator }
   end
 
   def user
@@ -44,7 +36,16 @@ describe PossibleTimeValidator do
 
   def confirmed_user
     _user = user
+    _user.save
     _user.confirm!
+    _user
+  end
+
+  def expert_user
+    _user = user
+    _user.confirm!
+    _user.linkedin_network = 10
+    _user.save
     _user
   end
 

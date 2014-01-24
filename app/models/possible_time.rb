@@ -12,6 +12,8 @@ class PossibleTime
   validate :week_of_year_possible?
   validates_presence_of :user_id
 
+  validates_with PossibleTimeValidator
+
   private
 
   def length_possible?
