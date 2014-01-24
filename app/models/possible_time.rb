@@ -4,6 +4,7 @@ class PossibleTime
 
   field :length, type: Integer, default: 60
   field :weekday, type: Integer, default: 0
+  field :week_of_year, type: Integer, default: proc { current_week_number }
 
   validate :length_possible?
   validate :weekday_possible?
@@ -29,5 +30,9 @@ class PossibleTime
 
   def possible_weekdays
     %w{Monday Tuesday Wednesday Thursday Friday Saturday Sunday}
+  end
+
+  def current_week_number
+    Time.now.strftime('%W').to_i
   end
 end
