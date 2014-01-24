@@ -112,6 +112,7 @@ GEM
       term-ansicolor
       thor
     daemons (1.1.9)
+    database_cleaner (1.2.0)
     descendants_tracker (0.0.3)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
@@ -391,6 +392,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rvm
   coveralls (~> 0.7.0)
+  database_cleaner
   devise
   devtools!
   flay (~> 2.4.0)
