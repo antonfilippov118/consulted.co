@@ -34,6 +34,12 @@ describe PossibleTime do
       time.weekday = 18
       expect(time.valid?).to be_false
     end
+
+    it 'should have a week number' do
+      expect do
+        PossibleTime.new.week_number = 0
+      end
+    end
   end
 
   context 'validation' do
