@@ -1,6 +1,6 @@
 class PossibleTimeValidator
   def validate(user)
-    true
+    user.confirmed?
   end
 
   class CountValidator
