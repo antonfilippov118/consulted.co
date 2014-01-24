@@ -52,6 +52,15 @@ describe PossibleTimeValidator do
         expect(validator.validate time).to be_true
       end
     end
+
+    it 'should repsect the maximum of times that can be created in a week' do
+      29.times do
+        PossibleTime.create length: 30, user: expert_user
+      end
+
+      time = PossibleTime.new length: 30, user: expert_user
+      expect(validator.validate time).to be_false
+    end
   end
 
   def user
