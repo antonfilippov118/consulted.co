@@ -51,6 +51,12 @@ describe PossibleTime do
         PossibleTime.new.recurring = true
       end.not_to raise_error
     end
+
+    it 'should be able to have a start time' do
+      expect do
+        PossibleTime.new.starts = Time.now
+      end.not_to raise_error
+    end
   end
 
   context 'validation' do

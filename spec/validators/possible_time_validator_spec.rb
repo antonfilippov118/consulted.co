@@ -68,6 +68,10 @@ describe PossibleTimeValidator do
     end
   end
 
+  context 'checking intervals' do
+
+  end
+
   def user
     User.new valid_params
   end
