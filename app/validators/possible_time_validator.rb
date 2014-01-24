@@ -44,7 +44,7 @@ class PossibleTimeValidator < ActiveModel::Validator
       recurring       = PossibleTime.for_user(time.user).recurring.count
       times_this_week = PossibleTime.for_user(time.user).in_week(time.week_of_year).count
       if times_this_week + recurring > maximum_per_week
-        errors.add :base, 'This week already has the maximum of times possible'
+        errors.add :base, 'This week already has the maximum of times possible.'
         return true
       end
       false
@@ -55,7 +55,7 @@ class PossibleTimeValidator < ActiveModel::Validator
       minutes_recurring = PossibleTime.recurring.for_user(time.user).on(time.weekday).sum(&:length)
       minutes_total     = minutes_recurring + minutes_today + time.length
       if  minutes_total > maximum_minutes_per_day
-        time.errors.add :base, "This time cannot be created (#{minutes_total})"
+        time.errors.add :base, 'This time cannot be created.'
         return true
       end
       false
