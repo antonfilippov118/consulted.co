@@ -33,14 +33,20 @@ class PossibleTimeValidator < ActiveModel::Validator
 
   class CountValidator
     def self.validate(time)
-      return false if too_many?
+      return false if too_many? time
       return false if too_many_a_day? time
       true
     end
 
     private
 
-    def self.too_many?
+    def self.too_many?(time)
+      recurring       = PossibleTime.for_user(time.user).recurring.count
+      times_this_week = PossibleTime.for_user(time.user).in_week(time.week_of_year).count
+      if times_this_week + recurring > maximum_per_week
+        errors.add :base, 'This week already has the maximum of times possible'
+        return true
+      end
       false
     end
 
