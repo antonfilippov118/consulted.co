@@ -7,7 +7,7 @@ class User
   field :newsletter, type: Boolean
   field :reminder_time, type: Integer
 
-  has_many :possible_times
+  has_many :availabilities
 
   #
   # Devise
