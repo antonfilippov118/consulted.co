@@ -24,7 +24,6 @@ describe PossibleTimeValidator do
     end
   end
 
-
   def user
     User.new valid_params
   end
