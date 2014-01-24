@@ -3,7 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PossibleTimeValidator do
   let(:validator) { PossibleTimeValidator.new }
 
-  before(:all) do
+  before(:each) do
+    User.delete_all
+  end
+
+  after(:all) do
     User.delete_all
   end
 
@@ -28,6 +32,26 @@ describe PossibleTimeValidator do
 
   context 'checking for maximum times in one week' do
     let(:validator) { PossibleTimeValidator::CountValidator }
+
+    context 'day based checks' do
+      before(:each) do
+        PossibleTime.delete_all
+
+        15.times do # 1350 Minutes total on day 0
+          PossibleTime.create(length: 90, user: expert_user)
+        end
+      end
+
+      it 'should check against the maximum minutes of a day' do
+        time = PossibleTime.new length: 90, user: expert_user
+        expect(validator.validate time).to be_false
+      end
+
+      it 'should allow times up to the maximum' do
+        time = PossibleTime.new length: 60, user: expert_user
+        expect(validator.validate time).to be_true
+      end
+    end
   end
 
   def user
@@ -35,17 +59,18 @@ describe PossibleTimeValidator do
   end
 
   def confirmed_user
-    _user = user
-    _user.save
-    _user.confirm!
-    _user
+    if @user.nil?
+      _user = user
+      _user.save
+      _user.confirm!
+      return @user = _user
+    end
+    @user
   end
 
   def expert_user
-    _user = user
-    _user.confirm!
-    _user.linkedin_network = 10
-    _user.save
+    _user = confirmed_user
+    _user.linkedin_network = 100
     _user
   end
 

@@ -76,7 +76,7 @@ describe PossibleTime do
   end
 
   def user
-    _user = User.create name: 'Florian', confirmation_sent_at: Time.now
+    _user = User.create name: 'Florian', confirmation_sent_at: Time.now, linkedin_network: 9001
     _user.confirm!
     _user
   end

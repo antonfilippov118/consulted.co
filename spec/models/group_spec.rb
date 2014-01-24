@@ -7,6 +7,11 @@ describe Group do
     Category.delete_all
   end
 
+  after(:all) do
+    Group.delete_all
+    Category.delete_all
+  end
+
   it 'should have a name' do
     expect do
       Group.new.name = 'Foo'

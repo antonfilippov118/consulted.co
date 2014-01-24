@@ -7,6 +7,11 @@ class PossibleTime
   field :week_of_year, type: Integer, default: proc { current_week_number }
   field :recurring, type: Boolean, default: false
 
+  scope :recurring, -> { where recurring: true }
+  scope :for_user, -> (user) { where user: user }
+  scope :on, -> (weekday) { where weekday: weekday }
+  scope :in_week, -> (week_of_year) { where week_of_year: week_of_year }
+
   validate :length_possible?
   validate :weekday_possible?
   validate :week_of_year_possible?
