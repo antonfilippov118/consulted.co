@@ -40,6 +40,11 @@ describe PossibleTime do
         PossibleTime.new.week_of_year = 0
       end.not_to raise_error
     end
+
+    it 'should only allow certain week numbers (0 - 53)' do
+      time = PossibleTime.new length: 60, week_of_year: 700, user: User.new
+      expect(time.valid?).to be_false
+    end
   end
 
   context 'validation' do
