@@ -6,9 +6,19 @@ class PossibleTimeValidator < ActiveModel::Validator
 
   class ExpertValidator
     def self.validate(time)
+
+      if time.user.nil?
+        return false
+      end
+
       if time.user && !time.user.confirmed?
         time.errors.add :base, 'User must be confirmed!'
-        false
+        return false
+      end
+
+      if time.user && !time.user.can_be_an_expert?
+        time.errors.add :base, 'User must be an expert to save times!'
+        return false
       end
       true
     end
