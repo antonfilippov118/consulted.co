@@ -28,7 +28,7 @@ describe PossibleTimeValidator do
         _user.possible_times << PossibleTime.new(length: 90)
       end
 
-      expect(validator.validate user).to be_false
+      expect(validator.validate _user).to be_false
     end
 
     it 'should pass users with the maximum amount of times' do
@@ -39,7 +39,7 @@ describe PossibleTimeValidator do
         _user.possible_times << PossibleTime.new(length: 60)
       end
 
-      expect(validator.validate user).to be_true
+      expect(validator.validate _user).to be_true
     end
   end
 
