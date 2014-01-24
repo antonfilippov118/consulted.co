@@ -33,22 +33,27 @@ describe PossibleTimeValidator do
   context 'checking for maximum times in one week' do
     let(:validator) { PossibleTimeValidator::CountValidator }
 
-    context 'day based checks' do
-      before(:each) do
-        PossibleTime.delete_all
+    before(:each) do
+      PossibleTime.delete_all
 
-        15.times do # 1350 Minutes total on day 0
-          PossibleTime.create(length: 90, user: expert_user)
-        end
+      15.times do # 1350 Minutes total on day 0
+        PossibleTime.create(length: 90, user: expert_user)
       end
+    end
+
+    context 'day based checks' do
 
       it 'should check against the maximum minutes of a day' do
-        time = PossibleTime.new length: 90, user: expert_user
+        time = PossibleTime.new length: 120, user: expert_user
+
         expect(validator.validate time).to be_false
       end
 
       it 'should allow times up to the maximum' do
         time = PossibleTime.new length: 60, user: expert_user
+        expect(validator.validate time).to be_true
+
+        time = PossibleTime.new length: 90, user: expert_user
         expect(validator.validate time).to be_true
       end
     end
