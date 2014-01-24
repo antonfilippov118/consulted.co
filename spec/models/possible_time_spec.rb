@@ -45,6 +45,12 @@ describe PossibleTime do
       time = PossibleTime.new length: 60, week_of_year: 700, user: User.new
       expect(time.valid?).to be_false
     end
+
+    it 'should be able to be set as recurring' do
+      expect do
+        PossibleTime.new.recurring = true
+      end.not_to raise_error
+    end
   end
 
   context 'validation' do
