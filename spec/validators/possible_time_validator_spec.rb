@@ -8,7 +8,13 @@ describe PossibleTimeValidator do
   end
 
   it 'should pass users without times scheduled' do
-    expect(validator.validate user).to be_true
+    _user = user
+    _user.confirm!
+    expect(validator.validate _user).to be_true
+  end
+
+  it 'should fail unconfirmed users' do
+    expect(validator.validate user).to be_false
   end
 
   context 'checking for maximum times' do
