@@ -36,9 +36,16 @@ RSpec.configure do |conf|
   # conf.mock_with :flexmock
   # conf.mock_with :rr
 
-  # purge test db on each run
-  conf.before do
-    Mongoid.purge!
+  conf.before(:suite) do
+    DatabaseCleaner[:mongoid].strategy = :truncation
+  end
+
+  conf.before(:each) do
+    DatabaseCleaner[:mongoid].start
+  end
+
+  conf.after(:each) do
+    DatabaseCleaner[:mongoid].clean
   end
 
   # If true, the base class of anonymous controllers will be inferred

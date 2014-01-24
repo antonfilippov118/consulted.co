@@ -20,7 +20,7 @@ describe User do
   end
 
   context 'being an expert' do
-    before(:all) do
+    after(:all) do
       User.delete_all
     end
     it 'should not be an expert right away' do
