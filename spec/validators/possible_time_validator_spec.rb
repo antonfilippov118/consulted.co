@@ -71,13 +71,14 @@ describe PossibleTimeValidator do
     it 'should dismiss conflicting intervals' do
       PossibleTime.create length: 90, user: expert_user, starts: 1.hour.ago
 
-      time = PossibleTime.create length: 60, user: expert_user, starts: Time.now
+      time = PossibleTime.new length: 60, user: expert_user, starts: Time.now
       expect(validator.validate time).to be_false
     end
 
     it 'should allow non-conflicting intervals' do
       PossibleTime.create length: 90, user: expert_user, starts: 3.hours.ago
-      time = PossibleTime.create length: 60, user: expert_user, starts: Time.now
+      time = PossibleTime.new length: 60, user: expert_user, starts: Time.now
+
       expect(validator.validate time).to be_true
     end
   end

@@ -74,7 +74,17 @@ class PossibleTimeValidator < ActiveModel::Validator
 
   class IntervalValidator
     def self.validate(time)
-      false
+      return false if conflicting_times_for time
+      true
+    end
+
+    private
+
+    # TODO: This is an insufficient check
+    # It does not cover containing case, e.g. where one time contains the other
+    def self.conflicting_times_for(time)
+      ends = time.starts + time.length.minutes
+      PossibleTime.for_user(time.user).where(starts: (time.starts..ends)).exists?
     end
   end
 end
