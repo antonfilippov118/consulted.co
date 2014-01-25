@@ -1,29 +1,6 @@
-app = angular.module "consulted.services", []
+app = angular.module "consulted.users.services", []
 
-app.service "Experts", [
-  "$http"
-  "$q"
-  (http, q) ->
-    getExperts: () ->
-      results = q.defer()
-      http.get("/experts.json").then (data) ->
-        results.resolve data.experts
-      , (err) ->
-        results.reject err
-
-      results.promise
-
-    getTestimonials: ->
-      results = q.defer()
-      http.get("/testimonials.json").then (data) ->
-        results.resolve data.testimonials
-      , (err) ->
-        results.reject err
-
-      results.promise
-]
-
-app.factory "User", [
+app.service "User", [
   "$http"
   "$q"
   "$rootScope"
@@ -111,32 +88,19 @@ app.factory "User", [
         results.reject err
 
       results.promise
-]
 
-app.factory "Categories", [
-  "$http"
-  "$q"
-  (http, q) ->
-    categories = http.get("/categories.json")
-
-    getCategories: () ->
+    getExperts: () ->
       results = q.defer()
-      categories.then (data) ->
-        results.resolve data.categories
-      , (err) ->
-        results.reject err
-
+      results.reject []
       results.promise
 
-    getGroups: () ->
+    getTestimonials: ->
       results = q.defer()
-      categories.then (data) ->
-        results.resolve data.groups
-      , (err) ->
-        results.reject err
+      results.reject []
 
       results.promise
 ]
+
 
 app.service "Contact", [
   "$http"
@@ -144,7 +108,7 @@ app.service "Contact", [
   (http, q) ->
     submit: (message) ->
       results = q.defer()
-      http.post("/contact.json", message).then (data) ->
+      http.post("/contact", message).then (data) ->
         results.resolve data.data
       , (err) ->
         results.reject err

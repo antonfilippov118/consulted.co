@@ -17,4 +17,6 @@ Consulted::Application.routes.draw do
   namespace :users do
     get :available, to: 'utilities#available'
   end
+
+  resource :groups, only: [:show]
 end
