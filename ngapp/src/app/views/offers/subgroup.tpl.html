@@ -1,0 +1,8 @@
+<li>
+  <label>
+    <input type="checkbox" ng-click="toggle($event)">{{group.name}}
+  </label>
+  <ul>
+    <li ng-repeat="child in group.children" subgroup group="child"></li>
+  </ul>
+</li>

@@ -8,11 +8,4 @@ class Group
 
   scope :roots, -> { where(parent_id: nil) }
 
-  def groups
-    children
-  end
-
-  def as_json(opts)
-    super(opts.merge(except: :parent_id))
-  end
 end
