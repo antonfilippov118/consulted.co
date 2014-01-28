@@ -4,12 +4,6 @@ describe Group do
 
   before(:all) do
     Group.delete_all
-    Category.delete_all
-  end
-
-  after(:all) do
-    Group.delete_all
-    Category.delete_all
   end
 
   it 'should have a name' do
@@ -18,14 +12,10 @@ describe Group do
     end.not_to raise_error
   end
 
-  it do
-    should embed_many :categories
-  end
-
   it 'should be createable with categories' do
     group = Group.new name: 'Foo'
 
-    group.categories << Category.new(name: 'Bar')
+    group.children << Group.new(name: 'Bar')
 
     expect do
       group.save!
