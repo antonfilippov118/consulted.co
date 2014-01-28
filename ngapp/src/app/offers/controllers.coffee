@@ -37,6 +37,6 @@ app.controller "OfferController", [
       else
         user.languages.push lang
 
-      #User.periodicSave user
+      User.periodicSave user
 
 ]

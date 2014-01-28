@@ -1,4 +1,6 @@
 class Users::ProfileController < Devise::SessionsController
+  include Authenticable
+
   before_filter :authenticate!
   skip_before_filter :authenticate_scope!, except: []
 
@@ -22,14 +24,6 @@ class Users::ProfileController < Devise::SessionsController
   end
 
   private
-
-  def authenticate!
-    fail! unless warden.authenticate? scope: resource_name
-  end
-
-  def fail!
-    render json: { error: 'Access denied!' }, status: 401
-  end
 
   def show_user
     render json: {
