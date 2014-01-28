@@ -6,18 +6,23 @@
     <div ng-repeat="group in groups" class="group">
       <h5>{{group.name}}</h5>
       <ul>
-        <li ng-repeat="category in group.categories">
-          <input
-            name="selectedCategories[]"
-            value="{{category._id}}"
-            type="checkbox"
-            ng-checked="selected(category._id)"> {{category.name}}
-        </li>
+        <li>Here be dragons.</li>
       </ul>
     </div>
   </div>
   <div id="offer_setup">
     <h3>Setup offers</h3>
-    <div ng-repeat="category in categories" ng-show="selected(category._id)">{{category.name}}</div>
+    <p>Here be more dragons.</p>
+  </div>
+
+  <div id="languages">
+    <h3>Languages</h3>
+    <ul>
+      <li ng-repeat="lang in languages">
+        <label>
+          <input type="checkbox" ng-checked="hasLanguage(lang)" ng-click="toggleLanguage(lang)"> {{lang | capitalize}}
+        </label>
+      </li>
+    </ul>
   </div>
 </div>

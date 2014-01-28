@@ -6,8 +6,12 @@ class User
   field :name, type: String
   field :newsletter, type: Boolean
   field :reminder_time, type: Integer
+  field :languages, type: Array, default: ['english']
 
   has_many :availabilities
+  has_many :offers
+
+  validate :languages_allowed?
 
   #
   # Devise
@@ -48,5 +52,22 @@ class User
 
   def linkedin?
     provider == 'linkedin'
+  end
+
+  def languages_allowed?
+    languages.each do |language|
+      unless allowed_languages.include? language
+        errors.add :base, "Language '#{language}'' is not allowed."
+      end
+    end
+    if languages.length > allowed_languages.length
+      errors.add :base, 'Too many languages!'
+    end
+  end
+
+  private
+
+  def allowed_languages
+    %W(spanish english mandarin german arabic)
   end
 end

@@ -5,16 +5,27 @@ app.service "User", [
   "$q"
   "$rootScope"
   "$location"
-  (http, q, rootScope, location) ->
+  "$timeout"
+  (http, q, rootScope, location, timeout) ->
 
-    loggedIn = no
-    _user    = {}
+    loggedIn  = no
+    _user     = {}
+    saveTimer = undefined
 
     rootScope.$on 'event:authchange', (scope, value) ->
       loggedIn = value
 
     rootScope.$on 'event:unauthorized', () ->
       loggedIn = no
+
+    save = (user) ->
+      result = q.defer()
+      http(method: 'PATCH', url: '/profile', data: user).then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+
+      result.promise
 
     signup: (user) ->
       results = q.defer()
@@ -55,21 +66,13 @@ app.service "User", [
       http.get('/profile').then (response) ->
         _user = response.data
         user.resolve response.data
-
         rootScope.$broadcast 'event:authchange', yes
       , (err) ->
         user.reject err
 
       user.promise
 
-    saveProfile: (user) ->
-      result = q.defer()
-      http(method: 'PATCH', url: '/profile', data: user).then (response) ->
-        result.resolve response.data
-      , (err) ->
-        result.reject err
-
-      result.promise
+    saveProfile: save
 
     emailAvailable: (email) ->
       results = q.defer()
@@ -99,8 +102,14 @@ app.service "User", [
       results.reject []
 
       results.promise
-]
 
+    periodicSave: (user) ->
+      timeout.cancel saveTimer unless saveTimer is undefined
+      saveTimer = timeout () ->
+        save user
+      , 1000
+
+]
 
 app.service "Contact", [
   "$http"
