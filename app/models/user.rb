@@ -57,8 +57,11 @@ class User
   def languages_allowed?
     languages.each do |language|
       unless allowed_languages.include? language
-        errors.add :base, 'Language is not allowed'
+        errors.add :base, "Language '#{language}'' is not allowed."
       end
+    end
+    if languages.length > allowed_languages.length
+      errors.add :base, 'Too many languages!'
     end
   end
 
