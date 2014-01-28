@@ -1,5 +1,6 @@
 app =  angular.module "consulted.offers", [
   'consulted.offers.controllers'
+  'consulted.offers.filters'
   'ngRoute'
 ]
 

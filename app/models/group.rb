@@ -11,4 +11,8 @@ class Group
   def groups
     children
   end
+
+  def as_json(opts)
+    super(opts.merge(except: :parent_id))
+  end
 end
