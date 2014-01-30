@@ -1,4 +1,6 @@
-app = angular.module "consulted.users.services", []
+app = angular.module "consulted.users.services", [
+  'consulted.common.services'
+]
 
 app.service "User", [
   "$http"
@@ -6,7 +8,8 @@ app.service "User", [
   "$rootScope"
   "$location"
   "$timeout"
-  (http, q, rootScope, location, timeout) ->
+  'Saving'
+  (http, q, rootScope, location, timeout, Saving) ->
 
     loggedIn  = no
     _user     = {}
@@ -19,11 +22,16 @@ app.service "User", [
       loggedIn = no
 
     save = (user) ->
+      Saving.show()
       result = q.defer()
       http(method: 'PATCH', url: '/profile', data: user).then (response) ->
         result.resolve response.data
       , (err) ->
         result.reject err
+      .finally () ->
+        Saving.hide()
+
+
 
       result.promise
 
