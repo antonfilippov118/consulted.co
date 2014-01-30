@@ -1,0 +1,10 @@
+<div id="languages">
+  <h3>Languages</h3>
+  <ul>
+    <li ng-repeat="lang in languages" class="group">
+      <label>
+        <input type="checkbox" ng-checked="hasLanguage(lang)" ng-click="toggleLanguage(lang)"> {{lang | capitalize}}
+      </label>
+    </li>
+  </ul>
+</div>

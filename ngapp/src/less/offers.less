@@ -1,7 +1,7 @@
-#offer_your_time{
+#offer_your_time {
   .container();
 
-  #category_select {
+  #group_select {
     .container();
     .group {
       .make-xs-column(12);
@@ -10,9 +10,15 @@
       .make-lg-column(4);
     }
   }
+
   #offer_setup {
+    .container();
     span.active {
       color: red;
     }
+  }
+
+  #languages {
+    #group_select();
   }
 }
