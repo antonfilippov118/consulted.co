@@ -7,7 +7,7 @@ class Offer
   field :description, type: String
   field :experience, type: Integer
   field :rate, type: Integer, default: 0
-  field :lengths, type: Array, default: [30]
+  field :lengths, type: Array, default: ['30']
 
   [:experience, :description, :user_id, :group_id, :rate].each do |value|
     validates_presence_of value
@@ -33,7 +33,7 @@ class Offer
   private
 
   def allowed_lengths
-    [30, 45, 60, 90, 120]
+    %W(30 45 60 90 120)
   end
 
   def lengths_possible?

@@ -7,12 +7,18 @@ class Users::OffersController < Devise::SessionsController
   end
 
   def update
-    result = UpdatesOffers.for current_user, params
+    result = UpdatesOffers.for current_user, offer_params
+
     if result.success?
       render json: { success: true }
     else
-      render json: { error: result }
+      render json: { error: result.message }, status: result[:status]
     end
   end
 
+  private
+
+  def offer_params
+    params.require(:offers)
+  end
 end

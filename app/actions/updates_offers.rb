@@ -29,6 +29,7 @@ class UpdatesOffers
       user = context.fetch :user
       unless user.can_be_an_expert?
         context.set_failure! 'User must be an expert!'
+        context[:status] = :unprocessable_entity
         next
       end
     end
@@ -43,7 +44,7 @@ class UpdatesOffers
 
       begin
         params.each do |offer_params|
-          o = user.offers.find_or_create_by group_id: offer_params[:group][:_id]
+          o = user.offers.find_or_create_by group_id: offer_params['group']['_id']
           o.update_attributes offer_params
         end
       rescue => e

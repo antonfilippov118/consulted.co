@@ -30,13 +30,13 @@ describe UpdatesOffers do
     user   = create_expert!
     result = UpdatesOffers.for user, [
       {
-        group: {
-          _id: group.id
+        'group' => {
+          '_id' => group.id
         },
-        description: 'Foo',
-        experience: 5,
-        rate: 50,
-        lengths: [30, 60, 120]
+        'description' => 'Foo',
+        'experience' => 5,
+        'rate' => 50,
+        'lengths' => %W( 30 60 120 )
       }
     ]
     expect(result.success?).to be_true
@@ -46,17 +46,17 @@ describe UpdatesOffers do
   it 'should update existing groups for the expert' do
     group = Group.create name: 'Foo'
     user  = create_expert!
-    offer = Offer.new group: group, description: 'Foo', rate: 50, lengths: [60], experience: 1
+    offer = Offer.new group: group, description: 'Foo', rate: 50, lengths: ['60'], experience: 1
     user.offers << offer
 
     result = UpdatesOffers.for user, [
       {
-        group: {
-          _id: group.id
+        'group' => {
+          '_id' => group.id
         },
-        description: 'Bar',
-        rate: 60,
-        lengths: [30]
+        'description' => 'Bar',
+        'rate' => 60,
+        'lengths' => %W( 30 )
       }
     ]
 
@@ -66,34 +66,34 @@ describe UpdatesOffers do
     offer = User.first.offers.first
     expect(offer.description).to eql('Bar')
     expect(offer.rate).to eql(60)
-    expect(offer.lengths).to eql([30])
+    expect(offer.lengths).to eql(%W( 30 ))
   end
 
   it 'should create offers with groups not yet attached to the expert' do
     group_1 = Group.create name: 'Foo'
     group_2 = Group.create name: 'Bar'
     user    = create_expert!
-    offer   = Offer.new group: group_1, description: 'Foo', rate: 50, lengths: [60], experience: 1
+    offer   = Offer.new group: group_1, description: 'Foo', rate: 50, lengths: ['60'], experience: 1
     user.offers << offer
 
     result = UpdatesOffers.for user, [
       {
-        group: {
-          _id: group_1.id
+        'group' => {
+          '_id' => group_1.id
         },
-        description: 'Baz',
-        rate: 60,
-        lengths: [60],
-        experience: 2
+        'description' => 'Baz',
+        'rate' => '60',
+        'lengths' => %W( 60 ),
+        'experience' => '2'
       },
       {
-        group: {
-          _id: group_2.id
+        'group' => {
+          '_id' => group_2.id
         },
-        description: 'Foo',
-        rate: 80,
-        lengths: [120],
-        experience: 1
+        'description' => 'Foo',
+        'rate' => '80',
+        'lengths' => %W( 120 ),
+        'experience' => '1'
       }
     ]
     expect(result.success?).to be_true
@@ -107,7 +107,7 @@ describe UpdatesOffers do
 
     expect(offer_2.rate).to eql(80)
     expect(offer_2.experience).to eql(1)
-    expect(offer_2.lengths).to eql([120])
+    expect(offer_2.lengths).to eql(%W( 120 ))
   end
 
   def valid_params
