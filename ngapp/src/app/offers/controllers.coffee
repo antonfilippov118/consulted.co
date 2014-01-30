@@ -47,7 +47,7 @@ app.controller "UserOffersController", [
   'Offers'
   'Groups'
   (scope, Offers, Groups) ->
-    enabledGroups  = []
+    enabledOffers  = []
 
     groups = []
     Groups.getGroups().then (data) ->
@@ -55,34 +55,62 @@ app.controller "UserOffersController", [
 
     Offers.getOffers().then (data) ->
       scope.offers = data
-      enabledGroups =  data.map (group) ->
-        group._id
+      enabledOffers =  data.map (offer) ->
+        offer._group_id
 
     hasGroup = (group) ->
-      for offer in scope.offers when offer.group._id is group._id
+      for offer in scope.offers when offer._group_id is group._id.$oid
         return yes
       no
 
-    scope.enabled = (group) ->
-      for id in enabledGroups when id is group._id
-        return yes
-      no
+    toggleOffer = (oid) ->
+      for offer in scope.offers when offer._group_id is oid
+        offer.enabled = !offer.enabled
+
+    scope.possibleLengths = [
+      '30'
+      '45'
+      '60'
+      '90'
+      '120'
+    ]
+
+    scope.hasLength = (length, offer) ->
+      return no unless angular.isArray offer.lengths
+      "#{length}" in offer.lengths
+
+    scope.toggleLength = (length, offer)->
+      offer.lengths = [] unless angular.isArray offer.lengths
+      idx = offer.lengths.indexOf("#{length}")
+      if idx > -1
+        offer.lengths.splice idx, 1
+      else
+        offer.lengths.push length
+      scope.save()
 
     scope.enabledOffers = () ->
-      scope.offers?.length > 0 and enabledGroups.length > 0
+      return no if !scope.offers
+      for offer in scope.offers when offer.enabled is yes
+        return yes
+      no
 
     scope.save = ->
       Offers.periodicSave scope.offers
 
     scope.$on "offers:group:toggle", (e, group) ->
-      idx = enabledGroups.indexOf group._id
+      idx = enabledOffers.indexOf group._id.$oid
       if idx > -1
-        enabledGroups.splice idx, 1
+        enabledOffers.splice idx, 1
       else
-        enabledGroups.push group._id
+        enabledOffers.push group._id.$oid
 
       unless hasGroup group
-        scope.offers.push { group: group }
-        scope.save()
+        scope.offers.push
+          name: group.name
+          # this is necessary as angular currently strips keys starting with $
+          _group_id: group._id.$oid
+
+      toggleOffer group._id.$oid
+      scope.save()
 
 ]

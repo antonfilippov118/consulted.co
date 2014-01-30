@@ -7,20 +7,14 @@ class Offer
   field :description, type: String
   field :experience, type: Integer
   field :rate, type: Integer, default: 0
-  field :lengths, type: Array, default: ['30']
-
-  [:experience, :description, :user_id, :group_id, :rate].each do |value|
-    validates_presence_of value
-  end
-
-  [:experience, :rate].each do |value|
-    validates_numericality_of value
-  end
+  field :lengths, type: Array, default: []
+  field :enabled, type: Boolean, default: true
 
   validate :lengths_possible?
 
   delegate :languages, to: :user
   delegate :availabilities, to: :user
+  delegate :name, to: :group
 
   def available?
     availabilities.length > 0
@@ -30,6 +24,10 @@ class Offer
     availabilities.length == 0
   end
 
+  def _group_id
+    group_id.to_s
+  end
+
   private
 
   def allowed_lengths
@@ -37,9 +35,12 @@ class Offer
   end
 
   def lengths_possible?
+    return true if lengths.nil?
+
     lengths.each do |length|
       unless allowed_lengths.include? length
         errors.add :lengths, 'has an unallowed value!'
+        return false
       end
     end
   end

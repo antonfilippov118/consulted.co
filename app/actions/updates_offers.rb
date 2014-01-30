@@ -17,7 +17,7 @@ class UpdatesOffers
       unless user.confirmed?
         context.set_failure! 'User must be confirmed!'
         context[:status] = :unprocessable_entity
-        next
+        next context
       end
     end
   end
@@ -30,7 +30,7 @@ class UpdatesOffers
       unless user.can_be_an_expert?
         context.set_failure! 'User must be an expert!'
         context[:status] = :unprocessable_entity
-        next
+        next context
       end
     end
   end
@@ -44,7 +44,11 @@ class UpdatesOffers
 
       begin
         params.each do |offer_params|
-          o = user.offers.find_or_create_by group_id: offer_params['group']['_id']
+          id   = offer_params.delete '_group_id'
+          %W(name _id).each do |field|
+            offer_params.delete field
+          end
+          o = user.offers.find_or_create_by group_id: id
           o.update_attributes offer_params
         end
       rescue => e

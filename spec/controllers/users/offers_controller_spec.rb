@@ -11,9 +11,7 @@ describe Users::OffersController do
     {
       offers: [
         {
-          'group' => {
-            '_id' => group.id
-          },
+          '_group_id' => group.id,
           'description' => 'Foo',
           'experience' => 1,
           'rate' => 40,

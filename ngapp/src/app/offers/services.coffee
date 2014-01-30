@@ -1,33 +1,35 @@
-app = angular.module "consulted.offers.services", []
+app = angular.module "consulted.offers.services", [
+  'consulted.common.services'
+]
 
 app.service "Offers", [
   '$http'
   '$q'
   '$timeout'
-  (http, q, timeout) ->
+  'Saving'
+  (http, q, timeout, Saving) ->
     internalTimer = null
+    offers        = http.get('/profile/offers')
+
     save = (offers) ->
+      Saving.show()
       http.put('/profile/offers', {offers: offers}).then (response) ->
-        console.log response.data
-      , (err) ->
-        console.log err
+        return
+      .finally () ->
+        Saving.hide()
 
     getOffers: () ->
-      offers = q.defer()
-      http.get('/profile/offers').then (response) ->
-        offers.resolve response.data
+      result = q.defer()
+      offers.then (response) ->
+        result.resolve response.data
       , (err) ->
-        offers.reject err
+        result.reject err
 
-      offers.promise
+      result.promise
 
     periodicSave: (offers) ->
       timeout.cancel internalTimer if internalTimer?
       internalTimer = timeout () ->
         save offers
       , 2000
-
-
-
-
 ]

@@ -30,9 +30,7 @@ describe UpdatesOffers do
     user   = create_expert!
     result = UpdatesOffers.for user, [
       {
-        'group' => {
-          '_id' => group.id
-        },
+        '_group_id' => group.id,
         'description' => 'Foo',
         'experience' => 5,
         'rate' => 50,
@@ -51,9 +49,7 @@ describe UpdatesOffers do
 
     result = UpdatesOffers.for user, [
       {
-        'group' => {
-          '_id' => group.id
-        },
+        '_group_id' => group.id,
         'description' => 'Bar',
         'rate' => 60,
         'lengths' => %W( 30 )
@@ -78,18 +74,14 @@ describe UpdatesOffers do
 
     result = UpdatesOffers.for user, [
       {
-        'group' => {
-          '_id' => group_1.id
-        },
+        '_group_id' => group_1.id,
         'description' => 'Baz',
         'rate' => '60',
         'lengths' => %W( 60 ),
         'experience' => '2'
       },
       {
-        'group' => {
-          '_id' => group_2.id
-        },
+        '_group_id' => group_2.id,
         'description' => 'Foo',
         'rate' => '80',
         'lengths' => %W( 120 ),

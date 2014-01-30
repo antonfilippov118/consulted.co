@@ -7,6 +7,10 @@ body {
   font-family: 'Karla', sans-serif;
   font-size: 16px;
 
+  &.loading * {
+    cursor: progress;
+  }
+
   ul {
     padding: 0;
     margin: 0;
@@ -21,6 +25,7 @@ body {
       text-decoration: underline;
     }
   }
+
 
   .error {
     .text-center();
