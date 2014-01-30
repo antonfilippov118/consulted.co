@@ -6,6 +6,7 @@ describe Users::RegistrationsController do
   before(:each) do
     request.env['devise.mapping'] = Devise.mappings[:user]
     User.delete_all
+    Offer.delete_all
   end
   context '#POST users' do
     it 'gives a unprocessable entity response when accessed without data' do

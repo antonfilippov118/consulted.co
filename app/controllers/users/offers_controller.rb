@@ -7,7 +7,12 @@ class Users::OffersController < Devise::SessionsController
   end
 
   def update
-
+    result = UpdatesOffers.for current_user, params
+    if result.success?
+      render json: { success: true }
+    else
+      render json: { error: result }
+    end
   end
 
 end
