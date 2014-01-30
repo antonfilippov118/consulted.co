@@ -36,6 +36,54 @@ app.directive "subgroup", [
 
 ]
 
+app.directive "userOffers", [() ->
+  controller: 'UserOffersController'
+  templateUrl: 'views/offers/user_offers.tpl.html'
+  scope: yes
+  replace: yes
+]
+
+app.directive "userLanguages", [
+  'User'
+  (User) ->
+    templateUrl: 'views/offers/user_languages.tpl.html'
+    scope:
+      user: "="
+    replace: yes
+    link: (scope) ->
+
+      scope.languages = [
+        'english'
+        'mandarin'
+        'spanish'
+        'arabic'
+        'german'
+      ]
+
+      scope.hasLanguage = (lang) ->
+        {user} = scope
+        return no if user is undefined
+        lang in user.languages
+
+      scope.toggleLanguage = (lang) ->
+        {user} = scope
+        return unless !!user
+        idx    = user.languages.indexOf lang
+        if idx > -1
+          user.languages.splice idx, 1
+        else
+          user.languages.push lang
+
+        User.periodicSave user
+]
+
+app.directive 'groupSelect', [->
+  templateUrl: 'views/offers/select_groups.tpl.html'
+  replace: yes
+  scope:
+    groups: "="
+]
+
 app.service "TemplateRecursion", [
   '$compile'
   ($compile) ->

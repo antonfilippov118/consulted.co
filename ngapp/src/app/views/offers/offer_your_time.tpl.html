@@ -1,60 +1,6 @@
 <div id="offer_your_time">
   <h1>Offer your time</h1>
-  <div id="category_select">
-    <h3>Select categories</h3>
-    <p>Note on rates: You can provide details specific to your knowledge in the category in the next step.</p>
-    <div ng-repeat="group in groups" class="group">
-      <h5>{{group.name}}</h5>
-      <ul>
-        <li ng-repeat="group in group.children" subgroup group="group"></li>
-      </ul>
-    </div>
-  </div>
-  <div id="offer_setup" ng-controller="UserOffersController">
-    <h3>Setup offers</h3>
-    <div error-loading></div>
-    <p ng-hide="enabledOffers()">You currently have no categories you could offer your services in. Check one above to start.</p>
-    <div class="offers" ng-show="enabledOffers()">
-      <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Rate per hour (in USD)</th>
-            <th>Offered time slots</th>
-            <th>Brief note what makes you experienced in this category</th>
-            <th>Relevant years of experience</th>
-            <th>Your current awesome count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="offer in offers | orderBy:'name'" ng-show="offer.enabled">
-            <td>{{offer.name}}</td>
-            <td><input type="number" ng-change="save()" ng-model="offer.rate"></td>
-            <td>
-              <span
-                ng-class="{'active': hasLength(length, offer)}"
-                ng-repeat="length in possibleLengths"
-                ng-click="toggleLength(length, offer)">
-                  {{length}}
-              </span>
-            </td>
-            <td><textarea ng-change="save()" ng-model="offer.description" cols="35" rows="3"></textarea></td>
-            <td><input type="number" ng-model="offer.experience" ng-change="save()"></td>
-            <td>NYI.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div id="languages">
-    <h3>Languages</h3>
-    <ul>
-      <li ng-repeat="lang in languages">
-        <label>
-          <input type="checkbox" ng-checked="hasLanguage(lang)" ng-click="toggleLanguage(lang)"> {{lang | capitalize}}
-        </label>
-      </li>
-    </ul>
-  </div>
+  <div group-select groups="groups"></div>
+  <div user-offers></div>
+  <div user-languages user="user"></div>
 </div>
