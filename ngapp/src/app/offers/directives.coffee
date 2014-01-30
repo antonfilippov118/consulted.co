@@ -8,9 +8,10 @@ app.directive "subgroup", [
     restrict: "A"
     scope:
       group: "="
-    controller: ['$scope', (scope) ->
+    controller: ['$scope', '$rootScope', (scope, rootScope) ->
       scope.toggle = (e) ->
-
+        {group} = scope
+        rootScope.$broadcast "offers:group:toggle", group
     ]
     compile: (element) ->
       Template.compile element
@@ -24,7 +25,6 @@ app.service "TemplateRecursion", [
       contents = element.contents().remove()
       compiledContents = null
       (scope, element) ->
-
         if !compiledContents
           compiledContents = $compile(contents)
         compiledContents scope, (clone) ->
