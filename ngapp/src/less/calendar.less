@@ -1,0 +1,73 @@
+#user_calendar {
+  .grid {
+    border: 1px solid black;
+  }
+  .calendar {
+    width: 60%;
+    div {
+    }
+    .caption {
+      .text-center();
+    }
+
+    .header {
+      .empty {
+        float:left;
+        width: 9%;
+      }
+      .date {
+        float:left;
+        width: 13%;
+        .text-center();
+        small {
+          font-size: 9px;
+        }
+        border-bottom: 1px solid grey;
+      }
+    }
+
+    .data {
+      clear:left;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 419px;
+    }
+
+    .column {
+      width: 13%;
+      height: 1056px;
+      position: relative;
+      background: url(data.png);
+      float:left;
+
+      .event {
+        border-radius: 2px;
+        background: teal;
+        width:100%;
+        position: absolute;
+        color: white;
+        .text-center();
+        font-size: 11px;
+      }
+      border-right: 1px solid #ccc;
+    }
+
+    .times {
+      width:9%;
+      float:left;
+      div {
+        height: 44px;
+        border-bottom: 1px solid #ccc;
+
+        background: white;
+        .text-center();
+
+      }
+    }
+
+    .footer {
+      clear:both;
+    }
+
+  }
+}

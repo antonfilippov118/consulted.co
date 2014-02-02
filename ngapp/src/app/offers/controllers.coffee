@@ -89,3 +89,60 @@ app.controller "UserOffersController", [
       scope.save()
 
 ]
+
+app.controller "UserCalendarController", [
+  '$scope'
+  'User'
+  (scope, User) ->
+    scope.weekdays = [
+      'Mon'
+      'Tue'
+      'Wed'
+      'Thu'
+      'Fri'
+      'Sat'
+      'Sun'
+    ]
+
+    scope.events = [
+      [
+        starts: "2014-02-03 8:00"
+        ends: "2014-02-03 10:00"
+      ,
+        starts: "2014-02-03 15:00"
+        ends: "2014-02-03 16:00"
+      ,
+        starts: "2014-02-03 13:00"
+        ends: "2014-02-03 14:30"
+      ],
+      [],
+      [],
+      [
+        starts: "2014-02-06 9:00"
+        ends: "2014-02-06 11:00"
+      ],
+      [
+        starts: "2014-02-07 12:00"
+        ends: "2014-02-07 13:15"
+      ],
+      [],
+      []
+    ]
+
+    scope.hours = [0..23]
+
+    scope.start_date = moment().day(1)
+
+    scope.addDay = (count) ->
+      scope.start_date.clone().add count, 'days'
+
+    step = (count, type = "week") ->
+      scope.start_date.clone().add(count, type).day(1)
+
+    scope.next = () ->
+      scope.start_date = step 1
+
+    scope.prev = () ->
+      scope.start_date = step -1
+
+]

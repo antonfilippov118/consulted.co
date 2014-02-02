@@ -1,4 +1,6 @@
-app = angular.module 'consulted.offers.directives', []
+app = angular.module 'consulted.offers.directives', [
+  'consulted.calendar'
+]
 
 app.directive "subgroup", [
   'TemplateRecursion'
@@ -40,6 +42,14 @@ app.directive "userOffers", [() ->
   controller: 'UserOffersController'
   templateUrl: 'views/offers/user_offers.tpl.html'
   scope: yes
+  replace: yes
+]
+
+app.directive "userCalendar", [() ->
+  controller: 'UserCalendarController'
+  templateUrl: 'views/offers/user_calendar.tpl.html'
+  scope:
+    user: "="
   replace: yes
 ]
 
