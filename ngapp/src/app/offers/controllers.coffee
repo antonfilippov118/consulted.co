@@ -106,28 +106,32 @@ app.controller "UserCalendarController", [
 
     scope.events = [
       [
-        starts: "2014-02-03 8:00"
-        ends: "2014-02-03 10:00"
-      ,
-        starts: "2014-02-03 15:00"
-        ends: "2014-02-03 16:00"
-      ,
-        starts: "2014-02-03 13:00"
-        ends: "2014-02-03 14:30"
+        starts: moment("2014-02-03 8:00")
+        ends: moment("2014-02-03 10:00")
+      #,
+      #  starts: "2014-02-03 15:00"
+       # ends: "2014-02-03 16:00"
+      #,
+        #starts: "2014-02-03 13:00"
+        #ends: "2014-02-03 14:30"
       ],
       [],
       [],
       [
-        starts: "2014-02-06 9:00"
-        ends: "2014-02-06 11:00"
+      #  starts: "2014-02-06 9:00"
+      # ends: "2014-02-06 11:00"
       ],
       [
-        starts: "2014-02-07 12:00"
-        ends: "2014-02-07 13:15"
+      #  starts: "2014-02-07 12:00"
+      #  ends: "2014-02-07 13:15"
       ],
       [],
       []
     ]
+
+    scope.$on "calendar:event:new", (_, value) ->
+      {index, event} = value
+      scope.events[index].push event
 
     scope.hours = [0..23]
 
