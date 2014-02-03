@@ -108,6 +108,7 @@ app.controller "UserCalendarController", [
       [
         starts: moment("2014-02-03 8:00")
         ends: moment("2014-02-03 10:00")
+        id: "foobar"
       #,
       #  starts: "2014-02-03 15:00"
        # ends: "2014-02-03 16:00"

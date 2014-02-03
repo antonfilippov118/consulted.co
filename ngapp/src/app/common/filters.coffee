@@ -11,6 +11,8 @@ timeFilters = {
 angular.forEach timeFilters, (format, key) ->
   app.filter key, ->
     (input) ->
+      if moment.isMoment(input)
+        return input.format format
       moment(input).format format
 
 
