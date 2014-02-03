@@ -9,26 +9,25 @@ app.directive "event", [() ->
   scope:
     event: "="
   link: (scope, el) ->
+    {starts, ends} = scope.event
+    scope.length = ends.diff(starts, 'minutes')
 
-    scope.$on 'calendar:event:resize', (_, amount) ->
-      {starts, ends} = scope.event
-      starts         = moment starts
-      ends           = moment(ends).add amount, 'minutes'
+    scope.$watch "length", (newValue) ->
       midnight       = starts.clone().hour(0).minute(0).second(0)
       offset         = starts.diff(midnight, 'minutes')
-      height         = ends.diff(starts, 'minutes')
-
-      scope.event =
-        starts: starts
-        ends: ends
+      height         = newValue
 
       el.css 'height', "#{height/60 * 44}px"
       el.css "top", "#{offset/60 * 44}px"
+      scope.starts = starts
+      scope.ends   = starts.clone().add newValue, 'minutes'
 
     scope.remove = () ->
       scope.$emit "calendar:event:remove", scope.event.id
 
-    scope.$emit 'calendar:event:resize', 0
+    scope.$on "calendar:event:height", (_, height) ->
+      times = Math.ceil(height / 11)
+      scope.$apply -> scope.length = 15 * times
 
 ]
 
@@ -43,6 +42,7 @@ app.directive "draggable", [() ->
 
     doDrag = (e) ->
       newHeight = start + e.clientY - startY
+      return if newHeight < 22
       el.parent().css "height", "#{newHeight}px"
       height = newHeight
 

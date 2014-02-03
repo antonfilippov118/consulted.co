@@ -106,8 +106,8 @@ app.controller "UserCalendarController", [
 
     scope.events = [
       [
-        starts: moment("2014-02-03 8:00")
-        ends: moment("2014-02-03 10:00")
+        starts: moment("2014-02-03 3:00")
+        ends: moment("2014-02-03 5:00")
         id: "foobar"
       #,
       #  starts: "2014-02-03 15:00"
