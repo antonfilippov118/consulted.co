@@ -19,8 +19,11 @@ app.directive "event", [() ->
 
       el.css 'height', "#{height/60 * 44}px"
       el.css "top", "#{offset/60 * 44}px"
+
       scope.starts = starts
       scope.ends   = starts.clone().add newValue, 'minutes'
+
+      scope.$emit "calendar:event:change"
 
     scope.remove = () ->
       scope.$emit "calendar:event:remove", scope.event.id
@@ -86,7 +89,87 @@ app.directive "dayColumn", [->
           starts: start
           ends: end
           id: "#{s4()}#{s4()}-#{s4()}#{s4()}"
+          new_event: yes
         index: index
       scope.$emit 'calendar:event:new', values
+
+]
+
+
+app.controller "CalendarController", [
+  '$scope'
+  'Availabilities'
+  (scope, Availabilities) ->
+    scope.weekdays = [
+      'Mon'
+      'Tue'
+      'Wed'
+      'Thu'
+      'Fri'
+      'Sat'
+      'Sun'
+    ]
+
+    scope.events = [
+      [
+        starts: moment("2014-02-03 3:00")
+        ends: moment("2014-02-03 5:00")
+        id: "foobar"
+      #,
+      #  starts: "2014-02-03 15:00"
+       # ends: "2014-02-03 16:00"
+      #,
+        #starts: "2014-02-03 13:00"
+        #ends: "2014-02-03 14:30"
+      ],
+      [],
+      [],
+      [
+      #  starts: "2014-02-06 9:00"
+      # ends: "2014-02-06 11:00"
+      ],
+      [
+      #  starts: "2014-02-07 12:00"
+      #  ends: "2014-02-07 13:15"
+      ],
+      [],
+      []
+    ]
+
+    scope.$on "calendar:event:new", (_, value) ->
+      {index, event} = value
+      newLength = scope.events[index].push event
+      newLength -= 1
+      Availabilities.save(event).then (newEvent) ->
+        event.id = newEvent._id.$oid
+        event.new_event = no
+      , (err) ->
+        scope.$broadcast "calendar:event:remove", event.id
+
+
+
+    scope.$on "calendar:event:change", (_, event) ->
+      #Availabilities.periodicSave(event).then (newEvent) ->
+        # search for event in calendar && update
+
+    scope.$on "calendar:event:remove", (_, value) ->
+      console.log value
+
+
+    scope.hours = [0..23]
+
+    scope.start_date = moment().day(1)
+
+    scope.addDay = (count) ->
+      scope.start_date.clone().add count, 'days'
+
+    step = (count, type = "week") ->
+      scope.start_date.clone().add(count, type).day(1)
+
+    scope.next = () ->
+      scope.start_date = step 1
+
+    scope.prev = () ->
+      scope.start_date = step -1
 
 ]

@@ -15,6 +15,7 @@ Consulted::Application.routes.draw do
     patch :profile, controller: 'users/profile', action: 'update'
     get :offers, controller: 'users/offers', action: 'show', path: 'profile/offers'
     put :offers, controller: 'users/offers', action: 'update', path: 'profile/offers'
+    put :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
   end
 
   namespace :users do
