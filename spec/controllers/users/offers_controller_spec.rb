@@ -51,16 +51,6 @@ describe Users::OffersController do
     end
   end
 
-  def valid_params
-    {
-      email: 'florian@consulted.co',
-      name: 'Florian',
-      password: 'tester',
-      password_confirmation: 'tester',
-      confirmation_sent_at: Time.now
-    }
-  end
-
   def group
     Group.create name: 'TestGroup'
   end

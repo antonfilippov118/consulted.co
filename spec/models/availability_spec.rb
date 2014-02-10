@@ -31,14 +31,4 @@ describe Availability do
   def user
     User.create valid_params
   end
-
-  def valid_params
-    {
-      name: 'Florian',
-      confirmation_sent_at: Time.now,
-      password: 'tester',
-      password_confirmation: 'tester',
-      email: 'florian@consulted.co'
-    }
-  end
 end

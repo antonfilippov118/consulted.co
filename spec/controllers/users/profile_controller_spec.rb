@@ -56,13 +56,4 @@ describe Users::ProfileController do
       expect(response.success?).to be_false
     end
   end
-
-  def valid_params
-    {
-      email: 'florian@consulted.co',
-      name: 'Florian',
-      password: 'tester',
-      password_confirmation: 'tester'
-    }
-  end
 end

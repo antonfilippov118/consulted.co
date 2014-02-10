@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'mongoid'
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'consulted/test_helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -27,6 +28,7 @@ OmniAuth.config.mock_auth[:linkedin] = {
 RSpec.configure do |conf|
   conf.include Mongoid::Matchers, type: :model
   conf.include Devise::TestHelpers, type: :controller
+  conf.include Consulted::TestHelpers
 
   # ## Mock Framework
   #
