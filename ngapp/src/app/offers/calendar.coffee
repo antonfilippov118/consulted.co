@@ -114,6 +114,8 @@ app.directive "dayColumn", [->
         index: index
       scope.$emit 'calendar:event:new', values
 
+    scope.dummy = (event) -> event.stopPropagation()
+
 ]
 
 
@@ -130,12 +132,15 @@ app.controller "CalendarController", [
       'Sat'
       'Sun'
     ]
+
     scope.hours = [0..23]
+    week        = moment().isoWeek()
+
     scope.start_date = moment().day(1)
 
     fetch = (_, opts = {}) ->
       defaults =
-        week: scope.start_date.isoWeek()
+        week: week
       opts = angular.extend defaults, opts
       scope.loading = yes
 
@@ -167,7 +172,6 @@ app.controller "CalendarController", [
         scope.$broadcast "calendar:event:remove", event.id
 
     scope.$on "calendar:event:remove", (_, value) ->
-      console.log value
       Availabilities.remove(value)
 
     scope.$on "calendar:week:change", fetch
@@ -176,6 +180,8 @@ app.controller "CalendarController", [
       scope.start_date.clone().add count, 'days'
 
     step = (count, type = "week") ->
+      week += count
+      scope.$broadcast "calendar:week:change", week: week
       scope.start_date.clone().add(count, type).day(1)
 
     scope.next = () ->
