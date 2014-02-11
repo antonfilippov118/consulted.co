@@ -17,4 +17,14 @@ class Users::AvailabilitiesController < Devise::SessionsController
       render json: { error: result.message }, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    result = DestroysAvailability.for current_user, params[:id]
+
+    if result.success?
+      render json: result[:availability], status: 200
+    else
+      render json: { error: result.message }, status: :unprocessable_entity
+    end
+  end
 end

@@ -9,10 +9,15 @@ app.directive "event", [() ->
   scope:
     event: "="
   link: (scope, el) ->
+
     {starts, ends} = scope.event
     scope.length = ends.diff(starts, 'minutes')
 
-    scope.$watch "length", (newValue) ->
+    scope.dummyClick = (event) ->
+      # prevent creating more and more events on clicking the event
+      event.stopPropagation()
+
+    calculate = (newValue, emit = no) ->
       midnight       = starts.clone().hour(0).minute(0).second(0)
       offset         = starts.diff(midnight, 'minutes')
       height         = newValue
@@ -20,17 +25,31 @@ app.directive "event", [() ->
       el.css 'height', "#{height/60 * 44}px"
       el.css "top", "#{offset/60 * 44}px"
 
-      scope.starts = starts
-      scope.ends   = starts.clone().add newValue, 'minutes'
+      scope.event =
+        id: scope.event.id
+        new_event: scope.new_event
+        starts: starts
+        ends: starts.clone().add newValue, 'minutes'
 
-      scope.$emit "calendar:event:change"
+      scope.$emit "calendar:event:change", scope.event if emit
+
+
+    calculate(scope.length)
 
     scope.remove = () ->
       scope.$emit "calendar:event:remove", scope.event.id
 
     scope.$on "calendar:event:height", (_, height) ->
       times = Math.ceil(height / 11)
-      scope.$apply -> scope.length = 15 * times
+      calculate 15 * times, yes
+
+    scope.$on "calendar:event:update", (_, obj) ->
+      {newEvent, oldEvent} = obj
+      if scope.event.id is oldEvent.id
+        scope.event = newEvent
+    scope.$on "calendar:event:remove", (_, id) ->
+      if scope.event.id is id
+        el.remove()
 
 ]
 
@@ -38,7 +57,8 @@ app.directive "draggable", [() ->
   scope: no
   restrict: "C"
   link: (scope, el) ->
-    doc    = angular.element(document)
+    doc    = document.getElementById 'user_calendar'
+    doc    = angular.element doc
     height = 0
     start  = 0
     startY = 0
@@ -51,7 +71,7 @@ app.directive "draggable", [() ->
 
     stopDrag = (e) ->
       doc.unbind "mousemove"
-      doc.unbind "mousedown"
+      doc.unbind "mouseup"
       scope.$emit "calendar:event:height", height
 
     init = (e) ->
@@ -61,6 +81,7 @@ app.directive "draggable", [() ->
       doc.bind "mousemove", doDrag
       doc.bind "mouseup", stopDrag
 
+    el.bind 'click', (e) -> e.stopPropagation()
     el.bind "mousedown", init
 
 ]
@@ -82,7 +103,7 @@ app.directive "dayColumn", [->
       while i < hour
         start.add 15, 'minutes'
         i += 0.25
-      end    = start.clone().add 0.5, 'hour'
+      end    = start.clone().add 1, 'hour'
 
       values =
         event:
@@ -109,56 +130,47 @@ app.controller "CalendarController", [
       'Sat'
       'Sun'
     ]
+    scope.hours = [0..23]
+    scope.start_date = moment().day(1)
 
-    scope.events = [
-      [
-        starts: moment("2014-02-03 3:00")
-        ends: moment("2014-02-03 5:00")
-        id: "foobar"
-      #,
-      #  starts: "2014-02-03 15:00"
-       # ends: "2014-02-03 16:00"
-      #,
-        #starts: "2014-02-03 13:00"
-        #ends: "2014-02-03 14:30"
-      ],
-      [],
-      [],
-      [
-      #  starts: "2014-02-06 9:00"
-      # ends: "2014-02-06 11:00"
-      ],
-      [
-      #  starts: "2014-02-07 12:00"
-      #  ends: "2014-02-07 13:15"
-      ],
-      [],
-      []
-    ]
+    fetch = (_, opts = {}) ->
+      defaults =
+        week: scope.start_date.isoWeek()
+      opts = angular.extend defaults, opts
+      scope.loading = yes
+
+      Availabilities.getEventsForWeek(opts).then (events) ->
+        scope.events = events
+      , (err) ->
+        scope.err = err
+      .finally () ->
+        scope.loading = no
+
+    fetch()
 
     scope.$on "calendar:event:new", (_, value) ->
       {index, event} = value
       newLength = scope.events[index].push event
       newLength -= 1
       Availabilities.save(event).then (newEvent) ->
-        event.id = newEvent._id.$oid
-        event.new_event = no
+        scope.$broadcast 'calendar:event:update',
+          oldEvent: event
+          newEvent: newEvent
       , (err) ->
         scope.$broadcast "calendar:event:remove", event.id
 
-
-
     scope.$on "calendar:event:change", (_, event) ->
-      #Availabilities.periodicSave(event).then (newEvent) ->
+      Availabilities.save(event).then () ->
+        return
         # search for event in calendar && update
+      , (err) ->
+        scope.$broadcast "calendar:event:remove", event.id
 
     scope.$on "calendar:event:remove", (_, value) ->
       console.log value
+      Availabilities.remove(value)
 
-
-    scope.hours = [0..23]
-
-    scope.start_date = moment().day(1)
+    scope.$on "calendar:week:change", fetch
 
     scope.addDay = (count) ->
       scope.start_date.clone().add count, 'days'

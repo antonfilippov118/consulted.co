@@ -13,10 +13,13 @@ Consulted::Application.routes.draw do
     post :synch, controller: 'users/profile', action: 'synch_linkedin'
 
     patch :profile, controller: 'users/profile', action: 'update'
+
     get :offers, controller: 'users/offers', action: 'show', path: 'profile/offers'
     put :offers, controller: 'users/offers', action: 'update', path: 'profile/offers'
-    put :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
-    get :availabilities, controller: 'users/availabilities', action: 'show', path: 'profile/availabilities'
+
+    put    :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
+    get    :availabilities, controller: 'users/availabilities', action: 'show', path: 'profile/availabilities'
+    delete :availabilities, controller: 'users/availabilities', action: 'destroy', path: 'profile/availabilities/:id'
   end
 
   namespace :users do

@@ -5,7 +5,8 @@ class UpdatesOrCreatesAvailability
     with(user: user, params: params).reduce [
       ValidatesConfirmation,
       ValidatesExpert,
-      CreateAvailability
+      FindOrCreateAvailability,
+      SaveAvailability
     ]
   end
 
@@ -33,7 +34,7 @@ class UpdatesOrCreatesAvailability
     end
   end
 
-  class CreateAvailability
+  class FindOrCreateAvailability
     include LightService::Action
 
     executed do |context|
@@ -41,29 +42,33 @@ class UpdatesOrCreatesAvailability
       params = context.fetch :params
 
       begin
+        opts = {
+          starts: params['starts'],
+          ends: params['ends'],
+          user: user
+        }
         if params['new_event'] == true
-          opts = {
-            starts: params['starts'],
-            ends: params['ends'],
-            user: user
-          }
           availability = Availability.new opts
         else
-          availability = Availability.find params['id']
+          availability = Availability.for(user).find params['id']
+          availability.assign_attributes opts
         end
       rescue
         context.set_failure! 'Document could not be found!'
-        next context
-      end
-
-      availability.user = user
-
-      unless availability.save
-        context[:errors] = availability.errors.full_messages
-        context.set_failure! 'Availability is not valid!'
-        next
       end
       context[:availability] = availability
+      next context
+    end
+  end
+
+  class SaveAvailability
+    include LightService::Action
+    executed do |context|
+      availability = context.fetch :availability
+
+      unless availability.save
+        context.set_failure! 'Availability could not be saved!'
+      end
     end
   end
 end

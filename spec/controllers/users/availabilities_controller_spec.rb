@@ -59,6 +59,31 @@ describe Users::AvailabilitiesController do
     end
   end
 
+  context 'DELETE #destroy' do
+    it 'should not be accessible by conventional means' do
+      availability = create_availability user: User.create(valid_params)
+      delete :destroy, id: availability.id.to_s
+
+      expect(response.success?).to be_false
+      expect(response.status).to eql(401)
+    end
+
+    it 'should remove a created Availability' do
+      user = User.create valid_params
+      user.linkedin_network = 10_000
+      user.confirm!
+      sign_in user
+
+      availability = create_availability user: user
+      availability.save!
+
+      delete :destroy, id: availability.id.to_s
+
+      expect(response.success?).to be_true
+      expect(response.status).to eql(200)
+    end
+  end
+
   def create_availability(opts = {})
     defaults = {
       starts: DateTime.now,

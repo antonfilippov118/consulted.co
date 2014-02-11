@@ -50,6 +50,9 @@ describe UpdatesOrCreatesAvailability do
         result = UpdatesOrCreatesAvailability.for u, params
         expect(result.success?).to be_true
         expect(Availability.count).to eql(1)
+
+        expect(Availability.first.starts.strftime('%d.%m.%Y')).to eql('14.02.2014')
+        expect(Availability.first.ends.strftime('%d.%m.%Y')).to eql('14.02.2014')
       end
 
       def availability_params

@@ -1,5 +1,5 @@
-<div class="event" id="{{event.id}}">
+<div class="event" id="{{event.id}}" ng-dblclick="dummyClick($event)">
   <span class="close" ng-click="remove()">x</span>
-  <p>{{starts | hour}} &mdash; {{ends | hour}}</p>
+  <p>{{event.starts | hour}} &mdash; {{event.ends | hour}}</p>
   <div class="draggable">&nbsp;</div>
 </div>
