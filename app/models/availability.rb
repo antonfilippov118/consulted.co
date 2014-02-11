@@ -11,6 +11,15 @@ class Availability
   scope :for, -> (user) { where user: user }
   scope :in_week, -> (week) { where week: week }
 
+  def as_json(opts)
+    {
+      id: id.to_s,
+      starts: starts,
+      ends: ends,
+      recurring: recurring
+    }
+  end
+
   private
 
   before_save do

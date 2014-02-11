@@ -5,7 +5,7 @@ class Users::AvailabilitiesController < Devise::SessionsController
   def show
     week   = params[:week] || Date.today.cweek
     result = ShowsAvailabilities.for current_user, week
-    render json: result, status: result[:status]
+    render json: result[:week], status: result[:status]
   end
 
   def update

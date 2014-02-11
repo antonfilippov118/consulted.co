@@ -42,7 +42,12 @@ class UpdatesOrCreatesAvailability
 
       begin
         if params['new_event'] == true
-          availability = Availability.new params['availability']
+          opts = {
+            starts: params['starts'],
+            ends: params['ends'],
+            user: user
+          }
+          availability = Availability.new opts
         else
           availability = Availability.find params['id']
         end
