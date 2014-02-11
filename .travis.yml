@@ -5,3 +5,5 @@ rvm:
 jdk:
   - openjdk7
 script: bundle exec rspec
+services: mongodb
+
