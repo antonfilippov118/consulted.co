@@ -3,9 +3,9 @@ class Users::AvailabilitiesController < Devise::SessionsController
   before_filter :authenticate!
 
   def show
-    week = params[:week] || Date.now.strftime('%W')
-    Availability.for(current_user).in_week(week)
-    render json: true, status: 200
+    week   = params[:week] || Date.today.cweek
+    result = ShowsAvailabilities.for current_user, week
+    render json: result, status: result[:status]
   end
 
   def update

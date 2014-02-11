@@ -9,63 +9,62 @@ describe Users::AvailabilitiesController do
   end
 
   describe 'GET #show' do
-    it 'should not show the availabities without a logged in user' do
-      get :show
-      expect(response.success?).to be_false
-      expect(response.status).to eql(401)
+    context 'for no user' do
+      it 'should not show the availabities without a logged in user' do
+        get :show
+        expect(response.success?).to be_false
+        expect(response.status).to eql(401)
+      end
     end
 
-    it 'should be able to filter the availabities by week' do
+    context 'for non expert user' do
+      it 'should not show any availabities' do
+        user = User.create valid_params
+        user.confirm!
+        sign_in user
 
-      availability  = create_availability
+        get :show
 
-      get :show
-      expect(response.success?).to be_true
-      expect(response.status).to eql 200
-
+        expect(response.success?).to be_false
+        expect(response.status).to eql(422)
+      end
     end
 
-    it 'should use a param for filtering by week' do
-      current_week = Time.now.strftime('%W').to_i
+    context 'for expert user' do
 
-      get :show, week: current_week
-      expect(response.success?).to be_true
-      expect(response.status).to eql(value)
-    end
+      let :user do
+        user = User.create valid_params
+        user.linkedin_network = 10_000
+        user.confirm!
+        user
+      end
 
-    it 'should deliver different availabilites based on week given' do
-      current_week  = Time.now.strftime('%W').to_i
-      availability  = create_availability
+      it 'should be able to filter the availabities by week' do
+        sign_in user
+        create_availability user: user
 
-      second_opts = {
-        starts: (Time.now + 1.week),
-        ends: (Time.now + 1.week + 2.hours),
-        user: user
-      }
-      second_availability = create_availability second_opts
+        get :show
+        expect(response.success?).to be_true
+        expect(response.status).to eql 200
+      end
 
-      get :show, week: current_week
-      expect(response.success?).to be_true
-      expect(response.status).to eql(200)
+      it 'should use a param for filtering by week' do
+        sign_in user
+        current_week = DateTime.now.cweek
 
-      get :show, week: current_week + 1
-      expect(response.success?).to be_true
-      expect(response).to eql(200)
-
+        get :show, week: current_week
+        expect(response.success?).to be_true
+        expect(response.status).to eql(200)
+      end
     end
   end
 
   def create_availability(opts = {})
     defaults = {
-      starts: Time.now,
-      ends: Time.now + 2.hours,
-      user: user
+      starts: DateTime.now,
+      ends: DateTime.now + 2.hours
     }
     opts = defaults.merge opts
     Availability.new opts
-  end
-
-  def user
-    User.create valid_params
   end
 end

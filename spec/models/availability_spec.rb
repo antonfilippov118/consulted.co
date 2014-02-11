@@ -9,11 +9,11 @@ describe Availability do
   it 'should automatically saves the week based on it\'s start date' do
     availability = create_availability
     availability.save
-    expect(availability.week).to eql(DateTime.now.strftime('%W').to_i)
+    expect(availability.week).to eql(DateTime.now.cweek)
   end
 
   it 'should be found by week' do
-    week = DateTime.now.strftime('%W').to_i
+    week = DateTime.now.cweek
     availability = create_availability
     availability.save
 
