@@ -8,8 +8,8 @@ class Availability
   field :week, type: Integer, default: -> { Date.today.cweek }
 
   scope :recurring, -> { where recurring: true }
-  scope :for, -> (user) { where user: user }
-  scope :in_week, -> (week) { where week: week }
+  scope :for, -> user { where user: user }
+  scope :in_week, -> week { where week: week }
 
   def as_json(opts)
     {

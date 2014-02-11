@@ -100,7 +100,7 @@ end
 
 platform :jruby do
   group :jruby do
-    gem 'jruby-openssl', '~> 0.8.5'
+    gem 'jruby-openssl', '~> 0.9.4'
   end
   gem 'torquebox', '3.0.1'
   gem 'torquebox-server', '3.0.1'

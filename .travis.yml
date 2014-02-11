@@ -1,7 +1,7 @@
 language: ruby
 rvm:
-  - jruby-head
   - 2.0.0
+  - jruby-head
 jdk:
   - openjdk7
-script: rspec spec
+script: bundle exec rspec
