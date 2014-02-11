@@ -1,7 +1,8 @@
 class ShowsAvailabilities
   include LightService::Organizer
 
-  def self.for(user, week)
+  def self.for(user, week = nil)
+    week = Date.today.cweek if week.nil?
     with(user: user, week: week).reduce [
       ValidatesExpert,
       FetchAvailabilities,
@@ -34,7 +35,15 @@ class ShowsAvailabilities
   class SortAvailabilities
     include LightService::Action
     executed do |context|
-      next context
+      availabilities = context.fetch :availabilities
+      result = [[], [], [], [], [], [], []]
+
+      availabilities.each do |availability|
+        week_day = availability.starts.to_date.cwday - 1
+        result[week_day] << availability
+      end
+
+      context[:week] = result
     end
   end
 end

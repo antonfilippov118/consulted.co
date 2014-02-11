@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - jruby-1.9mode
+  - jruby-head
+  - 2.1.0
+  - 2.0.0
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - openjdk6
+script: rspec spec
