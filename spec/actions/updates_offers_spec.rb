@@ -102,16 +102,6 @@ describe UpdatesOffers do
     expect(offer_2.lengths).to eql(%W( 120 ))
   end
 
-  def valid_params
-    {
-      email: 'florian@consulted.co',
-      name: 'Florian',
-      password: 'tester',
-      password_confirmation: 'tester',
-      confirmation_sent_at: Time.now
-    }
-  end
-
   def create_user!
     user = User.create valid_params
     user.confirm!

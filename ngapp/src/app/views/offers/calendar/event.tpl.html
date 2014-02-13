@@ -1,5 +1,8 @@
-<div class="event">
-  <span class="close" ng-click="remove()">x</span>
-  <p>{{event.starts | hour}} &mdash; {{event.ends | hour}}</p>
-  <div class="drag"></div>
+<div class="event" id="{{event.id}}" ng-dblclick="dummyClick($event)">
+  <span class="close" ng-click="remove($event)">x</span>
+  <p ng-click="dummyClick($event)">{{event.starts | hour}} &mdash; {{event.ends | hour}}</p>
+  <label>
+    <input type="checkbox" ng-model="event.recurring" ng-change="save()"> recurring?
+  </label>
+  <div class="draggable">&nbsp;</div>
 </div>

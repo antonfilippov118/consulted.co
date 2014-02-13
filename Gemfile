@@ -31,10 +31,6 @@ group :development do
   gem 'pry-rails'
 end
 
-group :development, :test do
-  gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
-end
-
 group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec'
@@ -42,7 +38,7 @@ group :test do
 end
 
 group :db do
-  gem 'mongoid', '~> 4.0.0.alpha1'
+  gem 'mongoid', '~> 4.0.0.beta1'
   gem 'bson'
 end
 
@@ -96,14 +92,6 @@ group :metrics do
     gem 'unparser',        '~> 0.1.5', git: 'https://github.com/mbj/unparser.git'
     gem 'yard-spellcheck', '~> 0.1.5'
   end
-
-  platform :rbx do
-    gem 'json',               '~> 1.8.1'
-    gem 'racc',               '~> 1.4.10'
-    gem 'rubysl-logger',      '~> 2.0.0'
-    gem 'rubysl-open-uri',    '~> 2.0.0'
-    gem 'rubysl-prettyprint', '~> 2.0.2'
-  end
 end
 
 group :benchmarks do
@@ -112,7 +100,7 @@ end
 
 platform :jruby do
   group :jruby do
-    gem 'jruby-openssl', '~> 0.8.5'
+    gem 'jruby-openssl', '~> 0.9.4'
   end
   gem 'torquebox', '3.0.1'
   gem 'torquebox-server', '3.0.1'

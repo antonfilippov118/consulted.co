@@ -39,10 +39,12 @@
       position: relative;
       background: url(data.png);
       float:left;
+      cursor: pointer;
 
       .event {
         border-radius: 2px;
         background: teal;
+        cursor: default;
         width:100%;
         position: absolute;
         color: white;
@@ -56,9 +58,16 @@
           font-size: 16px;
         }
 
-        .drag {
-          height: 3px;
+        p {
+          margin: 0;
+        }
+
+        .draggable {
+          height: 15px;
           cursor: pointer;
+          position: absolute;
+          bottom: 0px;
+          width: 90% ;
         }
       }
       border-right: 1px solid #ccc;

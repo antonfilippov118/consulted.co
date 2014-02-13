@@ -46,7 +46,7 @@ app.directive "userOffers", [() ->
 ]
 
 app.directive "userCalendar", [() ->
-  controller: 'UserCalendarController'
+  controller: 'CalendarController'
   templateUrl: 'views/offers/user_calendar.tpl.html'
   scope:
     user: "="
