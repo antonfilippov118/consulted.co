@@ -15,7 +15,7 @@
       <div class="times">
         <div class="hour" ng-repeat="hour in hours">{{hour}}:00</div>
       </div>
-      <div class="column" day-column ng-click="add($event, $index)" ng-repeat="day in weekdays">
+      <div class="column" day-column ng-dblclick="add($event, $index)" ng-repeat="day in weekdays">
         <div event="event" ng-repeat="event in events[$index] track by event.id"></div>
       </div>
       <div class="footer">&nbsp;</div>

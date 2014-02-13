@@ -9,7 +9,7 @@ class Availability
 
   scope :recurring, -> { where recurring: true }
   scope :for, -> user { where user: user }
-  scope :in_week, -> week { where week: week }
+  scope :in_week, -> week { where(week: week) }
 
   def as_json(opts)
     {

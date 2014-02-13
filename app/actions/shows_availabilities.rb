@@ -27,7 +27,9 @@ class ShowsAvailabilities
     executed do |context|
       week = context.fetch :week
       user = context.fetch :user
-      context[:availabilities] = Availability.for(user).in_week(week)
+      availabilities = Availability.for(user).in_week(week)
+      availabilities += Availability.for(user).recurring
+      context[:availabilities] = availabilities.uniq
       next context
     end
   end

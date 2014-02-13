@@ -17,6 +17,9 @@ app.directive "event", [() ->
       # prevent creating more and more events on clicking the event
       event.stopPropagation()
 
+    scope.save = () ->
+      scope.$emit "calendar:event:change", scope.event
+
     calculate = (newValue, emit = no) ->
       midnight       = starts.clone().hour(0).minute(0).second(0)
       offset         = starts.diff(midnight, 'minutes')
@@ -36,7 +39,8 @@ app.directive "event", [() ->
 
     calculate(scope.length)
 
-    scope.remove = () ->
+    scope.remove = (event) ->
+      event.stopPropagation()
       scope.$emit "calendar:event:remove", scope.event.id
 
     scope.$on "calendar:event:height", (_, height) ->

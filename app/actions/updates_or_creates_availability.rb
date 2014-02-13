@@ -45,6 +45,7 @@ class UpdatesOrCreatesAvailability
         opts = {
           starts: params['starts'],
           ends: params['ends'],
+          recurring: params['recurring'],
           user: user
         }
         if params['new_event'] == true

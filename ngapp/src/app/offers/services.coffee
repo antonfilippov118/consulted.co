@@ -38,26 +38,29 @@ app.service "Availabilities", [
   'Saving'
   '$q'
   '$http'
-  (Saving, q, http) ->
+  '$timeout'
+  (Saving, q, http, $timeout) ->
+    timer = null
 
     save: (_event) ->
-      Saving.show()
       result = q.defer()
+      $timeout.cancel timer if timer?
+      $timeout ->
+        Saving.show()
+        event = angular.copy _event
 
-      event = angular.copy _event
+        if moment.isMoment(event.starts)
+          event.starts = event.starts.format()
+        if moment.isMoment(event.ends)
+          event.ends = event.ends.format()
 
-      if moment.isMoment(event.starts)
-        event.starts = event.starts.format()
-
-      if moment.isMoment(event.ends)
-        event.ends = event.ends.format()
-
-      http.put('/profile/availabilities', event).then (response) ->
-        result.resolve response.data
-      , (err) ->
-        result.reject err
-      .finally () ->
-        Saving.hide()
+        http.put('/profile/availabilities', event).then (response) ->
+          result.resolve response.data
+        , (err) ->
+          result.reject err
+        .finally () ->
+          Saving.hide()
+      , 500
 
       result.promise
 
