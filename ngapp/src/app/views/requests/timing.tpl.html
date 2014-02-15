@@ -1,0 +1,8 @@
+<div class="timing">
+  <h3>Timing <span>(Pick one)</span></h3>
+  <ul class="timings">
+    <li ng-repeat="time in timings" ng-class="{'active': selected === $index}">
+      <a ng-click="select($event, $index)">{{time}}</a>
+    </li>
+  </ul>
+</div>

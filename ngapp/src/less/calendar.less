@@ -5,7 +5,14 @@
   .calendar {
     width: 60%;
     div {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
+
     .caption {
       .text-center();
     }
@@ -41,6 +48,10 @@
       float:left;
       cursor: pointer;
 
+      &.inactive {
+        cursor: not-allowed;
+      }
+
       .event {
         border-radius: 2px;
         background: teal;
@@ -67,7 +78,7 @@
           cursor: pointer;
           position: absolute;
           bottom: 0px;
-          width: 90% ;
+          width: 80% ;
         }
       }
       border-right: 1px solid #ccc;
@@ -90,5 +101,10 @@
       clear:both;
     }
 
+  }
+  .time_selected {
+    .pull-right();
+    padding-top: 40px;
+    width: 35%;
   }
 }

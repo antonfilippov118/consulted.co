@@ -1,0 +1,8 @@
+<li>
+  <label>
+    <input type="checkbox"> {{group.name}}
+  </label>
+  <ul>
+    <li ng-repeat="child in group.children" search-subgroup group="child"></li>
+  </ul>
+</li>

@@ -36,11 +36,11 @@ app.directive "event", [() ->
 
       scope.$emit "calendar:event:change", scope.event if emit
 
-
     calculate(scope.length)
 
     scope.remove = (event) ->
       event.stopPropagation()
+      el.remove()
       scope.$emit "calendar:event:remove", scope.event.id
 
     scope.$on "calendar:event:height", (_, height) ->
@@ -51,9 +51,6 @@ app.directive "event", [() ->
       {newEvent, oldEvent} = obj
       if scope.event.id is oldEvent.id
         scope.event = newEvent
-    scope.$on "calendar:event:remove", (_, id) ->
-      if scope.event.id is id
-        el.remove()
 
 ]
 
@@ -90,35 +87,33 @@ app.directive "draggable", [() ->
 
 ]
 
-app.directive "dayColumn", [->
-  link: (scope, el, attrs) ->
-    s4 = () ->
-      Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1)
+app.directive "dayColumn", [
+  'Hash'
+  (Hash) ->
+    link: (scope, el, attrs) ->
+      {s4} = Hash
+      scope.add = (event, index) ->
+        date   = scope.start_date.clone().add index, 'days'
+        #calculate start from offset
+        offset = event.layerY - 10
+        hour   = offset/44
+        start  = date.clone().hour(0).minute 0
+        i      = 0
+        while i < hour
+          start.add 15, 'minutes'
+          i += 0.25
+        end    = start.clone().add 1, 'hour'
 
-    scope.add = (event, index) ->
-      date   = scope.start_date.clone().add index, 'days'
-      #calculate start from offset
-      offset = event.layerY - 10
-      hour   = offset/44
-      start  = date.clone().hour(0).minute 0
-      i      = 0
-      while i < hour
-        start.add 15, 'minutes'
-        i += 0.25
-      end    = start.clone().add 1, 'hour'
+        values =
+          event:
+            starts: start
+            ends: end
+            id: "#{s4()}#{s4()}-#{s4()}#{s4()}"
+            new_event: yes
+          index: index
+        scope.$emit 'calendar:event:new', values
 
-      values =
-        event:
-          starts: start
-          ends: end
-          id: "#{s4()}#{s4()}-#{s4()}#{s4()}"
-          new_event: yes
-        index: index
-      scope.$emit 'calendar:event:new', values
-
-    scope.dummy = (event) -> event.stopPropagation()
+      scope.dummy = (event) -> event.stopPropagation()
 
 ]
 
