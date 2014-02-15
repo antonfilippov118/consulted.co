@@ -2,7 +2,6 @@
   <h3>Provide your available times and dates (max. 5)</h3>
   <div class="time_selected" ng-show="times().length > 0">
     <h4>Times selected:</h4>
-    <pre>{{times()}}</pre>
     <ol>
       <li ng-repeat="time in times()">{{time.starts | datehour}} &mdash; {{time.ends | datehour}}</li>
     </ol>
