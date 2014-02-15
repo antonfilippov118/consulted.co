@@ -6,6 +6,9 @@
     <ol>
       <li ng-repeat="time in times()">{{time.starts | datehour}} &mdash; {{time.ends | datehour}}</li>
     </ol>
+    <div class="buttons">
+      <a ng-click="clear()" class="btn btn-danger">Clear these times</a>
+    </div>
   </div>
   <div class="calendar">
     <div class="caption">

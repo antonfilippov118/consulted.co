@@ -10,7 +10,6 @@ app.directive "searchCalendar", [
 app.controller 'RequestCalendarCtrl', [
   '$scope'
   (scope) ->
-    scope.times = [moment()]
     scope.start_date = moment()
 
     scope.weekdays = [
@@ -39,6 +38,9 @@ app.controller 'RequestCalendarCtrl', [
       week += count
       scope.start_date.clone().add(count, type).day(1)
 
+    update = () ->
+      scope.$emit "calendar:update", scope.times()
+
     scope.next = () ->
       scope.start_date = step 1
 
@@ -52,6 +54,10 @@ app.controller 'RequestCalendarCtrl', [
           times.push event for event in day
       times
 
+    scope.clear = () ->
+      week_events = {}
+      update()
+
     scope.maxedOut = () ->
       scope.times().length >= 5
 
@@ -63,8 +69,11 @@ app.controller 'RequestCalendarCtrl', [
 
     scope.$on "calendar:event:new", (_, event) ->
       scope.events()[event.index].push event
+      update()
 
-    scope.$on "calendar:event:remove", remove
+    scope.$on "calendar:event:remove", (_, id)->
+      remove _, id
+      update()
 
     scope.$on 'calendar:event:change', (_, _event) ->
       ts = scope.start_date.unix()
@@ -72,6 +81,8 @@ app.controller 'RequestCalendarCtrl', [
         for event, idx in day when event.id is _event.id
           week_events[ts][index][idx].ends = _event.ends
       scope.$digest()
+      update()
+
 
 ]
 
