@@ -2,12 +2,12 @@
   "name": "consulted",
   "version": "0.0.1",
   "devDependencies": {
-    "angular": "1.2.5",
-    "angular-mocks": "1.2.5",
-    "angular-animate": "1.2.5",
+    "angular": "1.2.12",
+    "angular-mocks": "1.2.12",
+    "angular-animate": "1.2.12",
     "bootstrap": "3.0.0",
-    "angular-route": "1.2.5",
-    "angular-cookies": "~1.2.5",
+    "angular-route": "1.2.12",
+    "angular-cookies": "~1.2.12",
     "should": "~2.1.0",
     "chai": "~1.8.1",
     "animate-less": "~2.0.1",
@@ -16,6 +16,6 @@
     "jquery-ui": "~1.10.3"
   },
   "resolutions": {
-    "angular": "1.2.5"
+    "angular": "1.2.12"
   }
 }

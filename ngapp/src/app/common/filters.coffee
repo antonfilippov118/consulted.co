@@ -4,7 +4,8 @@ timeFilters = {
   'minute': "mm"
   'hour': "HH:mm"
   'date': "YYYY-MM-DD"
-  'datetime': "YYYY-MM-DD"
+  'datetime': "YYYY-MM-DD HH:mm:ss"
+  'datehour': "YYYY-MM-DD HH:mm"
 }
 
 angular.forEach timeFilters, (format, key) ->
@@ -19,9 +20,6 @@ app.filter "week", [() ->
     input = moment(input) unless moment.isMoment input
     return input.isoWeek() if iso
     return input.week()
-
-
-
 ]
 
 

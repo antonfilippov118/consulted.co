@@ -1,0 +1,8 @@
+<li>
+  <label>
+    <input type="checkbox" ng-click="toggle()" ng-checked="enabled"> {{group.name}}
+  </label>
+  <ul>
+    <li ng-repeat="child in group.children" search-subgroup group="child"></li>
+  </ul>
+</li>

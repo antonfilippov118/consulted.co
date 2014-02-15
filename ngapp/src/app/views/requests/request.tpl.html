@@ -1,0 +1,14 @@
+<div id="request_a_call">
+  <h1>Request a call</h1>
+  <div error-loading></div>
+  <div ng-show="!error && !loading">
+    <div search-steps></div>
+    <div search-group-select groups="groups"></div>
+    <div search-calendar></div>
+    <div search-timing></div>
+    <div search-languages></div>
+    <div class="buttons">
+      <button ng-click="search()" class="btn btn-primary" ng-disabled="!canSearch()">See available experts</button>
+    </div>
+  </div>
+</div>
