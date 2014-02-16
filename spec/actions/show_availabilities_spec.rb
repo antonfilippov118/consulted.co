@@ -48,13 +48,13 @@ describe ShowsAvailabilities do
       expect(availabilities_today.length).to eql(1)
     end
 
-    it 'should onyl fetch the availabilities for a given week' do
+    it 'should only fetch the availabilities for a given week' do
       u = user
       create_availability user: u
 
       opts = {
-        starts: DateTime.now + 1.week + 1.day,
-        ends: DateTime.now + 1.week + 1.day,
+        starts: DateTime.now + 1.week,
+        ends: DateTime.now + 1.week,
         user: u
       }
       create_availability opts
@@ -67,7 +67,7 @@ describe ShowsAvailabilities do
 
       result = ShowsAvailabilities.for u, current_week + 1
       week   = result[:week]
-      expect(week[current_day].length).to eql(1)
+      expect(week[current_day - 1].length).to eql(1)
     end
 
     def user
