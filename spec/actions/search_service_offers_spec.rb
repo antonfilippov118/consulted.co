@@ -4,6 +4,8 @@ describe SearchServiceOffers do
   before(:each) do
     User.delete_all
     Offer.delete_all
+    Availability.delete_all
+    Group.delete_all
   end
 
   context 'for insufficient conditions' do
@@ -111,13 +113,57 @@ describe SearchServiceOffers do
         expect(result[:experts]).not_to be_nil
         expect(result[:experts].length).to eql(3), 'expected three german experts'
       end
+
+      it 'should require all languages given to identify experts' do
+        opts = options
+        opts[:languages] = %W(english german)
+        result = SearchServiceOffers.with_options opts
+
+        expect(result[:experts]).not_to be_nil
+        expect(result[:experts].length).to eql(1)
+      end
+    end
+
+    context 'finding appropiate groups' do
+      before(:each) do
+        create_expert languages: %W(german english), email: 'f@k.co'
+        create_expert languages: %W(german), email: 's@k.co'
+        create_expert languages: %W(german mandarin), email: 'a@k.co'
+
+        create_group name: 'Byzantine Recklessness'
+        create_group name: 'Bingo BS'
+        create_group name: 'Stratagems'
+
+        users  = User.all.to_a
+        groups = Group.all.to_a
+
+        create_availability
+        create_availability user: users[1]
+        create_availability user: users[2]
+
+        create_offer group: groups[1]
+        create_offer user: users[1], rate: 90, group: groups[0]
+        create_offer user: users[2], rate: 60, experience: 10, group: groups[2]
+      end
+
+      it 'should filter out any experts which do not match the groups selected' do
+        opts = options
+        result = SearchServiceOffers.with_options opts
+        experts = result.fetch :experts
+        expect(experts.length).to eql(1)
+      end
+
+      it 'should ' do
+
+      end
     end
 
     def options
       {
         groups: [Group.first.id.to_s],
         length: 30,
-        times: [1, 2, 3, 4]
+        times: [1, 2, 3, 4],
+        languages: ['german']
       }
     end
 
@@ -133,6 +179,28 @@ describe SearchServiceOffers do
       }.merge opts
 
       Group.create opts
+    end
+
+    def create_availability(opts = {})
+      opts = {
+        user: User.first,
+        starts: Time.now,
+        ends: Time.now + 1.hour
+      }.merge opts
+      Availability.create opts
+    end
+
+    def create_offer(opts = {})
+      opts = {
+        user: User.first,
+        description: 'Foo',
+        experience: 3,
+        rate: 45,
+        lengths: %W(30 90 120),
+        enabled: true,
+        group: Group.first
+      }.merge opts
+      Offer.create opts
     end
   end
 end
