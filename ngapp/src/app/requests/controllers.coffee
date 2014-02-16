@@ -41,7 +41,6 @@ app.controller "SearchRequestCtrl", [
       options['groups'] = groups
 
     scope.canSearch = () ->
-      console.log options
       return no unless options.times.length > 0
       return no unless options.length > 0
       return no unless options.languages.length > 0
