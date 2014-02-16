@@ -84,4 +84,55 @@ describe SearchServiceOffers do
       end
     end
   end
+
+  context 'searching for offers' do
+    context 'prefetching appropiate languages' do
+      before(:each) do
+        create_expert languages: %W(german english), email: 'f@k.co'
+        create_expert languages: %W(german), email: 's@k.co'
+        create_expert languages: %W(german mandarin), email: 'a@k.co'
+        create_group name: 'Byzantine Recklessness'
+      end
+
+      it 'should prefetch experts by languages' do
+        opts = options
+        opts[:languages] = %W(mandarin)
+        result = SearchServiceOffers.with_options opts
+        expect(result[:experts]).not_to be_nil
+        expect(result[:experts].length).to eql(1), 'expected a mandarin expert'
+
+        opts[:languages] = %W(english)
+        result = SearchServiceOffers.with_options opts
+        expect(result[:experts]).not_to be_nil
+        expect(result[:experts].length).to eql(1), 'expected one english expert'
+
+        opts[:languages] = %W(german)
+        result = SearchServiceOffers.with_options opts
+        expect(result[:experts]).not_to be_nil
+        expect(result[:experts].length).to eql(3), 'expected three german experts'
+      end
+    end
+
+    def options
+      {
+        groups: [Group.first.id.to_s],
+        length: 30,
+        times: [1, 2, 3, 4]
+      }
+    end
+
+    def create_expert(opts)
+      opts = valid_params.merge opts
+      opts[:linkedin_network] = 10_000_000
+      User.create! opts
+    end
+
+    def create_group(opts)
+      opts = {
+        name: 'Foo'
+      }.merge opts
+
+      Group.create opts
+    end
+  end
 end

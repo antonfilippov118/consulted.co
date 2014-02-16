@@ -6,7 +6,8 @@ class SearchServiceOffers
       ValidateTimes,
       ValidateLength,
       ValidateLanguage,
-      ValidateGroups
+      ValidateGroups,
+      FindUsersWithLanguages
     ]
   end
 
@@ -52,6 +53,19 @@ class SearchServiceOffers
       rescue => e
         context.set_failure! 'Group not found!'
         context[:error] = e
+      end
+    end
+  end
+
+  class FindUsersWithLanguages
+    include LightService::Action
+    executed do |context|
+      begin
+        lang = context.fetch :languages
+        context[:experts] = User.confirmed.experts.with_languages lang
+        next context
+      rescue => e
+        context.set_failure! e
       end
     end
   end
