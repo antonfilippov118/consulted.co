@@ -45,9 +45,13 @@ class User
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
 
+  scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
+  scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
+  scope :with_languages, -> (languages) { where languages: { :$all => languages } }
+
   def can_be_an_expert?
     return false unless confirmed?
-    linkedin_network >= 1
+    linkedin_network >= User.required_connections
   end
 
   def linkedin?
@@ -69,5 +73,9 @@ class User
 
   def allowed_languages
     %W(spanish english mandarin german arabic)
+  end
+
+  def self.required_connections
+    1
   end
 end

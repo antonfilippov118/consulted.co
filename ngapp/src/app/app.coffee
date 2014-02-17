@@ -2,6 +2,7 @@ app = angular.module "consulted", [
   "consulted.groups"
   "consulted.users"
   "consulted.offers"
+  "consulted.requests"
   "consulted.navigation"
   "consulted.static"
   "consulted.profile"

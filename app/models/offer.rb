@@ -16,6 +16,10 @@ class Offer
   delegate :availabilities, to: :user
   delegate :name, to: :group
 
+  scope :for, -> experts { where user_id: { :$in => experts } }
+  scope :with_group, -> groups { where group_id: { :$in => groups } }
+  scope :with_length, -> length { where lengths: length }
+
   def available?
     availabilities.length > 0
   end

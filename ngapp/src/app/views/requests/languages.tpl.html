@@ -1,0 +1,8 @@
+<div class="languages">
+  <h3>Languages</h3>
+  <ul>
+    <li ng-repeat="lang in languages" ng-class="{'active': isSelected($index)}">
+      <a ng-click="select($event, $index)">{{lang | capitalize}}</a>
+    </li>
+  </ul>
+</div>

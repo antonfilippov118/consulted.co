@@ -11,6 +11,8 @@ class Availability
   scope :for, -> user { where user: user }
   scope :in_week, -> week { where(week: week) }
 
+  scope :covering, -> starts, ends { where starts: { :$lte => starts }, ends: { :$gte => ends } }
+
   def as_json(opts)
     {
       id: id.to_s,
