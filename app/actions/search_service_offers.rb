@@ -7,7 +7,9 @@ class SearchServiceOffers
       ValidateLength,
       ValidateLanguage,
       ValidateGroups,
-      FindUsersWithLanguages
+      FindUsersWithLanguages,
+      MatchOffers,
+      ReduceOffersByAvailability
     ]
   end
 
@@ -63,10 +65,34 @@ class SearchServiceOffers
       begin
         lang = context.fetch :languages
         context[:experts] = User.confirmed.experts.with_languages lang
-        next context
       rescue => e
         context.set_failure! e
       end
+    end
+  end
+
+  class MatchOffers
+    include LightService::Action
+
+    executed do |context|
+      experts = context.fetch :experts
+      groups  = context.fetch :groups
+      length  = context.fetch :length
+
+      context[:possible_offers] = Offer.for(experts.to_a).with_group(groups).with_length length
+    end
+  end
+
+  class ReduceOffersByAvailability
+    include LightService::Action
+    executed do |context|
+      offers = context.fetch :possible_offers
+      times  = context.fetch :times
+
+      offers = offers.reject { |offer| !offer.available_for(times) }
+
+      context[:offers] = offers
+      context[:users]  = offers.map(&:user)
     end
   end
 end

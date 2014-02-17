@@ -78,7 +78,10 @@ describe SearchServiceOffers do
 
       def options
         {
-          times: [1, 2, 3, 4],
+          times: [{
+            ends: '2014-02-20T00:45:21.012Z',
+            starts: '2014-02-19T23:45:21.012Z'
+          }],
           length: 30,
           languages: %W(english german),
           groups: []
@@ -142,27 +145,79 @@ describe SearchServiceOffers do
         create_availability user: users[2]
 
         create_offer group: groups[1]
-        create_offer user: users[1], rate: 90, group: groups[0]
-        create_offer user: users[2], rate: 60, experience: 10, group: groups[2]
+        create_offer user: users[1], lengths: %W(30 45 120), group: groups[0]
+        create_offer user: users[2], experience: 10, group: groups[2]
       end
 
       it 'should filter out any experts which do not match the groups selected' do
         opts = options
         result = SearchServiceOffers.with_options opts
-        experts = result.fetch :experts
-        expect(experts.length).to eql(1)
+        possible_offers = result.fetch :possible_offers
+        expect(possible_offers.length).to eql(1)
+
+        opts[:languages] =  %W(english)
+        opts[:length] = '90'
+        opts[:groups] = [Group.all.to_a[1].id.to_s]
+
+        result = SearchServiceOffers.with_options opts
+        possible_offers = result.fetch :possible_offers
+        expect(possible_offers.length).to eql(1)
+
+        opts[:languages] =  %W(german)
+        opts[:length] = '30'
+        opts[:groups] = [Group.all.to_a[1].id.to_s, Group.all.to_a[2].id.to_s]
+
+        result = SearchServiceOffers.with_options opts
+        possible_offers = result.fetch :possible_offers
+        expect(possible_offers.length).to eql(2)
       end
 
-      it 'should ' do
+      it 'should reduce the offers by availability of the user' do
+        Availability.delete_all
+        users  = User.all.to_a
+        opts = {
+          starts: DateTime.parse('2013-01-01 14:00'),
+          ends: DateTime.parse('2013-01-01 14:30')
+        }
+        create_availability opts
 
+        opts = {
+          starts: DateTime.parse('2013-01-01 15:00'),
+          ends: DateTime.parse('2013-01-01 16:30'),
+          user: users[1]
+        }
+        create_availability opts
+
+        opts = options
+
+        opts[:groups] = [Group.all.to_a[0].id.to_s, Group.all.to_a[1].id.to_s]
+
+        opts[:times] = [
+          {
+            starts: '2013-01-01 14:00',
+            ends: '2013-01-01 15:00'
+          },
+          {
+            starts: '2013-01-01 15:00',
+            ends: '2013-01-01 20:00'
+          }
+        ]
+
+        opts[:length] = '30'
+        result = SearchServiceOffers.with_options opts
+        offers = result.fetch :offers
+        expect(offers.length).to eql(1)
       end
     end
 
     def options
       {
         groups: [Group.first.id.to_s],
-        length: 30,
-        times: [1, 2, 3, 4],
+        length: '30',
+        times: [{
+          ends: Time.now.to_s,
+          starts: (Time.now + 1.hour).to_s
+        }],
         languages: ['german']
       }
     end
@@ -187,7 +242,7 @@ describe SearchServiceOffers do
         starts: Time.now,
         ends: Time.now + 1.hour
       }.merge opts
-      Availability.create opts
+      Availability.create! opts
     end
 
     def create_offer(opts = {})
