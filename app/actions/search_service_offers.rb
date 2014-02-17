@@ -8,17 +8,17 @@ class SearchServiceOffers
       ValidateLanguage,
       ValidateGroups,
       FindUsersWithLanguages,
-      MatchOffers,
-      ReduceOffersByAvailability
+      MatchOffers
     ]
   end
 
   class ValidateTimes
     include LightService::Action
     executed do |context|
-      times = context.fetch :times
-
-      if times.empty?
+      begin
+        times = context.fetch 'times'
+        fail if times.empty?
+      rescue
         context.set_failure! 'No times given!'
       end
     end
@@ -28,7 +28,7 @@ class SearchServiceOffers
     include LightService::Action
     executed do |context|
       begin
-        context.fetch :length
+        context.fetch 'length'
       rescue KeyError
         context.set_failure! 'No length given!'
       end
@@ -38,7 +38,7 @@ class SearchServiceOffers
   class ValidateLanguage
     include LightService::Action
     executed do |context|
-      languages = context.fetch :languages
+      languages = context.fetch 'languages'
       if languages.empty?
         context.set_failure! 'No languages given!'
       end
@@ -48,7 +48,7 @@ class SearchServiceOffers
   class ValidateGroups
     include LightService::Action
     executed do |context|
-      groups = context.fetch :groups
+      groups = context.fetch 'groups'
 
       begin
         Group.find groups
@@ -63,7 +63,7 @@ class SearchServiceOffers
     include LightService::Action
     executed do |context|
       begin
-        lang = context.fetch :languages
+        lang = context.fetch 'languages'
         context[:experts] = User.confirmed.experts.with_languages lang
       rescue => e
         context.set_failure! e
@@ -76,23 +76,10 @@ class SearchServiceOffers
 
     executed do |context|
       experts = context.fetch :experts
-      groups  = context.fetch :groups
-      length  = context.fetch :length
+      groups  = context.fetch 'groups'
+      length  = context.fetch 'length'
+      context[:offers] = Offer.for(experts.to_a).with_group(groups).with_length length.to_s
 
-      context[:possible_offers] = Offer.for(experts.to_a).with_group(groups).with_length length
-    end
-  end
-
-  class ReduceOffersByAvailability
-    include LightService::Action
-    executed do |context|
-      offers = context.fetch :possible_offers
-      times  = context.fetch :times
-
-      offers = offers.reject { |offer| !offer.available_for(times) }
-
-      context[:offers] = offers
-      context[:users]  = offers.map(&:user)
     end
   end
 end

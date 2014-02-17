@@ -11,7 +11,7 @@ describe SearchServiceOffers do
   context 'for insufficient conditions' do
     it 'should do nothing without times given' do
       options = {
-        times: []
+        'times' => []
       }
 
       result = SearchServiceOffers.with_options options
@@ -21,7 +21,7 @@ describe SearchServiceOffers do
 
     it 'should do nothing without a length given' do
       options = {
-        times: [1, 2, 3, 4]
+        'times' => [1, 2, 3, 4]
       }
 
       result = SearchServiceOffers.with_options options
@@ -31,9 +31,9 @@ describe SearchServiceOffers do
 
     it 'should do nothing without at least one language given' do
       options = {
-        times: [1, 2, 3, 4],
-        length: 30,
-        languages: []
+        'times' => [1, 2, 3, 4],
+        'length' => 30,
+        'languages' => []
       }
       result = SearchServiceOffers.with_options options
       expect(result.success?).to be_false
@@ -47,7 +47,7 @@ describe SearchServiceOffers do
 
       it 'should fail with just a non existing group' do
         opts = options
-        opts[:groups] << 'foo'
+        opts['groups'] << 'foo'
         result = SearchServiceOffers.with_options opts
         expect(result.success?).to be_false
         expect(result.message).to eql('Group not found!')
@@ -55,7 +55,7 @@ describe SearchServiceOffers do
 
       it 'should be okay with one existing group' do
         opts = options
-        opts[:groups] << valid_id
+        opts['groups'] << valid_id
 
         result = SearchServiceOffers.with_options opts
         expect(result.success?).to be_true
@@ -63,9 +63,9 @@ describe SearchServiceOffers do
 
       it 'should fail with at least only one existing group' do
         opts = options
-        opts[:groups] << 'foo'
-        opts[:groups] << valid_id
-        opts[:groups] << 'bar'
+        opts['groups'] << 'foo'
+        opts['groups'] << valid_id
+        opts['groups'] << 'bar'
 
         result = SearchServiceOffers.with_options opts
         expect(result.success?).to be_false
@@ -78,19 +78,19 @@ describe SearchServiceOffers do
 
       def options
         {
-          times: [{
-            ends: '2014-02-20T00:45:21.012Z',
-            starts: '2014-02-19T23:45:21.012Z'
+          'times' => [{
+            'ends' => '2014-02-20T00:45:21.012Z',
+            'starts' => '2014-02-19T23:45:21.012Z'
           }],
-          length: 30,
-          languages: %W(english german),
-          groups: []
+          'length' => 30,
+          'languages' => %W(english german),
+          'groups' => []
         }
       end
     end
   end
 
-  context 'searching for offers' do
+  context 'with sufficient conditions' do
     context 'prefetching appropiate languages' do
       before(:each) do
         create_expert languages: %W(german english), email: 'f@k.co'
@@ -101,17 +101,19 @@ describe SearchServiceOffers do
 
       it 'should prefetch experts by languages' do
         opts = options
-        opts[:languages] = %W(mandarin)
+        opts['languages'] = %W(mandarin)
+
         result = SearchServiceOffers.with_options opts
+
         expect(result[:experts]).not_to be_nil
         expect(result[:experts].length).to eql(1), 'expected a mandarin expert'
 
-        opts[:languages] = %W(english)
+        opts['languages'] = %W(english)
         result = SearchServiceOffers.with_options opts
         expect(result[:experts]).not_to be_nil
         expect(result[:experts].length).to eql(1), 'expected one english expert'
 
-        opts[:languages] = %W(german)
+        opts['languages'] = %W(german)
         result = SearchServiceOffers.with_options opts
         expect(result[:experts]).not_to be_nil
         expect(result[:experts].length).to eql(3), 'expected three german experts'
@@ -119,7 +121,7 @@ describe SearchServiceOffers do
 
       it 'should require all languages given to identify experts' do
         opts = options
-        opts[:languages] = %W(english german)
+        opts['languages'] = %W(english german)
         result = SearchServiceOffers.with_options opts
 
         expect(result[:experts]).not_to be_nil
@@ -127,7 +129,7 @@ describe SearchServiceOffers do
       end
     end
 
-    context 'finding appropiate groups' do
+    context 'when finding appropiate groups' do
       before(:each) do
         create_expert languages: %W(german english), email: 'f@k.co'
         create_expert languages: %W(german), email: 's@k.co'
@@ -152,73 +154,37 @@ describe SearchServiceOffers do
       it 'should filter out any experts which do not match the groups selected' do
         opts = options
         result = SearchServiceOffers.with_options opts
-        possible_offers = result.fetch :possible_offers
+        possible_offers = result.fetch :offers
         expect(possible_offers.length).to eql(1)
 
-        opts[:languages] =  %W(english)
-        opts[:length] = '90'
-        opts[:groups] = [Group.all.to_a[1].id.to_s]
+        opts['languages'] =  %W(english)
+        opts['length'] = '90'
+        opts['groups'] = [Group.all.to_a[1].id.to_s]
 
         result = SearchServiceOffers.with_options opts
-        possible_offers = result.fetch :possible_offers
+        possible_offers = result.fetch :offers
         expect(possible_offers.length).to eql(1)
 
-        opts[:languages] =  %W(german)
-        opts[:length] = '30'
-        opts[:groups] = [Group.all.to_a[1].id.to_s, Group.all.to_a[2].id.to_s]
+        opts['languages'] =  %W(german)
+        opts['length'] = '30'
+        opts['groups'] = [Group.all.to_a[1].id.to_s, Group.all.to_a[2].id.to_s]
 
         result = SearchServiceOffers.with_options opts
-        possible_offers = result.fetch :possible_offers
+        possible_offers = result.fetch :offers
         expect(possible_offers.length).to eql(2)
       end
 
-      it 'should reduce the offers by availability of the user' do
-        Availability.delete_all
-        users  = User.all.to_a
-        opts = {
-          starts: DateTime.parse('2013-01-01 14:00'),
-          ends: DateTime.parse('2013-01-01 14:30')
-        }
-        create_availability opts
-
-        opts = {
-          starts: DateTime.parse('2013-01-01 15:00'),
-          ends: DateTime.parse('2013-01-01 16:30'),
-          user: users[1]
-        }
-        create_availability opts
-
-        opts = options
-
-        opts[:groups] = [Group.all.to_a[0].id.to_s, Group.all.to_a[1].id.to_s]
-
-        opts[:times] = [
-          {
-            starts: '2013-01-01 14:00',
-            ends: '2013-01-01 15:00'
-          },
-          {
-            starts: '2013-01-01 15:00',
-            ends: '2013-01-01 20:00'
-          }
-        ]
-
-        opts[:length] = '30'
-        result = SearchServiceOffers.with_options opts
-        offers = result.fetch :offers
-        expect(offers.length).to eql(1)
-      end
     end
 
     def options
       {
-        groups: [Group.first.id.to_s],
-        length: '30',
-        times: [{
-          ends: Time.now.to_s,
-          starts: (Time.now + 1.hour).to_s
+        'groups' => [Group.first.id.to_s],
+        'length' => '30',
+        'times' => [{
+          'ends' => Time.now.to_s,
+          'starts' => (Time.now + 1.hour).to_s
         }],
-        languages: ['german']
+        'languages' => ['german']
       }
     end
 

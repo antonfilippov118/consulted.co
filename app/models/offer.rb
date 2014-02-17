@@ -28,15 +28,6 @@ class Offer
     availabilities.length == 0
   end
 
-  def available_for(times = [])
-    return false if times.empty?
-    available = false
-    times.each do |time|
-      available = availabilities.covering(time[:starts], time[:ends]).exists?
-    end
-    available
-  end
-
   def _group_id
     group_id.to_s
   end

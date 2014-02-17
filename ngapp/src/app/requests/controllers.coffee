@@ -61,11 +61,11 @@ app.controller 'TimeCtrl', [
   '$scope'
   (scope) ->
     scope.timings = [
-      30
-      45
-      60
-      90
-      120
+      "30"
+      "45"
+      "60"
+      "90"
+      "120"
     ]
 
     scope.select = (event, index) ->

@@ -3,11 +3,24 @@ class Users::SearchOffersController < Devise::SessionsController
 
   before_filter :authenticate!
 
-  respond_to :json
-
   def search
     unless current_user.confirmed?
-      render json: {}, status: :unprocessable_entity
+      return render json: {}, status: :unprocessable_entity
     end
+
+    result = SearchServiceOffers.with_options search_params
+
+    if result.failure?
+      render json: { error: result.message }, status: :unprocessable_entity
+    else
+      @offers = result[:offers]
+      render formats: [:json]
+    end
+  end
+
+  private
+
+  def search_params
+    params[:search_offer]
   end
 end

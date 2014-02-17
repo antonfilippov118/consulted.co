@@ -2,11 +2,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-group :template do
-  gem 'rabl'
-end
-
 gem 'bson_ext', platform: :ruby
+gem 'jbuilder'
 gem 'devise'
 gem 'linkedin'
 
