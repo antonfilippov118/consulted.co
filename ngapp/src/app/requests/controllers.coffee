@@ -50,11 +50,18 @@ app.controller "SearchRequestCtrl", [
     scope.search = () ->
       Saving.show()
       Search.perform(options).then (result) ->
-        scope.result = result
+        scope.offers = result
+        scope.hasResult = yes
       , (err) ->
         scope.searchError = err
       .finally () ->
         Saving.hide()
+
+    scope.back = () ->
+      scope.hasResult = no
+      scope.result = []
+
+
 ]
 
 app.controller 'TimeCtrl', [

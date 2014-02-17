@@ -1,14 +1,54 @@
 <div id="request_a_call">
   <h1>Request a call</h1>
+  <p>{{hasResult}}</p>
   <div error-loading></div>
-  <div ng-show="!error && !loading">
-    <div search-steps></div>
-    <div search-group-select groups="groups"></div>
-    <div search-calendar></div>
-    <div search-timing></div>
-    <div search-languages></div>
-    <div class="buttons">
-      <button ng-click="search()" class="btn btn-primary" ng-disabled="!canSearch()">See available experts</button>
+  <div ng-hide="hasResult">
+    <div ng-show="!error && !loading">
+      <div search-steps></div>
+      <div search-group-select groups="groups"></div>
+      <div search-calendar></div>
+      <div search-timing></div>
+      <div search-languages></div>
+      <div class="buttons">
+        <button ng-click="search()" class="btn btn-primary" ng-disabled="!canSearch()">See available experts</button>
+      </div>
+    </div>
+  </div>
+  <div ng-show="hasResult">
+    <a ng-click="back()">Back to first page</a>
+    <div ng-show="offers.length === 0">
+      <p>Sorry, nothing found.</p>
+    </div>
+    <div ng-show="offers.length > 0">
+      <h2>We found the following experts for you</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Background</th>
+            <th>Education</th>
+            <th>Category Comment</th>
+            <th>Category Experience</th>
+            <th>Awesome Count</th>
+            <th>Time match</th>
+            <th>Rate</th>
+            <th>More info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="offer in offers">
+            <td>{{offer.expert.name}}</td>
+            <td>NYI.</td>
+            <td>NYI.</td>
+            <td>{{offer.description}}</td>
+            <td>{{offer.experience}}</td>
+            <td>NYI.</td>
+            <td>NYI.</td>
+            <td>{{offer.rate}}</td>
+            <td>NYI.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
