@@ -20,6 +20,8 @@ Consulted::Application.routes.draw do
     put    :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
     get    :availabilities, controller: 'users/availabilities', action: 'show', path: 'profile/availabilities'
     delete :availabilities, controller: 'users/availabilities', action: 'destroy', path: 'profile/availabilities/:id'
+
+    post :search, controller: 'users/search_offers'
   end
 
   namespace :users do
