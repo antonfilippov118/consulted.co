@@ -29,4 +29,6 @@ Consulted::Application.routes.draw do
   end
 
   resource :groups, only: [:show]
+
+  root to: 'home#index'
 end

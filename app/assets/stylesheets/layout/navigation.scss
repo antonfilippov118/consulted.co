@@ -1,0 +1,32 @@
+.nav-container {
+  @extend .navbar;
+  @extend .navbar-static-top;
+  .logo {
+    @extend .navbar-header;
+    a {
+      @extend .navbar-brand;
+      font-weight: bold;
+      font-family: $font;
+    }
+  }
+
+  nav {
+    @extend .collapse;
+    @extend .navbar-collapse;
+    ul {
+      @extend .nav;
+      @extend .navbar-nav;
+    }
+
+    ul.right {
+      @extend .navbar-right;
+    }
+  }
+
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -6,6 +6,10 @@ gem 'bson_ext', platform: :ruby
 gem 'jbuilder'
 gem 'devise'
 gem 'linkedin'
+gem "sass"
+gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
+gem 'bootstrap-sass', '~> 3.1.1'
+gem "jquery-rails"
 
 group :deployment do
   gem 'capistrano'
@@ -47,6 +51,8 @@ group :development do
   gem 'rake',  '~> 10.1.0'
   gem 'rspec', '~> 2.14.1'
   gem 'yard',  '~> 0.8.7'
+
+  gem 'rails_layout'
 
   platform :rbx do
     gem 'rubysl-singleton', '~> 2.0.0'
