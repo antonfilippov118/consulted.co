@@ -1,9 +1,0 @@
-<div id="group_select">
-  <h3>Select categories</h3>
-  <div ng-repeat="group in groups" class="group">
-    <h5>{{group.name}}</h5>
-    <ul>
-      <li ng-repeat="group in group.children" search-subgroup group="group"></li>
-    </ul>
-  </div>
-</div>
