@@ -47,7 +47,7 @@ class User
 
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
-  scope :with_languages, -> (languages) { where languages: { :$all => languages } }
+  scope :with_languages, -> languages { where languages: { :$all => languages } }
 
   def can_be_an_expert?
     return false unless confirmed?
