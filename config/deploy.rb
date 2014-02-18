@@ -48,23 +48,6 @@ namespace :deploy do
   after :publishing, :restart
   before :restart, 'rvm:hook'
 
-  desc 'Copies assets from local compilation to current folder'
-  task :copy_assets do
-    file = 'assets.tar.gz'
-    run_locally do
-      execute 'cd ngapp && grunt && cd ..'
-      execute "tar cvzf #{file} public"
-    end
-
-    on roles(:app) do
-      upload! file, "#{release_path}/#{file}"
-      execute "cd #{release_path} && tar xvzf #{file}"
-      execute "rm #{release_path}/#{file}"
-    end
-  end
-
-  before :publishing, :copy_assets
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
