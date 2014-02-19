@@ -24,6 +24,8 @@ Consulted::Application.routes.draw do
     post :search, controller: 'users/search_offers'
   end
 
+  resource :offers, only: [:show]
+
   namespace :users do
     get :available, to: 'utilities#available'
   end

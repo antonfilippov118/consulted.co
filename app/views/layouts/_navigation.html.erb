@@ -12,26 +12,49 @@
     <!-- /.navbar-collapse -->
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="#benefit">Your benefit</a>
-        </li>
-        <li>
-          <a href="#service">Service offerings</a>
-        </li>
-        <li>
-          <a href="#how">How it works</a>
-        </li>
-        <li>
-          <a href="#use_cases">Typical use cases</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about">Signup</a>
-        </li>
-        <li><a href="#services">Login</a>
-        </li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#">Overview</a>
+          </li>
+          <li><a href="#">Request a call</a></li>
+          <li><a href="#">Offer your time</a></li>
+          <li><a href="#">Your calls</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to '#', class: 'btn-settings' do  %>
+              Welcome <%= current_user.name %>!
+            <% end %>
+          </li>
+          <li>
+            <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+          </li>
+        </ul>
+      <% else %>
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#benefit">Your benefit</a>
+          </li>
+          <li>
+            <%= link_to 'Service offerings', offers_path  %>
+          </li>
+          <li>
+            <a href="#how">How it works</a>
+          </li>
+          <li>
+            <a href="#use_cases">Typical use cases</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to "Signup", new_user_registration_path, class: 'btn-signup'  %>
+          </li>
+          <li>
+            <%= link_to 'Login', new_user_session_path  %>
+          </li>
+        </ul>
+      <% end %>
     </div>
   </div>
 <!-- /.container -->

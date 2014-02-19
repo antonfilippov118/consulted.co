@@ -133,6 +133,8 @@ GEM
     flog (4.2.0)
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
+    font-awesome-rails (4.0.3.1)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
     guard (2.2.5)
       formatador (>= 0.2.4)
@@ -395,6 +397,7 @@ DEPENDENCIES
   devise
   flay (~> 2.4.0)
   flog (~> 4.2.0)
+  font-awesome-rails
   guard (~> 2.2.4)
   guard-bundler (~> 2.0.0)
   guard-rspec (~> 4.2.0)
