@@ -165,8 +165,6 @@ GEM
     json (1.8.1)
     json (1.8.1-java)
     kramdown (1.3.1)
-    libnotify (0.8.2)
-      ffi (>= 1.0.11)
     light-service (0.0.12)
     linkedin (0.4.6)
       hashie (>= 1.2, < 2.1)
@@ -255,7 +253,6 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
-    rb-notifu (0.0.4)
     rbench (0.2.3)
     rdoc (4.1.1)
       json (~> 1.4)
@@ -323,7 +320,6 @@ GEM
       term-ansicolor
     term-ansicolor (1.2.2)
       tins (~> 0.8)
-    terminal-notifier-guard (1.5.3)
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -407,7 +403,6 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl (~> 0.9.4)
   kramdown (~> 1.3.0)
-  libnotify (~> 0.8.0)
   light-service
   linkedin
   listen (~> 2.4.0)
@@ -424,7 +419,6 @@ DEPENDENCIES
   rb-fchange (~> 0.0.6)
   rb-fsevent (~> 0.9.3)
   rb-inotify (~> 0.9.0)
-  rb-notifu (~> 0.0.4)
   rbench (~> 0.2.3)
   reek (~> 1.3.2)
   rspec (~> 2.14.1)
@@ -435,7 +429,6 @@ DEPENDENCIES
   sass-rails (>= 3.2)
   sdoc
   simplecov (~> 0.8.2)
-  terminal-notifier-guard (~> 1.5.3)
   thin
   torquebox (= 3.0.1)
   torquebox-server (= 3.0.1)
