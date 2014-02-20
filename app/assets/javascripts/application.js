@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require momentjs/min/moment.min.js
 //= require_tree .
