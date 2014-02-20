@@ -8,16 +8,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to '/#!/signup'
+    redirect_to new_user_registration_path, warning: 'Could not connect to Linkedin!'
   end
 
   private
 
   def connect_via_linkedin
     if current_user.connect_to_linkedin request.env['omniauth.auth']
-      redirect_to '/#!/profile'
+      redirect_to new_call_request_path
     else
-      redirect_to '/#!/signup'
+      redirect_to new_user_registration_path
     end
 
   end
@@ -29,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user.connect_to_linkedin(request.env['omniauth.auth'])
       sign_in_and_redirect @user, event: :authentication
     else
-      redirect_to '/#!/login'
+      redirect_to new_user_sessions_path, alert: 'Could not connect to Linkedin!'
     end
   end
 

@@ -21,6 +21,10 @@ module Consulted
       config.cache_store = :torquebox_store
     end
 
+    config.generators do |g|
+      g.test_framework :rspec
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -34,5 +38,7 @@ module Consulted
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
+
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
   end
 end

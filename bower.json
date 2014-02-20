@@ -1,0 +1,27 @@
+{
+  "name": "consulted",
+  "version": "0.0.1",
+  "homepage": "https://github.com/floriank/consulted",
+  "authors": [
+    "Florian Kraft <f.kraft@ewerk.com>"
+  ],
+  "description": "The consulted.co website based on Rails",
+  "keywords": [
+    "consulted"
+  ],
+  "license": "private",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "momentjs": "~2.5.1",
+    "angular": "~1.2.13",
+    "angular-route": "~1.2.13"
+  }
+}

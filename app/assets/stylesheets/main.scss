@@ -1,6 +1,12 @@
-@import 'bootstrap';
+@import 'font-awesome';
 @import 'helper/fonts';
 @import 'helper/colors';
 @import 'helper/variables';
+@import 'bootstrap';
 @import 'layout/body';
-@import 'home.scss';
+@import 'navigation';
+@import 'home';
+@import 'signup';
+@import 'offers';
+@import 'calls';
+

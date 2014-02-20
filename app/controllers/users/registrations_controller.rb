@@ -12,12 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  [:cancel, :edit, :destroy, :new].each do |action|
-    define_method action do
-      deny_method
-    end
-  end
-
   private
 
   def deny_method
