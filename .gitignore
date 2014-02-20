@@ -24,4 +24,4 @@ bin
 assets.tar.gz
 change_ruby.sh
 .idea/
-app/assets/components/
+vendor/assets/components/

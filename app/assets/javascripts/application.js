@@ -14,4 +14,4 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require momentjs/min/moment.min.js
-//= require_tree .
+//= require angular/angular.min.js
