@@ -24,6 +24,8 @@ Consulted::Application.routes.draw do
       resource :request, only: :new
     end
     resource :offers, only: [:edit, :update]
+
+    resource :settings, only: [:show, :update]
   end
 
   resource :offers, only: [:show]
