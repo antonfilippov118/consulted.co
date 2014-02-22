@@ -18,6 +18,8 @@ group :deployment do
   gem 'capistrano'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-bower'
 end
 
 group :authentication do
