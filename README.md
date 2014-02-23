@@ -10,29 +10,41 @@ This app is supposed to run on [TorqueBox](http://torquebox.org) and therefore r
 
 To get started:
 
-* change directory into cloned Repo:
+* change directory into cloned Repository:
 
-> cd location/to/consulted
+```
+cd location/to/consulted
+````
 
 * Install rvm from
 
-> \curl -sSL https://get.rvm.io | bash -s stable
+```
+\curl -sSL https://get.rvm.io | bash -s stable
+```
 
 * Install jruby (rvm will give you a hint on this)
 
-> rvm install jruby-1.7.10
+```
+rvm install jruby-1.7.10
+```
 
 * Execute Bundler:
 
-> bundle install
+```
+bundle install
+```
 
 * run TorqueBox:
 
-> torquebox run
+```
+torquebox run
+```
 
-This will boot up the application server. However, you still need to deploy the actual application:
+This will boot up the application server. However, you still need to deploy the actual application (switch to another terminal):
 
-> torquebox deploy
+```
+torquebox deploy
+```
 
 The app should now be available under http://localhost:8080.
 
@@ -44,7 +56,9 @@ Code should have tests attached.
 
 The complete suite can be run via
 
-> bundle exec guard
+```
+bundle exec guard
+```
 
 This will also check compliance via Ruby style guidelines.
 
