@@ -13,6 +13,7 @@ gem 'coffee-rails'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
+gem 'dragonfly'
 
 group :deployment do
   gem 'capistrano'

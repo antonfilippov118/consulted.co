@@ -4,7 +4,12 @@ class User
   include Omniauthable::Linkedin
   include TorqueBox::Messaging::Backgroundable
 
+  extend Dragonfly::Model
+
   always_background :synchonize_linkedin
+
+  field :profile_image_uid
+  dragonfly_accessor :profile_image
 
   field :name, type: String
   field :newsletter, type: Boolean

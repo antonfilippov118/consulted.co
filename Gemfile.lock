@@ -130,6 +130,9 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.2)
+    dragonfly (1.0.3)
+      multi_json (~> 1.0)
+      rack
     edn (1.0.0)
       parslet (~> 1.4.0)
     equalizer (0.0.9)
@@ -411,6 +414,7 @@ DEPENDENCIES
   coveralls (~> 0.7.0)
   database_cleaner
   devise
+  dragonfly
   flay (~> 2.4.0)
   flog (~> 4.2.0)
   font-awesome-rails

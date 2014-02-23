@@ -62,8 +62,12 @@ class SynchronizeLinkedinProfile
     include LightService::Action
 
     executed do |context|
-      #TODO: Synch an image
+      client = context.fetch :client
+      url    = client.profile(fields: 'picture-urls::(original)').fetch(:'picture-urls').all
+      image  = SynchronizeLinkedinProfile.retrieve url.first
+      context[:user].profile_image = image
     end
+
   end
 
   class SaveUser
@@ -91,5 +95,9 @@ class SynchronizeLinkedinProfile
     secret = user.user_linkedin_connection.secret
     client.authorize_from_access(token, secret)
     client
+  end
+
+  def self.retrieve(url)
+     Dragonfly.app.fetch_url url
   end
 end
