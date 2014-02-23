@@ -19,7 +19,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       redirect_to new_user_registration_path
     end
-
   end
 
   def sign_in_via_linkedin

@@ -4,5 +4,4 @@ class Call::RequestsController < ApplicationController
   def new
 
   end
-
 end

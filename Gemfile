@@ -13,11 +13,14 @@ gem 'coffee-rails'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
+gem 'dragonfly'
 
 group :deployment do
   gem 'capistrano'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-bower'
 end
 
 group :authentication do
@@ -108,8 +111,8 @@ platform :jruby do
   group :jruby do
     gem 'jruby-openssl', '~> 0.9.4'
   end
-  gem 'torquebox', '3.0.1'
-  gem 'torquebox-server', '3.0.1'
+  gem 'torquebox', '3.0.2'
+  gem 'torquebox-server', '3.0.2'
 end
 
 platform :ruby do
