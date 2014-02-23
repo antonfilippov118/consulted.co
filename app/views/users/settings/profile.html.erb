@@ -28,9 +28,15 @@
         <%= f.text_area :summary, rows: 6, class: 'form-control' %>
       </div>
       <div class="control-group col-lg-6">
-        <label for="user_slug">Your profile at consulted.co</label>
-        <div class="help-block">
-          http://consulted.co/ <%= f.text_field :slug %>
+        <label for="user_slug">Your profile at consulted.co</label><br>
+        <div class="controls">
+          <span class="domain">http://consulted.co/</span><%= f.text_field :slug, class: 'form-control slug' %>
+        </div>
+        <br>
+        <label for="user_tz">Your timezone</label>
+        <div class="controls">
+          <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control' %>
+          <span class="help-block">Times shown will be updated accordingly</span>
         </div>
       </div>
     </fieldset>

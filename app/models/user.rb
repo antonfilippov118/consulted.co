@@ -18,11 +18,18 @@ class User
   field :languages, type: Array, default: ['english']
   field :positions, type: Array, default: []
   field :slug, type: String
+  field :timezone, type: String, default: 'Europe/Berlin'
 
   has_many :availabilities
   has_many :offers
 
   validate :languages_allowed?
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
+
+  #
+  # Indizes
+  #
+  index({ email: 1, slug: 1 }, unique: true)
 
   #
   # Devise
@@ -49,8 +56,9 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
+  field :providers, type: Array
+
   ## Linkedin
-  field :provider
   field :uid
   field :linkedin_network, type: Integer, default: 0
 
@@ -74,7 +82,7 @@ class User
   end
 
   def linkedin?
-    provider == 'linkedin'
+    providers.include? 'linkedin'
   end
 
   def languages_allowed?
