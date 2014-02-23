@@ -22,6 +22,7 @@ module Omniauthable
       self.uid = auth.uid
       self.user_linkedin_connection = User::LinkedinConnection.new(token: auth['extra']['access_token'].token, secret: auth['extra']['access_token'].secret)
 
+      User.synchonize_linkedin self.id
       unless save
         return false
       end
