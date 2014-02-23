@@ -9,23 +9,13 @@ Consulted::Application.routes.draw do
   devise_for :users, controllers: controllers, only: controllers.keys
 
   devise_scope :user do
-    # get :profile, controller: 'users/profile', action: 'show'
-    # post :synch, controller: 'users/profile', action: 'synch_linkedin'
 
-    # patch :profile, controller: 'users/profile', action: 'update'
+    get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
+    get :search, controller: 'users/search', action: :show, path: 'search'
+    get :offer, controller: 'users/offer', action: :show, path: 'offer'
+    get :settings, controller: 'users/settings', action: :show, path: 'settings'
+    get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
-    # get :offers, controller: 'users/offers', action: 'show', path: 'profile/offers'
-    # put :offers, controller: 'users/offers', action: 'update', path: 'profile/offers'
-
-    # put    :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
-    # get    :availabilities, controller: 'users/availabilities', action: 'show', path: 'profile/availabilities'
-    # delete :availabilities, controller: 'users/availabilities', action: 'destroy', path: 'profile/availabilities/:id'
-    namespace :call do
-      resource :request, only: :new
-    end
-    resource :offers, only: [:edit, :update]
-
-    resource :settings, only: [:show, :update]
   end
 
   resource :offers, only: [:show]

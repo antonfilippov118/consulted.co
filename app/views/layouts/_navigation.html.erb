@@ -17,15 +17,17 @@
       <% if user_signed_in? %>
         <ul class="nav navbar-nav">
           <li>
-            <a href="#">Overview</a>
+            <%= link_to 'Overview', overview_path  %>
           </li>
           <li>
-            <%= link_to new_call_request_path do  %>
-              Request a call
-            <% end %>
+            <%= link_to 'Find an expert', search_path %>
           </li>
-          <li><a href="#">Offer your time</a></li>
-          <li><a href="#">Your calls</a></li>
+          <li>
+            <%= link_to 'Offer your time', offer_path  %>
+          </li>
+          <li>
+            <%= link_to 'Your calls', history_path  %>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>

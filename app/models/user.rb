@@ -60,8 +60,14 @@ class User
   scope :with_languages, -> languages { where languages: { :$all => languages } }
 
   def can_be_an_expert?
+    # TODO: Paypal
     return false unless confirmed?
     linkedin_network >= User.required_connections
+  end
+
+  def can_be_a_seeker?
+    # TODO: Paypal
+    return false unless confirmed?
   end
 
   def linkedin?
