@@ -13,9 +13,16 @@ Consulted::Application.routes.draw do
     get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
     get :search, controller: 'users/search', action: :show, path: 'search'
     get :offer, controller: 'users/offer', action: :show, path: 'offer'
-    get :settings, controller: 'users/settings', action: :show, path: 'settings'
     get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
+    resource :settings, only: [] do
+      get '/', controller: 'users/settings', action: :profile
+      get '/billing', controller: 'users/settings', action: :billing
+      get '/accounts', controller: 'users/settings', action: :accounts
+      get '/notifications', controller: 'users/settings', action: :notifications
+
+      patch :user, controller: 'users/settings', action: :user_update
+    end
   end
 
   resource :offers, only: [:show]

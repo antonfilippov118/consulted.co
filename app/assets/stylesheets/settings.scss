@@ -1,0 +1,9 @@
+.settings {
+  @extend .container;
+
+  &.profile {
+    .row {
+      @extend .form-inline;
+    }
+  }
+}

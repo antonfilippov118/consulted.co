@@ -12,10 +12,12 @@ class User
   dragonfly_accessor :profile_image
 
   field :name, type: String
+  field :summary, type: String
   field :newsletter, type: Boolean
   field :reminder_time, type: Integer
   field :languages, type: Array, default: ['english']
   field :positions, type: Array, default: []
+  field :slug, type: String
 
   has_many :availabilities
   has_many :offers
@@ -54,6 +56,7 @@ class User
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
+  embeds_many :educations, class_name: 'User::LinkedinEducation'
 
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
@@ -87,6 +90,10 @@ class User
 
   def current_position
     positions.first
+  end
+
+  def current_company
+    companies.first
   end
 
   private

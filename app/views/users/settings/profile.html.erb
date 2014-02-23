@@ -1,0 +1,73 @@
+<div class="settings profile">
+  <%= render partial: 'headline' %>
+  <%= render partial: 'tabs', locals: { active: :profile } %>
+  <%= render partial: 'messages' %>
+  <%= form_for current_user, url: user_settings_path, class: 'form-horizontal'  do |f| -%>
+    <fieldset>
+      <legend>Basic information</legend>
+      <div class="control-group col-lg-6">
+        <!-- email -->
+        <%= content_tag :div, class: "form-group has-feedback #{current_user.confirmed? ? 'has-success' : 'has-warning'}" do %>
+          <label class="control-label" for="user_email">Email</label>
+          <%= f.email_field :email, class: 'form-control' %>
+          <% if current_user.confirmed? %>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="control-group col-lg-6">
+        <div class="form-group">
+          <label for="user_name" class="control-label">Name</label>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="control-group col-lg-6">
+        <label for="user_summary">Your summary</label>
+        <%= f.text_area :summary, rows: 6, class: 'form-control' %>
+      </div>
+      <div class="control-group col-lg-6">
+        <label for="user_slug">Your profile at consulted.co</label>
+        <div class="help-block">
+          http://consulted.co/ <%= f.text_field :slug %>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Profile image</legend>
+      <div class="control-group col-lg-3">
+        <%= image_tag current_user.profile_image.url, width: 150,  alt: 'Profile image', class: 'img-responsive img-thumbnail' %>
+      </div>
+      <div class="control-group col-lg-9">
+        <p class="lead">Your current image</p>
+        <p>For best display your image should be at least 300x300 pixels</p>
+        <%= f.file_field :profile_image %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Career</legend>
+      <p>You currently work as a <strong><%= current_user.current_position %></strong> at <%= current_user.current_company.name %>.</p>
+      <p>Your past employers:</p>
+      <dl class="dl-horizontal">
+      <% current_user.companies.each_with_index do |company, index| %>
+        <% next if index == 0 %>
+          <dt><%= company.name %></dt>
+          <dd><%= current_user.positions[index] %></dd>
+      <% end %>
+      </dl>
+    </fieldset>
+    <fieldset>
+      <legend>Education</legend>
+      <dl class="dl-horizontal">
+        <% current_user.educations.each do |education| %>
+          <dt><%= education.name %></dt>
+          <dd><%= education.from %> &mdash; <%= education.to %>: <%= education.degree %></dd>
+        <% end %>
+      </dl>
+    </fieldset>
+    <div class="text-center">
+      <%= f.submit "Save", data: { disable_with: 'Saving' }, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

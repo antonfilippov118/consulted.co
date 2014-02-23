@@ -6,6 +6,7 @@ class SynchronizeLinkedinProfile
       LoadUser,
       SynchNetwork,
       SynchCareer,
+      SynchEducation,
       SynchImage,
       SaveUser
     ]
@@ -41,8 +42,10 @@ class SynchronizeLinkedinProfile
 
     executed do |context|
       client    = context.fetch :client
-      user      = client.profile fields: %w(positions last-name first-name educations)
+      user      = client.profile fields: %w(positions last-name first-name summary)
       name      = "#{user.first_name} #{user.last_name}"
+      summary   = user.summary
+
       positions = user.positions.all.map { |p| p.title }
       companies = user.positions.all.map do |p|
         params = {
@@ -55,6 +58,26 @@ class SynchronizeLinkedinProfile
       context[:user].name      = name
       context[:user].positions = positions
       context[:user].companies = companies
+      context[:user].summary   = summary
+    end
+  end
+
+  class SynchEducation
+    include LightService::Action
+
+    executed do |context|
+      client     = context.fetch :client
+      user       = client.profile fields: 'educations'
+      educations = user.educations.all.map do |education|
+        params = {
+          degree: education.degree,
+          from: education.start_date.year,
+          to: education.end_date.year,
+          name: education.school_name
+        }
+        User::LinkedinEducation.new params
+      end
+      context[:user].educations = educations
     end
   end
 
@@ -98,6 +121,6 @@ class SynchronizeLinkedinProfile
   end
 
   def self.retrieve(url)
-     Dragonfly.app.fetch_url url
+    Dragonfly.app.fetch_url url
   end
 end
