@@ -34,6 +34,13 @@ rvm install jruby-1.7.10
 bundle install
 ```
 
+* run bower
+
+```
+bower install
+```
+
+
 * run TorqueBox:
 
 ```
