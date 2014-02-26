@@ -13,9 +13,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     resource = User.confirm_by_token(params[:confirmation_token])
 
     if resource.errors.empty?
-      render json: { success: true }
+      redirect_to settings_path, notice: 'Your account was successfully confirmed!'
     else
-      render json: { success: false }, status: 400
+      redirect_to root_path
     end
   end
 end
