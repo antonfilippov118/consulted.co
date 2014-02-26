@@ -1,8 +1,6 @@
 language: ruby
 rvm:
-  - jruby-head
-jdk:
-  - openjdk7
+  - ruby-2.0.0-p353
 script: bundle exec rspec
 services: mongodb
 

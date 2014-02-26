@@ -36,6 +36,7 @@ end
 group :development do
   gem 'pry', '>= 0.9.12.4'
   gem 'pry-rails'
+  gem 'thin'
 end
 
 group :test do
@@ -73,7 +74,7 @@ group :guard do
   gem 'guard',         '~> 2.2.4'
   gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-rspec',   '~> 4.2.0'
-  gem 'guard-rubocop', '~> 1.0.0'
+  gem 'guard-rubocop', '~> 1.0.2'
 
   # file system change event handling
   gem 'listen',     '~> 2.4.0'
@@ -92,29 +93,11 @@ group :metrics do
   gem 'flay',      '~> 2.4.0'
   gem 'flog',      '~> 4.2.0'
   gem 'reek',      '~> 1.3.2'
-  gem 'rubocop',   '~> 0.16.0'
+  gem 'rubocop',   '~> 0.18.1'
   gem 'simplecov', '~> 0.8.2'
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
-
-  platforms :ruby_19, :ruby_20 do
-    gem 'mutant',          '~> 0.3.0', git: 'https://github.com/mbj/mutant.git'
-    gem 'unparser',        '~> 0.1.5', git: 'https://github.com/mbj/unparser.git'
-    gem 'yard-spellcheck', '~> 0.1.5'
-  end
 end
 
 group :benchmarks do
   gem 'rbench', '~> 0.2.3'
-end
-
-platform :jruby do
-  group :jruby do
-    gem 'jruby-openssl', '~> 0.9.4'
-  end
-  gem 'torquebox', '3.0.2'
-  gem 'torquebox-server', '3.0.2'
-end
-
-platform :ruby do
-  gem 'thin'
 end

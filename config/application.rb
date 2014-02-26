@@ -16,10 +16,6 @@ Bundler.require(:default, Rails.env)
 
 module Consulted
   class Application < Rails::Application
-    # Use TorqueBox::Infinispan::Cache for the Rails cache store
-    if defined? TorqueBox::Infinispan::Cache
-      config.cache_store = :torquebox_store
-    end
 
     config.generators do |g|
       g.test_framework :rspec
@@ -32,7 +28,6 @@ module Consulted
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run 'rake -D time' for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Europe/Berlin'
-    config.logger = TorqueBox::Logger.new
 
     I18n.enforce_available_locales = false
 

@@ -18,7 +18,7 @@ class ShowsAvailabilities
         next context
       end
       context[:status] = :unprocessable_entity
-      context.set_failure! 'User must be an expert!'
+      context.fail! 'User must be an expert!'
     end
   end
 

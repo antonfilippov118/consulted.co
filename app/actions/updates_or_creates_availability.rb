@@ -18,7 +18,7 @@ class UpdatesOrCreatesAvailability
     executed do |context|
       user = context.fetch :user
       unless user.confirmed?
-        context.set_failure! 'User must be confirmed!'
+        context.fail! 'User must be confirmed!'
       end
     end
   end
@@ -29,7 +29,7 @@ class UpdatesOrCreatesAvailability
     executed do |context|
       user = context.fetch :user
       unless user.confirmed?
-        context.set_failure! 'User must be confirmed!'
+        context.fail! 'User must be confirmed!'
       end
     end
   end
@@ -55,7 +55,7 @@ class UpdatesOrCreatesAvailability
           availability.assign_attributes opts
         end
       rescue
-        context.set_failure! 'Document could not be found!'
+        context.fail! 'Document could not be found!'
       end
       context[:availability] = availability
       next context
@@ -68,7 +68,7 @@ class UpdatesOrCreatesAvailability
       availability = context.fetch :availability
 
       unless availability.save
-        context.set_failure! 'Availability could not be saved!'
+        context.fail! 'Availability could not be saved!'
       end
     end
   end

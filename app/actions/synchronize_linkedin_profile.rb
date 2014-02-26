@@ -22,7 +22,7 @@ class SynchronizeLinkedinProfile
         context[:client] = client
         context[:user] = user
       rescue => e
-        context.set_failure! "User could not be loaded (#{e.message})!"
+        context.fail! "User could not be loaded (#{e.message})!"
       end
     end
   end
@@ -78,7 +78,7 @@ class SynchronizeLinkedinProfile
       if user.save
         next context
       else
-        context.set_failure! 'User Profile data could not be saved!'
+        context.fail! 'User Profile data could not be saved!'
       end
     end
   end
@@ -98,6 +98,6 @@ class SynchronizeLinkedinProfile
   end
 
   def self.retrieve(url)
-     Dragonfly.app.fetch_url url
+    Dragonfly.app.fetch_url url
   end
 end
