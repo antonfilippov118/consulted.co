@@ -37,7 +37,6 @@ end
 group :development do
   gem 'pry', '>= 0.9.12.4'
   gem 'pry-rails'
-  gem 'thin'
 end
 
 group :test do
