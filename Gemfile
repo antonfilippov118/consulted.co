@@ -96,12 +96,6 @@ group :metrics do
   gem 'rubocop',   '~> 0.16.0'
   gem 'simplecov', '~> 0.8.2'
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
-
-  platforms :ruby_19, :ruby_20 do
-    gem 'mutant',          '~> 0.3.0', git: 'https://github.com/mbj/mutant.git'
-    gem 'unparser',        '~> 0.1.5', git: 'https://github.com/mbj/unparser.git'
-    gem 'yard-spellcheck', '~> 0.1.5'
-  end
 end
 
 group :benchmarks do

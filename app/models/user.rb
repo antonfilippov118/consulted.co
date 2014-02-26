@@ -2,11 +2,8 @@ class User
   include Mongoid::Document
   include Omniauthable::Lookups
   include Omniauthable::Linkedin
-  include TorqueBox::Messaging::Backgroundable
 
   extend Dragonfly::Model
-
-  always_background :synchonize_linkedin
 
   field :profile_image_uid
   dragonfly_accessor :profile_image
