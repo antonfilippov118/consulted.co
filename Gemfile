@@ -19,10 +19,11 @@ gem 'dragonfly'
 gem 'light-service'
 gem 'uglifier'
 
-gem 'rails_serve_static_assets'
-gem 'rails_12factor'
-
-gem 'unicorn'
+group :production do
+  gem 'unicorn'
+  gem 'rails_serve_static_assets'
+  gem 'rails_12factor'
+end
 
 group :authentication do
   gem 'omniauth'
@@ -45,6 +46,8 @@ group :development do
   gem 'rails_layout'
 
   gem 'thin'
+
+  gem 'foreman'
 
   group :doc do
     # bundle exec rake doc:rails generates the API under doc/api.
@@ -78,10 +81,6 @@ group :development do
     gem 'rubocop',   '~> 0.18.1'
     gem 'simplecov', '~> 0.8.2'
     gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
-  end
-
-  group :benchmarks do
-    gem 'rbench', '~> 0.2.3'
   end
 end
 

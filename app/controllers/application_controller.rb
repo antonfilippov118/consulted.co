@@ -17,4 +17,18 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  #
+  # TODO: remove this once the project goes live
+  #
+  USERS = { ENV['USER'] => ENV['PASSWORD'] }
+
+  before_filter :authenticate
+
+  def authenticate
+    return true unless Rails.env.production?
+    authenticate_or_request_with_http_digest("Consulted.co Platform") do |name|
+      USERS[name]
+    end
+  end
+
 end
