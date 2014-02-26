@@ -117,8 +117,4 @@ class User
     1
   end
 
-  def self.synchonize_linkedin(user_id)
-    result = SynchronizeLinkedinProfile.for user_id
-    result.success?
-  end
 end
