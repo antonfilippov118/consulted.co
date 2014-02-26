@@ -6,7 +6,7 @@ This is the main Rails app for consulted.co.
 
 ## Requirements
 
-This app is supposed to run on [TorqueBox](http://torquebox.org) and therefore requires [JRuby](http://jruby.org).
+This app is supposed to run on Heroku.
 
 To get started:
 
@@ -22,10 +22,10 @@ cd location/to/consulted
 \curl -sSL https://get.rvm.io | bash -s stable
 ```
 
-* Install jruby (rvm will give you a hint on this)
+* Install ruby (rvm will give you a hint on this)
 
 ```
-rvm install jruby-1.7.10
+rvm install ruby-2.0.0-p353
 ```
 
 * Execute Bundler:
@@ -34,28 +34,13 @@ rvm install jruby-1.7.10
 bundle install
 ```
 
-* run bower
+* run the dev server
 
 ```
-bower install
+rails s
 ```
 
-
-* run TorqueBox:
-
-```
-torquebox run
-```
-
-This will boot up the application server. However, you still need to deploy the actual application (switch to another terminal):
-
-```
-torquebox deploy
-```
-
-The app should now be available under http://localhost:8080.
-
-In development mode, code is reloaded automatically and therefore no redeploy is neccessary.
+The app should now be available under http://localhost:3000.
 
 ## Tests
 
