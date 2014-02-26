@@ -22,6 +22,8 @@ gem 'uglifier'
 gem 'rails_serve_static_assets'
 gem 'rails_12factor'
 
+gem 'unicorn'
+
 group :authentication do
   gem 'omniauth'
   gem 'omniauth-linkedin'
