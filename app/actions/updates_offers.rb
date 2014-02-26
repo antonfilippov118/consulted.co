@@ -15,7 +15,7 @@ class UpdatesOffers
     executed do |context|
       user = context.fetch :user
       unless user.confirmed?
-        context.set_failure! 'User must be confirmed!'
+        context.fail! 'User must be confirmed!'
         context[:status] = :unprocessable_entity
         next context
       end
@@ -28,7 +28,7 @@ class UpdatesOffers
     executed do |context|
       user = context.fetch :user
       unless user.can_be_an_expert?
-        context.set_failure! 'User must be an expert!'
+        context.fail! 'User must be an expert!'
         context[:status] = :unprocessable_entity
         next context
       end
@@ -52,7 +52,7 @@ class UpdatesOffers
           o.update_attributes offer_params
         end
       rescue => e
-        context.set_failure! e
+        context.fail! e
       end
     end
   end

@@ -19,7 +19,7 @@ class SearchServiceOffers
         times = context.fetch 'times'
         fail if times.empty?
       rescue
-        context.set_failure! 'No times given!'
+        context.fail! 'No times given!'
       end
     end
   end
@@ -30,7 +30,7 @@ class SearchServiceOffers
       begin
         context.fetch 'length'
       rescue KeyError
-        context.set_failure! 'No length given!'
+        context.fail! 'No length given!'
       end
     end
   end
@@ -40,7 +40,7 @@ class SearchServiceOffers
     executed do |context|
       languages = context.fetch 'languages'
       if languages.empty?
-        context.set_failure! 'No languages given!'
+        context.fail! 'No languages given!'
       end
     end
   end
@@ -53,7 +53,7 @@ class SearchServiceOffers
       begin
         Group.find groups
       rescue => e
-        context.set_failure! 'Group not found!'
+        context.fail! 'Group not found!'
         context[:error] = e
       end
     end
@@ -66,7 +66,7 @@ class SearchServiceOffers
         lang = context.fetch 'languages'
         context[:experts] = User.confirmed.experts.with_languages lang
       rescue => e
-        context.set_failure! e
+        context.fail! e
       end
     end
   end

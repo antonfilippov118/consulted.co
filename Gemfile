@@ -74,7 +74,7 @@ group :guard do
   gem 'guard',         '~> 2.2.4'
   gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-rspec',   '~> 4.2.0'
-  gem 'guard-rubocop', '~> 1.0.0'
+  gem 'guard-rubocop', '~> 1.0.2'
 
   # file system change event handling
   gem 'listen',     '~> 2.4.0'
@@ -93,7 +93,7 @@ group :metrics do
   gem 'flay',      '~> 2.4.0'
   gem 'flog',      '~> 4.2.0'
   gem 'reek',      '~> 1.3.2'
-  gem 'rubocop',   '~> 0.16.0'
+  gem 'rubocop',   '~> 0.18.1'
   gem 'simplecov', '~> 0.8.2'
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
 end

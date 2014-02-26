@@ -19,7 +19,7 @@ class DestroysAvailability
         context[:availability] = Availability.for(user).find id
         next context
       rescue
-        context.set_failure! 'Document not found!'
+        context.fail! 'Document not found!'
       end
     end
   end
@@ -31,7 +31,7 @@ class DestroysAvailability
       begin
         context[:availability].destroy!
       rescue
-        context.set_failure! 'Could not remove availability!'
+        context.fail! 'Could not remove availability!'
       end
     end
   end
