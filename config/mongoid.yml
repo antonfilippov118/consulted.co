@@ -1,11 +1,8 @@
 production:
   sessions:
     default:
-      database: consulted
       uri: <%= ENV['MONGO_URL'] %>
-      options:
-        skip_version_check: true
-        safe: true
+
 development:
   # Configure available database sessions. (required)
   sessions:
