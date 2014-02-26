@@ -36,6 +36,7 @@ end
 group :development do
   gem 'pry', '>= 0.9.12.4'
   gem 'pry-rails'
+  gem 'thin'
 end
 
 group :test do
@@ -105,16 +106,4 @@ end
 
 group :benchmarks do
   gem 'rbench', '~> 0.2.3'
-end
-
-platform :jruby do
-  group :jruby do
-    gem 'jruby-openssl', '~> 0.9.4'
-  end
-  gem 'torquebox', '3.0.2'
-  gem 'torquebox-server', '3.0.2'
-end
-
-platform :ruby do
-  gem 'thin'
 end
