@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
@@ -16,6 +18,9 @@ gem 'font-awesome-rails'
 gem 'dragonfly'
 gem 'light-service'
 gem 'uglifier'
+
+gem 'rails_serve_static_assets'
+gem 'rails_12factor'
 
 group :authentication do
   gem 'omniauth'
