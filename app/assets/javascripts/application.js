@@ -13,4 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require angular/angular
+//= require angular-animate/angular-animate
+//= require angular-strap/dist/angular-strap
+//= require angular-strap/dist/angular-strap.tpl.js
+//= require consulted/settings/notifications
+//= require consulted/search/finder
+//= require consulted/search/categories
+//= require consulted/search/bootstrap
 

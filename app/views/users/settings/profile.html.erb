@@ -1,8 +1,8 @@
 <div class="settings profile">
   <%= render partial: 'headline' %>
-  <%= render partial: 'tabs', locals: { active: :profile } %>
   <%= render partial: 'messages' %>
-  <%= form_for current_user, url: user_settings_path, class: 'form-horizontal'  do |f| -%>
+  <%= render partial: 'tabs', locals: { active: :profile } %>
+  <%= form_for current_user, url: profile_settings_path do |f| -%>
     <fieldset>
       <legend>Basic information</legend>
       <div class="control-group col-lg-6">

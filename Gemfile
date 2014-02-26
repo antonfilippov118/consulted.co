@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'dragonfly'
+gem 'light-service'
 
 group :deployment do
   gem 'capistrano'
@@ -49,7 +50,7 @@ group :db do
   gem 'bson'
 end
 
-gem 'light-service'
+
 
 # Added by devtools
 
@@ -60,9 +61,7 @@ group :development do
 
   gem 'rails_layout'
 
-  platform :rbx do
-    gem 'rubysl-singleton', '~> 2.0.0'
-  end
+  gem 'thin'
 end
 
 group :yard do
@@ -107,14 +106,3 @@ group :benchmarks do
   gem 'rbench', '~> 0.2.3'
 end
 
-platform :jruby do
-  group :jruby do
-    gem 'jruby-openssl', '~> 0.9.4'
-  end
-  gem 'torquebox', '3.0.1'
-  gem 'torquebox-server', '3.0.1'
-end
-
-platform :ruby do
-  gem 'thin'
-end

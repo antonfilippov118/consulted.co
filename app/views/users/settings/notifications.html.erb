@@ -1,5 +1,61 @@
 <div class="settings notifications">
   <%= render partial: 'headline' %>
+  <%= render partial: 'messages' %>
   <%= render partial: 'tabs', locals: { active: :notifications } %>
-  <p>TODO</p>
+  <%= form_for current_user, url: notifications_settings_path, html: { class: 'form-horizontal' } do |f| -%>
+    <fieldset>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <%= f.label :meeting_notification, "Send me notifications prior to Meetings", class: 'control-label col-sm-7' %>
+          <div class="controls col-sm-5">
+            <label class="switch-light well" onclick="">
+              <%= f.check_box :meeting_notification %>
+              <span>
+                <span>No</span>
+                <span>Yes</span>
+              </span>
+
+              <a class="btn btn-primary"></a>
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <%= f.label :break, "Give me a break between meetings", class: 'control-label col-sm-7' %>
+          <div class="controls col-sm-5">
+            <label class="switch-light well" onclick="">
+              <%= f.check_box :break %>
+              <span>
+                <span>No</span>
+                <span>Yes</span>
+              </span>
+              <a class="btn btn-primary"></a>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <div class="notification_time" style="<%= current_user.meeting_notification? ? 'display:block;' : 'display:none;' %>">
+            <%= f.label :notification_time, "When should we send you a reminder?", class: 'control-label col-sm-7' %>
+            <div class="controls col-sm-5">
+              <%= f.number_field :notification_time, class: 'form-control minutes' %>
+              <span class="help-block">minutes prior to the call</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <div class="break_time" style="<%= current_user.break? ? 'display:block;' : 'display:none;' %>">
+            <%= f.label :break_time, "How long should your break be?", class: 'control-label col-sm-7' %>
+            <div class="controls col-sm-5">
+              <%= f.number_field :break_time, class: 'form-control minutes' %>
+              <span class="help-block">minutes between calls</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="text-center">
+      <%= f.submit "Save", class: 'btn btn-primary', data: { disable_with: 'Saving'} %>
+    </div>
+  <% end %>
 </div>

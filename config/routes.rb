@@ -6,10 +6,10 @@ Consulted::Application.routes.draw do
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
   devise_for :users, controllers: controllers, only: controllers.keys
 
   devise_scope :user do
-
     get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
     get :search, controller: 'users/search', action: :show, path: 'search'
     get :offer, controller: 'users/offer', action: :show, path: 'offer'
@@ -21,10 +21,12 @@ Consulted::Application.routes.draw do
       get '/accounts', controller: 'users/settings', action: :accounts
       get '/notifications', controller: 'users/settings', action: :notifications
 
-      patch :user, controller: 'users/settings', action: :user_update
+      patch :profile, controller: 'users/settings', action: :user_update
+      patch :notifications, controller: 'users/settings', action: :user_notifications_update
     end
   end
 
+  resource :groups, only: [:show]
   resource :offers, only: [:show]
 
   namespace :users do

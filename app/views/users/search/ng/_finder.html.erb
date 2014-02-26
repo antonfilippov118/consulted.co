@@ -1,0 +1,15 @@
+<div>
+  <h2>Find the right expert for your problem</h2>
+  <form class="form-horizontal">
+    <div class="col-sm-8">
+      <input type="text" data-min-length="3" bs-typeahead ng-options="group.path as group.path for group in groups" ng-model="selected" class="form-control">
+      <p class="help-block">Try 'Marketing' or 'Financial advice'</p>
+    </div>
+    <div class="col-sm-4">
+      <input type="submit" value="Search" class="btn btn-primary">
+    </div>
+  </form>
+  <div class="row">
+    <div group-display ng-show="selected"></div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.search {
+  @extend .container;
+
+  .result {
+    @include make-xs-column(12);
+  }
+}

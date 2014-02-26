@@ -14,11 +14,22 @@ class User
   field :name, type: String
   field :summary, type: String
   field :newsletter, type: Boolean
-  field :reminder_time, type: Integer
   field :languages, type: Array, default: ['english']
   field :positions, type: Array, default: []
   field :slug, type: String
   field :timezone, type: String, default: 'Europe/Berlin'
+
+  field :providers, type: Array
+
+  ## Linkedin
+  field :uid
+  field :linkedin_network, type: Integer, default: 0
+
+  # notifications
+  field :meeting_notification, type: Boolean, default: true
+  field :notification_time, type: Integer, default: 15
+  field :break, type: Boolean, default: true
+  field :break_time, type: Integer, default: 15
 
   has_many :availabilities
   has_many :offers
@@ -56,11 +67,6 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-  field :providers, type: Array
-
-  ## Linkedin
-  field :uid
-  field :linkedin_network, type: Integer, default: 0
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
