@@ -1,0 +1,12 @@
+.settings {
+  @extend .container;
+
+  &.profile {
+    .row {
+      @extend .form-inline;
+    }
+    input.slug {
+      display: inline-block;
+    }
+  }
+}

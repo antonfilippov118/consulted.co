@@ -11,11 +11,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: resource.errors, status: :unprocessable_entity
     end
   end
-
-  private
-
-  def deny_method
-    head :method_not_allowed
-  end
-
 end

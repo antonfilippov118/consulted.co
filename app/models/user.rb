@@ -9,15 +9,35 @@ class User
   dragonfly_accessor :profile_image
 
   field :name, type: String
+  field :summary, type: String
   field :newsletter, type: Boolean
-  field :reminder_time, type: Integer
   field :languages, type: Array, default: ['english']
   field :positions, type: Array, default: []
+  field :slug, type: String
+  field :timezone, type: String, default: 'Europe/Berlin'
+
+  field :providers, type: Array
+
+  ## Linkedin
+  field :uid
+  field :linkedin_network, type: Integer, default: 0
+
+  # notifications
+  field :meeting_notification, type: Boolean, default: true
+  field :notification_time, type: Integer, default: 15
+  field :break, type: Boolean, default: true
+  field :break_time, type: Integer, default: 15
 
   has_many :availabilities
   has_many :offers
 
   validate :languages_allowed?
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
+
+  #
+  # Indizes
+  #
+  index({ email: 1, slug: 1 }, unique: true)
 
   #
   # Devise
@@ -44,25 +64,28 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-  ## Linkedin
-  field :provider
-  field :uid
-  field :linkedin_network, type: Integer, default: 0
 
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
+  embeds_many :educations, class_name: 'User::LinkedinEducation'
 
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
   scope :with_languages, -> languages { where languages: { :$all => languages } }
 
   def can_be_an_expert?
+    # TODO: Paypal
     return false unless confirmed?
     linkedin_network >= User.required_connections
   end
 
+  def can_be_a_seeker?
+    # TODO: Paypal
+    return false unless confirmed?
+  end
+
   def linkedin?
-    provider == 'linkedin'
+    providers.include? 'linkedin'
   end
 
   def languages_allowed?
@@ -78,6 +101,10 @@ class User
 
   def current_position
     positions.first
+  end
+
+  def current_company
+    companies.first
   end
 
   private

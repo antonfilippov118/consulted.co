@@ -6,28 +6,27 @@ Consulted::Application.routes.draw do
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
   devise_for :users, controllers: controllers, only: controllers.keys
 
   devise_scope :user do
-    # get :profile, controller: 'users/profile', action: 'show'
-    # post :synch, controller: 'users/profile', action: 'synch_linkedin'
+    get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
+    get :search, controller: 'users/search', action: :show, path: 'search'
+    get :offer, controller: 'users/offer', action: :show, path: 'offer'
+    get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
-    # patch :profile, controller: 'users/profile', action: 'update'
+    resource :settings, only: [] do
+      get '/', controller: 'users/settings', action: :profile
+      get '/billing', controller: 'users/settings', action: :billing
+      get '/accounts', controller: 'users/settings', action: :accounts
+      get '/notifications', controller: 'users/settings', action: :notifications
 
-    # get :offers, controller: 'users/offers', action: 'show', path: 'profile/offers'
-    # put :offers, controller: 'users/offers', action: 'update', path: 'profile/offers'
-
-    # put    :availabilities, controller: 'users/availabilities', action: 'update', path: 'profile/availabilities'
-    # get    :availabilities, controller: 'users/availabilities', action: 'show', path: 'profile/availabilities'
-    # delete :availabilities, controller: 'users/availabilities', action: 'destroy', path: 'profile/availabilities/:id'
-    namespace :call do
-      resource :request, only: :new
+      patch :profile, controller: 'users/settings', action: :user_update
+      patch :notifications, controller: 'users/settings', action: :user_notifications_update
     end
-    resource :offers, only: [:edit, :update]
-
-    resource :settings, only: [:show, :update]
   end
 
+  resource :groups, only: [:show]
   resource :offers, only: [:show]
 
   namespace :users do

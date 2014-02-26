@@ -1,8 +1,0 @@
-<div class="settings">
-  <h3>Your settings</h3>
-  <p>Your image pulled from linkedin: <%= image_tag current_user.profile_image.url, alt: current_user.name %></p>
-  <%# Partials for angular app %>
-  <script type="text/ng-template" id="main.html">
-    <%= render partial: 'settings/ng/main' %>
-  </script>
-</div>

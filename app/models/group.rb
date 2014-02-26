@@ -8,4 +8,11 @@ class Group
 
   scope :roots, -> { where(parent_id: nil) }
 
+  def as_json(opts)
+    {
+      id: id.to_s,
+      name: name,
+      children: children.map { |child| child.as_json(opts) }
+    }
+  end
 end

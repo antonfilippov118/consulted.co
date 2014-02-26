@@ -3,10 +3,10 @@
 @import 'helper/colors';
 @import 'helper/variables';
 @import 'bootstrap';
+@import 'css-toggle-switch/dist/toggle-switch';
 @import 'layout/body';
 @import 'navigation';
 @import 'home';
 @import 'signup';
-@import 'offers';
-@import 'calls';
-
+@import 'settings';
+@import 'search';
