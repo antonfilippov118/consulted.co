@@ -7,7 +7,7 @@
           <br>
           <ul class="social_buttons">
             <li>
-              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'linkedin' do %>
+              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'linkedin', data: { disable_with: 'Connecting...'} do %>
                 <i class="fa fa-linkedin"></i> Sign up with LinkedIn
               <% end %>
             </li>
