@@ -23,6 +23,7 @@ group :production do
   gem 'unicorn'
   gem 'rails_serve_static_assets'
   gem 'rails_12factor'
+  gem 'heroku-deflater'
 end
 
 group :authentication do
