@@ -69,9 +69,9 @@ group :development do
     gem 'rb-inotify', '~> 0.9.0', require: false
 
     # notification handling
-    # gem 'libnotify',               '~> 0.8.0', require: false
-    # gem 'rb-notifu',               '~> 0.0.4', require: false
-    # gem 'terminal-notifier-guard', '~> 1.5.3', require: false
+    gem 'libnotify',               '~> 0.8.0', require: false
+    gem 'rb-notifu',               '~> 0.0.4', require: false
+    gem 'terminal-notifier-guard', '~> 1.5.3', require: false
   end
 
   group :metrics do
