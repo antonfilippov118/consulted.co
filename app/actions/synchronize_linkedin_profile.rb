@@ -68,11 +68,11 @@ class SynchronizeLinkedinProfile
     executed do |context|
       client     = context.fetch :client
       user       = client.profile fields: 'educations'
+      binding.pry
+
       educations = user.educations.all.map do |education|
         params = {
           degree: education.degree,
-          from: education.start_date.year,
-          to: education.end_date.year,
           name: education.school_name
         }
         User::LinkedinEducation.new params

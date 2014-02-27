@@ -4,8 +4,6 @@ class User::LinkedinEducation
   embedded_in :user
 
   field :name
-  field :from, type: Integer
-  field :to, type: Integer
   field :degree
 
 end

@@ -68,7 +68,7 @@
       <dl class="dl-horizontal">
         <% current_user.educations.each do |education| %>
           <dt><%= education.name %></dt>
-          <dd><%= education.from %> &mdash; <%= education.to %>: <%= education.degree %></dd>
+          <dd><%= education.degree %></dd>
         <% end %>
       </dl>
     </fieldset>
