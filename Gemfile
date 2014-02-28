@@ -24,6 +24,7 @@ group :production do
   gem 'rails_serve_static_assets'
   gem 'rails_12factor'
   gem 'heroku-deflater'
+  gem 'newrelic_rpm'
 end
 
 group :authentication do
