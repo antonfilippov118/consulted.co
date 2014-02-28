@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     return true unless Rails.env.production?
-    authenticate_or_request_with_http_digest("Consulted.co Platform") do |name|
+    authenticate_or_request_with_http_digest('Consulted.co Platform') do |name|
       USERS[name]
     end
   end

@@ -41,7 +41,7 @@ module Consulted
     config.assets.precompile.shift
 
     # Explicitly register the extensions we are interested in compiling
-    config.assets.precompile.push(Proc.new do |path|
+    config.assets.precompile.push(proc do |path|
       File.extname(path).in? [
         '.html', '.erb', '.haml',                 # Templates
         '.png',  '.gif', '.jpg', '.jpeg', '.svg', # Images

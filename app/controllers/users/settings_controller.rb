@@ -39,4 +39,3 @@ class Users::SettingsController < Users::BaseController
     params.require(:user).permit :break, :meeting_notification, :break_time, :notification_time
   end
 end
-
