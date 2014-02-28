@@ -51,39 +51,31 @@ group :development do
 
   gem 'foreman'
 
-  group :doc do
-    # bundle exec rake doc:rails generates the API under doc/api.
-    gem 'sdoc', require: false
-    gem 'kramdown', '~> 1.3.0'
-  end
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+  gem 'kramdown', '~> 1.3.0'
 
-  group :guard do
-    gem 'guard',         '~> 2.2.4'
-    gem 'guard-bundler', '~> 2.0.0'
-    gem 'guard-rspec',   '~> 4.2.0'
-    gem 'guard-rubocop', '~> 1.0.2'
+  gem 'guard',         '~> 2.2.4'
+  gem 'guard-bundler', '~> 2.0.0'
+  gem 'guard-rspec',   '~> 4.2.0'
+  gem 'guard-rubocop', '~> 1.0.2'
+  # file system change event handling
+  gem 'listen',     '~> 2.4.0'
+  gem 'rb-fchange', '~> 0.0.6', require: false
+  gem 'rb-fsevent', '~> 0.9.3', require: false
+  gem 'rb-inotify', '~> 0.9.0', require: false
+  # notification handling
+  gem 'libnotify',               '~> 0.8.0', require: false
+  gem 'rb-notifu',               '~> 0.0.4', require: false
+  gem 'terminal-notifier-guard', '~> 1.5.3', require: false
 
-    # file system change event handling
-    gem 'listen',     '~> 2.4.0'
-    gem 'rb-fchange', '~> 0.0.6', require: false
-    gem 'rb-fsevent', '~> 0.9.3', require: false
-    gem 'rb-inotify', '~> 0.9.0', require: false
-
-    # notification handling
-    gem 'libnotify',               '~> 0.8.0', require: false
-    gem 'rb-notifu',               '~> 0.0.4', require: false
-    gem 'terminal-notifier-guard', '~> 1.5.3', require: false
-  end
-
-  group :metrics do
-    gem 'coveralls', '~> 0.7.0'
-    gem 'flay',      '~> 2.4.0'
-    gem 'flog',      '~> 4.2.0'
-    gem 'reek',      '~> 1.3.2'
-    gem 'rubocop',   '~> 0.18.1'
-    gem 'simplecov', '~> 0.8.2'
-    gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
-  end
+  gem 'coveralls', '~> 0.7.0'
+  gem 'flay',      '~> 2.4.0'
+  gem 'flog',      '~> 4.2.0'
+  gem 'reek',      '~> 1.3.2'
+  gem 'rubocop',   '~> 0.18.1'
+  gem 'simplecov', '~> 0.8.2'
+  gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
 end
 
 group :test do
