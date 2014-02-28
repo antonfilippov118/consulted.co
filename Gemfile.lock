@@ -151,6 +151,7 @@ GEM
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
     multi_json (1.8.4)
+    newrelic_rpm (3.7.2.195)
     oauth (0.4.7)
     omniauth (1.2.1)
       hashie (>= 1.2, < 3)
@@ -321,6 +322,7 @@ DEPENDENCIES
   listen (~> 2.4.0)
   mongoid (~> 4.0.0.beta1)
   mongoid-rspec
+  newrelic_rpm
   omniauth
   omniauth-linkedin
   pry (>= 0.9.12.4)
