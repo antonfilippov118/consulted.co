@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - ruby-2.1.1-p76
+  - ruby-2.1.1
 script: bundle exec rspec
 services: mongodb
 
