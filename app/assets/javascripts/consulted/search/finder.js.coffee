@@ -1,5 +1,5 @@
 app = angular.module "consulted.finder", [
-  'mgcrea.ngStrap.typeahead'
+  'siyfion.sfTypeahead'
 ]
 
 app.run [
@@ -28,6 +28,15 @@ app.service 'GroupData', [
       , (err) ->
         result.reject err
       result.promise
+    findGroup: (id) ->
+      result = q.defer()
+      groups.then (response) ->
+        find = (groups, id) ->
+          for group in groups when group.id is id
+            return group
+          find group.children, id
+        result.resolve find response.data, id
+      result.promise
 ]
 
 
@@ -37,6 +46,7 @@ app.controller "FinderCtrl", [
   (scope, GroupData) ->
 
     scope.loading = yes
+
     GroupData.getGroups().then (groups) ->
       scope.$broadcast 'groups:ready', groups
     , (err) ->
@@ -44,8 +54,18 @@ app.controller "FinderCtrl", [
     .finally () ->
       scope.loading = no
 
-    transform = (_, groups) ->
+    _groups = new Bloodhound
+        datumTokenizer: (d) -> Bloodhound.tokenizers.whitespace d.path
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+        local: []
 
+    _groups.initialize()
+
+    scope.data =
+      displayKey: 'path'
+      source: _groups.ttAdapter()
+
+    transform = (_, groups) ->
       getData = (group, path = "", delim = " > ") ->
         if group.children.length > 0
           path += "#{group.name}#{delim}"
@@ -56,15 +76,24 @@ app.controller "FinderCtrl", [
             path: path
             id: group.id
 
-      structures = []
-
       angular.forEach groups, (group) ->
-        structures.push obj for obj in getData(group)
-
-      scope.groups = structures
-
+        _groups.add obj for obj in getData(group)
 
     scope.$on 'groups:ready', transform
+
+    scope.options =
+      highlight: yes
+
+    scope.search = () ->
+      return unless angular.isObject scope.selected
+      return unless angular.isString scope.selected.id
+      scope.searching = yes
+      GroupData.findGroup(scope.selected.id).then (group) ->
+        scope.group = group
+      , (err) ->
+        scope.searchError = yes
+      .finally () ->
+        scope.searching = no
 
 ]
 
