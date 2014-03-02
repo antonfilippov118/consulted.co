@@ -16,7 +16,7 @@ namespace :groups do
         end
       end
     end
-    puts groups.length
+
     groups.each do |group|
       create group
     end
