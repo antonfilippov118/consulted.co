@@ -57,7 +57,7 @@ group :development do
 
   gem 'guard',         '~> 2.2.4'
   gem 'guard-bundler', '~> 2.0.0'
-  gem 'guard-rspec',   '~> 4.2.0'
+  gem 'guard-rspec',   '~> 4.2.7'
   gem 'guard-rubocop', '~> 1.0.2'
   # file system change event handling
   gem 'listen',     '~> 2.4.0'
