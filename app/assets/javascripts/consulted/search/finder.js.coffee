@@ -1,5 +1,6 @@
 app = angular.module "consulted.finder", [
   'siyfion.sfTypeahead'
+  'consulted.common'
 ]
 
 app.run [
@@ -15,36 +16,6 @@ app.directive 'component', [
     controller: 'FinderCtrl'
     templateUrl: 'finder'
 ]
-
-app.service 'GroupData', [
-  '$http'
-  '$q'
-  GroupData = (http, q) ->
-    groups = http.get('/groups.json')
-    getGroups: () ->
-      result = q.defer()
-      groups.then (response) ->
-        result.resolve response.data
-      , (err) ->
-        result.reject err
-      result.promise
-    findGroup: (id) ->
-      result = q.defer()
-      groups.then (response) ->
-        {data} = response
-        find = (data, id) ->
-          for group in data
-            if group.id is id
-              return group
-            found = find group.children, id
-            return found if found
-
-        group = find data, id
-        result.resolve find data, id
-
-      result.promise
-]
-
 
 app.controller "FinderCtrl", [
   '$scope'
