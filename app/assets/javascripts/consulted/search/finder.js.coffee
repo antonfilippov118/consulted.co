@@ -19,7 +19,7 @@ app.directive 'component', [
 app.service 'GroupData', [
   '$http'
   '$q'
-  (http, q) ->
+  GroupData = (http, q) ->
     groups = http.get('/groups.json')
     getGroups: () ->
       result = q.defer()
@@ -31,11 +31,17 @@ app.service 'GroupData', [
     findGroup: (id) ->
       result = q.defer()
       groups.then (response) ->
-        find = (groups, id) ->
-          for group in groups when group.id is id
-            return group
-          find group.children, id
-        result.resolve find response.data, id
+        {data} = response
+        find = (data, id) ->
+          for group in data
+            if group.id is id
+              return group
+            found = find group.children, id
+            return found if found
+
+        group = find data, id
+        result.resolve find data, id
+
       result.promise
 ]
 
@@ -43,7 +49,7 @@ app.service 'GroupData', [
 app.controller "FinderCtrl", [
   '$scope'
   'GroupData'
-  (scope, GroupData) ->
+  FinderCtrl = (scope, GroupData) ->
 
     scope.loading = yes
 
@@ -76,8 +82,17 @@ app.controller "FinderCtrl", [
             path: path
             id: group.id
 
-      angular.forEach groups, (group) ->
-        _groups.add obj for obj in getData(group)
+      results = groups.map (group) -> getData group
+
+      merged = (groups, paths = []) ->
+        if angular.isArray groups
+          merged group, paths for group in groups
+        else
+          paths.push groups
+        paths
+
+      _groups.add path for path in merged results
+
 
     scope.$on 'groups:ready', transform
 
@@ -85,12 +100,14 @@ app.controller "FinderCtrl", [
       highlight: yes
 
     scope.search = () ->
+      return if scope.searching
       return unless angular.isObject scope.selected
       return unless angular.isString scope.selected.id
       scope.searching = yes
       GroupData.findGroup(scope.selected.id).then (group) ->
         scope.group = group
       , (err) ->
+        scope.group = null
         scope.searchError = yes
       .finally () ->
         scope.searching = no
@@ -98,7 +115,7 @@ app.controller "FinderCtrl", [
 ]
 
 app.directive "groupDisplay", [
-  () ->
+  groupDisplay = () ->
     replace: yes
     templateUrl: 'display'
     scope: no
