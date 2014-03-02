@@ -15,4 +15,14 @@ describe DeletesUnconfirmedUser do
 
     expect(User.count).to equal(1)
   end
+
+  it 'ignores confirmed users' do
+    User.create valid_params
+
+    User.first.confirm!
+
+    DeletesUnconfirmedUser.after 4.years
+
+    expect(User.count).to equal(1)
+  end
 end
