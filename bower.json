@@ -23,10 +23,9 @@
     "momentjs": "~2.5.1",
     "angular": "~1.2.13",
     "angular-route": "~1.2.13",
-    "bootstrap-switch": "~2.0.1",
+    "bootstrap-switch": "2~.0.1",
     "css-toggle-switch": "~2.1.4",
     "typeahead.js": "~0.10.1",
-    "angular-strap": "2.0.0-rc.3",
-    "angular-animate": "~1.2.13"
+    "angular-typeahead": "~0.1.1"
   }
 }

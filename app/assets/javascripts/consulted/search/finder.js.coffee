@@ -1,5 +1,5 @@
 app = angular.module "consulted.finder", [
-  'mgcrea.ngStrap.typeahead'
+  'siyfion.sfTypeahead'
 ]
 
 app.run [
@@ -19,7 +19,7 @@ app.directive 'component', [
 app.service 'GroupData', [
   '$http'
   '$q'
-  (http, q) ->
+  GroupData = (http, q) ->
     groups = http.get('/groups.json')
     getGroups: () ->
       result = q.defer()
@@ -28,15 +28,31 @@ app.service 'GroupData', [
       , (err) ->
         result.reject err
       result.promise
+    findGroup: (id) ->
+      result = q.defer()
+      groups.then (response) ->
+        {data} = response
+        find = (data, id) ->
+          for group in data
+            if group.id is id
+              return group
+            found = find group.children, id
+            return found if found
+
+        group = find data, id
+        result.resolve find data, id
+
+      result.promise
 ]
 
 
 app.controller "FinderCtrl", [
   '$scope'
   'GroupData'
-  (scope, GroupData) ->
+  FinderCtrl = (scope, GroupData) ->
 
     scope.loading = yes
+
     GroupData.getGroups().then (groups) ->
       scope.$broadcast 'groups:ready', groups
     , (err) ->
@@ -44,8 +60,18 @@ app.controller "FinderCtrl", [
     .finally () ->
       scope.loading = no
 
-    transform = (_, groups) ->
+    _groups = new Bloodhound
+        datumTokenizer: (d) -> Bloodhound.tokenizers.whitespace d.path
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+        local: []
 
+    _groups.initialize()
+
+    scope.data =
+      displayKey: 'path'
+      source: _groups.ttAdapter()
+
+    transform = (_, groups) ->
       getData = (group, path = "", delim = " > ") ->
         if group.children.length > 0
           path += "#{group.name}#{delim}"
@@ -56,20 +82,40 @@ app.controller "FinderCtrl", [
             path: path
             id: group.id
 
-      structures = []
+      results = groups.map (group) -> getData group
 
-      angular.forEach groups, (group) ->
-        structures.push obj for obj in getData(group)
+      merged = (groups, paths = []) ->
+        if angular.isArray groups
+          merged group, paths for group in groups
+        else
+          paths.push groups
+        paths
 
-      scope.groups = structures
+      _groups.add path for path in merged results
 
 
     scope.$on 'groups:ready', transform
 
+    scope.options =
+      highlight: yes
+
+    scope.search = () ->
+      return if scope.searching
+      return unless angular.isObject scope.selected
+      return unless angular.isString scope.selected.id
+      scope.searching = yes
+      GroupData.findGroup(scope.selected.id).then (group) ->
+        scope.group = group
+      , (err) ->
+        scope.group = null
+        scope.searchError = yes
+      .finally () ->
+        scope.searching = no
+
 ]
 
 app.directive "groupDisplay", [
-  () ->
+  groupDisplay = () ->
     replace: yes
     templateUrl: 'display'
     scope: no
