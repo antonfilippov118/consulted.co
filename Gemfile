@@ -16,6 +16,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
 
