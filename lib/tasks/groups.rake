@@ -8,11 +8,10 @@ namespace :groups do
   task seed: [:purge, :environment] do
 
     def create(group, parent = nil)
-
       _group = Group.create name: group[:name], description: group[:description], parent: parent
 
-        group[:children].each do |child|
       unless group[:children].nil?
+        group[:children].each do |child|
           create child, _group
         end
       end
