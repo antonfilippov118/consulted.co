@@ -13,13 +13,7 @@ class FindsAvailableExperts
     include LightService::Action
     executed do |context|
       group   = context.fetch :group
-      unless group.class == Array
-        group = [group]
-      end
-      ids     = User::Offer.with_groups(group).map { user.id }
-      binding.pry
-
-      experts = User.experts.where id: ids
+      experts = User.experts.with_group group
       context[:experts] = experts
     end
   end

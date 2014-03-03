@@ -71,7 +71,10 @@ class User
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
   scope :with_languages, -> languages { where languages: { :$all => languages } }
-#  scope :with_group, -> group { "offers.group_id" => group.id }
+
+  def self.with_group(group)
+    where(:'offers.group_id' => group.id)
+  end
 
   def can_be_an_expert?
     # TODO: Paypal
