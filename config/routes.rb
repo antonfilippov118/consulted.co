@@ -26,7 +26,7 @@ Consulted::Application.routes.draw do
     end
   end
 
-  resource :groups, only: [:show]
+  resources :groups, only: [:show]
   resource :offers, only: [:show]
 
   namespace :users do

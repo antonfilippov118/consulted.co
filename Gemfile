@@ -4,8 +4,8 @@ ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-gem 'bson_ext', platform: :ruby
-gem 'jbuilder'
+gem 'bson_ext'
+gem 'rabl'
 gem 'devise'
 gem 'linkedin'
 
@@ -19,6 +19,7 @@ gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
+gem 'mongoid_slug'
 
 group :production do
   gem 'unicorn'
