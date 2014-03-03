@@ -26,14 +26,12 @@ Consulted::Application.routes.draw do
     end
   end
 
-  resources :groups, only: [:show]
+  resources :groups, only: [:show, :index]
   resource :offers, only: [:show]
 
   namespace :users do
     get :available, to: 'utilities#available'
   end
-
-  resource :groups, only: [:show]
 
   root to: 'home#index'
 end

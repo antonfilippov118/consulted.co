@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2><%= @group.name %></h2>
+      <p><%= @group.description %></p>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <% if @experts.any? %>
+      <h3>Experts for this category</h3>
+    <% else %>
+      <p class="lead">There are no experts for this serice offering.</p>
+    <% end %>
+  </div>
+</div>

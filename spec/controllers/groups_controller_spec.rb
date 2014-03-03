@@ -7,7 +7,7 @@ describe GroupsController do
   it 'shows the groups as json' do
     Group.delete_all
     Group.create name: 'Finance'
-    get :show
+    get :index
     expect(response.success?).to be_true
   end
 end
