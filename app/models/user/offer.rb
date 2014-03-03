@@ -14,5 +14,5 @@ class User::Offer
   delegate :name, to: :group
 
   scope :with_length, -> length { where lengths: length }
-  scope :with_groups, -> groups { where group_id: { :$in => groups } }
+  scope :with_group, -> group { where group: group }
 end

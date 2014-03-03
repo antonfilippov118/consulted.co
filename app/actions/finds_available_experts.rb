@@ -16,7 +16,10 @@ class FindsAvailableExperts
       unless group.class == Array
         group = [group]
       end
-      experts = User.experts.with_groups group
+      ids     = User::Offer.with_groups(group).map { user.id }
+      binding.pry
+
+      experts = User.experts.where id: ids
       context[:experts] = experts
     end
   end
