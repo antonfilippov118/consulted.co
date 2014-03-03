@@ -345,6 +345,7 @@ DEPENDENCIES
   mongoid (~> 4.0.0.beta1)
   mongoid-rspec
   mongoid_slug
+  multi_json
   newrelic_rpm
   omniauth
   omniauth-linkedin

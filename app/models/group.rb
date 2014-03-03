@@ -11,10 +11,8 @@ class Group
 
   def as_json(opts)
     {
-      id: id.to_s,
       name: name,
-      description: description,
-      children: children.map { |child| child.as_json(opts) }
+      description: description
     }
   end
 end

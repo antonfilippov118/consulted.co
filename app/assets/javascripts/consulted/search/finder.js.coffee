@@ -73,7 +73,7 @@ app.controller "FinderCtrl", [
     scope.search = () ->
       return if scope.searching
       return unless angular.isObject scope.selected
-      return unless angular.isString scope.selected.id
+      return unless angular.isObject scope.selected.id
       scope.searching = yes
       GroupData.findGroup(scope.selected.id).then (group) ->
         scope.group = group

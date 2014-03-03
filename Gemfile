@@ -6,6 +6,7 @@ gem 'rails', '4.0.2'
 
 gem 'bson_ext'
 gem 'rabl'
+gem 'multi_json'
 gem 'devise'
 gem 'linkedin'
 
