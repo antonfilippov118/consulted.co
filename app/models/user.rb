@@ -29,7 +29,6 @@ class User
   field :break_time, type: Integer, default: 15
 
   has_many :availabilities
-  has_many :offers
 
   validate :languages_allowed?
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
@@ -67,10 +66,12 @@ class User
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
+  embeds_many :offers, class_name: 'User::Offer'
 
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
   scope :with_languages, -> languages { where languages: { :$all => languages } }
+#  scope :with_group, -> group { "offers.group_id" => group.id }
 
   def can_be_an_expert?
     # TODO: Paypal
