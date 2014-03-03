@@ -19,6 +19,7 @@ gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
+gem 'friendly_id'
 
 group :production do
   gem 'unicorn'
