@@ -22,3 +22,5 @@ bin
 assets.tar.gz
 change_ruby.sh
 .idea/
+.vagrant/
+cookbooks/
