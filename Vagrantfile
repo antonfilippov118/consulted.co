@@ -1,5 +1,5 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+#!/usr/bin/env ruby
+#^syntax detection
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks"]
+    chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
 
     chef.add_recipe "apt"
     chef.add_recipe "nodejs"
@@ -42,8 +42,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "vim"
 
+    chef.add_recipe "nodejs::npm"
+    chef.add_recipe "npm::bower"
+
     chef.add_recipe "mongodb::10gen_repo"
     chef.add_recipe "mongodb::default"
+
+    # npm_package "bower@1.2.8"
 
     chef.json = {
       rbenv: {

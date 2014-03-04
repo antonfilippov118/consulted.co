@@ -17,6 +17,14 @@ SITE
       yum (~> 3.0)
 
 GIT
+  remote: https://github.com/balbeko/chef-npm
+  ref: master
+  sha: 1ce1b27ceef912f671c81d0e1442e8de0a25c147
+  specs:
+    npm (0.1.2)
+      nodejs (>= 0.0.0)
+
+GIT
   remote: https://github.com/edelight/chef-mongodb
   ref: 0.15.0
   sha: 7c0ed1c7cfd7a5ef9926dcfaa1f49ebbe65b38f4
@@ -49,6 +57,7 @@ DEPENDENCIES
   build-essential (>= 0)
   mongodb (>= 0)
   nodejs (>= 0)
+  npm (>= 0)
   rbenv (>= 0)
   ruby_build (>= 0)
   vim (>= 0)
