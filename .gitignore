@@ -24,3 +24,5 @@ change_ruby.sh
 .idea/
 .vagrant/
 cookbooks/
+.ruby-gemset
+.ruby-version
