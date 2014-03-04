@@ -6,6 +6,4 @@ cookbook 'ruby_build'
 cookbook 'nodejs', git: 'https://github.com/mdxp/nodejs-cookbook.git'
 cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv', ref: 'v0.7.2'
 cookbook 'vim'
-# cookbook "mongodb",
-#   :git => "git://github.com/edelight/chef-cookbooks.git",
-#   :ref => "0.11.0"
+cookbook "mongodb", git: "https://github.com/edelight/chef-mongodb", ref: "0.15.0"
