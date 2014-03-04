@@ -1,0 +1,11 @@
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'ruby_build'
+cookbook 'nodejs', git: 'https://github.com/mdxp/nodejs-cookbook.git'
+cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv', ref: 'v0.7.2'
+cookbook 'vim'
+# cookbook "mongodb",
+#   :git => "git://github.com/edelight/chef-cookbooks.git",
+#   :ref => "0.11.0"
