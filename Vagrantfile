@@ -41,6 +41,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "vim"
+
+    chef.add_recipe "mongodb::10gen_repo"
     chef.add_recipe "mongodb::default"
 
     chef.json = {

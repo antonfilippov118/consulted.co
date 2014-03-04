@@ -14,7 +14,7 @@ To get started:
 
 ```
 cd location/to/consulted
-````
+```
 
 * Install rvm from
 
@@ -25,7 +25,7 @@ cd location/to/consulted
 * Install ruby (rvm will give you a hint on this)
 
 ```
-rvm install ruby-2.0.0-p353
+rvm install ruby-2.0.0-p451
 ```
 
 * Execute Bundler:
@@ -41,6 +41,44 @@ rails s
 ```
 
 The app should now be available under http://localhost:3000.
+
+## Alternative: Vagrant
+
+This repository ships with a Vagrantfile to ease development.
+
+You should make sure you install [vagrant](http://www.vagrantup.com/) and include the following plugins, once installed:
+
+```
+vagrant plugin install vagrant-librarian-chef
+vagrant plugin install vagrant-vbguest
+```
+
+The VM can be started via console:
+
+```
+vagrant up
+```
+
+
+You can access the server via
+
+```
+vagrant ssh
+```
+
+and the app is located here:
+
+```
+cd /consulted.co
+```
+
+You can run `bundle` there and start the server via `rails s` afterwards:
+
+```
+bundle && rails s
+```
+
+Ports are setup in a way that the app should now be reachable under http://localhost:3000/ from the host. MongoDB can be reached on port `27018`.
 
 ## Tests
 
