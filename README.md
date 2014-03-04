@@ -75,7 +75,8 @@ cd /consulted.co
 You can run `bundle` there and start the server via `rails s` afterwards:
 
 ```
-bundle && rails s
+bundle
+bundle exec rails s
 ```
 
 Ports are setup in a way that the app should now be reachable under http://localhost:3000/ from the host. MongoDB can be reached on port `27018`.
