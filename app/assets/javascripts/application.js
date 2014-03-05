@@ -16,6 +16,7 @@
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
 //= require angular-typeahead/angular-typeahead
+//= require consulted/offer
 //= require consulted/common/app
 //= require consulted/settings/notifications
 //= require consulted/search/finder

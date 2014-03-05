@@ -1,5 +1,5 @@
 <div class="offer_your_time">
-  <% unless @user.can_be_an_expert?  %>
+  <% unless possible_expert?  %>
     <div class="alert alert-warning">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       You are not able to be booked yet. You still need to:
@@ -18,10 +18,15 @@
   <% end %>
   <h2>Offer your time
     <small>
-      <% if @user.can_be_an_expert? %>
+      <% if possible_expert? %>
         <i class="fa fa-check success"></i> You are able to be an expert!
       <% end %>
     </small>
   </h2>
-  <%= render partial: 'review' %>
+  <% if possible_expert? %>
+    <%= render partial: 'review' %>
+    <%= render partial: 'location' %>
+  <% else %>
+    <p>It appears we do not have the information necessary to allow you to offer your time as an expert. </p>
+  <% end %>
 </div>

@@ -30,4 +30,13 @@ describe ExpertsHelper do
     @user.providers = ['linkedin']
     expect(needs_linkedin?).to be_false
   end
+
+  it 'should determine expert status' do
+    @user = User.create valid_params
+    expect(possible_expert?).to be_false
+
+    @user = Use.create valid_params.merge linkedin_network: 100_000
+    @user.confirm!
+    expect(possible_expert?).to be_true
+  end
 end

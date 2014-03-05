@@ -32,7 +32,7 @@ class Users::SettingsController < Users::BaseController
   end
 
   def user_profile_params
-    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image
+    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country
   end
 
   def user_notifications_params

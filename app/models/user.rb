@@ -27,6 +27,8 @@ class User
   field :break, type: Boolean, default: true
   field :break_time, type: Integer, default: 15
 
+  field :country
+
   has_many :availabilities
 
   validate :languages_allowed?

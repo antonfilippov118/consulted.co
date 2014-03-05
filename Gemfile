@@ -21,6 +21,7 @@ gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
 gem 'mongoid_slug'
+gem 'country_select'
 
 group :production do
   gem 'unicorn'

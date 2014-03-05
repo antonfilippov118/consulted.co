@@ -1,4 +1,8 @@
 module ExpertsHelper
+  def possible_expert?
+    @user.can_be_an_expert?
+  end
+
   def needs_more_contacts?
     @user.linkedin_network < User.required_connections
   end
