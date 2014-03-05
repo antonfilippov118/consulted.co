@@ -7,4 +7,5 @@ class User::LinkedinCompany
   field :linkedin_id
   field :industry
   field :name
+  field :position, type: String
 end
