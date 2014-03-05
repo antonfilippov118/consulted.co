@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-#^syntax detection
 
 site 'http://community.opscode.com/api/v1'
 
@@ -10,4 +9,4 @@ cookbook 'nodejs', git: 'https://github.com/mdxp/nodejs-cookbook.git'
 cookbook 'npm', git: 'https://github.com/balbeko/chef-npm'
 cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv', ref: 'v0.7.2'
 cookbook 'vim'
-cookbook "mongodb", git: "https://github.com/edelight/chef-mongodb", ref: "0.15.0"
+cookbook 'mongodb', git: 'https://github.com/edelight/chef-mongodb', ref: '0.15.0'

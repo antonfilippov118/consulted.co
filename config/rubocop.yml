@@ -5,6 +5,8 @@ AllCops:
   Excludes:
     - '**/vendor/**'
     - '**/benchmarks/**'
+    - Vagrantfile
+    - Cheffile
     - !ruby/regexp /tmp|cookbooks|bin/
 
 # Avoid parameter lists longer than five parameters.
