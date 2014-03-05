@@ -11,4 +11,8 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def analytics_key
+    ENV['ANALYTICS_KEY']
+  end
 end
