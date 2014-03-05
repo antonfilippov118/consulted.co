@@ -94,6 +94,7 @@ class User
   end
 
   def linkedin?
+    return false if providers.nil?
     providers.include? 'linkedin'
   end
 
@@ -123,7 +124,7 @@ class User
   end
 
   def self.required_connections
-    1
+    100
   end
 
 end

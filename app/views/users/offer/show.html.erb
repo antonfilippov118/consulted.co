@@ -1,1 +1,26 @@
-<div>offer</div>
+<div class="offer_your_time">
+  <% unless @user.can_be_an_expert?  %>
+    <div class="alert alert-warning">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      You are not able to be booked yet. You still need to:
+      <ul>
+        <% if needs_more_contacts? %>
+          <li>Ensure you have <em><%= User.required_connections %></em> connections in your LinkedIn network.</li>
+        <% end %>
+        <% if needs_confirmation? %>
+          <li>You need to confirm your email address.</li>
+        <% end %>
+        <% if needs_linkedin? %>
+          <li>You need to add a LinkedIn account. <%= link_to 'Connect one now', settings_accounts_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h2>Offer your time
+    <small>
+      <% if @user.can_be_an_expert? %>
+        <i class="fa fa-check success"></i> You are able to be an expert!
+      <% end %>
+    </small>
+  </h2>
+</div>

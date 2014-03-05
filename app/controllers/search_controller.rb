@@ -1,7 +1,4 @@
-class SearchController < Users::BaseController
-  before_filter :authenticate_user
-
+class SearchController < ApplicationController
   def show
   end
-
 end

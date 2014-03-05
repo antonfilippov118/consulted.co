@@ -27,14 +27,14 @@ describe User do
       expect(User.new.can_be_an_expert?).to be_false
     end
 
-    it 'needs to have at least 1 network contact in Linkedin' do
-      user = User.create name: 'Florian', password: 'tester', password_confirmation: 'tester', linkedin_network: 1, confirmation_sent_at: Time.now
+    it 'should have a certain number of contacts in linkedin to be an expert' do
+      user = User.create valid_params.merge linkedin_network: 10_000
       user.confirm!
       expect(user.can_be_an_expert?).to be_true
     end
 
     it 'should be confirmed' do
-      user = User.create name: 'Florian', password: 'tester', password_confirmation: 'tester', linkedin_network: 1
+      user = User.create valid_params.merge linkedin_network: 10_000
       expect(user.can_be_an_expert?).to be_false
     end
   end
