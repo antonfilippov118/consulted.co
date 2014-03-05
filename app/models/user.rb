@@ -12,7 +12,6 @@ class User
   field :summary, type: String
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
-  field :positions, type: Array, default: []
   field :slug, type: String
   field :timezone, type: String, default: 'Europe/Berlin'
 
@@ -74,6 +73,13 @@ class User
 
   def self.with_group(group)
     where(:'offers.group_id' => group.id)
+  end
+
+  # TODO: since Mongoid hasn't random, so far this simple method just works.
+  # In future we can add custom mongoid finder module and method to mongoid
+  # criteria.
+  def self.random(count = 1)
+    criteria.to_a.shuffle[0, count]
   end
 
   def can_be_an_expert?

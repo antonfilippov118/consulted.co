@@ -2,66 +2,7 @@
   <div class="container">
     <h2 class="section-heading">Benefit from top tier service level experts like these</h2>
     <div class="row">
-      <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 col-md-4">
-            <%= image_tag image_url('sebastian.jpg'), class: 'img-responsive', alt: '' %>
-          </div>
-          <div class="col-sm-6 col-md-8">
-            <h4>Sebastian Sager</h4>
-            <small>
-              <cite title="San Francisco, USA">
-                Berlin Area
-              </cite>
-            </small>
-            <ul>
-              <li>Co-Founder and Managing Director</li>
-              <li>Manager at A.T. Kearney</li>
-              <li>Graduate from Handelshochschule Leipzig</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 col-md-4">
-            <%= image_tag image_url('alex.jpg'), class: 'img-responsive', alt: '' %>
-          </div>
-          <div class="col-sm-6 col-md-8">
-            <h4>Alexander Kaulfersch</h4>
-            <small>
-              <cite title="San Francisco, USA">
-                Berlin Area
-              </cite>
-            </small>
-            <ul>
-              <li>Engagement Manager at McKinsey &amp; Company, Inc.</li>
-              <li>Student Consultant at Porsche AG</li>
-              <li>Graduate from Handelshochschule Leipzig</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-lg-4 col-md-4 col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 col-md-4">
-            <%= image_tag image_url('florian.jpg'), class: 'img-responsive', alt: '' %>
-          </div>
-          <div class="col-sm-6 col-md-8">
-            <h4>Florian Kraft</h4>
-            <small>
-              <cite title="San Francisco, USA">
-                Leipzig Area
-              </cite>
-            </small>
-            <ul>
-              <li>Senior Developer at EWERK IT GmbH</li>
-              <li>Developer at Sourcegarden GmbH</li>
-              <li>Graduate from SAE Institute Berlin</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'expert', collection: @experts %>
     </div>
   </div>
 <!-- /.container -->
