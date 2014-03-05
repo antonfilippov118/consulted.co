@@ -8,7 +8,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
 # TODO: better to use factories or gem like seedbank
 
 images = %w(alex.jpg florian.jpg sebastian.jpg)

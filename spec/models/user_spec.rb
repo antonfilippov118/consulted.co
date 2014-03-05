@@ -61,7 +61,7 @@ describe User do
         Array.any_instance.stub(:shuffle) { users }
 
         # NOTE: we can just compare by email as it is a unique field
-        User.random(num).collect(&:email).should eq users.collect(&:email)
+        User.random(num).map(&:email).should eq users.map(&:email)
       end
     end
 
