@@ -46,17 +46,16 @@ class SynchronizeLinkedinProfile
       name      = "#{user.first_name} #{user.last_name}"
       summary   = user.summary
 
-      positions = user.positions.all.map { |p| p.title }
       companies = user.positions.all.map do |p|
         params = {
           name: p.company['name'],
           linkedin_id: p.company['id'],
-          industry: p.company['industry']
+          industry: p.company['industry'],
+          position: p.title
         }
         User::LinkedinCompany.new params
       end
       context[:user].name      = name
-      context[:user].positions = positions
       context[:user].companies = companies
       context[:user].summary   = summary
     end

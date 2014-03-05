@@ -10,4 +10,32 @@ module ExpertsHelper
   def needs_linkedin?
     !@user.linkedin?
   end
+
+  def profile_image_url
+    @user.profile_image.remote_url
+  end
+
+  def current_company
+    @user.current_company.name
+  end
+
+  def current_position
+    @user.current_position
+  end
+
+  def name
+    @user.name
+  end
+
+  def summary
+    @user.summary
+  end
+
+  def previous_companies
+    @user.companies.drop 1
+  end
+
+  def previous_companies?
+    previous_companies.any?
+  end
 end

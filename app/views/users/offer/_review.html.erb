@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="container">
+    <h3>Review your profile</h4>
+    <div class="col-lg-4 current_position">
+      <div class="col-lg-4">
+        <%= image_tag profile_image_url, class: 'img-responsive', width: 150 %>
+        <strong><%= name %></strong>
+      </div>
+      <div class="col-lg-8">
+        <h4>Current position</h4>
+        <ul>
+          <li><strong><%= current_company %></strong></li>
+          <li><%= current_position %></li>
+        </ul>
+      </div>
+      <span class="sharing_hint">always shared</span>
+    </div>
+    <div class="col-lg-4 summary">
+      <h4>Summary</h4>
+      <div><%= simple_format summary %></div>
+      <br>
+      <div class="sharing_hint">
+        <%= link_to 'Do not share this', '#' %>
+      </div>
+    </div>
+    <div class="col-lg-4 positions">
+      <% if previous_companies? %>
+        <h4>Previous Positions</h4>
+        <ul>
+        <% previous_companies.each do |company| %>
+          <li>
+            <h5><%= company.name %></h5>
+            <%= company.position %>
+          </li>
+        <% end %>
+        </ul>
+      <% end %>
+      <div class="col-lg-6"></div>
+    </div>
+  </div>
+</div>

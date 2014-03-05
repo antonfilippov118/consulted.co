@@ -1,3 +1,15 @@
 .offer_your_time {
   @extend .container;
+  .current_position {
+    background: #eee;
+    padding: 10px;
+  }
+
+  .sharing_hint {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-style: italic;
+    color: #666;
+  }
 }

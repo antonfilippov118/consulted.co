@@ -110,7 +110,7 @@ class User
   end
 
   def current_position
-    positions.first
+    current_company.position
   end
 
   def current_company
@@ -124,7 +124,7 @@ class User
   end
 
   def self.required_connections
-    100
+    10
   end
 
 end
