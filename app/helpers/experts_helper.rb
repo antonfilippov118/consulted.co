@@ -42,4 +42,8 @@ module ExpertsHelper
   def previous_companies?
     previous_companies.any?
   end
+
+  def speaks_language?(language)
+    @user.languages.include? language
+  end
 end

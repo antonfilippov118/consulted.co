@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="container">
+    <h3>Languages</h3>
+    <%= form_for @user, url: profile_settings_path, remote: true, class: 'form-horizontal' do |f| -%>
+      <% %w(english german arabic spanish mandarin).each_slice(4) do |languages| %>
+        <% languages.each do |language| %>
+          <div class="col-lg-3">
+            <%= content_tag :label do %>
+              <%= check_box_tag "[user][languages][]", language, speaks_language?(language), id: "user_language_#{language}", class: 'language' %> <%= language.capitalize %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

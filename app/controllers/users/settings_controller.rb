@@ -13,11 +13,14 @@ class Users::SettingsController < Users::BaseController
 
   def user_update
     result = UpdatesUserProfile.with_params current_user, user_profile_params
-    if result.failure?
-      @errors = result[:errors]
-      render :profile, danger: result.message
-    else
-      redirect_to settings_path, notice: 'Profile updated!'
+    respond_to do |format|
+      if result.failure?
+        format.html { render :profile, danger: result.message }
+        format.js { render json: { error: result.message } }
+      else
+        format.html { redirect_to settings_path, notice: 'Profile updated!' }
+        format.js { render json: { success: true } }
+      end
     end
   end
 
@@ -32,7 +35,7 @@ class Users::SettingsController < Users::BaseController
   end
 
   def user_profile_params
-    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country
+    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country, languages: []
   end
 
   def user_notifications_params
