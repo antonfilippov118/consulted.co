@@ -1,4 +1,4 @@
-[![Build Status](https://magnum.travis-ci.com/floriank/consulted.png?token=bNVgt7Atr6dPqBZnmFEV&branch=master)](https://magnum.travis-ci.com/floriank/consulted)
+[![Build Status](https://circleci.com/gh/floriank/consulted.png?circle-token=37979798070167a8f6b7caf53a1c6e4f0b8fffe5)](https://magnum.travis-ci.com/floriank/consulted)
 
 # README
 
