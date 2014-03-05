@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require analytics/analytics
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
 //= require angular-typeahead/angular-typeahead
