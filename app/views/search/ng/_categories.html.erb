@@ -1,4 +1,26 @@
 <div>
+  <h2>Browse our offerings</h2>
   <div class="row">
+    <div class="container">
+      <div class="col-lg-3">
+        <select class="form-control" ng-options="group.name for group in groups" ng-model="segment"></select>
+      </div>
+      <div ng-show="segment.children.length > 0" class="col-lg-3">
+        <select class="form-control" ng-options="group.name for group in segment.children" ng-model="subgroup"></select>
+      </div>
+      <div class="col-lg-3" ng-show="subgroup.children.length > 0">
+        <select class="form-control" ng-options="group.name for group in subgroup.children" ng-model="category"></select>
+      </div>
+      <div class="col-lg-3" ng-show="category.children.length > 0">
+        <select class="form-control" ng-options="group.name for group in category.children" ng-model="service_offering"></select>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-show="current_selection.children.length === 0">
+    <div class="container">
+      <h3>{{current_selection.name}}</h3>
+      <p class="lead">{{current_selection.description}}</p>
+      <div class="text-center"><a ng-href="{{current_selection.link}}" class="btn btn-primary">View Experts</a></div>
+    </div>
   </div>
 </div>

@@ -23,5 +23,13 @@ app.controller 'CategoriesCtrl', [
     GroupData.getGroups().then (groups) ->
       scope.groups = groups
 
+    setCurrent = (newValue) ->
+      scope.current_selection = newValue
+
+    scope.$watch 'segment', setCurrent
+    scope.$watch 'subgroup', setCurrent
+    scope.$watch 'category', setCurrent
+    scope.$watch 'service_offering', setCurrent
+
 
 ]
