@@ -15,11 +15,14 @@
 //= require bootstrap
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
+//= require angular-bootstrap/ui-bootstrap
+//= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
 //= require consulted/offer
 //= require consulted/common/app
 //= require consulted/settings/notifications
+//= require consulted/offers/setup
 //= require consulted/search/finder
 //= require consulted/search/categories
-//= require consulted/search/bootstrap
+//= require consulted/bootstrap
 

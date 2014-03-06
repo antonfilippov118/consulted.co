@@ -12,4 +12,20 @@
     font-style: italic;
     color: #666;
   }
+
+  .save_indicator {
+    position: absolute;
+    top: -70px;
+    right: 20px;
+  }
+  tr.invalid {
+    td {
+      background: #f2dede;
+    }
+  }
+}
+.offer_window {
+  .row {
+    padding: 10px 0;
+  }
 }

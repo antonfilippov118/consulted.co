@@ -30,6 +30,7 @@ describe UpdatesOrCreatesOffer do
     expect(offer.experience).to eq 25
     expect(offer.rate).to eq 10
     expect(offer.enabled).to be_true
+    expect(offer.name).to eq 'Bingo'
   end
 
   def offer_params

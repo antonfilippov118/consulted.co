@@ -46,4 +46,8 @@ module ExpertsHelper
   def speaks_language?(language)
     @user.languages.include? language
   end
+
+  def no_offers?
+    @user.offers.enabled.length > 0
+  end
 end

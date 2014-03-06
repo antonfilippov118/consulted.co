@@ -6,3 +6,6 @@ $ ->
 
   categoriesElement = document.getElementById 'consulted_categories'
   angular.bootstrap categoriesElement, ['consulted.categories']
+
+  categoriesElement = document.getElementById 'consulted_offers'
+  angular.bootstrap categoriesElement, ['consulted.offers']

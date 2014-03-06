@@ -15,4 +15,6 @@ class User::Offer
 
   scope :with_length, -> length { where lengths: length }
   scope :with_group, -> group { where group: group }
+
+  scope :enabled, -> { where enabled: true }
 end
