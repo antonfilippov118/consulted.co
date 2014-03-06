@@ -51,27 +51,6 @@
         <%= f.file_field :profile_image %>
       </div>
     </fieldset>
-    <fieldset>
-      <legend>Career</legend>
-      <p>You currently work as a <strong><%= current_user.current_position %></strong> at <%= current_user.current_company.name %>.</p>
-      <p>Your past employers:</p>
-      <dl class="dl-horizontal">
-      <% current_user.companies.each_with_index do |company, index| %>
-        <% next if index == 0 %>
-          <dt><%= company.name %></dt>
-          <dd><%= current_user.positions[index] %></dd>
-      <% end %>
-      </dl>
-    </fieldset>
-    <fieldset>
-      <legend>Education</legend>
-      <dl class="dl-horizontal">
-        <% current_user.educations.each do |education| %>
-          <dt><%= education.name %></dt>
-          <dd><%= education.degree %></dd>
-        <% end %>
-      </dl>
-    </fieldset>
     <div class="text-center">
       <%= f.submit "Save", data: { disable_with: 'Saving' }, class: 'btn btn-primary' %>
     </div>

@@ -13,7 +13,7 @@ describe ExpertsHelper do
     expect(needs_more_contacts?).to be_false
   end
 
-  it 'should determie whether a user is confirmed' do
+  it 'should determine whether a user is confirmed' do
     @user = User.create valid_params
     expect(needs_confirmation?).to be_true
 
