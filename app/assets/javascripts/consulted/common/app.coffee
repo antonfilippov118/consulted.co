@@ -28,3 +28,24 @@ app.service 'GroupData', [
 
       result.promise
 ]
+
+app.service 'OfferData', [
+  '$http'
+  '$q'
+  OfferData = (http, q) ->
+
+    getOffers: () ->
+      result = q.defer()
+      http.get('/offers/list.json').then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+      result.promise
+    save: (offer) ->
+      result = q.defer()
+      http.put('/offers.json', offer).then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+      result.promise
+]

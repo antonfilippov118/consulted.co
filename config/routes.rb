@@ -13,7 +13,11 @@ Consulted::Application.routes.draw do
 
   devise_scope :user do
     get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
-    get :offer, controller: 'users/offer', action: :show, path: 'offer'
+
+    resource :offers, only: [:show, :update], controller: 'users/offers' do
+      get :list
+    end
+
     get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
     resource :settings, only: [] do
@@ -25,6 +29,7 @@ Consulted::Application.routes.draw do
       patch :profile, controller: 'users/settings', action: :user_update
       patch :notifications, controller: 'users/settings', action: :user_notifications_update
     end
+
   end
 
   resources :groups, only: [:show, :index]
