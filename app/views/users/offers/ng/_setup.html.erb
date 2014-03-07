@@ -10,34 +10,37 @@
       <i class="fa fa-check success"></i> Saved!
     </span>
   </span>
-  <table ng-show="offers.length > 0 && !loading">
+  <table ng-show="offers.length > 0 && !loading" class="table table-responsive  ">
     <thead>
       <tr>
         <th>Category</th>
-        <th>Rate per Hour (US$)</th>
-        <th>Offered time slots</th>
-        <th>Brief note on what makes you experienced in this category</th>
+        <th>Rate</th>
+        <th>Time slots</th>
+        <th>Brief note on what makes you experienced</th>
         <th>Relevant years of experience</th>
-        <th>Your current awesome count</th>
         <th>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="offer in offers | orderBy:'name'" ng-class="{invalid:!valid(offer)}">
+      <tr ng-repeat="offer in offers | orderBy:'name'" ng-class="{danger:!valid(offer)}">
         <td>{{offer.name}}</td>
-        <td><input required type="number" ng-model="offer.rate" ng-change="save(offer)"></td>
         <td>
-          Time slots
+          <label>
+            <input required type="number" class="form-control" ng-model="offer.rate" ng-change="save(offer)">
+            USD per Hour
+          </label>
         </td>
         <td>
-          <textarea required ng-model="offer.description" ng-change="save(offer)" cols="30" rows="5"></textarea>
+          <span ng-click="toggleTime(offer, time)" ng-repeat="time in times" class="timelength" ng-class="{active:hasTime(offer, time)}">
+           {{time}}
+          </span>
         </td>
         <td>
-          <input required type="number" ng-model="offer.experience" ng-change="save(offer)">
+          <textarea required  class="form-control" ng-model="offer.description" ng-change="save(offer)" cols="45" rows="5"></textarea>
         </td>
         <td>
-          20
+          <input class="form-control" required type="number" ng-model="offer.experience" ng-change="save(offer)">
         </td>
         <td class="text-center">
           <a ng-click="delete(offer)"><i class="fa fa-trash-o"></i></a>
