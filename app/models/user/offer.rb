@@ -15,6 +15,6 @@ class User::Offer
 
   scope :with_length, -> length { where lengths: length }
   scope :with_group, -> group { where group: group }
-
+  scope :valid, -> { where :description.ne => '', enabled: true, :rate.gt => 0, :experience.gt => 0, :lengths.ne => []  }
   scope :enabled, -> { where enabled: true }
 end
