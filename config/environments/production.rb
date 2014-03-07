@@ -87,7 +87,7 @@ Consulted::Application.configure do
     user_name: ENV['MANDRILL_USERNAME'],
     password: ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
     authentication: 'plain', # Mandrill supports 'plain' or 'login'
-    domain: 'heroku.com', # your domain to identify your server when connecting
+    domain: 'consulted.co', # your domain to identify your server when connecting
   }
   ActionMailer::Base.delivery_method = :smtp
 
