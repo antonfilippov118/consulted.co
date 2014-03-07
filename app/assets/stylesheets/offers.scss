@@ -18,11 +18,21 @@
     top: -70px;
     right: 20px;
   }
-  tr.invalid {
-    td {
-      background: #f2dede;
+  .timelength {
+    @extend .text-center;
+    padding: 5px;
+    display: block;
+    border: 1px solid #333;
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+    float: left;
+
+    &.active {
+      background: orange;
     }
   }
+
 }
 .offer_window {
   .row {

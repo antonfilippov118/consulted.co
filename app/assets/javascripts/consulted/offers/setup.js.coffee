@@ -90,7 +90,19 @@ app.controller 'SetupCtrl', [
     scope.valid = (offer) ->
       offer.description && offer.experience && offer.rate && offer.lengths
 
+    scope.hasTime = (offer, time) ->
+      time in offer.lengths
 
+    scope.toggleTime = (offer, time) ->
+      idx = offer.lengths.indexOf time
+      if idx > -1
+        offer.lengths.splice idx, 1
+      else
+        offer.lengths.push time
+
+      save offer, throttled: yes
+
+    scope.times = ['30', '45', '60', '90', '120']
 ]
 
 app.controller 'WindowCtrl', [
