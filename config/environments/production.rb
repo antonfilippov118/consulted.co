@@ -79,16 +79,4 @@ Consulted::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
-    port: 587, # ports 587 and 2525 are also supported with STARTTLS
-    enable_starttls_auto: true, # detects and uses STARTTLS
-    user_name: ENV['MANDRILL_USERNAME'],
-    password: ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
-    authentication: 'plain', # Mandrill supports 'plain' or 'login'
-    domain: 'consulted.co', # your domain to identify your server when connecting
-  }
-  ActionMailer::Base.delivery_method = :smtp
-
 end
