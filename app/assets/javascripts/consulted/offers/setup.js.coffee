@@ -32,28 +32,39 @@ app.controller 'SetupCtrl', [
       scope.loading = no
 
     process = (group) ->
+      scope.saving = yes
       save({group: { id: group.id.$oid }, enabled: yes }, no)
 
-    save = (offer = {}, throttled = yes) ->
+    save = (offer = {}, opts = {}) ->
+      defaults =
+        throttled: yes
+        replace: no
+      opts = angular.extend defaults, opts
       if offer.group_id
         offer.group = { id: offer.group_id.$oid }
 
-      if throttled
-        return throttledSave(offer)
+      if opts.throttled
+        return throttledSave(offer, opts)
 
       _save offer
 
     timer = null
-    throttledSave = (offer) ->
+    throttledSave = (offer, opts = {}) ->
       $timeout.cancel timer if timer?
       timer = $timeout () ->
-        _save(offer)
+        _save(offer, opts)
       , 1500
 
-    _save = (offer) ->
+    _save = (offer, opts = {}) ->
       scope.saving = yes
       OfferData.save(offer).then (offers) ->
-        scope.offers = offers
+        if opts.replace
+          scope.offers = offers
+        else
+          ids = scope.offers.map (offer) ->
+            offer.group_id.$oid
+          for offer in offers when offer.group_id.$oid not in ids
+            scope.offers.push offer
       .finally () ->
         scope.saved = yes
         scope.saving = no
@@ -63,7 +74,8 @@ app.controller 'SetupCtrl', [
 
     deleteOffer = (offer) ->
       offer.enabled = no
-      save(offer)
+      scope.saving = yes
+      save(offer, replace: yes)
 
     scope.save = save
     scope.delete = deleteOffer
@@ -101,7 +113,7 @@ app.controller 'WindowCtrl', [
           newValue['category'] or
           newValue['subgroup'] or
           newValue['segment'] or
-          []
+          undefined
 
       scope.$watch 'selection', setCurrent, yes
 

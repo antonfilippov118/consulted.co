@@ -34,6 +34,6 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button ng-click="select()" class="btn btn-primary" ng-disabled="current_selection.children.length > 0">Add this service offering</button>
+    <button ng-click="select()" class="btn btn-primary" ng-disabled="current_selection.children.length > 0 || !current_selection">Add this service offering</button>
   </div>
 </div>
