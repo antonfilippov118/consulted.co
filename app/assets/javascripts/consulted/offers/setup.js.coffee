@@ -88,7 +88,7 @@ app.controller 'SetupCtrl', [
 
       modalInstance.result.then process
     scope.valid = (offer) ->
-      offer.description && offer.experience && offer.rate && offer.lengths
+      offer.description && offer.experience && offer.rate && offer.lengths.length > 0
 
     scope.hasTime = (offer, time) ->
       time in offer.lengths
