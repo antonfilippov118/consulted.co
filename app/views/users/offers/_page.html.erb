@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="container">
+    <div class="col-lg-4 col-xs-12">
+      <p class="lead">Your expert profile page</p>
+    </div>
+    <div class="col-lg-4 col-xs-12 text-center">
+      <p class="lead">
+        <%= link_to "#{root_path}#{@user.slug}" do %>
+          <%= "#{root_url}#{@user.slug}" %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-lg-4 col-xs-12">
+      <p>You can share this url with yur acquaintances who would like to get insights from you so they can get on your schedule on your terms &mdash; works great for after speaking engagements or when you get cold called.</p>
+    </div>
+
+  </div>
+</div>
