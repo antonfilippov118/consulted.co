@@ -2,7 +2,7 @@
   <%= render partial: 'headline' %>
   <%= render partial: 'messages' %>
   <%= render partial: 'tabs', locals: { active: :notifications } %>
-  <%= form_for current_user, url: notifications_settings_path, html: { class: 'form-horizontal' } do |f| -%>
+  <%= form_for current_user, url: profile_settings_path, html: { class: 'form-horizontal' } do |f| -%>
     <fieldset>
       <div class="row">
         <div class="form-group col-sm-6">

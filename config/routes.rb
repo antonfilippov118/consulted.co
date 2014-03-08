@@ -27,7 +27,6 @@ Consulted::Application.routes.draw do
       get '/notifications', controller: 'users/settings', action: :notifications
 
       patch :profile, controller: 'users/settings', action: :user_update
-      patch :notifications, controller: 'users/settings', action: :user_notifications_update
     end
 
   end
