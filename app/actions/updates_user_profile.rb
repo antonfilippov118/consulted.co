@@ -16,7 +16,7 @@ class UpdatesUserProfile
 
       unless user.update_attributes params
         context[:errors] = user.errors
-        context.set_failure! 'Could not update profile!'
+        context.fail! 'Could not update profile!'
       end
     end
   end
