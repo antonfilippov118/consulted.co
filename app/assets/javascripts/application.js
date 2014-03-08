@@ -19,6 +19,9 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
 //= require consulted/offer
+//= require consulted/menu
+
+// Angular based apps
 //= require consulted/common/app
 //= require consulted/settings/notifications
 //= require consulted/offers/setup
