@@ -31,12 +31,19 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <%= link_to settings_path, class: 'btn-settings' do  %>
-              Welcome <%= current_user.name %>!
+            <%= link_to '#' do %>
+              <span class="settings-link">
+                <%= @user.name %> <i class="fa fa-gear"></i>
+              </span>
             <% end %>
-          </li>
-          <li>
-            <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+            <ul class="settings-menu" style="display:none">
+              <li><%= link_to 'Profile', settings_path  %></li>
+              <li><%= link_to 'Accounts', accounts_settings_path  %></li>
+              <li><%= link_to 'Billing', billing_settings_path  %></li>
+              <li><%= link_to 'Notifications', notifications_settings_path  %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'Logout', destroy_user_session_path, method: :delete  %></li>
+            </ul>
           </li>
         </ul>
       <% else %>
@@ -56,7 +63,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <%= link_to "Signup", new_user_registration_path, class: 'btn-signup'  %>
+            <%= link_to "Signup", new_user_registration_path, class: 'btn-signup' %>
           </li>
           <li>
             <%= link_to 'Login', new_user_session_path  %>
