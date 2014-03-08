@@ -20,12 +20,12 @@
 //= require angular-typeahead/angular-typeahead
 //= require consulted/offer
 //= require consulted/menu
-
 // Angular based apps
 //= require consulted/common/app
 //= require consulted/settings/notifications
 //= require consulted/offers/setup
 //= require consulted/search/finder
 //= require consulted/search/categories
+//= require consulted/scheduler/scheduler
 //= require consulted/bootstrap
 
