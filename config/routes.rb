@@ -38,5 +38,7 @@ Consulted::Application.routes.draw do
     get :available, to: 'utilities#available'
   end
 
+  get '/:slug', to: 'expert#page'
+
   root to: 'home#index'
 end
