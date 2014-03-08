@@ -1,3 +1,25 @@
-<div>
-  <%= @expert %>
+<div class="row">
+  <div class="container">
+    <div class="col-lg-3">
+      <br>
+      <%= image_tag @expert.profile_image.remote_url, class: 'img-responsive img-circle' %>
+    </div>
+    <div class="col-lg-9">
+      <h3><%= @expert.name %></h3>
+      <h4>Current position</h4>
+      <p class="lead"><%= @expert.current_position %></p>
+      <p>At <%= @expert.current_company.name %></p>
+      <hr>
+      <ul>
+        <% @expert.offers.enabled.each do |offer| %>
+          <li>
+            <h5><%= offer.name %> <small><%= offer.rate %> USD per hour</small></h5>
+            <p>Experience: <%= offer.experience %> years</p>
+            <p><%= truncate simple_format offer.description %></p>
+            <%= link_to 'Select this offer', '#', class: 'btn btn-primary'  %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
