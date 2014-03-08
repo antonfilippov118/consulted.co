@@ -7,5 +7,8 @@ $ ->
   categoriesElement = document.getElementById 'consulted_categories'
   angular.bootstrap categoriesElement, ['consulted.categories']
 
-  categoriesElement = document.getElementById 'consulted_offers'
-  angular.bootstrap categoriesElement, ['consulted.offers']
+  offersElement = document.getElementById 'consulted_offers'
+  angular.bootstrap offersElement, ['consulted.offers']
+
+  schedulerElement = document.getElementById 'consulted_scheduler'
+  angular.bootstrap schedulerElement, ['consulted.scheduler']
