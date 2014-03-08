@@ -3,5 +3,12 @@
   <div class="alert <%= bootstrap_class_for(type) %> fade in">
     <button class="close" data-dismiss="alert">×</button>
     <%= message %>
+    <% if @errors.any? %>
+      <ul>
+        <% @errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 <% end %>

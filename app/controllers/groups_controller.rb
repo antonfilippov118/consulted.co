@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-
+  include GroupsHelper
   def index
     @groups = Group.roots
   end
@@ -9,4 +9,6 @@ class GroupsController < ApplicationController
     result = FindsAvailableExperts.for @group
     @experts = result[:experts]
   end
+
+  helper GroupsHelper
 end

@@ -5,12 +5,41 @@
       <p><%= @group.description %></p>
     </div>
   </div>
-  <div>
-    <%= @user %>
-  </div>
   <div class="col-xs-12">
     <% if @experts.any? %>
       <h3>Experts for this category</h3>
+      <% @experts.each do |expert| %>
+      <div class="col-lg-12">
+        <div class="col-lg-2">
+          <%= image_tag expert.profile_image.remote_url, class: 'img-responsive' %>
+          <br>
+          <div class="bookmark text-center">
+            <i class="fa fa-star-o"></i> Bookmark
+          </div>
+          <div class="select text-center">
+            <%= link_to 'Select', '#', class: 'btn btn-primary' %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h4><%= expert.name %></h4>
+          <p><%= simple_format offer(expert).description %></p>
+          <p><strong>Experience:</strong> <%= offer(expert).experience %> years</p>
+        </div>
+        <div class="col-lg-4">
+          <h5>Current Position</h5>
+          <%= expert.current_position %> at <%= expert.current_company.name %>
+          <h5>Previous Positions</h5>
+          <ul>
+            <% previous_companies(expert).take(2).each do |company| %>
+              <li><%= company.position %> at <%= company.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <h4 class="text-center"><%= offer(expert).rate %> USD<br><small> per Hour</small></h4>
+        </div>
+      </div>
+      <% end %>
     <% else %>
       <p class="lead">There are no experts for this serice offering.</p>
     <% end %>

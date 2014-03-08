@@ -7,6 +7,7 @@ module ApplicationHelper
     when :error then 'alert-error'
     when :alert then 'alert-block'
     when :notice then 'alert-info'
+    when :danger then 'alert-danger'
     else
       flash_type.to_s
     end
