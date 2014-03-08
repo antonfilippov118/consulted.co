@@ -30,7 +30,7 @@
           <%= expert.current_position %> at <%= expert.current_company.name %>
           <h5>Previous Positions</h5>
           <ul>
-            <% previous_companies(expert).take(2).each do |company| %>
+            <% past_companies(expert).take(2).each do |company| %>
               <li><%= company.position %> at <%= company.name %></li>
             <% end %>
           </ul>
