@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <h3>Metting Settings</h3>
+    <%= form_for @user, url: profile_settings_path, remote: true, class: 'form-horizontal' do |f| -%>
+      <div class="col-lg-4">
+        <fieldset>
+          <legend>Max. Meetings per day</legend>
+          <div class="form-group">
+            <p>How many meetings can be booked per day?</p>
+          </div>
+          <div class="form-group">
+            <%= f.select :max_meetings_per_day, possible_meetings, {}, class: 'form-control meeting-setting' %>
+          </div>
+
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <legend>Break after Meetings</legend>
+          <div class="form-group">
+            <p>Do you want a break after a meeting?</p>
+          </div>
+          <div class="form-group">
+            <%= f.select :break, possible_times, {}, class: 'form-control meeting-setting'  %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <legend>Short notice</legend>
+          <div class="form-group">
+            <p>How long before the start time can a meeting be booked?</p>
+          </div>
+          <div class="form-group">
+            <%= f.select :start_delay, possible_starts, {}, class: 'form-control meeting-setting' %>
+          </div>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>
+</div>

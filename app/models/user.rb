@@ -24,8 +24,9 @@ class User
   # notifications
   field :meeting_notification, type: Boolean, default: true
   field :notification_time, type: Integer, default: 15
-  field :break, type: Boolean, default: true
-  field :break_time, type: Integer, default: 15
+  field :break, type: Integer, default: 15
+  field :max_meetings_per_day, type: Integer, default: 0
+  field :start_delay, type: Integer, default: 0
 
   field :country
 
