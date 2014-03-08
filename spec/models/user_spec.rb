@@ -46,7 +46,7 @@ describe User do
     context 'when users are exist' do
       before do
         10.times do |t|
-          user = User.create! name: "Florian#{t}", email: "user#{t}@example.com", password: 'tester', password_confirmation: 'tester', linkedin_network: 1
+          user = User.create! name: "Florian#{t}", email: "user#{t}@example.com", password: 'tester', password_confirmation: 'tester', linkedin_network: 10_000
           if t < num
             users << user
           end

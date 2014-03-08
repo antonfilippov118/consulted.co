@@ -38,6 +38,6 @@ class Users::ProfileController < Devise::SessionsController
   end
 
   def update_params
-    params.permit :name, :newsletter, :email, :reminder_time, languages: []
+    params.permit :name, :newsletter, :email, :reminder_time, :slug, languages: []
   end
 end

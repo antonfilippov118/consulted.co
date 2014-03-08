@@ -8,12 +8,13 @@ class User
   field :profile_image_uid
   dragonfly_accessor :profile_image
 
-  field :name, type: String
+  field :name, type: String, default: ''
   field :summary, type: String
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
-  field :slug, type: String
   field :timezone, type: String, default: 'Europe/Berlin'
+
+  field :slug, type: String, default: -> { default_slug }
 
   field :providers, type: Array
 
@@ -70,9 +71,13 @@ class User
   embeds_many :educations, class_name: 'User::LinkedinEducation'
   embeds_many :offers, class_name: 'User::Offer'
 
+  validates_uniqueness_of :slug
+  validates_with SlugValidator
+
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
   scope :with_languages, -> languages { where languages: { :$all => languages } }
+  scope :with_slug, -> slug { where slug: slug }
 
   def self.with_group(group)
     where(:'offers.group_id' => group.id)
@@ -130,4 +135,14 @@ class User
     10
   end
 
+  def default_slug
+    slug = name.downcase.gsub ' ', '-'
+    slug = email.downcase.split('@').first if slug == ''
+    i = 1
+    while User.with_slug(slug).exists?
+      slug += "#{i}"
+      i += 1
+    end
+    slug
+  end
 end
