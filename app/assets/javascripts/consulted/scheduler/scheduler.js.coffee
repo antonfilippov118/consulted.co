@@ -1,6 +1,7 @@
 app = angular.module "consulted.scheduler", [
   'ui.bootstrap'
   'consulted.common'
+  'consulted.calendar'
 ]
 
 app.run [

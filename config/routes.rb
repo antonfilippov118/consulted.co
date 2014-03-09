@@ -29,7 +29,6 @@ Consulted::Application.routes.draw do
       patch :profile, controller: 'users/settings', action: :user_update
       put :timezone, controller: 'users/settings', action: :timezone_update
     end
-
   end
 
   resources :groups, only: [:show, :index]

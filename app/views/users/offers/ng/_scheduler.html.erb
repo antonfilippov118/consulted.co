@@ -4,4 +4,29 @@
     <i class="fa fa-spiner fa-spin" ng-show="loading"></i>
     <small ng-show="settings.timezone"><a ng-click="changeTimezone()">Change</a></small>
   </p>
+  <div id="user_calendar" ng-controller="CalendarCtrl">
+    <h3>Provide your available times and dates</h3>
+    <div class="calendar">
+      <div class="caption">
+        <a ng-click="prev()">&laquo;</a> Week #{{start_date | week}} <a ng-click="next()">&raquo;</a>
+      </div>
+      <div class="header">
+        <div class="empty">&nbsp;</div>
+        <div class="date" ng-repeat="day in weekdays">
+          {{day}}<br>
+          <small>{{addDay($index) | date}}</small>
+        </div>
+      </div>
+      <div class="data">
+        <div class="times">
+          <div class="hour" ng-repeat="hour in hours">{{hour}}:00</div>
+        </div>
+        <div class="column" day-column ng-dblclick="add($event, $index)" ng-repeat="day in weekdays">
+          <div event="event" ng-repeat="event in events[$index] track by event.id"></div>
+        </div>
+        <div class="footer">&nbsp;</div>
+      </div>
+      <div class="footer"></div>
+    </div>
+  </div>
 </div>

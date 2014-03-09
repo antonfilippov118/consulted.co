@@ -5,6 +5,10 @@ node(:timezone) do
     name: ActiveSupport::TimeZone.new(@user.timezone).name
   }
 end
+
+node(:offset) do
+  ActiveSupport::TimeZone.new(@user.timezone).utc_offset / 3600
+end
 node :zones_available do
   ActiveSupport::TimeZone.all.map do |zone|
     {
