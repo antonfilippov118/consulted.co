@@ -2,6 +2,7 @@
   <div class="container">
     <h3>Provide your available time and dates</h3>
     <div id="consulted_scheduler">
+      <div class="pull-right" saving></div>
       <script type="text/ng-template" id="scheduler">
         <%= render partial: 'users/offers/ng/scheduler' %>
       </script>
@@ -10,6 +11,9 @@
       </script>
       <script type="text/ng-template" id="event">
         <%= render partial: 'users/offers/ng/event' %>
+      </script>
+      <script type="text/ng-template" id="addEventWindow">
+        <%= render partial: 'users/offers/ng/eventWindow' %>
       </script>
     </div>
   </div>

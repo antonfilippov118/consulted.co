@@ -95,7 +95,8 @@ app.service "AvailabilityData", [
   '$http'
   '$q'
   '$timeout'
-  AvailabilityData = (http, q, timeout) ->
+  'Saving'
+  AvailabilityData = (http, q, $timeout, Saving) ->
     timer = null
 
     save: (_event) ->
@@ -110,7 +111,7 @@ app.service "AvailabilityData", [
         if moment.isMoment(event.ends)
           event.ends = event.ends.format()
 
-        http.put('/profile/availabilities', event).then (response) ->
+        http.put('/availabilities', availability: event).then (response) ->
           result.resolve response.data
         , (err) ->
           result.reject err
@@ -123,7 +124,7 @@ app.service "AvailabilityData", [
     remove: (id) ->
       result = q.defer()
       Saving.show()
-      http.delete("/profile/availabilities/#{id}").then (response) ->
+      http.delete("/availabilities", params: { id: id }).then (response) ->
         result.resolve response.data
       , (err) ->
         result.reject err
@@ -132,7 +133,7 @@ app.service "AvailabilityData", [
 
     getEventsForWeek: (options) ->
       result = q.defer()
-      http.get('/profile/availabilities', params: options).then (response) ->
+      http.get('/availabilities.json', params: options).then (response) ->
         _data = []
         for day, i in response.data
           events = []
@@ -146,6 +147,35 @@ app.service "AvailabilityData", [
       , (err) ->
         result.reject err
       result.promise
+]
+
+app.service 'Saving', [
+  '$rootScope'
+  '$timeout'
+  ($rootScope, $timeout) ->
+    toggle = (type = "show") ->
+      $rootScope.$broadcast "saving:#{type}"
+    show: () ->
+      toggle()
+    hide: () ->
+      $timeout ->
+        toggle 'hide'
+      , 500
+]
+
+app.directive 'saving', [
+  '$rootScope'
+  ($rootScope) ->
+    replace: yes
+    template: "<div ng-show=\"shown\"><i class=\"fa fa-spinner fa-spin\"></i> Saving...</div>"
+    scope: yes
+    link: (scope) ->
+      scope.shown = no
+      $rootScope.$on "saving:show", () ->
+        scope.shown = yes
+      $rootScope.$on "saving:hide", () ->
+        scope.shown = no
+
 ]
 
 timeFilters = {

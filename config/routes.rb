@@ -30,7 +30,7 @@ Consulted::Application.routes.draw do
       put :timezone, controller: 'users/settings', action: :timezone_update
     end
 
-    resource :availabilities, except: [:edit, :new], format: :json, controller: 'users/availabilities'
+    resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
   end
 
   resources :groups, only: [:show, :index]

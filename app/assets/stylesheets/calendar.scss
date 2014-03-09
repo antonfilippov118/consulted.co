@@ -55,7 +55,7 @@
       .event {
         @extend .text-center;
         border-radius: 2px;
-        background: teal;
+        background: #428bca;
         cursor: default;
         width:100%;
         position: absolute;
@@ -105,5 +105,13 @@
     @extend .pull-right;
     padding-top: 40px;
     width: 35%;
+
+    h4 {
+      margin-top: 0;
+    }
+    ol {
+      margin-left: 20px;
+      list-style: decimal;
+    }
   }
 }

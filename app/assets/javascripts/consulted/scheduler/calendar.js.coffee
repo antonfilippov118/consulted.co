@@ -1,4 +1,6 @@
-app = angular.module "consulted.calendar", []
+app = angular.module "consulted.calendar", [
+  'ui.bootstrap'
+]
 
 app.directive "event", [() ->
   restrict: "A"
@@ -93,7 +95,7 @@ app.directive "dayColumn", [
       scope.add = (event, index) ->
         date   = scope.start_date.clone().add index, 'days'
         #calculate start from offset
-        offset = event.layerY - 10
+        offset = event.offsetY - 10
         hour   = offset/44
         start  = date.clone().hour(0).minute 0
         i      = 0
@@ -119,7 +121,9 @@ app.directive "dayColumn", [
 app.controller "CalendarCtrl", [
   '$scope'
   'AvailabilityData'
-  (scope, AvailabilityData) ->
+  '$timeout'
+  '$modal'
+  (scope, AvailabilityData, $timeout, modal) ->
     scope.weekdays = [
       'Mon'
       'Tue'
@@ -131,13 +135,11 @@ app.controller "CalendarCtrl", [
     ]
 
     scope.hours = [0..23]
-    week        = moment().isoWeek()
-
     scope.start_date = moment().day(1)
 
     fetch = (_, opts = {}) ->
       defaults =
-        week: week
+        week: scope.start_date.isoWeek()
       opts = angular.extend defaults, opts
       scope.loading = yes
 
@@ -162,7 +164,8 @@ app.controller "CalendarCtrl", [
         scope.$broadcast "calendar:event:remove", event.id
 
     scope.$on "calendar:event:change", (_, event) ->
-      AvailabilityData.save(event).then () ->
+      AvailabilityData.save(event).then (newEvent) ->
+        update newEvent
         return
         # search for event in calendar && update
       , (err) ->
@@ -176,16 +179,67 @@ app.controller "CalendarCtrl", [
     scope.addDay = (count) ->
       scope.start_date.clone().add count, 'days'
 
+    scope.afterInitial = () ->
+      scope.start_date.isAfter moment().day(1)
+
+    switchTimer = null
     step = (count, type = "week") ->
-      week += count
-      scope.$broadcast "calendar:week:change", week: week
-      scope.start_date.clone().add(count, type).day(1)
+      newDate = scope.start_date.clone().add(count, type).day(1)
+      $timeout.cancel switchTimer if switchTimer?
+      switchTimer = $timeout ->
+        scope.$broadcast "calendar:week:change", week: newDate.isoWeek()
+      , 200
+      newDate
+
+    update = (newEvent) ->
+      [index, idx] = do () ->
+        for events, index in scope.events
+          for _event, idx in events when _event.id is newEvent.id
+            return [index, idx]
+      scope.events[index][idx] = newEvent
+
+    scope.remove = (_, event) ->
+      AvailabilityData.remove(event.id).then () ->
+        [index, idx] = do ->
+          for events, index in scope.events
+            for _event, idx in events when event.id is _event.id
+              return [index, idx]
+        scope.events[index].splice idx, 1
 
     scope.next = () ->
       scope.start_date = step 1
 
     scope.prev = () ->
       scope.start_date = step -1
+
+    scope.anyEvents = () ->
+      return no unless angular.isArray scope.events
+      for events in scope.events
+        return true if events.length > 0
+
+    scope.collectedEvents = ->
+      _events = []
+      return _events unless angular.isArray scope.events
+      for events in scope.events
+        _events.push event for event in events
+      _events
+
+    scope.openAddWindow = () ->
+      modalInstance = modal.open
+        templateUrl: 'addEventWindow'
+        controller: 'AddEventCtrl'
+
+      modalInstance.result.then process
+
+    process = (values) ->
+      scope.$emit "calendar:event:new", values
+]
+
+app.controller 'AddEventCtrl', [
+  '$scope'
+  '$modalInstance'
+  (scope, $modalInstance) ->
+    scope.loading = no
 
 ]
 
