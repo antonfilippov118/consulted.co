@@ -1,5 +1,6 @@
 class Users::SettingsController < Users::BaseController
   before_filter -> { @errors = [] }
+  skip_before_filter :verify_authenticity_token, only: :timezone_update
   def profile
   end
 
@@ -13,10 +14,22 @@ class Users::SettingsController < Users::BaseController
   end
 
   def user_update
-    result = UpdatesUserProfile.with_params current_user, user_profile_params
+    result = UpdatesUserProfile.with_params @user, user_profile_params
     respond_to do |format|
       format.html { handle_html result }
       format.js { handle_js result }
+    end
+  end
+
+  def timezone_update
+    respond_to do |format|
+      format.json do
+        if @user.update_attributes timezone_params
+          render json: { success: true }
+        else
+          render json: { error: @user.errors }, status: :bad_request
+        end
+      end
     end
   end
 
@@ -24,6 +37,10 @@ class Users::SettingsController < Users::BaseController
 
   def user_profile_params
     params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, languages: []
+  end
+
+  def timezone_params
+    params.require(:user).permit :timezone
   end
 
   def handle_html(result)
@@ -36,7 +53,7 @@ class Users::SettingsController < Users::BaseController
     end
   end
 
-  def handle_js
+  def handle_js(result)
     if result.failure?
       render json: { errors: result[:errors], message: result.message }
     else

@@ -1,3 +1,7 @@
 <div class="scheduler">
-  <p>The scheduler</p>
+  <p class="lead">Times displayed are currently based on your Timezone:
+    <strong ng-show="settings.timezone">{{settings.timezone.value}}</strong>
+    <i class="fa fa-spiner fa-spin" ng-show="loading"></i>
+    <small ng-show="settings.timezone"><a ng-click="changeTimezone()">Change</a></small>
+  </p>
 </div>

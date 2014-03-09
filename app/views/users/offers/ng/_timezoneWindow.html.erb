@@ -1,0 +1,14 @@
+<div class="offer_window">
+  <div class="modal-header">Select your timezone</div>
+  <div class="modal-body">
+    <div ng-show="loading" class="text-center">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </div>
+    <div ng-hide="loading">
+      <select ng-model="selected" ng-options="zone.value for zone in zones track by zone.value" class="form-control"></select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button ng-click="use(selected)" class="btn btn-primary" ng-disabled="loading">Use this timezone</button>
+  </div>
+</div>

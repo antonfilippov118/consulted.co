@@ -49,3 +49,44 @@ app.service 'OfferData', [
         result.reject err
       result.promise
 ]
+
+app.service 'UserData', [
+  '$http'
+  '$q'
+  UserData = (http, q) ->
+    zone    = {}
+    zones   = {}
+    _offset = {}
+
+    getSettings: () ->
+      result  = q.defer()
+      zone    = q.defer()
+      zones   = q.defer()
+      _offset = q.defer()
+      http.get('/settings.json').then (response) ->
+        {zones_available, timezone, offset} = response.data
+        zones.resolve zones_available
+        zone.resolve timezone
+        _offset.resolve offset
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+      result.promise
+
+    getAvailableZones: () ->
+      zones.promise
+
+    getTimezone: () ->
+      zone.promise
+
+    getOffset: () ->
+      _offset.promise
+
+    save: (user) ->
+      result = q.defer()
+      http.put('/settings/timezone.json', user).then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err
+      result.promise
+]
