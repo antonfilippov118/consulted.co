@@ -3,10 +3,16 @@ RailsAdmin.config do |config|
   ### Popular gems integration
 
   ## == Devise ==
-  # config.authenticate_with do
-  #   warden.authenticate! scope: :user
-  # end
-  # config.current_user_method(&:current_user)
+  config.authenticate_with do
+    warden.authenticate! scope: :admin
+  end
+
+  config.current_user_method(&:current_admin)
+
+  # TODO: maybe somehow we can use rails url helper here?
+  config.navigation_static_links = {
+    'Log out' => '/admins/sign_out'
+  }
 
   ## == Cancan ==
   # config.authorize_with :cancan
@@ -18,11 +24,19 @@ RailsAdmin.config do |config|
 
   config.included_models = %w[User Group]
 
+  config.model User do
+    list do
+      field :profile_image
+      field :name
+      field :email
+    end
+  end
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
     new
-    export
+    # export
     bulk_delete
     show
     edit
