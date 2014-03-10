@@ -55,6 +55,7 @@ group :development do
   gem 'thin'
 
   gem 'foreman'
+  gem 'quiet_assets'
 
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
