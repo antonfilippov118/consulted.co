@@ -78,6 +78,9 @@ class User
   scope :with_languages, -> languages { where languages: { :$all => languages } }
   scope :with_slug, -> slug { where slug: slug }
 
+  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers
+
+
   def self.with_group(group)
     where(:'offers.group_id' => group.id)
   end

@@ -22,6 +22,7 @@ gem 'light-service'
 gem 'uglifier'
 gem 'mongoid_slug'
 gem 'country_select'
+gem 'rails_admin'
 
 group :production do
   gem 'unicorn'

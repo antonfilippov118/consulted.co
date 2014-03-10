@@ -1,5 +1,6 @@
 Consulted::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   controllers = {
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
