@@ -40,6 +40,13 @@ class User
   index({ email: 1, slug: 1 }, unique: true)
 
   #
+  # Favorites
+  #
+  # has_many :Favorites
+  has_many :favorites, through: :Favorites
+  has_many :favorited_by, through: :Favorites, source: :user
+
+  #
   # Devise
   #
   # Include default devise modules. Others available are:

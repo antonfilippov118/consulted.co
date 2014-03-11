@@ -5,9 +5,7 @@ class FavoritesController < ApplicationController
   end
 
   def show
-    @group = Group.find params[:id]
-    result = FindsAvailableExperts.for @group
-    @experts = result[:experts]
+
   end
 
   def showall
