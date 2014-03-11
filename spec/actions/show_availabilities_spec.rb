@@ -29,6 +29,19 @@ describe ShowsAvailabilities do
   end
 
   it 'should only fetch the availabilities for a given week' do
+    u = user
+    create_availability u
+    create_availability u, starts: Time.now.midnight + 1.week, ends: Time.now.midnight + 1.week + 1.hour
+
+    week = Date.today.cweek
+    day_of_week = Date.today.cwday
+
+    result = ShowsAvailabilities.for u, week + 1
+
+    expect(result.success?).to be_true
+
+    availabilities = result.fetch :availabilities
+    expect(availabilities[day_of_week - 1].length).to eq 1
   end
 
   def user
