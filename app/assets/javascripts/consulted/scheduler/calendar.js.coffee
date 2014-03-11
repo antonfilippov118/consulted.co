@@ -192,11 +192,13 @@ app.controller "CalendarCtrl", [
       newDate
 
     update = (newEvent) ->
-      [index, idx] = do () ->
-        for events, index in scope.events
-          for _event, idx in events when _event.id is newEvent.id
-            return [index, idx]
-      scope.events[index][idx] = newEvent
+      try
+        [index, idx] = do () ->
+          for events, index in scope.events
+            for _event, idx in events when _event.id is newEvent.id
+              return [index, idx]
+        scope.events[index][idx] = newEvent
+
 
     scope.remove = (_, event) ->
       AvailabilityData.remove(event.id).then () ->
@@ -228,19 +230,69 @@ app.controller "CalendarCtrl", [
       modalInstance = modal.open
         templateUrl: 'addEventWindow'
         controller: 'AddEventCtrl'
+        resolve:
+          StartDate: -> scope.start_date
 
       modalInstance.result.then process
 
     process = (values) ->
-      scope.$emit "calendar:event:new", values
+      {starts, ends, date, recurring} = values
+      console.log date
+      scope.$emit "calendar:event:new",
+        event:
+          starts: starts
+          ends: ends
+          new_event: yes
+          recurring: recurring
+        index: date.isoWeekday() - 1
 ]
 
 app.controller 'AddEventCtrl', [
   '$scope'
   '$modalInstance'
-  (scope, $modalInstance) ->
+  'StartDate'
+  (scope, $modalInstance, StartDate) ->
     scope.loading = no
+    scope.availability =
+      date: StartDate
+      from: null
+      to: null
+      starts: null
+      ends: null
+      isValid: () ->
+        return no unless @starts? and @ends?
+        return no if @starts.isSame @ends
+        @starts.isValid() && @ends.isValid()
 
+    scope.days = [1..6].map (number) ->
+      StartDate.clone().add number, 'days'
+    scope.days.unshift StartDate
+
+    scope.select = () ->
+      {availability} = scope
+      starts = moment "#{availability.date.format("YYYY-MM-DD")} #{availability.from}"
+      ends   = moment "#{availability.date.format("YYYY-MM-DD")} #{availability.to}"
+
+      if ends.isBefore starts
+        [starts, ends] = [ends, starts]
+
+      scope.availability.starts = starts.roundNext15Min()
+      scope.availability.ends   = ends.roundNext15Min()
+
+    scope.add = () ->
+      $modalInstance.close scope.availability
+
+    # extend moment
+    moment.fn.roundNext15Min = () ->
+      intervals = Math.floor(@minutes() / 15);
+      if @minutes() % 15 isnt 0
+        intervals += 1
+        if intervals is 4
+            @add 'hours', 1
+            intervals = 0
+        @minutes intervals * 15
+        @seconds 0
+      @
 ]
 
 app.service 'Hash', () ->
@@ -248,4 +300,3 @@ app.service 'Hash', () ->
     Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1)
-

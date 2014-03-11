@@ -5,10 +5,37 @@
       <i class="fa fa-spinner fa-spin fa-2x"></i>
     </div>
     <div ng-hide="loading">
-
+      <div class="row">
+        <div class="col-lg-5">
+          <label>
+            Date
+            <select ng-change="select()" ng-model="availability.date" class="form-control" ng-options="day as day.format('ddd, YYYY-MM-DD') for day in days"></select>
+          </label>
+        </div>
+        <div class="col-lg-7">
+          <label>
+            From
+            <input ng-change="select()" ng-model="availability.from" type="text" class="form-control" >
+          </label>
+          <label>
+            To
+            <input ng-change="select()" ng-model="availability.to" type="text" class="form-control">
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-show="availability.isValid()">
+        <hr>
+        <div class="col-lg-4">
+          <p>Your selected time:</p>
+        </div>
+        <div class="col-lg-8">
+          <p>{{availability.date.format('YYYY-MM-DD')}} from <strong>{{availability.starts.format('HH:mm')}}</strong> to <strong>{{availability.ends.format('HH:mm')}}</strong></p>
+          <p><input type="checkbox" ng-model="availability.recurring"> Mark this as recurring</p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button ng-click="add()" class="btn btn-primary">Add availability</button>
+    <button ng-click="add()" class="btn btn-primary" ng-disabled="!availability.isValid()">Add availability</button>
   </div>
 </div>

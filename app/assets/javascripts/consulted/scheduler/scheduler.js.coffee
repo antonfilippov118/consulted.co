@@ -64,5 +64,4 @@ app.controller 'WindowCtrl', [
 
     scope.use = (selected) ->
       modalInstance.close selected
-
 ]
