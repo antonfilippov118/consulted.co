@@ -43,8 +43,7 @@ class User
   # Favorites
   #
   # has_many :Favorites
-  has_many :favorites, through: :Favorites
-  has_many :favorited_by, through: :Favorites, source: :user
+  has_and_belongs_to_many :favorites
 
   #
   # Devise

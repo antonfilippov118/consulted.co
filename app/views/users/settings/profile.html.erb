@@ -59,7 +59,7 @@
       <% current_user.companies.each_with_index do |company, index| %>
         <% next if index == 0 %>
           <dt><%= company.name %></dt>
-          <dd><%= current_user.positions[index] %></dd>
+          <dd><%= company.position[index] %></dd>
       <% end %>
       </dl>
     </fieldset>
