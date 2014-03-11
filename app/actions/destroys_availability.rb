@@ -16,7 +16,7 @@ class DestroysAvailability
       user = context.fetch :user
 
       begin
-        context[:availability] = Availability.for(user).find id
+        context[:availability] = user.availabilities.find id
         next context
       rescue
         context.fail! 'Document not found!'

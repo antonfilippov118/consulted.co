@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require moment/moment
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
 //= require angular-bootstrap/ui-bootstrap
@@ -27,5 +28,6 @@
 //= require consulted/search/finder
 //= require consulted/search/categories
 //= require consulted/scheduler/scheduler
+//= require consulted/scheduler/calendar
 //= require consulted/bootstrap
 

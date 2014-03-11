@@ -31,8 +31,6 @@ class User
 
   field :country
 
-  has_many :availabilities
-
   validate :languages_allowed?
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
 
@@ -70,6 +68,7 @@ class User
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
   embeds_many :offers, class_name: 'User::Offer'
+  embeds_many :availabilities, class_name: 'User::Availability'
 
   validates_uniqueness_of :slug
   validates_with SlugValidator

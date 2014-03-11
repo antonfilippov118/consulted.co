@@ -3,36 +3,12 @@ class UpdatesOrCreatesAvailability
 
   def self.for(user, params)
     with(user: user, params: params).reduce [
-      ValidatesConfirmation,
-      ValidatesExpert,
       FindOrCreateAvailability,
       SaveAvailability
     ]
   end
 
   private
-
-  class ValidatesConfirmation
-    include LightService::Action
-
-    executed do |context|
-      user = context.fetch :user
-      unless user.confirmed?
-        context.fail! 'User must be confirmed!'
-      end
-    end
-  end
-
-  class ValidatesExpert
-    include LightService::Action
-
-    executed do |context|
-      user = context.fetch :user
-      unless user.confirmed?
-        context.fail! 'User must be confirmed!'
-      end
-    end
-  end
 
   class FindOrCreateAvailability
     include LightService::Action
@@ -43,15 +19,15 @@ class UpdatesOrCreatesAvailability
 
       begin
         opts = {
-          starts: params['starts'],
-          ends: params['ends'],
-          recurring: params['recurring'],
-          user: user
+          starts: params[:starts],
+          ends: params[:ends],
+          recurring: params[:recurring]
         }
-        if params['new_event'] == true
-          availability = Availability.new opts
+
+        if params[:new_event] == true
+          availability = user.availabilities.new opts
         else
-          availability = Availability.for(user).find params['id']
+          availability = user.availabilities.find params[:id]
           availability.assign_attributes opts
         end
       rescue

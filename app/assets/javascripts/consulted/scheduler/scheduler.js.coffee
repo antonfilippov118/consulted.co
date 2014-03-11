@@ -1,6 +1,7 @@
 app = angular.module "consulted.scheduler", [
   'ui.bootstrap'
   'consulted.common'
+  'consulted.calendar'
 ]
 
 app.run [
@@ -19,8 +20,48 @@ app.directive 'component', [
 
 app.controller "SchedulerCtrl", [
   '$scope'
-  (scope) ->
+  'UserData'
+  '$modal'
+  SchedulerCtrl = (scope, UserData, modal) ->
 
+    fetch = () ->
+      scope.loading = yes
+      UserData.getSettings().then (data) ->
+        scope.settings = data
+      .finally () ->
+        scope.loading = no
 
+    scope.changeTimezone = () ->
+      modalInstance = modal.open
+        templateUrl: 'modalWindow'
+        controller: 'WindowCtrl'
 
+      modalInstance.result.then process
+
+    process = (zone) ->
+      scope.timezone = zone
+      UserData.save(user: { timezone: zone.name }).then (response) ->
+        fetch()
+        # update times in calendar
+
+    fetch()
+]
+
+app.controller 'WindowCtrl', [
+  '$scope'
+  '$modalInstance'
+  'UserData'
+  WindowCtrl = (scope, modalInstance, UserData) ->
+    scope.loading = yes
+
+    UserData.getAvailableZones().then (zones) ->
+      scope.zones = zones
+    .finally () ->
+      scope.loading = no
+
+    UserData.getTimezone().then (zone) ->
+      scope.selected = zone
+
+    scope.use = (selected) ->
+      modalInstance.close selected
 ]

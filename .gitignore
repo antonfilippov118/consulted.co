@@ -26,3 +26,4 @@ change_ruby.sh
 cookbooks/
 .ruby-gemset
 .ruby-version
+vendor/assets/components/bootstrap

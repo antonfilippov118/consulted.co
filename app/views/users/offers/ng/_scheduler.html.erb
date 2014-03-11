@@ -1,3 +1,57 @@
 <div class="scheduler">
-  <p>The scheduler</p>
+  <p class="lead">Times displayed are currently based on your Timezone:
+    <strong ng-show="settings.timezone">{{settings.timezone.value}}</strong>
+    <i class="fa fa-spiner fa-spin" ng-show="loading"></i>
+    <small ng-show="settings.timezone"><a ng-click="changeTimezone()">Change</a></small>
+  </p>
+  <div id="user_calendar" ng-controller="CalendarCtrl">
+    <div class="time_selected" >
+      <div class="panel panel-default" ng-show="anyEvents()">
+        <h4 class="panel-heading">Your availabilities this week</h4>
+        <div class="panel-body">
+          <ol>
+            <li ng-repeat="event in collectedEvents() | orderBy:'starts'">
+              {{event.starts | datehour}} &mdash; {{event.ends | datehour}}
+              <a ng-click="remove($event, event.id)">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <h4 ng-hide="anyEvents()" class="panel-heading">You have no availabilities in this week</h4>
+        <div class="panel-body text-center">
+          <p class="lead">
+            <a ng-click="openAddWindow()">
+              <i class="fa fa-plus"></i> Add an availability</p>
+            </a>
+            <small>(or double click in the scheduler)</small>
+        </div>
+      </div>
+    </div>
+    <div class="calendar">
+      <div class="caption">
+        <a ng-show="afterInitial()" ng-click="prev()">&laquo;</a> Week #{{start_date | week}} <a ng-click="next()">&raquo;</a>
+      </div>
+      <div class="header">
+        <div class="empty">&nbsp;</div>
+        <div class="date" ng-repeat="day in weekdays">
+          {{day}}<br>
+          <small>{{addDay($index) | date}}</small>
+        </div>
+      </div>
+      <div class="data">
+        <div class="times">
+          <div class="hour" ng-repeat="hour in hours">{{hour}}:00</div>
+        </div>
+        <div class="column" day-column ng-dblclick="add($event, $index)" ng-repeat="day in weekdays">
+          <div event="event" ng-repeat="event in events[$index] track by event.id"></div>
+        </div>
+        <div class="footer">&nbsp;</div>
+      </div>
+      <div class="footer"></div>
+    </div>
+
+  </div>
 </div>

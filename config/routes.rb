@@ -27,8 +27,10 @@ Consulted::Application.routes.draw do
       get '/notifications', controller: 'users/settings', action: :notifications
 
       patch :profile, controller: 'users/settings', action: :user_update
+      put :timezone, controller: 'users/settings', action: :timezone_update
     end
 
+    resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
   end
 
   resources :groups, only: [:show, :index]

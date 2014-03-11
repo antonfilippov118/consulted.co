@@ -1,6 +1,6 @@
-class Availability
+class User::Availability
   include Mongoid::Document
-  belongs_to :user
+  embedded_in :user
 
   field :starts, type: DateTime, default: DateTime.now
   field :ends, type: DateTime, default: DateTime.now + 60.minutes

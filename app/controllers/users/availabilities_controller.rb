@@ -1,30 +1,43 @@
-class Users::AvailabilitiesController < Devise::SessionsController
-  include Authenticable
-  before_filter :authenticate!
+class Users::AvailabilitiesController < Users::BaseController
+  before_filter :require_expert!
+  skip_before_filter :verify_authenticity_token
 
   def show
-    week   = params[:week] || Date.today.cweek
-    result = ShowsAvailabilities.for current_user, week
-    render json: result[:week], status: result[:status]
+    result = ShowsAvailabilities.for @user, params[:week]
+    if result.failure?
+      render json: { error: result.message }
+    else
+      render json: result[:availabilities]
+    end
   end
 
   def update
-    result = UpdatesOrCreatesAvailability.for current_user, params
-
-    if result.success?
-      render json: result[:availability]
-    else
+    result = UpdatesOrCreatesAvailability.for @user, availability_params
+    if result.failure?
       render json: { error: result.message }, status: :unprocessable_entity
+    else
+      render json: result[:availability]
     end
   end
 
   def destroy
-    result = DestroysAvailability.for current_user, params[:id]
-
-    if result.success?
-      render json: result[:availability], status: 200
-    else
+    result = DestroysAvailability.for @user, params[:id]
+    if result.failure?
       render json: { error: result.message }, status: :unprocessable_entity
+    else
+      render json: result.fetch(:availability)
+    end
+  end
+
+  private
+
+  def availability_params
+    params.require(:availability).permit :starts, :ends, :new_event, :id, :recurring
+  end
+
+  def require_expert!
+    unless @user.can_be_an_expert?
+      render json: { message: 'Expert only route!' }, status: :unprocessable_entity
     end
   end
 end

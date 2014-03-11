@@ -1,8 +1,7 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe Availability do
+describe User::Availability do
   before(:each) do
-    Availability.delete_all
     User.delete_all
   end
 
@@ -17,7 +16,7 @@ describe Availability do
     availability = create_availability
     availability.save
 
-    result = Availability.for(User.first).in_week week
+    result = User.first.availabilities.in_week week
 
     expect(result.length).to eql(1)
   end
@@ -25,7 +24,7 @@ describe Availability do
   def create_availability
     starts = DateTime.now
     ends   = starts + 4.hours
-    Availability.new starts: starts, ends: ends, user: user
+    user.availabilities.create starts: starts, ends: ends, user: user
   end
 
   def user

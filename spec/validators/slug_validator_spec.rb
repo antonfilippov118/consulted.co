@@ -21,8 +21,7 @@ describe SlugValidator do
   it 'should not include rails routes' do
     user = User.new valid_params
 
-    routes = Rails.application.routes.routes.map { |r| r.path.spec.to_s.split('/').third.try(:gsub, /\(.*\)/, '') } .compact.uniq
-    user.slug = routes.shuffle.take(1).first
+    user.slug = 'settings.json'
 
     SlugValidator.new.validate user
 
