@@ -17,9 +17,9 @@
             <i class="fa fa-star-o"></i> Bookmark
           </div>
 
-            <%= link_to "favorite",   favorite_user_path(expert, type: "favorite"), method: :put, remote: true%>
-            <%= link_to "unfavorite", favorite_user_path(expert, type: "unfavorite"), method: :put, remote: true  %>
-            <!-- partial statt type gucken ob hat bla bla-->
+            <%= link_to "favorite",   favorite_path(expert), method: :put, remote: true %>
+            <%= link_to "unfavorite", favorite_path(expert), method: :put, remote: true  %>
+            <!-- partial -->
 
           <div class="select text-center">
             <%= link_to 'Select', '#', class: 'btn btn-primary' %>

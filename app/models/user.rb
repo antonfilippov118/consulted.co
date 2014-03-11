@@ -42,8 +42,7 @@ class User
   #
   # Favorites
   #
-  # has_many :Favorites
-  has_and_belongs_to_many :favorites
+  embeds_many :favorites, class_name: 'User::Favorites'
 
   #
   # Devise

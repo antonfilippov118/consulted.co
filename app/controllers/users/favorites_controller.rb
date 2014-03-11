@@ -1,19 +1,23 @@
 class Users::FavoritesController < Users::BaseController
 
-  def favorite
-    type = params[:type]
-    if type == 'favorite'
-      current_user.favorites << @user
-      redirect_to :back, notice: 'You favorited #{@user.name}'
+  def update
 
-    elsif type == 'unfavorite'
-      current_user.favorites.delete(@user)
-      redirect_to :back, notice: 'Unfavorited #{@user.name}'
+    # scope :with_id, -> id { where user => id }
+    # @user.favs.with_id(id).exists?
+    # gibts raus / add
 
-    else
-      # Type missing, nothing happens
-      redirect_to :back, notice: 'Nothing happened.'
-    end
+    # if type == 'favorite'
+    #   current_user.favorites << @user
+    #   redirect_to :back, notice: 'You favorited #{@user.name}'
+
+    # elsif type == 'unfavorite'
+    #   current_user.favorites.delete(@user)
+    #   redirect_to :back, notice: 'Unfavorited #{@user.name}'
+
+    # else
+    #   # Type missing, nothing happens
+    #   redirect_to :back, notice: 'Nothing happened.'
+    # end
   end
 
 end

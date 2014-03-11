@@ -31,7 +31,7 @@ Consulted::Application.routes.draw do
     end
 
     resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
-    resource :favorites, controllers: 'user/favorites'
+    resources :favorites, except: [:edit, :new], controller: 'users/favorites'
   end
 
   resources :groups, only: [:show, :index]

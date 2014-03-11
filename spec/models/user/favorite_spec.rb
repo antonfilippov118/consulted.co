@@ -1,4 +1,6 @@
-describe Favorites do
+require File.dirname(__FILE__) + '/../../spec_helper'
+
+describe User::Favorite do
   # before(:each) do
   #   Favorite.delete_all
   #   User.delete_all
