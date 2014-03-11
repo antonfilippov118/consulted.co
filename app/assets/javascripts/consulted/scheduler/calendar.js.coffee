@@ -41,7 +41,7 @@ app.directive "event", [() ->
     scope.remove = (event) ->
       event.stopPropagation()
       el.remove()
-      scope.$emit "calendar:event:remove", scope.event.id
+      scope.$emit "calendar:event:remove", scope.event
 
     scope.$on "calendar:event:height", (_, height) ->
       times = Math.ceil(height / 11)
@@ -150,37 +150,21 @@ app.controller "CalendarCtrl", [
       .finally () ->
         scope.loading = no
 
-    fetch()
+    update = (newEvent) ->
+      try
+        [index, idx] = do () ->
+          for events, index in scope.events
+            for _event, idx in events when _event.id is newEvent.id
+              return [index, idx]
+        scope.events[index][idx] = newEvent
 
-    scope.$on "calendar:event:new", (_, value) ->
-      {index, event} = value
-      newLength = scope.events[index].push event
-      newLength -= 1
-      AvailabilityData.save(event).then (newEvent) ->
-        scope.$broadcast 'calendar:event:update',
-          oldEvent: event
-          newEvent: newEvent
-      , (err) ->
-        scope.$broadcast "calendar:event:remove", event.id
-
-    scope.$on "calendar:event:change", (_, event) ->
-      AvailabilityData.save(event).then (newEvent) ->
-        update newEvent
-        return
-        # search for event in calendar && update
-      , (err) ->
-        scope.$broadcast "calendar:event:remove", event.id
-
-    scope.$on "calendar:event:remove", (_, value) ->
-      AvailabilityData.remove(value)
-
-    scope.$on "calendar:week:change", fetch
-
-    scope.addDay = (count) ->
-      scope.start_date.clone().add count, 'days'
-
-    scope.afterInitial = () ->
-      scope.start_date.isAfter moment().day(1)
+    remove = (_, event) ->
+      AvailabilityData.remove(event.id).then () ->
+        [index, idx] = do ->
+          for events, index in scope.events
+            for _event, idx in events when event.id is _event.id
+              return [index, idx]
+        scope.events[index].splice idx, 1
 
     switchTimer = null
     step = (count, type = "week") ->
@@ -191,28 +175,19 @@ app.controller "CalendarCtrl", [
       , 200
       newDate
 
-    update = (newEvent) ->
-      try
-        [index, idx] = do () ->
-          for events, index in scope.events
-            for _event, idx in events when _event.id is newEvent.id
-              return [index, idx]
-        scope.events[index][idx] = newEvent
+    scope.addDay = (count) ->
+      scope.start_date.clone().add count, 'days'
 
-
-    scope.remove = (_, event) ->
-      AvailabilityData.remove(event.id).then () ->
-        [index, idx] = do ->
-          for events, index in scope.events
-            for _event, idx in events when event.id is _event.id
-              return [index, idx]
-        scope.events[index].splice idx, 1
+    scope.afterInitial = () ->
+      scope.start_date.isAfter moment().day(1)
 
     scope.next = () ->
       scope.start_date = step 1
 
     scope.prev = () ->
       scope.start_date = step -1
+
+    scope.remove = remove
 
     scope.anyEvents = () ->
       return no unless angular.isArray scope.events
@@ -237,7 +212,6 @@ app.controller "CalendarCtrl", [
 
     process = (values) ->
       {starts, ends, date, recurring} = values
-      console.log date
       scope.$emit "calendar:event:new",
         event:
           starts: starts
@@ -245,6 +219,27 @@ app.controller "CalendarCtrl", [
           new_event: yes
           recurring: recurring
         index: date.isoWeekday() - 1
+
+    scope.$on "calendar:event:remove", remove
+    scope.$on "calendar:week:change", fetch
+    scope.$on "calendar:event:new", (_, value) ->
+      {index, event} = value
+      newLength = scope.events[index].push event
+      newLength -= 1
+      AvailabilityData.save(event).then (newEvent) ->
+        scope.$broadcast 'calendar:event:update',
+          oldEvent: event
+          newEvent: newEvent
+      , (err) ->
+        scope.$broadcast "calendar:event:remove", event.id
+
+    scope.$on "calendar:event:change", (_, event) ->
+      AvailabilityData.save(event).then (newEvent) ->
+        update newEvent
+      , (err) ->
+        scope.$broadcast "calendar:event:remove", event.id
+
+    fetch()
 ]
 
 app.controller 'AddEventCtrl', [

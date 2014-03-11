@@ -12,7 +12,7 @@
           <ol>
             <li ng-repeat="event in collectedEvents() | orderBy:'starts'">
               {{event.starts | datehour}} &mdash; {{event.ends | datehour}}
-              <a ng-click="remove($event, event)">
+              <a ng-click="remove($event, event.id)">
                 <i class="fa fa-trash-o"></i>
               </a>
             </li>
