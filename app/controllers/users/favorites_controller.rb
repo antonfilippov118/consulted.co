@@ -1,4 +1,4 @@
-class FavoritesController < ApplicationController
+class Users::FavoritesController < Users::BaseController
 
   def favorite
     type = params[:type]
