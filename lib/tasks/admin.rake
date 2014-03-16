@@ -10,7 +10,7 @@ namespace :admin do
       admin = Admin.create!(
         email: email,
         password: password,
-        password_confirmation: password
+        password_confirmation: password,
         super_admin: true
       )
 
