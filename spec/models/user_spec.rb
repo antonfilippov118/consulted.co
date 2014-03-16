@@ -39,6 +39,10 @@ describe User do
     end
   end
 
+  describe 'validations' do
+    it { should validate_inclusion_of(:status).to_allow(User::STATUS_LIST) }
+  end
+
   describe '.random' do
     let(:num) { 3 }
     let(:users) { [] }

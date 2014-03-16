@@ -29,6 +29,29 @@ RailsAdmin.config do |config|
       field :profile_image
       field :name
       field :email
+      field :status
+    end
+
+    edit do
+      field :profile_image
+      field :name
+      field :email, :string
+
+      field :status, :enum do
+        enum do
+          User::STATUS_LIST
+        end
+      end
+
+      field :password
+      field :password_confirmation
+    end
+
+    show do
+      field :profile_image
+      field :name
+      field :email
+      field :status
     end
   end
 

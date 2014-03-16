@@ -5,6 +5,8 @@ class User
 
   extend Dragonfly::Model
 
+  STATUS_LIST = %w(active disabled deactivated)
+
   field :profile_image_uid
   dragonfly_accessor :profile_image
 
@@ -31,8 +33,11 @@ class User
 
   field :country
 
+  field :status, type: String, default: STATUS_LIST.first
+
   validate :languages_allowed?
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
+  validates_inclusion_of :status, in: STATUS_LIST
 
   #
   # Indizes
@@ -78,8 +83,7 @@ class User
   scope :with_languages, -> languages { where languages: { :$all => languages } }
   scope :with_slug, -> slug { where slug: slug }
 
-  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers
-
+  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
 
   def self.with_group(group)
     where(:'offers.group_id' => group.id)
