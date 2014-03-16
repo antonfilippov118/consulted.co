@@ -9,11 +9,6 @@ RailsAdmin.config do |config|
 
   config.current_user_method(&:current_admin)
 
-  # TODO: maybe somehow we can use rails url helper here?
-  config.navigation_static_links = {
-    'Log out' => '/admins/sign_out'
-  }
-
   ## == Cancan ==
   # config.authorize_with :cancan
 
@@ -22,7 +17,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
-  config.included_models = %w[User Group]
+  config.included_models = %w[User Group Admin]
 
   config.model User do
     list do
@@ -88,6 +83,23 @@ RailsAdmin.config do |config|
       field :length_gain
       field :parent
       field :children
+    end
+  end
+
+  config.model Admin do
+    visible do
+      bindings[:controller].current_admin.super_admin?
+    end
+
+    list do
+      field :super_admin, :boolean
+      field :email
+    end
+
+    edit do
+      field :email, :string
+      field :password
+      field :password_confirmation
     end
   end
 

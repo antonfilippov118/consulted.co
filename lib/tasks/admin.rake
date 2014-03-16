@@ -11,6 +11,7 @@ namespace :admin do
         email: email,
         password: password,
         password_confirmation: password
+        super_admin: true
       )
 
       AdminMailer.welcome(admin).deliver
