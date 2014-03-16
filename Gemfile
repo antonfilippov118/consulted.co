@@ -85,8 +85,14 @@ group :development do
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
 end
 
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'turnip'
 end
