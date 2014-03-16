@@ -55,6 +55,42 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Group do
+    list do
+      field :name
+      field :slug
+      field :parent
+      field :description
+      field :seeker_gain
+      field :seeker_expectation
+      field :expert_background
+      field :length_gain
+    end
+
+    edit do
+      field :name
+      field :description
+      field :seeker_gain
+      field :seeker_expectation
+      field :expert_background
+      field :length_gain
+      field :parent
+      field :children
+    end
+
+    show do
+      field :name
+      field :slug
+      field :description
+      field :seeker_gain
+      field :seeker_expectation
+      field :expert_background
+      field :length_gain
+      field :parent
+      field :children
+    end
+  end
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
