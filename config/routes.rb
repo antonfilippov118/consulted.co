@@ -11,15 +11,11 @@ Consulted::Application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-<<<<<<< HEAD
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
-
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   get :search, controller: 'search', action: :show, path: 'search'
 
-=======
->>>>>>> search page WIP
   devise_for :users, controllers: controllers, only: controllers.keys
 
   devise_scope :user do
