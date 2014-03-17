@@ -1,47 +1,84 @@
-<div class="container">
+<div class="container expert_filters">
   <div class="row">
-    <div class="col-xs-12">
-      <h2><%= @group.name %></h2>
-      <p><%= @group.description %></p>
+    <div class="col-lg-12">
+      <br>
+      <%= link_to find_an_expert_path do %>
+        &laquo; Back to overview
+      <% end %>
     </div>
   </div>
-  <div class="col-xs-12">
-    <% if @experts.any? %>
-      <h3>Experts for this category</h3>
-      <% @experts.each do |expert| %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Find an expert</h2>
+      <p class="lead">Available experts for &quot;<%= @group.name %>&quot;</p>
+    </div>
+  </div>
+  <%= form_tag search_path, remote: true, class: 'form-horizontal' do %>
+    <div class="filters row">
       <div class="col-lg-12">
-        <div class="col-lg-2">
-          <%= image_tag expert.profile_image.remote_url, class: 'img-responsive' %>
-          <br>
-          <div class="bookmark text-center">
-            <i class="fa fa-star-o"></i> Bookmark
+        <h4>Filter</h4>
+          <div class="col-lg-3">
+            <fieldset>
+              <legend>Availability Date</legend>
+              <ul>
+                <% date_options.each_with_index do |options, index| %>
+                  <li class="list-item<%= index == 0 ? ' all' : ' hidden' %>">
+                    <%= content_tag :label do %>
+                      <%= radio_button_tag "date", options[1], options[1].nil? %>
+                      <%= options[0] %>
+                    <% end %>
+                    <% if index == 0 %>
+                      <span class="badge pull-right opener" data-text="less">more</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </fieldset>
           </div>
-          <div class="select text-center">
-            <%= link_to 'Select', '#', class: 'btn btn-primary' %>
+          <div class="col-lg-3">
+            <fieldset>
+              <legend>Availability Time</legend>
+              <ul>
+                <% time_options.each_with_index do |options, index| %>
+                 <li class="list-item<%= index == 0 ? ' all' : ' hidden' %>">
+                    <%= content_tag :label do %>
+                      <%= radio_button_tag "date", options[1], options[1].nil? %>
+                      <%= options[0] %>
+                    <% end %>
+                    <% if index == 0 %>
+                      <span class="badge pull-right opener" data-text="less">more</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </fieldset>
           </div>
-        </div>
-        <div class="col-lg-4">
-          <h4><%= expert.name %></h4>
-          <p><%= simple_format offer(expert).description %></p>
-          <p><strong>Experience:</strong> <%= offer(expert).experience %> years</p>
-        </div>
-        <div class="col-lg-4">
-          <h5>Current Position</h5>
-          <%= expert.current_position %> at <%= expert.current_company.name %>
-          <h5>Previous Positions</h5>
-          <ul>
-            <% past_companies(expert).take(2).each do |company| %>
-              <li><%= company.position %> at <%= company.name %></li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="col-lg-2">
-          <h4 class="text-center"><%= offer(expert).rate %> USD<br><small> per Hour</small></h4>
-        </div>
+          <div class="col-lg-3">
+            <fieldset>
+              <legend>Hourly rate</legend>
+              <div class="col-lg-11 text-center">
+                <%= number_field_tag :rate, 0, class: 'slider form-control', data: { min: 0, max: 600, range: true } %>
+              </div>
+            </fieldset>
+          </div>
+            <div class="col-lg-3">
+            <fieldset>
+              <legend>Experience</legend>
+              <div class="col-lg-11">
+                <%= number_field_tag :rate, 0, class: 'slider form-control', data: { range: true, min: 0, max: 60, label: ' years' } %>
+              </div>
+            </fieldset>
+          </div>
       </div>
-      <% end %>
-    <% else %>
-      <p class="lead">There are no experts for this serice offering.</p>
-    <% end %>
+    </div>
+    <div class="row">
+      <div class="btn-group">
+        <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-lg-12 hidden" id="result">
+    <hr>
+    <h2>Results</h2>
   </div>
 </div>

@@ -5,7 +5,6 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find params[:id]
-
     redirect_to search_path if @group.children?
 
     result = FindsAvailableExperts.for @group

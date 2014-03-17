@@ -41,3 +41,12 @@
 
   }
 }
+
+.expert_filters {
+  .opener {
+    &:hover {
+      cursor:pointer;
+      background: red;
+    }
+  }
+}

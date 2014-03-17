@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require bootstrap-slider
 //= require moment/moment
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
@@ -20,6 +21,7 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
 //= require consulted/offer
+//= require consulted/search
 //= require consulted/menu
 // Angular based apps
 //= require consulted/common/app

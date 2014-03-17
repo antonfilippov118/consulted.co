@@ -14,6 +14,7 @@ gem 'sass'
 gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
 gem 'coffee-rails'
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-slider-rails'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'dragonfly'
