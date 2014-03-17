@@ -1,23 +1,31 @@
 class Users::FavoritesController < Users::BaseController
 
+  def index
+    # favorite = User.favorite.all.to_a
+    # unless favorite.can_be_an_expert?
+    #   return render404
+    # end
+    # @expert = favorite
+  end
+
   def update
 
-    # scope :with_id, -> id { where user => id }
-    # @user.favs.with_id(id).exists?
-    # gibts raus / add
 
-    # if type == 'favorite'
-    #   current_user.favorites << @user
-    #   redirect_to :back, notice: 'You favorited #{@user.name}'
 
-    # elsif type == 'unfavorite'
-    #   current_user.favorites.delete(@user)
-    #   redirect_to :back, notice: 'Unfavorited #{@user.name}'
+    id = params[:id]
+    expert = User.find(id)
 
-    # else
-    #   # Type missing, nothing happens
-    #   redirect_to :back, notice: 'Nothing happened.'
-    # end
+    fav = @user.favorites.where(user_id: id)
+
+    if fav.exists? == true
+      fav.destroy
+      binding.pry
+    else
+      @user.favorites.new user: expert, user_id: id
+    end
+binding.pry
+    render json:{success: true}
+
   end
 
 end

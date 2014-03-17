@@ -42,7 +42,7 @@ class User
   #
   # Favorites
   #
-  embeds_many :favorites, class_name: 'User::Favorites'
+  embeds_many :favorites, class_name: 'User::Favorite'
 
   #
   # Devise
