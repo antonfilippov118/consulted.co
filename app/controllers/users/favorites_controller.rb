@@ -10,8 +10,6 @@ class Users::FavoritesController < Users::BaseController
 
   def update
 
-
-
     id = params[:id]
     expert = User.find(id)
 
@@ -23,9 +21,8 @@ class Users::FavoritesController < Users::BaseController
     else
       @user.favorites.new user: expert, user_id: id
     end
-binding.pry
-    render json:{success: true}
 
+    render json:{success: true}
   end
 
 end
