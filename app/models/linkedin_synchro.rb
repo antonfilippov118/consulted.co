@@ -1,6 +1,6 @@
 class LinkedinSynchro
-  API_KEY = '778ilmargr3n73'
-  SECRET_KEY = 'GZdkA1QdBbuc8GVm'
+  API_KEY = ENV['LINKEDIN_APIKEY']
+  SECRET_KEY = ENV['LINKEDIN_SECRETKEY']
 
   def self.authorize(user)
     token = user.user_linkedin_connection.token
