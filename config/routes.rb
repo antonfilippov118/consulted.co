@@ -1,11 +1,19 @@
 Consulted::Application.routes.draw do
 
+  admin_controllers = {
+    sessions: 'admins/sessions'
+  }
+
   controllers = {
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
+  devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   get :search, controller: 'search', action: :show, path: 'search'
 

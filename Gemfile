@@ -22,6 +22,7 @@ gem 'light-service'
 gem 'uglifier'
 gem 'mongoid_slug'
 gem 'country_select'
+gem 'rails_admin'
 
 group :production do
   gem 'unicorn'
@@ -54,6 +55,8 @@ group :development do
   gem 'thin'
 
   gem 'foreman'
+  gem 'quiet_assets'
+  gem 'letter_opener'
 
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -82,8 +85,14 @@ group :development do
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
 end
 
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'turnip'
 end
