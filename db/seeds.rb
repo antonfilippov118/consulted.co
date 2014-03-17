@@ -9,9 +9,6 @@ profile_images = %w(alex.jpg florian.jpg sebastian.jpg)
   user = FactoryGirl.create :expert_user, profile_image: profile_image
 
   3.times do |t|
-    FactoryGirl.create :company,
-      user: user,
-      name: "Company##{t} of #{user.name}",
-      position: 'Director'
+    FactoryGirl.create :company, user: user, name: "Company##{t} of #{user.name}", position: 'Director'
   end
 end

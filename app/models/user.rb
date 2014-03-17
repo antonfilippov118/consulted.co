@@ -2,10 +2,9 @@ class User
   include Mongoid::Document
   include Omniauthable::Lookups
   include Omniauthable::Linkedin
+  include Validatable::User
 
   extend Dragonfly::Model
-
-  STATUS_LIST = %w(active disabled deactivated)
 
   field :profile_image_uid
   dragonfly_accessor :profile_image
@@ -32,12 +31,7 @@ class User
   field :start_delay, type: Integer, default: 0
 
   field :country
-
   field :status, type: String, default: STATUS_LIST.first
-
-  validate :languages_allowed?
-  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
-  validates_inclusion_of :status, in: STATUS_LIST
 
   #
   # Indizes
@@ -75,9 +69,6 @@ class User
   embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
 
-  validates_uniqueness_of :slug
-  validates_with SlugValidator
-
   scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
   scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
   scope :with_languages, -> languages { where languages: { :$all => languages } }
@@ -112,17 +103,6 @@ class User
     providers.include? 'linkedin'
   end
 
-  def languages_allowed?
-    languages.each do |language|
-      unless allowed_languages.include? language
-        errors.add :base, "Language '#{language}'' is not allowed."
-      end
-    end
-    if languages.length > allowed_languages.length
-      errors.add :base, 'Too many languages!'
-    end
-  end
-
   def current_position
     current_company.position
   end
@@ -132,10 +112,6 @@ class User
   end
 
   private
-
-  def allowed_languages
-    %W(spanish english mandarin german arabic)
-  end
 
   def self.required_connections
     10
