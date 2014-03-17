@@ -1,6 +1,7 @@
 class Group
   include Mongoid::Document
   include Mongoid::Slug
+  include Mongoid::Tree
 
   field :name, type: String
   slug :name
@@ -10,8 +11,7 @@ class Group
   field :expert_background, type: String
   field :length_gain, type: String
 
-  has_many :children, class_name: 'Group', inverse_of: :parent
-  belongs_to :parent, class_name: 'Group', inverse_of: :children
+  validates_associated :parent, :children
 
-  scope :roots, -> { where(parent_id: nil) }
+  before_destroy :destroy_children
 end

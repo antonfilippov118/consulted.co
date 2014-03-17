@@ -21,6 +21,7 @@ gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
 gem 'mongoid_slug'
+gem 'mongoid-tree', require: 'mongoid/tree'
 gem 'country_select'
 gem 'rails_admin'
 

@@ -187,6 +187,8 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
+    mongoid-tree (1.0.4)
+      mongoid (>= 3.0, <= 4.0)
     mongoid_slug (3.2.0)
       mongoid (> 3.0)
       stringex (~> 2.0)
@@ -405,6 +407,7 @@ DEPENDENCIES
   listen (~> 2.4.0)
   mongoid (~> 4.0.0.beta1)
   mongoid-rspec
+  mongoid-tree
   mongoid_slug
   multi_json
   newrelic_rpm
