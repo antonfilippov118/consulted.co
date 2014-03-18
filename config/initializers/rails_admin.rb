@@ -114,7 +114,7 @@ RailsAdmin.config do |config|
     delete
     show_in_app do
       visible do
-        !bindings[:object].is_a? Group or !bindings[:object].children?
+        !bindings[:object].is_a?(Group) || !bindings[:object].children?
       end
     end
 
