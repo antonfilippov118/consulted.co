@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-lg-2">
+    <%= image_tag expert.profile_image.remote_url, class: 'img-responsive', alt: expert.name %>
+  </div>
+  <div class="col-lg-6">
+    <h3><%= expert.name %></h3>
+    <p class="lead"><%= offer_for(expert, @group).description %></p>
+    <%= link_to 'Select', '#', class: 'btn btn-primary'  %>
+    <%= link_to '#' do %>
+    <i class="fa fa-star-o"></i> Bookmark
+    <% end %>
+  </div>
+  <div class="col-lg-4">
+    Rate: <%= offer_for(expert, @group).rate %> USD <br>
+    Experience: <%= offer_for(expert, @group).experience %> years
+  </div>
+</div>

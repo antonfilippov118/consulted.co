@@ -12,7 +12,6 @@ Consulted::Application.routes.draw do
   }
 
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
-
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   get :search, controller: 'search', action: :show, path: 'search'
@@ -47,6 +46,10 @@ Consulted::Application.routes.draw do
   namespace :users do
     get :available, to: 'utilities#available'
   end
+
+  get :find_an_expert, controller: 'search', action: :show
+
+  post :search, to: 'search#search'
 
   get '/:slug', to: 'expert#page'
 

@@ -64,4 +64,8 @@ module ExpertsHelper
     filled = (1..12).map { |number| ["#{number} meeting#{number == 1 ? '' : 's'}", number] }
     empty + filled
   end
+
+  def offer_for(expert, group)
+    expert.offers.with_group(group).first || User::Offer.new
+  end
 end
