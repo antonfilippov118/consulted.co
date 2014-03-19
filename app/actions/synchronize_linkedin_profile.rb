@@ -67,12 +67,17 @@ class SynchronizeLinkedinProfile
     executed do |context|
       client     = context.fetch :client
       user       = client.profile fields: 'educations'
-      educations = user.educations.all.map do |education|
-        params = {
-          degree: education.degree,
-          name: education.school_name
-        }
-        User::LinkedinEducation.new params
+
+      if user.educations.nil?
+        educations = []
+      else
+        educations = user.educations.all.map do |education|
+          params = {
+            degree: education.degree,
+            name: education.school_name
+          }
+          User::LinkedinEducation.new params
+        end
       end
       context[:user].educations = educations
     end
