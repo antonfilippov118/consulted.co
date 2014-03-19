@@ -25,7 +25,6 @@ describe ShowsAvailabilities do
     expect(availabilities.length).to eq 7
     expect(availabilities[day_of_week - 1].class).to be Array
     expect(availabilities[day_of_week - 1].length).to eq 1
-    expect(availabilities[day_of_week - 1].first.class).to be User::Availability
   end
 
   it 'should only fetch the availabilities for a given week' do
