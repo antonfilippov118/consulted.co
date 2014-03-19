@@ -1,2 +1,1 @@
-$('.spinner').fadeOut 'slow', () ->
-  $('#result').removeClass('hidden').html '<%= 42 %>'
+$('#result').html '<%= render partial: "groups/results" %>'

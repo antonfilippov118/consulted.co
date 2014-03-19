@@ -11,11 +11,20 @@ $ ->
     el.slider
       min: min
       max: max
-      step: 10
+      step: el.data('step') || 1
       value: value
       formater: (a) ->
         return 'All' if a is min
         "#{a}#{label}"
+    el.on 'slideStop', () ->
+      return unless el.data 'range'
+      id = el.attr 'id'
+      upper = $("##{id}_upper")
+      lower = $("##{id}_lower")
+      [low, high] = el.slider 'getValue'
+      lower.val low
+      upper.val high
+
 
   $('.opener').on 'click', () ->
     span = $(this)

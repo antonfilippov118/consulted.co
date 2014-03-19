@@ -23,4 +23,23 @@ module SearchHelper
 
     }
   end
+
+  def find_experts(options = {})
+    lookup = search_params
+    lookup[:group_id] = options[:group].id if options[:group]
+
+    result = FindsAvailableExperts.for lookup, @user
+
+    @group = result.fetch :group
+
+    if result.failure?
+      @experts = []
+    else
+      @experts = result.fetch :experts
+    end
+  end
+
+  def search_params
+    params.permit :date, :time, :experience_upper, :experience_lower, :group_id, :rate_lower, :rate_upper, :id
+  end
 end

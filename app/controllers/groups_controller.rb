@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  include SearchHelper
   def index
     @groups = Group.roots
   end
@@ -7,7 +8,6 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
     redirect_to search_path if @group.children?
 
-    result = FindsAvailableExperts.for @group
-    @experts = result[:experts]
+    find_experts(group: @group)
   end
 end
