@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 describe Group do
 
@@ -21,6 +21,6 @@ describe Group do
       group.save!
     end.not_to raise_error
 
-    expect(Group.count).to eql(1)
+    expect(Group.count).to eql(2)
   end
 end
