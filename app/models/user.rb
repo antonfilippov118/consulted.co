@@ -3,6 +3,7 @@ class User
   include Omniauthable::Lookups
   include Omniauthable::Linkedin
   include Validatable::User
+  include Sluggable::User
 
   extend Dragonfly::Model
 
@@ -14,8 +15,6 @@ class User
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
   field :timezone, type: String, default: 'Europe/Berlin'
-
-  field :slug, type: String, default: -> { default_slug }
 
   field :providers, type: Array
 
@@ -115,17 +114,5 @@ class User
 
   def self.required_connections
     10
-  end
-
-  def default_slug
-    slug = name.downcase.gsub ' ', '-'
-    slug = email.downcase.split('@').first if slug == ''
-    slug ||= ''
-    i = 1
-    while User.with_slug(slug).exists?
-      slug += "#{i}"
-      i += 1
-    end
-    slug
   end
 end

@@ -79,4 +79,25 @@ describe User do
       end
     end
   end
+
+  describe 'slug creation' do
+    it 'should create a slug for a new user' do
+      user = User.new valid_params
+
+      user.save!
+
+      user = User.first
+
+      expect(user.slug).to eql 'florian'
+    end
+
+    it 'should use incrementary initial slugs for users with the same name' do
+      User.create! valid_params
+
+      expect(User.first.slug).to eql 'florian'
+
+      User.create! valid_params.merge email: 'florian1@consulted.co'
+      expect(User.last.slug).to eql 'florian1'
+    end
+  end
 end
