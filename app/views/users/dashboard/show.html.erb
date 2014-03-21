@@ -1,1 +1,31 @@
-<div>Dashboard</div>
+<div class="dashboard container">
+  <h3>Dashboard</h3>
+  <% if @calls.any? %>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Upcoming calls</h4>
+      </div>
+    </div>
+  <% end %>
+  <% if @requests.any? %>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Requested calls</h4>
+        <ul>
+          <% @requests.each do |request| %>
+            <li>
+              <h5><%= request.name %> <small>with <%= request.user.name %></small></h5>
+              <% if request.message %>
+                <%= simple_format request.message %>
+              <% end %>
+              <div class="btn-group">
+                <%= link_to 'Accept', '#', class: 'btn btn-success'%>
+                <%= link_to 'Decline', '#', class: 'btn btn-danger'%>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

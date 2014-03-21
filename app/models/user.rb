@@ -66,14 +66,10 @@ class User
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
-  embeds_many :offers, class_name: 'User::Offer' do
-    def find_by_id(id)
-      where(id: id).first
-    end
-  end
+  embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
 
-  has_many :requests, class_name: 'User::Request'
+  has_many :requests
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
 
