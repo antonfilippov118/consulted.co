@@ -4,7 +4,8 @@ class RequestsAnExpert
   def self.for(params)
     with(params: params).reduce [
       ClearParams,
-      CreateRequest
+      CreateRequest,
+      SendExpertNotification
     ]
   end
 
@@ -45,6 +46,19 @@ class RequestsAnExpert
       request = expert.requests.create context.slice :user, :offer, :start, :length, :message
 
       context[:request] = request
+    end
+  end
+
+  class SendExpertNotification
+    include LightService::Action
+
+    executed do |context|
+      mail = RequestMailer.request_notification context.slice :request, :expert
+      begin
+        mail.deliver!
+      rescue  => e
+        context.fail! e
+      end
     end
   end
 end
