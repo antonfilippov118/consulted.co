@@ -1,0 +1,51 @@
+<div class="requests container">
+  <div class="row">
+    <h3>Your selection</h3>
+    <%= form_for @request, url: requests_path, class: 'form-horizontal' do |f| -%>
+      <h4>Choose how long you want to talk</h4>
+      <div class="row">
+        <div class="col-sm-2">
+          Category
+        </div>
+        <div class="col-sm-3">
+          <%= @offer.name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          Meeting with
+        </div>
+        <div class="col-sm-3">
+          <h5><%= @expert.name %></h5>
+          <%= link_to 'Expert page', '#' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          Languages
+        </div>
+        <div class="col-sm-3">
+          <%= @expert.languages.map(&:capitalize).join ', ' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          Message
+        </div>
+        <div class="col-sm-3">
+          <%= f.text_area :message %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <div class="btn-group">
+            <%= f.submit "Send binding request", :disable_with => 'Sending...', class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+      <%= f.hidden_field :offer, value: @offer.id %>
+      <%= f.hidden_field :expert, value: @expert.id %>
+    <% end %>
+    <p></p>
+  </div>
+</div>

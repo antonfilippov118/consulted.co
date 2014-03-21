@@ -19,7 +19,7 @@ describe RequestsAnExpert do
 
     expert.offers.create group: group, rate: 20, experience: 5
 
-    result = RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first
+    result = RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
     expect(result.success?).to be_true
 
     request = expert.requests.first

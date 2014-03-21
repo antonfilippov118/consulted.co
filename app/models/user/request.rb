@@ -8,7 +8,7 @@ class User::Request
   field :language, type: String
   field :length, type: Integer
   field :start, type: DateTime
-  field :messages, type: String
+  field :message, type: String
 
   delegate :group, to: :offer
 end
