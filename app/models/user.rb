@@ -4,6 +4,7 @@ class User
   include Omniauthable::Linkedin
   include Validatable::User
   include Sluggable::User
+  include Scopable::User
 
   extend Dragonfly::Model
 
@@ -67,25 +68,9 @@ class User
   embeds_many :educations, class_name: 'User::LinkedinEducation'
   embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
-
-  scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
-  scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
-  scope :with_languages, -> languages { where languages: { :$all => languages } }
-  scope :with_slug, -> slug { where slug: slug }
-  scope :rates_between, -> lower, upper { where :'offers.rate' => { :$lte => upper, :$gte => lower } }
-  scope :experiences_between, -> lower, upper { where :'offers.experience' => { :$lte => upper, :$gte => lower } }
-  scope :on_day, -> day { where :'availabilities.day' => day, :'availabilities.recurring' => true }
-  scope :available_from, -> starts { where :'availabilities.starts' => { :$gte => starts } }
-  scope :available_to, -> ends { where :'availabilities.ends' => { :$lte => ends } }
-  scope :available_on, -> date { where :'availabilities.starts' => { :$gte => date } }
-  scope :with_hours_from, -> starts { where :'availabilities.start_hour' => { :$gte => starts } }
-  scope :with_hours_to, -> to { where :'availabilities.end_hour' => { :$gte => to } }
+  has_many :requests, class_name: 'User::Request'
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
-
-  def self.with_group(group)
-    where(:'offers.group_id' => group.id)
-  end
 
   # TODO: since Mongoid hasn't random, so far this simple method just works.
   # In future we can add custom mongoid finder module and method to mongoid
