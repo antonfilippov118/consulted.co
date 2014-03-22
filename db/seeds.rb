@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+FactoryGirl.create :platform_settings
+
 profile_images = %w(alex.jpg florian.jpg sebastian.jpg)
 
 10.times do |time|

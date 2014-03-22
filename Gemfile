@@ -96,5 +96,6 @@ group :test do
   gem 'mongoid-rspec'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'turnip'
 end
