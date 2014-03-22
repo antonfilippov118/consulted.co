@@ -18,10 +18,16 @@ ul, ol {
   padding: 0;
 }
 
-.content {
-  margin-top: 50px;
-}
-
 [ng-click], .settings-link {
   cursor:pointer;
+}
+
+.content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 50px auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+footer, .push {
+  height: 155px; /* .push must be the same height as .footer */
 }

@@ -12,12 +12,12 @@ describe RequestsAnExpert do
     user   = User.first
     expert = User.last
 
-    result = RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer_id: expert.offers.first.id.to_s, message: ''
+    result = RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
     expect(result.success?).to be_true
 
     request = expert.requests.first
 
-    expect(request).to be_a User::Request
+    expect(request).to be_a Request
   end
 
   it 'should send a confirmation mail to the expert' do

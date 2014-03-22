@@ -1,8 +1,9 @@
 class Users::DashboardController < Users::BaseController
 
   def show
-    @requests = @user.requests
-    @calls    = []
+    @requests    = @user.requests
+    @outstanding = Request.by @user
+    @calls       = []
   end
 
   def history
