@@ -26,7 +26,8 @@ class RequestsAnExpert
       end
 
       context[:expert]       = expert
-      context[:offer_id]     = offer.id.to_s
+      context[:offer_id]     = offer.is_a?(User::Offer) ? offer.id.to_s : offer
+      context[:offer]        = offer.is_a?(User::Offer) ? offer : expert.offers.find(offer)
       context[:start]        = start
       context[:length]       = length
       context[:requested_by] = user.id.to_s
@@ -51,8 +52,8 @@ class RequestsAnExpert
     executed do |context|
       mail = RequestMailer.notification context.fetch :request
       begin
-        mail.deliver!
-      rescue  => e
+        mail.deliver
+      rescue => e
         context.fail! e
       end
     end

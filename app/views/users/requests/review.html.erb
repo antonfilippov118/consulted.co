@@ -30,6 +30,22 @@
       </div>
       <div class="row">
         <div class="col-sm-2">
+          Meeting should start at
+        </div>
+        <div class="col-sm-6">
+          <%= f.select :start, available_times(@expert), {}, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          Meeting will end
+        </div>
+        <div class="col-sm-6">
+          <span id="end_time"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
           Meeting with
         </div>
         <div class="col-sm-6">

@@ -8,15 +8,23 @@ class Users::RequestsController < Users::BaseController
 
   def create
     result = RequestsAnExpert.for request_params.merge user: @user
+    @request = result.fetch :request
+    @offer   = result.fetch :offer
+    @expert  = result.fetch :expert
 
     if result.failure?
-      render :reviews, alert: result.message
+      flash.now[:warning] = result.message
+      render :review
     else
-      redirect_to request_success_path(result[:request])
+      redirect_to request_success_path(@request)
     end
   end
 
   def success
+  end
+
+  def failure
+
   end
 
   def cancel
@@ -37,6 +45,6 @@ class Users::RequestsController < Users::BaseController
   private
 
   def request_params
-    params.require(:request).permit :message, :offer, :expert, :length
+    params.require(:request).permit :message, :offer, :expert, :length, :start
   end
 end

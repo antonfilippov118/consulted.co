@@ -22,6 +22,7 @@
 //= require angular-typeahead/angular-typeahead
 //= require consulted/offer
 //= require consulted/search
+//= require consulted/review
 //= require consulted/menu
 // Angular based apps
 //= require consulted/common/app
