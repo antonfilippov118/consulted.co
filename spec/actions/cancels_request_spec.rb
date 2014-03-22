@@ -16,7 +16,7 @@ describe CancelsRequest do
   end
 
   let :group do
-    build :group
+    create :group
   end
 
   it 'should cancel a pending request to an expert' do
@@ -34,6 +34,17 @@ describe CancelsRequest do
     result = CancelsRequest.for id: Request.first, user: other_user
 
     expect(result.failure?).to be_true
+  end
+
+  it 'should send a notification to the expert' do
+    setup
+
+    ActionMailer::Base.deliveries = []
+
+    CancelsRequest.for id: Request.first.id, user: user
+    mails = ActionMailer::Base.deliveries
+    expect(mails.last).not_to be_nil
+    expect(mails.last.to).to eql [expert.email]
   end
 
   def setup

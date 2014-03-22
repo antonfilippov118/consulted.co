@@ -7,7 +7,8 @@ class CancelsRequest
     with(id: id, user: user).reduce [
       LookupRequest,
       DetermineCancellable,
-      CancelRequest
+      CancelRequest,
+      SendNotification
     ]
   end
 
@@ -41,6 +42,15 @@ class CancelsRequest
     executed do |context|
       request = context.fetch :request
       request.cancel!
+    end
+  end
+
+  class SendNotification
+    include LightService::Action
+
+    executed do |context|
+      request = context.fetch :request
+      RequestMailer.cancellation(request).deliver!
     end
   end
 end
