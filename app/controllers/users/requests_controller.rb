@@ -3,14 +3,14 @@ class Users::RequestsController < Users::BaseController
   def review
     @expert  = User.experts.find_by slug: params[:slug]
     @offer   = @expert.offers.enabled.find params[:offer_id]
-    @request = User::Request.new
+    @request = Request.new
   end
 
   def create
-    result = RequestsAnExpert.for request_params.merge user: @user, start: Time.now, length: 30
+    result = RequestsAnExpert.for request_params.merge user: @user
 
     if result.failure?
-      render :new, alert: result.message
+      render :reviews, alert: result.message
     else
       redirect_to request_success_path(result[:request])
     end
@@ -37,6 +37,6 @@ class Users::RequestsController < Users::BaseController
   private
 
   def request_params
-    params.require(:user_request).permit :message, :offer, :expert
+    params.require(:request).permit :message, :offer, :expert, :length
   end
 end

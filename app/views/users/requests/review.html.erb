@@ -7,16 +7,33 @@
         <div class="col-sm-2">
           Category
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <%= @offer.name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          Length
+        </div>
+        <div class="col-sm-6">
+          <ul>
+            <% @offer.lengths.each_with_index do |length, index| %>
+              <li>
+                <%= content_tag :label do %>
+                  <%= f.radio_button :length, length, checked: index == 0 %>
+                  <%= length %> minutes
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-2">
           Meeting with
         </div>
-        <div class="col-sm-3">
-          <h5><%= @expert.name %></h5>
+        <div class="col-sm-6">
+          <p><%= @expert.name %></p>
           <%= link_to 'Expert page', '#' %>
         </div>
       </div>
@@ -24,7 +41,7 @@
         <div class="col-sm-2">
           Languages
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <%= @expert.languages.map(&:capitalize).join ', ' %>
         </div>
       </div>
@@ -32,7 +49,7 @@
         <div class="col-sm-2">
           Message
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <%= f.text_area :message %>
         </div>
       </div>
