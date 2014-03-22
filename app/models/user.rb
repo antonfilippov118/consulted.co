@@ -8,7 +8,11 @@ class User
   extend Dragonfly::Model
 
   field :profile_image_uid
-  dragonfly_accessor :profile_image
+
+  dragonfly_accessor :profile_image do
+    # TODO: replace with appropriate default image
+    default 'app/assets/images/alex.jpg'
+  end
 
   field :name, type: String, default: ''
   field :summary, type: String
