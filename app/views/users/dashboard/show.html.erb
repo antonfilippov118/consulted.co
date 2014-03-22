@@ -5,7 +5,7 @@
       <h4>Upcoming calls</h4>
       <% if @calls.any? %>
       <% else %>
-        <p>You have no upcoming calls</p>
+        <p class="text-center">You have no upcoming calls</p>
       <% end %>
     </div>
   </div>
@@ -36,12 +36,12 @@
     <div class="col-sm-12">
       <h4>Your requests <small>Calls your requested</small></h4>
       <% if @outstanding.any? %>
-        <ul>
+        <ul id="active_requests">
           <% @outstanding.each do |request| %>
-            <li>
+            <li id="<%= dom_id(request) %>">
               <h5><%= request.name %> <small>with <%= request.user.name %></small></h5>
               <div class="btn-group">
-                <%= link_to 'Cancel', '#', class: 'btn btn-danger'%>
+                <%= link_to 'Cancel', cancel_request_path(request), class: 'btn btn-danger', remote: true, method: :patch, data: { confirm: 'Are you sure?', disable_with: 'Cancelling' } %>
               </div>
             </li>
           <% end %>
@@ -60,7 +60,7 @@
           <%= link_to '...manage calls I offered', '#'  %>
         </li>
         <li>
-          <%= link_to '...manage calls I offered', '#'  %>
+          <%= link_to '...manage calls I requested', '#'  %>
         </li>
       </ul>
     </div>

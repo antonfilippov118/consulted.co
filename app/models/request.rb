@@ -10,6 +10,8 @@ class Request
   field :message, type: String
   field :offer_id
   field :requested_by
+  field :cancelled, type: Boolean, default: false
+  field :declined, type: Boolean, default: false
 
   delegate :group, to: :offer
   delegate :name, to: :offer
@@ -22,5 +24,13 @@ class Request
     offer.user
   end
 
+  def cancel!
+    self.cancelled = true
+    save!
+  end
+
   scope :by, -> user { where requested_by: user.id.to_s }
+  scope :active, -> { where cancelled: false, declined: false }
+  scope :declined, -> { where declined: true }
+  scope :cancelled, -> { where cancelled: true }
 end

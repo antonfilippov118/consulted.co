@@ -24,7 +24,7 @@ describe RequestsAnExpert do
     user   = User.first
     expert = User.last
 
-    RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer_id: expert.offers.first.id.to_s, message: ''
+    RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
 
     mails = ActionMailer::Base.deliveries
     expect(mails.last).not_to be_nil

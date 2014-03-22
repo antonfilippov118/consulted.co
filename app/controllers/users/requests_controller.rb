@@ -17,7 +17,21 @@ class Users::RequestsController < Users::BaseController
   end
 
   def success
+  end
 
+  def cancel
+    result = CancelsRequest.for user: @user, id: params[:id]
+    if result.failure?
+      return render json: { error: result.message }
+    else
+      @request = result.fetch :request
+    end
+  end
+
+  def accept
+  end
+
+  def deline
   end
 
   private

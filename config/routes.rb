@@ -41,6 +41,9 @@ Consulted::Application.routes.draw do
 
     resources :requests, controller: 'users/requests', except: [:new] do
       get :success
+      member do
+        patch :cancel
+      end
       collection do
         get :review, path: '/:slug/:offer_id'
       end
