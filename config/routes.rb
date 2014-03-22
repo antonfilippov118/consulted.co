@@ -38,9 +38,20 @@ Consulted::Application.routes.draw do
     end
 
     resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
+
+    resources :requests, controller: 'users/requests', except: [:new] do
+      get :success
+      member do
+        patch :cancel
+      end
+      collection do
+        get :review, path: '/:slug/:offer_id'
+      end
+    end
   end
 
   resources :groups, only: [:show, :index]
+
   resource :offers, only: [:show]
 
   namespace :users do

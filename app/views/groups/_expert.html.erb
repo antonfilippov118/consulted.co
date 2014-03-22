@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-lg-2">
-    <%= image_tag expert.profile_image.remote_url, class: 'img-responsive', alt: expert.name %>
+    <%# image_tag expert.profile_image.remote_url, class: 'img-responsive', alt: expert.name %>
   </div>
   <div class="col-lg-6">
     <h3><%= expert.name %></h3>
     <p class="lead"><%= offer_for(expert, @group).description %></p>
-    <%= link_to 'Select', '#', class: 'btn btn-primary'  %>
+    <% if @user.nil? %>
+      <%= link_to 'Signup to book this expert', new_registration_path %>
+    <% else %>
+      <%= link_to 'Book this expert', review_requests_path(expert.slug, offer_for(expert, @group)) %>
+    <% end %>
     <%= link_to '#' do %>
-    <i class="fa fa-star-o"></i> Bookmark
+      <i class="fa fa-star-o"></i> Bookmark
     <% end %>
   </div>
   <div class="col-lg-4">
