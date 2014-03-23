@@ -15,6 +15,9 @@ describe AcceptsRequest do
 
     call = result.fetch :call
     expect(call).to be_a Call
+
+    expect(call.seeker).to eql User.first
+    expect(call.expert).to eql User.last
   end
 
   def setup

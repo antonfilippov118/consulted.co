@@ -47,8 +47,8 @@ class AcceptsRequest
       params = {
          seeker: request.seeker,
          expert: request.expert,
-         active_from: request.starts,
-         active_to: request.starts + request.length.minutes
+         active_from: request.start,
+         active_to: request.start + request.length.minutes
       }
       call = Call.new params
 
@@ -56,6 +56,7 @@ class AcceptsRequest
         context[:errors] = call.errors
         context.fail! 'Call could not be scheduled!'
       end
+      context[:call] = call
     end
   end
 

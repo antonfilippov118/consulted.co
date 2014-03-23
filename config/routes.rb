@@ -64,7 +64,10 @@ Consulted::Application.routes.draw do
 
   post :search, to: 'search#search'
 
-  post :call, to: 'call#handle'
+  namespace :call do
+    post '/', action: :handle
+    post :find, action: :lookup
+  end
 
   get '/:slug', to: 'expert#page'
 
