@@ -7,7 +7,7 @@ class CallController < ApplicationController
   def lookup
     result = ConsultedTwilio::FindCall.for params
     if result.failure?
-      xml = ConsultedTwilio::Error.generate result.message, redirect: '/handle'
+      xml = ConsultedTwilio::Error.generate result.message, redirect: '/call'
     else
       call = result.fetch :call
       xml = ConsultedTwilio::OpensConferenceCall.for call: call
