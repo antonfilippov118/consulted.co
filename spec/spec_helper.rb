@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'turnip/capybara'
 require 'consulted/test_helpers'
+require 'email_spec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -34,6 +35,9 @@ RSpec.configure do |conf|
   conf.include Rails.application.routes.url_helpers
   conf.include FactoryGirl::Syntax::Methods
 
+  conf.include EmailSpec::Helpers
+  conf.include EmailSpec::Matchers
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -47,6 +51,7 @@ RSpec.configure do |conf|
   end
 
   conf.before(:each) do
+    ActionMailer::Base.deliveries.clear
     DatabaseCleaner[:mongoid].start
   end
 

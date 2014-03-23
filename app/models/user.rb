@@ -118,6 +118,19 @@ class User
     companies.first
   end
 
+
+  # NOTE: these methods need for 2-step registration via email
+  def password_required?
+    super if confirmed?
+  end
+
+  def password_match?
+    errors[:password] << "can't be blank" if password.blank?
+    errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    errors[:password_confirmation] << 'does not match password' if password != password_confirmation
+    password == password_confirmation && !password.blank?
+  end
+
   private
 
   def self.required_connections

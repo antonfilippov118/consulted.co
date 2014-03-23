@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe User do
+  let(:user) { create :user }
 
   it 'has a name' do
     expect do
@@ -98,6 +99,26 @@ describe User do
 
       User.create! valid_params.merge email: 'florian1@consulted.co'
       expect(User.last.slug).to eql 'florian1'
+    end
+  end
+
+  describe '#password_required?' do
+    subject { user.password_required? }
+
+    context 'with uncofirmed user' do
+      before do
+        user.stub(:confirmed?) { false }
+      end
+
+      it { should be_false }
+    end
+
+    context 'with cofirmed user' do
+      before do
+        user.stub(:confirmed?) { true }
+      end
+
+      it { should be_true }
     end
   end
 end

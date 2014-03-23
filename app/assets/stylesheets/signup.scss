@@ -2,9 +2,12 @@
   padding-top: 50px;
   padding-bottom: 50px;
 
-  color: #f8f8f8;
   background: #334353;
   text-align: center;
+
+  label, h4 {
+    color: #f8f8f8;
+  }
 
   .box {
     @extend .container;

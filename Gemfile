@@ -97,4 +97,5 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'turnip'
+  gem 'email_spec'
 end

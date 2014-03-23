@@ -7,14 +7,23 @@
           <br>
           <ul class="social_buttons">
             <li>
-              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'linkedin', data: { disable_with: 'Connecting...'} do %>
+              <%= link_to user_omniauth_authorize_path(provider: 'linkedin'), class: 'linkedin', data: { disable_with: 'Connecting...'} do %>
                 <i class="fa fa-linkedin"></i> Sign up with LinkedIn
               <% end %>
             </li>
           </ul>
           <hr class="intro-divider">
-          <h5>Signup with email</h5>
-          <p>(TODO)</p>
+          <h4>Signup with email</h5>
+          <%= form_for(resource, as: resource_name, url: user_registration_path(resource)) do |f| %>
+            <%= devise_error_messages! %>
+            <div>
+              <%= f.label :email %><br />
+              <%= f.email_field :email %>
+            </div>
+            <div>
+              <%= f.submit 'Sign up', class: 'btn' %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

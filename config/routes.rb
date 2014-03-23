@@ -20,6 +20,7 @@ Consulted::Application.routes.draw do
 
   devise_scope :user do
     get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
+    patch '/users/confirmation' => 'users/confirmations#update', via: :patch, as: :update_user_confirmation
 
     resource :offers, only: [:show, :update], controller: 'users/offers' do
       get :list
