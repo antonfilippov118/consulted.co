@@ -19,6 +19,10 @@ describe User do
     end.not_to raise_error
   end
 
+  it 'has a default profile image' do
+    expect { User.new.profile_image }.not_to be_nil
+  end
+
   context 'being an expert' do
     after(:all) do
       User.delete_all
