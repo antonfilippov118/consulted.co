@@ -22,10 +22,11 @@ module ConsultedTwilio
         end
 
         begin
-          Call.active.by_pin pin: pin
+          call = Call.active.by_pin(pin: pin).first
+          fail if call.nil?
         rescue => e
           context.fail! 'The entered pin was not correct!'
-          logger.info e
+          Rails.logger.info e
         end
       end
     end
