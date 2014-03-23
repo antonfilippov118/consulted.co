@@ -25,6 +25,7 @@ module ConsultedTwilio
           Call.active.by_pin pin: pin
         rescue => e
           context.fail! 'The entered pin was not correct!'
+          logger.info e
         end
       end
     end
