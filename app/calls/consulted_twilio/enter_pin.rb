@@ -5,7 +5,7 @@ module ConsultedTwilio
 
     def initialize
       @xml = ConsultedTwilio.response.new do |r|
-        r.Gather action: '/call/find', numDigits: 6 do
+        r.Gather action: '/call/find', numDigits: 6, timeout: 15 do
           r.Say 'Please enter your PIN code', voice: 'woman'
         end
         r.Redirect
