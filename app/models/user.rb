@@ -74,6 +74,8 @@ class User
   embeds_many :availabilities, class_name: 'User::Availability'
 
   has_many :requests, inverse_of: :expert
+  has_many :calls, inverse_of: :expert
+  has_many :calls, inverse_of: :seeker
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
 

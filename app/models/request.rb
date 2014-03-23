@@ -10,9 +10,9 @@ class Request
   field :start, type: DateTime
   field :message, type: String
   field :offer_id
-  field :requested_by
   field :cancelled, type: Boolean, default: false
   field :declined, type: Boolean, default: false
+  field :accepted, type: Boolean, default: false
 
   delegate :group, to: :offer
   delegate :name, to: :offer
@@ -31,4 +31,5 @@ class Request
   scope :active, -> { where cancelled: false, declined: false }
   scope :declined, -> { where declined: true }
   scope :cancelled, -> { where cancelled: true }
+  scope :accepted, -> { where accepted: true, cancelled: false, declined: false }
 end

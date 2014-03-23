@@ -53,7 +53,7 @@ class CancelsRequest
 
     executed do |context|
       request = context.fetch :request
-      RequestMailer.cancellation(request).deliver!
+      RequestMailer.cancellation(request).deliver
     end
   end
 end

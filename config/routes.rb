@@ -64,6 +64,8 @@ Consulted::Application.routes.draw do
 
   post :search, to: 'search#search'
 
+  post :call, to: 'call#handle'
+
   get '/:slug', to: 'expert#page'
 
   root to: 'home#index'

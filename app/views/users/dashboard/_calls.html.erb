@@ -1,0 +1,11 @@
+<ul id="active_calls">
+  <% if calls.any? %>
+    <% calls.each do |call| %>
+      <li>
+        <h5><%= call.name %> <small><%= call.partner.name %></small></h5>
+      </li>
+    <% end %>
+  <% else %>
+    <li class="none">You have no upcoming calls.</li>
+  <% end %>
+</ul>
