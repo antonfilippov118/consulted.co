@@ -1,9 +1,8 @@
 class CancelsRequest
   include LightService::Organizer
 
-  def self.for(options = {})
-    id   = options.fetch :id
-    user = options.fetch :user
+  def self.for(id, options = {})
+    user = options.fetch :seeker
     with(id: id, user: user).reduce [
       LookupRequest,
       DetermineCancellable,
@@ -17,10 +16,14 @@ class CancelsRequest
 
     executed do |context|
       id = context.fetch :id
-      begin
-        request = Request.find id
-      rescue => e
-        context.fail! e
+      if id.is_a? Request
+        request = id
+      else
+        begin
+          request = Request.find id
+        rescue => e
+          context.fail! e
+        end
       end
       context[:request] = request
     end
@@ -32,7 +35,7 @@ class CancelsRequest
     executed do |context|
       request = context.fetch :request
       user    = context.fetch :user
-      context.fail! 'User cannot cancel this!' if request.requested_by != user.id.to_s
+      context.fail! 'User cannot cancel this!' if request.seeker != user
     end
   end
 

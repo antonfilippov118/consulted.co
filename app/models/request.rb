@@ -2,7 +2,8 @@ class Request
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to :user
+  belongs_to :seeker, class_name: 'User', foreign_key: 'seeker_id'
+  belongs_to :expert, class_name: 'User', foreign_key: 'expert_id'
 
   field :language, type: String
   field :length, type: Integer
@@ -17,11 +18,7 @@ class Request
   delegate :name, to: :offer
 
   def offer
-    user.offers.find offer_id
-  end
-
-  def expert
-    offer.user
+    expert.offers.find offer_id
   end
 
   def cancel!
@@ -29,7 +26,8 @@ class Request
     save!
   end
 
-  scope :by, -> user { where requested_by: user.id.to_s }
+  scope :by, -> user { where seeker: user }
+  scope :to, -> user { where expert: user }
   scope :active, -> { where cancelled: false, declined: false }
   scope :declined, -> { where declined: true }
   scope :cancelled, -> { where cancelled: true }

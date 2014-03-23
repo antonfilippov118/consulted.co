@@ -43,6 +43,8 @@ Consulted::Application.routes.draw do
       get :success
       member do
         patch :cancel
+        patch :decline
+        patch :accept
       end
       collection do
         get :review, path: '/:slug/:offer_id'

@@ -73,7 +73,7 @@ class User
   embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
 
-  has_many :requests
+  has_many :requests, inverse_of: :expert
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
 

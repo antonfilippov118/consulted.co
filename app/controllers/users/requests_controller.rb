@@ -7,7 +7,7 @@ class Users::RequestsController < Users::BaseController
   end
 
   def create
-    result = RequestsAnExpert.for request_params.merge user: @user
+    result = RequestsAnExpert.for request_params.merge seeker: @user
     @request = result.fetch :request
     @offer   = result.fetch :offer
     @expert  = result.fetch :expert
@@ -23,12 +23,8 @@ class Users::RequestsController < Users::BaseController
   def success
   end
 
-  def failure
-
-  end
-
   def cancel
-    result = CancelsRequest.for user: @user, id: params[:id]
+    result = CancelsRequest.for params[:id], seeker: @user
     if result.failure?
       return render json: { error: result.message }
     else
@@ -37,6 +33,13 @@ class Users::RequestsController < Users::BaseController
   end
 
   def accept
+    result = AcceptsRequest.for params[:id]
+    if result.failure?
+      return render json: { error: result.message }
+    else
+      @request = result.fetch :request
+      @calls   = user.calls.upcoming
+    end
   end
 
   def deline

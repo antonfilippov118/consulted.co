@@ -15,7 +15,7 @@ class RequestsAnExpert
     executed do |context|
       params  = context.fetch :params
       expert  = params.fetch :expert
-      user    = params.fetch :user
+      seeker  = params.fetch :seeker
       start   = params.fetch :start
       length  = params.fetch :length
       offer   = params.fetch :offer
@@ -25,13 +25,13 @@ class RequestsAnExpert
         expert = User.experts.find expert
       end
 
-      context[:expert]       = expert
-      context[:offer_id]     = offer.is_a?(User::Offer) ? offer.id.to_s : offer
-      context[:offer]        = offer.is_a?(User::Offer) ? offer : expert.offers.find(offer)
-      context[:start]        = start
-      context[:length]       = length
-      context[:requested_by] = user.id.to_s
-      context[:message]      = message
+      context[:expert]   = expert
+      context[:offer_id] = offer.is_a?(User::Offer) ? offer.id.to_s : offer
+      context[:offer]    = offer.is_a?(User::Offer) ? offer : expert.offers.find(offer)
+      context[:start]    = start
+      context[:length]   = length
+      context[:seeker]   = seeker
+      context[:message]  = message
     end
   end
 
@@ -40,7 +40,7 @@ class RequestsAnExpert
 
     executed do |context|
       expert  = context.fetch :expert
-      request = expert.requests.create context.slice :requested_by, :offer_id, :start, :length, :message
+      request = expert.requests.create context.slice :seeker, :offer_id, :start, :length, :message
 
       context[:request] = request
     end

@@ -12,7 +12,7 @@ describe RequestsAnExpert do
     user   = User.first
     expert = User.last
 
-    result = RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
+    result = RequestsAnExpert.for seeker: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
     expect(result.success?).to be_true
 
     request = expert.requests.first
@@ -24,7 +24,7 @@ describe RequestsAnExpert do
     user   = User.first
     expert = User.last
 
-    RequestsAnExpert.for user: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
+    RequestsAnExpert.for seeker: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
 
     mails = ActionMailer::Base.deliveries
     expect(mails.last).not_to be_nil

@@ -6,5 +6,4 @@ checkEmpty = () ->
   list = $('#active_requests')
 
   if list.children('li').length is 0
-    list.replaceWith $('<p class="text-center">You have requested no calls</p>')
-
+    list.append $('<li>You have requested no calls</li>')
