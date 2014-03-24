@@ -9,7 +9,7 @@ end
 
 step 'I should receive registration confirmation email' do
   open_email 'user@example.com'
-  current_email.should have_subject %r{Your consulted.co profile activation}
+  current_email.should have_subject(/Your consulted.co profile activation/)
 end
 
 step 'I go to confirmation page' do
@@ -22,7 +22,6 @@ step 'I submit confirmation form with required fields' do
   fill_in 'user[password_confirmation]', with: '123456'
   click_button 'Confirm Account'
 end
-
 
 step 'I should be logged in from confirmation' do
   page.should have_content('Your account was successfully confirmed')

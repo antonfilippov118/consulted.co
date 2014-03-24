@@ -24,6 +24,7 @@
               <%= f.submit 'Sign up', class: 'btn' %>
             </div>
           <% end %>
+          <%= link_to "Email already in use? Try to restore password!", new_password_path(resource_name) %>
         </div>
       </div>
     </div>

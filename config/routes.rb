@@ -8,7 +8,8 @@ Consulted::Application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
     sessions: 'users/sessions',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'devise/passwords'
   }
 
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys

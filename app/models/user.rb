@@ -62,6 +62,10 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
+  ## Recoverable
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
+
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
@@ -117,7 +121,6 @@ class User
   def current_company
     companies.first
   end
-
 
   # NOTE: these methods need for 2-step registration via email
   def password_required?
