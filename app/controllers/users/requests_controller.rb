@@ -39,6 +39,7 @@ class Users::RequestsController < Users::BaseController
     else
       @request = result.fetch :request
       @calls   = @user.calls
+      render json: { success: true }
     end
   end
 
