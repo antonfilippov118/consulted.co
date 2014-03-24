@@ -3,6 +3,10 @@ body, html {
   width: 100%;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   font-family: $font;
   font-weight: 400;
@@ -18,10 +22,16 @@ ul, ol {
   padding: 0;
 }
 
-.content {
-  margin-top: 50px;
-}
-
 [ng-click], .settings-link {
   cursor:pointer;
+}
+
+.content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 50px auto -200px; /* the bottom margin is the negative value of the footer's height */
+}
+footer, .push {
+  height: 200px; /* .push must be the same height as .footer */
 }

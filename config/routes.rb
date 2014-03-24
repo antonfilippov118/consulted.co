@@ -1,11 +1,18 @@
 Consulted::Application.routes.draw do
 
+  admin_controllers = {
+    sessions: 'admins/sessions'
+  }
+
   controllers = {
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
+  devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   get :search, controller: 'search', action: :show, path: 'search'
 
@@ -32,13 +39,35 @@ Consulted::Application.routes.draw do
 
     resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
     resources :favorites, except: [:edit, :new], controller: 'users/favorites'
+
+    resources :requests, controller: 'users/requests', except: [:new] do
+      get :success
+      member do
+        patch :cancel
+        patch :decline
+        patch :accept
+      end
+      collection do
+        get :review, path: '/:slug/:offer_id'
+      end
+    end
   end
 
   resources :groups, only: [:show, :index]
+
   resource :offers, only: [:show]
 
   namespace :users do
     get :available, to: 'utilities#available'
+  end
+
+  get :find_an_expert, controller: 'search', action: :show
+
+  post :search, to: 'search#search'
+
+  namespace :call do
+    post '/', action: :handle
+    post :find, action: :lookup
   end
 
   get '/:slug', to: 'expert#page'

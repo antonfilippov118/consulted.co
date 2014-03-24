@@ -20,6 +20,8 @@ Dragonfly.app.configure do
               root_path: Rails.root.join('public/system/dragonfly', Rails.env),
               server_root: Rails.root.join('public')
   end
+
+  fetch_file_whitelist %w(app/assets/images)
 end
 
 # Logger

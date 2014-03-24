@@ -201,11 +201,11 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
-  # config.default_scope = :user
+  config.default_scope = :user
 
   # Set this configuration to false if you want /users/sign_out to sign out
   # only the current scope. By default, Devise signs out all scopes.
@@ -228,7 +228,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :linkedin, '778ilmargr3n73', 'GZdkA1QdBbuc8GVm', scope: 'r_fullprofile r_emailaddress r_network'
+  config.omniauth :linkedin, ENV['LINKEDIN_APIKEY'], ENV['LINKEDIN_SECRETKEY'] , scope: 'r_fullprofile r_emailaddress r_network'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

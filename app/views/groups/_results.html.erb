@@ -1,0 +1,12 @@
+<% if @experts.any? %>
+  <div class="col-lg-12 <% if @experts.empty? %>hidden<% end %>">
+    <hr>
+    <h2>Results</h2>
+    <%= render partial: 'groups/expert', collection: @experts %>
+  </div>
+<% else %>
+  <div class="col-lg-12 text-center">
+    <hr>
+    <h3>There are no experts matching your criteria</h3>
+  </div>
+<% end %>

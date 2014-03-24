@@ -2,19 +2,24 @@ class User
   include Mongoid::Document
   include Omniauthable::Lookups
   include Omniauthable::Linkedin
+  include Validatable::User
+  include Sluggable::User
+  include Scopable::User
 
   extend Dragonfly::Model
 
   field :profile_image_uid
-  dragonfly_accessor :profile_image
+
+  dragonfly_accessor :profile_image do
+    # TODO: replace with appropriate default image
+    default [Rails.root, 'app/assets/images/alex.jpg'].join '/'
+  end
 
   field :name, type: String, default: ''
   field :summary, type: String
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
   field :timezone, type: String, default: 'Europe/Berlin'
-
-  field :slug, type: String, default: -> { default_slug }
 
   field :providers, type: Array
 
@@ -30,9 +35,7 @@ class User
   field :start_delay, type: Integer, default: 0
 
   field :country
-
-  validate :languages_allowed?
-  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
+  field :status, type: String, default: STATUS_LIST.first
 
   #
   # Indizes
@@ -75,17 +78,11 @@ class User
   embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
 
-  validates_uniqueness_of :slug
-  validates_with SlugValidator
+  has_many :requests, inverse_of: :expert
+  has_many :meetings, inverse_of: :expert, class_name: 'Call'
+  has_many :calls, inverse_of: :seeker
 
-  scope :experts, -> { where linkedin_network: { :$gte => User.required_connections } }
-  scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
-  scope :with_languages, -> languages { where languages: { :$all => languages } }
-  scope :with_slug, -> slug { where slug: slug }
-
-  def self.with_group(group)
-    where(:'offers.group_id' => group.id)
-  end
+  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
 
   # TODO: since Mongoid hasn't random, so far this simple method just works.
   # In future we can add custom mongoid finder module and method to mongoid
@@ -110,17 +107,6 @@ class User
     providers.include? 'linkedin'
   end
 
-  def languages_allowed?
-    languages.each do |language|
-      unless allowed_languages.include? language
-        errors.add :base, "Language '#{language}'' is not allowed."
-      end
-    end
-    if languages.length > allowed_languages.length
-      errors.add :base, 'Too many languages!'
-    end
-  end
-
   def current_position
     current_company.position
   end
@@ -129,25 +115,17 @@ class User
     companies.first
   end
 
-  private
-
-  def allowed_languages
-    %W(spanish english mandarin german arabic)
+  def active_calls
+    (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_to }
   end
+
+  def future_calls
+    (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_to }
+  end
+
+  private
 
   def self.required_connections
     10
-  end
-
-  def default_slug
-    slug = name.downcase.gsub ' ', '-'
-    slug = email.downcase.split('@').first if slug == ''
-    slug ||= ''
-    i = 1
-    while User.with_slug(slug).exists?
-      slug += "#{i}"
-      i += 1
-    end
-    slug
   end
 end

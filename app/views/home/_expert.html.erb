@@ -2,7 +2,7 @@
   <div class="row">
     <% if expert.profile_image.present? %>
       <div class="col-sm-6 col-md-4">
-        <%= image_tag expert.profile_image.remote_url, class: 'img-responsive', alt: '' %>
+        <%= image_tag expert.profile_image.url, class: 'img-responsive', alt: '' %>
       </div>
     <% end %>
     <div class="col-sm-6 col-md-8">

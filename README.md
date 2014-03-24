@@ -28,6 +28,8 @@ cd location/to/consulted
 \curl -sSL https://get.rvm.io | bash -s stable
 ```
 
+* Install a version of nodejs (https://nodejs.org)
+
 * Install ruby (rvm will give you a hint on this)
 
 ```

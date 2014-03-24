@@ -36,7 +36,14 @@ class ShowsAvailabilities
       weeks = [[], [], [], [], [], [], []]
       availabilities.each do |availability|
         day = availability.starts.cwday
-        weeks[day - 1] << availability
+
+        params = {
+          id: availability.id.to_s,
+          starts: availability.starts.utc,
+          ends: availability.ends.utc,
+          recurring: availability.recurring
+        }
+        weeks[day - 1] << params
       end
       context[:availabilities] = weeks
     end

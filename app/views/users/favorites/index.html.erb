@@ -1,13 +1,19 @@
 <div class="row">
-  <div class="container">
-    <div class="col-xs-12">
-      <br>
-      <% if @favorites.any? %>
-         <h3>Your favorite experts</h3>
-         <% @favorites.each.user do |favorite| %>
-            <%= image_tag favorite.user.profile_image.remote_url, class: 'img-responsive' %>
-         <% end %>
-      <% end %>
-    </div>
+ <div class="container">
+  <div class="col-xs-12">
+   <br>
+   <% if @favorites.any? %>
+   <h3>Your favorite experts</h3>
+   <% @favorites.each do |favorite| %>
+   <div class="col-lg-4">
+    <h4><%= favorite.user.name %></h4>
+
   </div>
+  <div class="col-lg-4">
+
+ </div>
+ <% end %>
+ <% end %>
+</div>
+</div>
 </div>

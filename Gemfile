@@ -14,6 +14,7 @@ gem 'sass'
 gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
 gem 'coffee-rails'
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-slider-rails'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'dragonfly'
@@ -21,7 +22,10 @@ gem 'dragonfly-s3_data_store'
 gem 'light-service'
 gem 'uglifier'
 gem 'mongoid_slug'
+gem 'mongoid-tree', require: 'mongoid/tree'
 gem 'country_select'
+gem 'rails_admin'
+gem 'twilio-ruby'
 
 group :production do
   gem 'unicorn'
@@ -54,6 +58,8 @@ group :development do
   gem 'thin'
 
   gem 'foreman'
+  gem 'quiet_assets'
+  gem 'letter_opener'
 
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -82,8 +88,14 @@ group :development do
   gem 'yardstick', '~> 0.9.7', git: 'https://github.com/dkubb/yardstick.git'
 end
 
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'turnip'
 end

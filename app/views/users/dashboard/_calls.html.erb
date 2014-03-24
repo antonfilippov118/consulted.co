@@ -1,0 +1,22 @@
+<div id="active_calls">
+  <h5>Current Calls</h5>
+  <ul>
+    <% if calls.any? %>
+      <% calls.each do |call| %>
+        <%= render partial: 'call', collection: calls %>
+      <% end %>
+    <% else %>
+      <li class="none">You have no upcoming calls.</li>
+    <% end %>
+  </ul>
+  <h5>Upcoming calls</h5>
+  <ul>
+    <% if upcoming.any? %>
+      <% upcoming.each do |call| %>
+        <%= render partial: 'call', collection: calls %>
+      <% end %>
+    <% else %>
+      <li class="none">You have no upcoming calls.</li>
+    <% end %>
+  </ul>
+</div>

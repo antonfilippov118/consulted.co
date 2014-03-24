@@ -5,6 +5,7 @@ class SynchronizeLinkedinProfile
     with(id: id).reduce [
       LoadUser,
       SynchNetwork,
+      SynchCountry,
       SynchCareer,
       SynchEducation,
       SynchImage,
@@ -37,6 +38,15 @@ class SynchronizeLinkedinProfile
     end
   end
 
+  class SynchCountry
+    include LightService::Action
+    executed do |context|
+      client = context.fetch :client
+      info   = client.profile fields: 'location'
+      context[:user].country = Country.new(info.location.country.code).name
+    end
+  end
+
   class SynchCareer
     include LightService::Action
 
@@ -45,15 +55,18 @@ class SynchronizeLinkedinProfile
       user      = client.profile fields: %w(positions last-name first-name summary)
       name      = "#{user.first_name} #{user.last_name}"
       summary   = user.summary
-
-      companies = user.positions.all.map do |p|
-        params = {
-          name: p.company['name'],
-          linkedin_id: p.company['id'],
-          industry: p.company['industry'],
-          position: p.title
-        }
-        User::LinkedinCompany.new params
+      if user.positions.all.nil?
+        companies = []
+      else
+        companies = user.positions.all.map do |p|
+          params = {
+            name: p.company['name'],
+            linkedin_id: p.company['id'],
+            industry: p.company['industry'],
+            position: p.title
+          }
+          User::LinkedinCompany.new params
+        end
       end
       context[:user].name      = name
       context[:user].companies = companies
@@ -67,12 +80,17 @@ class SynchronizeLinkedinProfile
     executed do |context|
       client     = context.fetch :client
       user       = client.profile fields: 'educations'
-      educations = user.educations.all.map do |education|
-        params = {
-          degree: education.degree,
-          name: education.school_name
-        }
-        User::LinkedinEducation.new params
+
+      if user.educations.all.nil?
+        educations = []
+      else
+        educations = user.educations.all.map do |education|
+          params = {
+            degree: education.degree,
+            name: education.school_name
+          }
+          User::LinkedinEducation.new params
+        end
       end
       context[:user].educations = educations
     end
@@ -84,6 +102,7 @@ class SynchronizeLinkedinProfile
     executed do |context|
       client = context.fetch :client
       url    = client.profile(fields: 'picture-urls::(original)').fetch(:'picture-urls').all
+      next context if url.nil?
       image  = SynchronizeLinkedinProfile.retrieve url.first
       context[:user].profile_image = image
     end

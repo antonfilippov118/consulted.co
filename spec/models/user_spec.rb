@@ -19,6 +19,10 @@ describe User do
     end.not_to raise_error
   end
 
+  it 'has a default profile image' do
+    expect { User.new.profile_image }.not_to be_nil
+  end
+
   context 'being an expert' do
     after(:all) do
       User.delete_all
@@ -37,6 +41,10 @@ describe User do
       user = User.create valid_params.merge linkedin_network: 10_000
       expect(user.can_be_an_expert?).to be_false
     end
+  end
+
+  describe 'validations' do
+    it { should validate_inclusion_of(:status).to_allow(User::STATUS_LIST) }
   end
 
   describe '.random' do
@@ -73,6 +81,27 @@ describe User do
       it 'should return empty array if there are no records' do
         User.random(num).count.should eq 0
       end
+    end
+  end
+
+  describe 'slug creation' do
+    it 'should create a slug for a new user' do
+      user = User.new valid_params
+
+      user.save!
+
+      user = User.first
+
+      expect(user.slug).to eql 'florian'
+    end
+
+    it 'should use incrementary initial slugs for users with the same name' do
+      User.create! valid_params
+
+      expect(User.first.slug).to eql 'florian'
+
+      User.create! valid_params.merge email: 'florian1@consulted.co'
+      expect(User.last.slug).to eql 'florian1'
     end
   end
 end

@@ -43,7 +43,7 @@
     <fieldset>
       <legend>Profile image</legend>
       <div class="control-group col-lg-3">
-        <%= image_tag current_user.profile_image.remote_url, width: 150,  alt: 'Profile image', class: 'img-responsive img-thumbnail' %>
+        <%= image_tag current_user.profile_image.url, width: 150,  alt: 'Profile image', class: 'img-responsive img-thumbnail' %>
       </div>
       <div class="control-group col-lg-9">
         <p class="lead">Your current image</p>
