@@ -10,8 +10,9 @@
     <% else %>
       <%= link_to 'Book this expert', review_requests_path(expert.slug, offer_for(expert, @group)) %>
     <% end %>
-    <%= link_to '#' do %>
-      <i class="fa fa-star-o"></i> Bookmark
+    <%= link_to(favorite_path(expert), method: :put, remote: true, id: 'fav_link') do %>
+    <%#data: { confirm: 'Are you sure?' }%>
+       <i class="fa fa-star<%= (@user.favorites.where(user_id: expert._id).exists?) ? '' : '-o'  %>"></i> Bookmark
     <% end %>
   </div>
   <div class="col-lg-4">
