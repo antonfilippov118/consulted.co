@@ -38,7 +38,7 @@ class Users::RequestsController < Users::BaseController
       return render json: { error: result.message }
     else
       @request = result.fetch :request
-      @calls   = user.calls.upcoming
+      @calls   = @user.calls.upcoming
     end
   end
 
