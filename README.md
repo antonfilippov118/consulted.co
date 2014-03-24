@@ -95,3 +95,14 @@ bundle exec guard
 
 This will also check compliance via Ruby style guidelines.
 
+
+## Notes
+
+### Platform settings usage
+
+For now we store platform settings in PlaformSettings model and we have a simple
+facade Settings for this. So we can use platform settings in code like here:
+
+```ruby
+Settings.platform_fee
+```
