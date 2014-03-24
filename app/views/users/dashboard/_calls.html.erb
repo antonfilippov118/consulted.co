@@ -3,7 +3,7 @@
   <ul>
     <% if calls.any? %>
       <% calls.each do |call| %>
-        <%= render partial: 'call', collection: calls %>
+        <%= render partial: 'users/dashboard/call', collection: calls %>
       <% end %>
     <% else %>
       <li class="none">You have no upcoming calls.</li>
@@ -13,7 +13,7 @@
   <ul>
     <% if upcoming.any? %>
       <% upcoming.each do |call| %>
-        <%= render partial: 'call', collection: calls %>
+        <%= render partial: 'users/dashboard/call', collection: calls %>
       <% end %>
     <% else %>
       <li class="none">You have no upcoming calls.</li>
