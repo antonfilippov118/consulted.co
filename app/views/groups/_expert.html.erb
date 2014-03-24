@@ -12,7 +12,7 @@
     <% end %>
     <%= link_to(favorite_path(expert), method: :put, remote: true, id: 'fav_link') do %>
     <%#data: { confirm: 'Are you sure?' }%>
-       <i class="fa fa-star<%= (@user.favorites.where(user_id: expert._id).exists?) ? '' : '-o'  %>"></i> Bookmark
+       <i class="fa fa-star<%= (@user.favorites.where(favorite_id: expert._id).exists?) ? '' : '-o'  %>"></i> Bookmark
     <% end %>
   </div>
   <div class="col-lg-4">
