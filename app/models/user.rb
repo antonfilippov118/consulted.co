@@ -12,7 +12,7 @@ class User
 
   dragonfly_accessor :profile_image do
     # TODO: replace with appropriate default image
-    default 'app/assets/images/alex.jpg'
+    default [Rails.root, 'app/assets/images/alex.jpg'].join '/'
   end
 
   field :name, type: String, default: ''
@@ -74,7 +74,7 @@ class User
   embeds_many :availabilities, class_name: 'User::Availability'
 
   has_many :requests, inverse_of: :expert
-  has_many :calls, inverse_of: :expert
+  has_many :meetings, inverse_of: :expert, class_name: 'Call'
   has_many :calls, inverse_of: :seeker
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
@@ -108,6 +108,14 @@ class User
 
   def current_company
     companies.first
+  end
+
+  def active_calls
+    (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_from }
+  end
+
+  def future_calls
+    (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_from }
   end
 
   private

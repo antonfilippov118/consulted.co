@@ -48,7 +48,8 @@ class AcceptsRequest
          seeker: request.seeker,
          expert: request.expert,
          active_from: request.start,
-         active_to: request.start + request.length.minutes
+         active_to: request.start + request.length.minutes,
+         topic: request.name
       }
       call = Call.new params
 

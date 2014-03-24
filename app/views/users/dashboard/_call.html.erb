@@ -1,0 +1,8 @@
+<li>
+  <p>
+    <%= call.topic %> with <%= partner_for(call).name %>, at <%= l call.active_from %>
+  </p>
+  <% if call.active? %>
+    <p>The call is currently available. Just call <strong>+14157989002</strong> and use the following PIN number: <strong><%= call.pin %></strong></p>
+  <% end %>
+</li>

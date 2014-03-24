@@ -21,7 +21,7 @@ Dragonfly.app.configure do
               server_root: Rails.root.join('public')
   end
 
-  fetch_file_whitelist %r{app/assets/images}
+  fetch_file_whitelist %w(app/assets/images)
 end
 
 # Logger

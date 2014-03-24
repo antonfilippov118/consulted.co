@@ -37,9 +37,9 @@ class Users::RequestsController < Users::BaseController
     if result.failure?
       return render json: { error: result.message }
     else
-      @request = result.fetch :request
-      @calls   = @user.calls
-      render json: { success: true }
+      @request  = result.fetch :request
+      @upcoming = @user.future_calls
+      @calls    = @user.active_calls
     end
   end
 

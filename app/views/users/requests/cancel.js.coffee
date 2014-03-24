@@ -1,4 +1,4 @@
-$("#request_<%= @request.id %>").fadeOut 'slow', () ->
+$("#<%= dom_id @request %>").fadeOut 'slow', () ->
   $(this).remove()
   checkEmpty()
 

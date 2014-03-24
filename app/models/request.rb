@@ -28,7 +28,7 @@ class Request
 
   scope :by, -> user { where seeker: user }
   scope :to, -> user { where expert: user }
-  scope :active, -> { where cancelled: false, declined: false }
+  scope :active, -> { where cancelled: false, declined: false, accepted: false }
   scope :declined, -> { where declined: true }
   scope :cancelled, -> { where cancelled: true }
   scope :accepted, -> { where accepted: true, cancelled: false, declined: false }
