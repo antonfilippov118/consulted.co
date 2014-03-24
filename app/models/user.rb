@@ -111,11 +111,11 @@ class User
   end
 
   def active_calls
-    (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_from }
+    (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_to }
   end
 
   def future_calls
-    (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_from }
+    (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_to }
   end
 
   private

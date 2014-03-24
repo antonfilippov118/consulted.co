@@ -14,4 +14,6 @@ class Group
   validates_associated :parent, :children
 
   before_destroy :destroy_children
+
+  has_many :calls
 end

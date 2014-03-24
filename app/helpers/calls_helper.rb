@@ -1,6 +1,6 @@
 module CallsHelper
   def partner_for(call)
-    person = [call.seeker, call.expert].select { |person| person.id != @user.id }
+    person = [call.seeker, call.expert].select { |user| user.id != @user.id }
     person.first
   end
 

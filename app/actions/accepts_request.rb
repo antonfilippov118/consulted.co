@@ -49,7 +49,7 @@ class AcceptsRequest
          expert: request.expert,
          active_from: request.start,
          active_to: request.start + request.length.minutes,
-         topic: request.name
+         group: request.group
       }
       call = Call.new params
 
