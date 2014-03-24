@@ -16,6 +16,12 @@ To get started:
 cd location/to/consulted
 ```
 
+* Needed modules / dependencies
+...
+- mongodb
+- nodejs and/or npm
+- bundler
+
 * Install rvm from
 
 ```
@@ -27,6 +33,9 @@ cd location/to/consulted
 ```
 rvm install ruby-2.0.0-p451
 ```
+rvm use ruby-2.0.0@consulted --create (if cd - hook doesn't do the job)
+...
+
 
 * Execute Bundler:
 
