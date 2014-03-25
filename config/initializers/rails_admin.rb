@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
-  config.included_models = %w[User Group Admin]
+  config.included_models = %w[User Group Admin PlatformSettings]
 
   config.model User do
     list do
@@ -103,18 +103,35 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model PlatformSettings do
+    list do
+      exclude_fields :'_id'
+    end
+  end
+
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
-    new
-    # export
-    bulk_delete
+    dashboard
+    index
+
+    new do
+      except %w(PlatformSettings)
+    end
+
+    bulk_delete do
+      except %w(PlatformSettings)
+    end
+
     show
     edit
-    delete
+
+    delete do
+      except %w(PlatformSettings)
+    end
+
     show_in_app do
-      visible do
-        !bindings[:object].is_a?(Group) || !bindings[:object].children?
+      hide do
+        bindings[:object].is_a?(PlatformSettings) ||
+        (bindings[:object].is_a?(Group) && bindings[:object].children?)
       end
     end
 
