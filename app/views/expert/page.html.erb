@@ -15,7 +15,7 @@
           <li>
             <h5><%= offer.name %> <small><%= offer.rate %> USD per hour</small></h5>
             <p>Experience: <%= offer.experience %> years</p>
-            <p><%= truncate simple_format offer.description %></p>
+            <p><%= truncate offer.description %></p>
             <%= link_to 'Select this offer', '#', class: 'btn btn-primary'  %>
           </li>
         <% end %>
