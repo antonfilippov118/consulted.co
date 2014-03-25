@@ -65,7 +65,14 @@ module ExpertsHelper
     empty + filled
   end
 
-  def offer_for(expert, group)
+  def offer_for(opts = {})
+    defaults = {
+      expert: User.new,
+      group: @group
+    }
+    opts   = defaults.merge opts
+    expert = opts.fetch :expert
+    group  = opts.fetch :group
     expert.offers.with_group(group).first || User::Offer.new
   end
 end
