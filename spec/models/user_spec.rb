@@ -104,4 +104,18 @@ describe User do
       expect(User.last.slug).to eql 'florian1'
     end
   end
+
+  describe 'slug creation via omniauth' do
+    it 'should correctly crete a slug when creating a user via omniauth' do
+      user = User.find_for_linkedin_oauth providers: ['linkedin'], uid: 'foo'
+
+      user.assign_attributes valid_params
+
+      user.save!
+
+      user = User.first
+
+      expect(user.slug).to eql 'florian'
+    end
+  end
 end

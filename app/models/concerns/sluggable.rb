@@ -15,10 +15,9 @@ module Sluggable
     end
 
     included do
-
       field :slug, type: String
       before_save do
-        self.slug = default_slug
+        self.slug = default_slug if self.slug.nil?
       end
     end
   end
