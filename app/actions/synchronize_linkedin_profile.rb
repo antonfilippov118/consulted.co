@@ -106,7 +106,6 @@ class SynchronizeLinkedinProfile
       image  = SynchronizeLinkedinProfile.retrieve url.first
       context[:user].profile_image = image
     end
-
   end
 
   class SaveUser
