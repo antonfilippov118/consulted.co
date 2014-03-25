@@ -13,8 +13,21 @@
             </li>
           </ul>
           <hr class="intro-divider">
-          <h5>Login with your email</h5>
-          <p>(TODO)</p>
+          <h4>Login with your email</h4>
+          <%= form_for(resource, as: resource_name, url: new_user_session_path(resource)) do |f| %>
+            <div>
+              <%= f.label :email %><br />
+              <%= f.email_field :email %>
+            </div>
+            <div>
+              <%= f.label :password %><br />
+              <%= f.password_field :password %>
+            </div>
+            <div>
+              <%= f.submit 'Login', class: 'btn' %>
+            </div>
+          <% end %>
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %>
         </div>
       </div>
     </div>

@@ -91,6 +91,9 @@ GEM
     dragonfly-s3_data_store (1.0.3)
       dragonfly (~> 1.0)
       fog
+    email_spec (1.5.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.31.0)
@@ -397,6 +400,7 @@ DEPENDENCIES
   devise
   dragonfly
   dragonfly-s3_data_store
+  email_spec
   factory_girl_rails
   flay (~> 2.4.0)
   flog (~> 4.2.0)

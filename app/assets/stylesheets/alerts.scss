@@ -1,4 +1,8 @@
 .alert {
+  margin-top: 50px;
+  margin-bottom: -50px;
+  border-radius: 0px;
+
   ul {
     padding: 20px;
     list-style-type: square;
@@ -6,7 +10,7 @@
 }
 
 .error {
-  color:red;
+  color: red;
 }
 
 .success {

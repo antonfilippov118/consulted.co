@@ -8,7 +8,8 @@ Consulted::Application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
     sessions: 'users/sessions',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'devise/passwords'
   }
 
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
@@ -20,6 +21,7 @@ Consulted::Application.routes.draw do
 
   devise_scope :user do
     get :overview, controller: 'users/dashboard', action: :show, path: 'overview'
+    patch '/users/confirmation' => 'users/confirmations#update', via: :patch, as: :update_user_confirmation
 
     resource :offers, only: [:show, :update], controller: 'users/offers' do
       get :list

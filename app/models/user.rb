@@ -67,6 +67,10 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
+  ## Recoverable
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
+
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
@@ -116,6 +120,18 @@ class User
 
   def future_calls
     (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_to }
+  end
+
+  # NOTE: these methods need for 2-step registration via email
+  def password_required?
+    super if confirmed?
+  end
+
+  def password_match?
+    errors[:password] << 'can\'t be blank' if password.blank?
+    errors[:password_confirmation] << 'can\'t be blank' if password_confirmation.blank?
+    errors[:password_confirmation] << 'does not match password' if password != password_confirmation
+    password == password_confirmation && !password.blank?
   end
 
   private

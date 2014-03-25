@@ -9,4 +9,9 @@ class UserMailer < ActionMailer::Base
     @token = token
     devise_mail(record, :confirmation_instructions,  subject: 'Your consulted.co profile activation', from: 'registration@consulted.co')
   end
+
+  def reset_password_instructions(record, token, opts = {})
+    @token = token
+    devise_mail(record, :reset_password_instructions, opts)
+  end
 end
