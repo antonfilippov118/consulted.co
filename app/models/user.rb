@@ -43,6 +43,11 @@ class User
   index({ email: 1, slug: 1 }, unique: true)
 
   #
+  # Favorites
+  #
+  embeds_many :favorites, class_name: 'User::Favorite'
+
+  #
   # Devise
   #
   # Include default devise modules. Others available are:

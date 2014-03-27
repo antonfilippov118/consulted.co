@@ -40,6 +40,7 @@ Consulted::Application.routes.draw do
     end
 
     resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
+    resources :favorites, except: [:edit, :new], controller: 'users/favorites'
 
     resources :requests, controller: 'users/requests', except: [:new] do
       get :success

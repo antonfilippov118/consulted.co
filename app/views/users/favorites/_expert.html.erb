@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-lg-2">
+    <%# image_tag expert.profile_image.url, class: 'img-responsive', alt: expert.name %>
+  </div>
+  <div class="col-lg-6">
+    <h3><%= favorite.name %></h3>
+    <p class="lead"><%= offer_for(favorite, @group).description %></p>
+    <%= link_to(favorite_path(expert), method: :put, remote: true, id: 'fav_link') do %>
+    <%#data: { confirm: 'Are you sure?' }%>
+       <i class="fa fa-star<%= (@user.favorites.where(favorite_id: expert._id).exists?) ? '' : '-o'  %>"></i> Bookmark
+    <% end %>
+  </div>
+  <div class="col-lg-4">
+  </div>
+</div>
