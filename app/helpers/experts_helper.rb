@@ -75,4 +75,8 @@ module ExpertsHelper
     group  = opts.fetch :group
     expert.offers.with_group(group).first || User::Offer.new
   end
+
+  def expert_page(expert)
+    "#{root_url}#{expert.slug}"
+  end
 end
