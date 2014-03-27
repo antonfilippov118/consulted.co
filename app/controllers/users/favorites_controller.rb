@@ -2,7 +2,7 @@ class Users::FavoritesController < Users::BaseController
 
   def index
 
-    #@favorites = @user.favorites
+    # @favorites = @user.favorites
     @favorites = User.find @user.favorites.map(&:favorite_id)
   end
 
