@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe FavoritesController do
+describe Users::FavoritesController do
 
 end
