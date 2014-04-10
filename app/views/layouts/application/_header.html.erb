@@ -1,0 +1,19 @@
+<header id="header">
+  <div class="container">
+    <a id="logo" href="#">CONSULTED.co</a>
+    <% if @user.nil? %>
+      <p>You are not logged in right now. Continue to <%= link_to 'login', new_user_session_path, class: 'btn btn-default' %></p>
+    <% else %>
+      <div id="account" class="">
+        <div id="account-img">
+          <%= image_tag @user.profile_image.url, alt: @user.name, class: 'img-circle' %>
+        </div>
+        <div id="account-name"><%= @user.name %></div>
+        <div id="account-links" class="clr">
+          <a href="#">Settings</a>
+          <a href="#">Logout</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</header>

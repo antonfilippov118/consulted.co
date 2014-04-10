@@ -1,0 +1,27 @@
+<nav id="nav">
+  <div class="container">
+    <ul id="nav-tabs" class="nav nav-tabs">
+      <%= content_tag :li, class: active_class(:overview) do %>
+        <% if @user.nil? %>
+          <%= link_to 'Overview', new_user_registration_path, class: 'disabled' %>
+        <% else %>
+          <%= link_to 'Overview', overview_path %>
+        <% end %>
+      <% end %>
+      <%= content_tag :li, class: active_class(:find_an_expert) do %>
+        <%= link_to 'Find an expert', find_an_expert_path  %>
+      <% end %>
+      <%= content_tag :li, class: active_class(:offer_time) do %>
+        <% if @user.nil? %>
+          <%= link_to 'Offer your time', new_user_registration_path, class: 'disabled' %>
+        <% else %>
+          <%= link_to 'Offer your time', overview_path %>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul id="nav-side">
+      <li><a href="#">Your Calls</a></li>
+      <li><a href="#">Bookmarked Experts</a></li>
+    </ul>
+  </div>
+</nav>

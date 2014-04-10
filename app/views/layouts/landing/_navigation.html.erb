@@ -43,13 +43,24 @@
               <% end %>
             <% end %>
           </li>
-          <li>
-            <%= link_to new_user_registration_path do  %>
-              <%= content_tag :span do %>
+          <% if @user.nil? %>
+            <li>
+              <%= link_to new_user_registration_path, class: 'btn btn-default' do  %>
                 Signup
               <% end %>
-            <% end %>
-          </li>
+            </li>
+            <li>
+              <%= link_to new_user_session_path, class: 'btn btn-default' do  %>
+                Login
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to overview_path, class: 'btn btn-default' do %>
+                Continue to your dashboard <i class="fa fa-arrow-right"></i>
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
