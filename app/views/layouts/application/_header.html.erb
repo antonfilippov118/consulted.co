@@ -10,7 +10,9 @@
         </div>
         <div id="account-name"><%= @user.name %></div>
         <div id="account-links" class="clr">
-          <a href="#">Settings</a>
+          <%= link_to settings_path do %>
+
+          <% end %>
           <a href="#">Logout</a>
         </div>
       </div>

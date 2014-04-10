@@ -1,7 +1,7 @@
 <div id="landing-testimonials" class="slide-text text-grey">
   <div class="container">
     <h2>Testimonials</h2>
-    <p class="section-description text-center">Nullam venenatis pellentesque nunc, ac imperdiet metus cursus fusce malesuada dolor quis nunc convallis euismod.</p>
+    <p class="section-description text-center">Advice seekers like you love to use CONSULTED</p>
     <div id="testimonial-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
       <div class="carousel-inner">
         <div class="item active">
@@ -23,7 +23,11 @@
         <li data-target="#testimonial-carousel" data-slide-to="2"></li>
       </ol>
     </div>
-    <p class="text-center"><a class="btn btn-primary" href="#">Sign Up</a></p>
+    <p class="text-center">
+      <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
+        Sign Up
+      <% end %>
+    </p>
     <p class="postbtn">interested to join as expert?</p>
   </div>
 </div>
