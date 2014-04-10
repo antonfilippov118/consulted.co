@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag  %>
+    <title><%= content_for?(:title) ? yield(:title) : "Consulted" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Consulted" %>">
+    <!--[if lt IE 9]>
+      <%= javascript_include_tag 'compatibility' %>
+    <![endif]-->
+    <%= stylesheet_link_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%# Main navigation %>
+    <%= render partial: 'layouts/landing/navigation' %>
+    <%# The fist visual on the page %>
+    <%= render partial: 'layouts/landing/visual' %>
+    <%# The advice section %>
+    <%= render partial: 'layouts/landing/advice' %>
+    <%# Toptier professionals (expert examples) %>
+    <%= render partial: 'layouts/landing/toptier' %>
+    <%# Slide first pohto %>
+    <div id="landing-photo-02" class="slide-photo"></div>
+
+    <%# offer overview (TODO: random?) %>
+    <%= render partial: 'layouts/landing/offers' %>
+    <%= render partial: 'layouts/landing/offer_details' %>
+
+    <div id="landing-photo-03" class="slide-photo"></div>
+
+    <%# howto %>
+    <%= render partial: 'layouts/landing/howto' %>
+
+    <div id="landing-photo-04" class="slide-photo"></div>
+
+    <%= render partial: 'layouts/landing/use_cases' %>
+    <%= render partial: 'layouts/landing/testimonials' %>
+
+    <%= render partial: 'layouts/landing/footer' %>
+    <div id="copy">&copy; 2014 - consulted.co</div>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'landing' %>
+  </body>
+</html>
