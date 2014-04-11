@@ -15,29 +15,7 @@
   <body>
     <%# Main navigation %>
     <%= render partial: 'layouts/landing/navigation' %>
-    <%# The fist visual on the page %>
-    <%= render partial: 'layouts/landing/visual' %>
-    <%# The advice section %>
-    <%= render partial: 'layouts/landing/advice' %>
-    <%# Toptier professionals (expert examples) %>
-    <%= render partial: 'layouts/landing/toptier' %>
-    <%# Slide first pohto %>
-    <div id="landing-photo-02" class="slide-photo"></div>
-
-    <%# offer overview (TODO: random?) %>
-    <%= render partial: 'layouts/landing/offers' %>
-    <%= render partial: 'layouts/landing/offer_details' %>
-
-    <div id="landing-photo-03" class="slide-photo"></div>
-
-    <%# howto %>
-    <%= render partial: 'layouts/landing/howto' %>
-
-    <div id="landing-photo-04" class="slide-photo"></div>
-
-    <%= render partial: 'layouts/landing/use_cases' %>
-    <%= render partial: 'layouts/landing/testimonials' %>
-
+    <%= yield %>
     <%= render partial: 'layouts/landing/footer' %>
     <div id="copy">&copy; 2014 - consulted.co</div>
     <%= javascript_include_tag 'application' %>

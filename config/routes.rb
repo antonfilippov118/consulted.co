@@ -74,5 +74,10 @@ Consulted::Application.routes.draw do
 
   get '/:slug', to: 'expert#page'
 
+  # static pages
+  [:faq].each do |page|
+    get page, controller: :static
+  end
+
   root to: 'home#index'
 end
