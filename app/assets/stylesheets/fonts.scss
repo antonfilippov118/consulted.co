@@ -1,2 +1,96 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,600,700');
 @import url('http://fonts.googleapis.com/css?family=Bitter:400,700');
+
+@font-face {
+  font-family: 'flaticon';
+  src: font-url('flaticon.eot');
+  src: font-url('flaticon.eot#iefix') format("embedded-opentype"), font-url('flaticon.woff') format("woff"), font-url('flaticon.ttf') format("truetype"), font-url('flaticon.svg') format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.flaticon:before {
+  display: inline-block;
+  font-family: "flaticon";
+  margin-left: 0;
+}
+
+.flaticon-arrowleft:before {
+  content: '\e000';
+}
+
+.flaticon-star:before {
+  content: '\e001';
+}
+
+.flaticon-close:before {
+  content: '\e002';
+}
+
+.flaticon-delete:before {
+  content: '\e003';
+}
+
+.flaticon-facebook:before {
+  content: '\e004';
+}
+
+.flaticon-help:before {
+  content: '\e005';
+}
+
+.flaticon-info:before {
+  content: '\e006';
+}
+
+.flaticon-like:before {
+  content: '\e007';
+}
+
+.flaticon-linkedin:before {
+  content: '\e008';
+}
+
+.flaticon-points:before {
+  content: '\e009';
+}
+
+.flaticon-arrowright:before {
+  content: '\e00a';
+}
+
+.flaticon-twitter:before {
+  content: '\e00b';
+}
+
+.flaticon-arrowdown:before {
+  content: '\e00c';
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: font-url('helveticaneue-light-webfont.eot');
+  src: font-url('helveticaneue-light-webfont.eot?#iefix') format("embedded-opentype"), font-url('helveticaneue-light-webfont.woff') format("woff"), font-url('helveticaneue-light-webfont.ttf') format("truetype"), font-url('helveticaneue-light-webfont.svg#helvetica_neueregular') format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: font-url('helveticaneue-lightitalic-webfont.eot');
+  src: font-url('helveticaneue-lightitalic-webfont.eot?#iefix') format("embedded-opentype"), font-url('helveticaneue-lightitalic-webfont.woff') format("woff"), font-url('helveticaneue-lightitalic-webfont.ttf') format("truetype"), font-url('helveticaneue-lightitalic-webfont.svg#helvetica_neueregular') format("svg");
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: font-url('helveticaneue-medium-webfont.eot');
+  src: font-url('helveticaneue-medium-webfont.eot?#iefix') format("embedded-opentype"), font-url('helveticaneue-medium-webfont.woff') format("woff"), font-url('helveticaneue-medium-webfont.ttf') format("truetype"), font-url('helveticaneue-medium-webfont.svg#helvetica_neueregular') format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+

@@ -1,21 +1,21 @@
 <nav id="nav">
   <div class="container">
     <ul id="nav-tabs" class="nav nav-tabs">
-      <%= content_tag :li, class: active_class(:overview) do %>
-        <% if @user.nil? %>
-          <%= link_to 'Overview', new_user_registration_path, class: 'disabled' %>
-        <% else %>
+      <%= content_tag :li, class: active_class(overview_path) do %>
+        <% if user_signed_in? %>
           <%= link_to 'Overview', overview_path %>
+        <% else %>
+          <%= link_to 'Overview', new_user_registration_path, class: 'disabled' %>
         <% end %>
       <% end %>
-      <%= content_tag :li, class: active_class(:find_an_expert) do %>
+      <%= content_tag :li, class: active_class(find_an_expert_path) do %>
         <%= link_to 'Find an expert', find_an_expert_path  %>
       <% end %>
-      <%= content_tag :li, class: active_class(:offer_time) do %>
-        <% if @user.nil? %>
-          <%= link_to 'Offer your time', new_user_registration_path, class: 'disabled' %>
+      <%= content_tag :li, class: active_class(offers_path) do %>
+        <% if user_signed_in? %>
+          <%= link_to 'Offer your time', offers_path %>
         <% else %>
-          <%= link_to 'Offer your time', overview_path %>
+          <%= link_to 'Offer your time', new_user_registration_path, class: 'disabled' %>
         <% end %>
       <% end %>
     </ul>
@@ -25,3 +25,4 @@
     </ul>
   </div>
 </nav>
+<div id="navtoggle"><span class="navtoggle-menu">Menu</span> <span class="fa fa-bars"></span></div>

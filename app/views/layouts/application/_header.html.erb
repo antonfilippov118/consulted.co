@@ -1,9 +1,11 @@
 <header id="header">
   <div class="container">
-    <a id="logo" href="#">CONSULTED.co</a>
-    <% if @user.nil? %>
-      <p>You are not logged in right now. Continue to <%= link_to 'login', new_user_session_path, class: 'btn btn-default' %></p>
-    <% else %>
+    <div id="logo">
+      <%= link_to root_path do %>
+        <%= image_tag 'logo.png', alt: 'CONSULTED.co' %>
+      <% end %>
+      </div>
+    <% if user_signed_in? %>
       <div id="account" class="">
         <div id="account-img">
           <%= image_tag @user.profile_image.url, alt: @user.name, class: 'img-circle' %>
@@ -11,9 +13,19 @@
         <div id="account-name"><%= @user.name %></div>
         <div id="account-links" class="clr">
           <%= link_to settings_path do %>
-
+            Settings
           <% end %>
-          <a href="#">Logout</a>
+          <%= link_to destroy_user_session_path do %>
+            Logout
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div id="account">
+        <div>
+          <%= link_to new_user_session_path, class: 'btn btn-default' do %>
+            You are not logged in right now. Click here to login.
+          <% end %>
         </div>
       </div>
     <% end %>

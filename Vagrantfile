@@ -41,7 +41,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'vim'
 
     chef.add_recipe 'nodejs::npm'
-    chef.add_recipe 'npm::bower'
 
     chef.add_recipe 'mongodb::10gen_repo'
     chef.add_recipe 'mongodb::default'

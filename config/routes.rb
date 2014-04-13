@@ -72,12 +72,13 @@ Consulted::Application.routes.draw do
     post :find, action: :lookup
   end
 
-  get '/:slug', to: 'expert#page'
 
   # static pages
   [:faq].each do |page|
     get page, controller: :static
   end
+
+  get '/:slug', to: 'expert#page'
 
   root to: 'home#index'
 end
