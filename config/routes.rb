@@ -72,9 +72,15 @@ Consulted::Application.routes.draw do
     post :find, action: :lookup
   end
 
-
   # static pages
-  [:faq].each do |page|
+  [
+    :confidentiality,
+    :make_the_most,
+    :about_us,
+    :privacy,
+    :success_stories,
+    :terms
+  ].each do |page|
     get page, controller: :static
   end
 
