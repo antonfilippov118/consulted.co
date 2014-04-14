@@ -1,0 +1,95 @@
+<footer id="footer">
+  <div class="container">
+    <div id="foot-info">
+      <p class="foot-text">We democratize access to high value expert advice for businesses</p>
+      <p class="foot-addr">Consulted.co, Inc
+        <br/>28 2nd Street, 3rd Floor
+        <br/>San Francisco, CA, 94105</p>
+    </div>
+    <div id="foot-menu" class="row">
+      <div class="col-md-4">
+        <p class="foot-menu-head">Marketplace</p>
+        <ul class="foot-menu">
+          <li>
+            <%= link_to '#' do %>
+              How it works
+            <% end %>
+          </li>
+          <li>
+            <%= link_to success_stories_path do %>
+              Success stories
+            <% end %>
+          </li>
+          <li>
+            <%= link_to make_the_most_path do %>
+              Make the most of it
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+              Join as expert
+            <% end %>
+            </li>
+          <li>
+            <%= link_to confidentiality_path do %>
+              Confidentiality
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="foot-menu-head">Links</p>
+        <ul class="foot-menu">
+          <li>
+            <%= link_to about_us_path do %>
+              About Us
+              <% end %>
+          </li>
+          <li><a href="#">Contact Us</a>
+          </li>
+          <li>
+            <%# This is external - via Zendesk %>
+              <%= link_to 'https://consultedco.zendesk.com/hc/en-us', target: '_blank' do %>
+                Help
+                <% end %>
+          </li>
+          <li>
+            <%= link_to terms_path do %>
+              Terms of service
+              <% end %>
+          </li>
+          <li>
+            <%= link_to privacy_path do %>
+              Privacy
+              <% end %>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="foot-menu-head">Connect</p>
+        <ul class="foot-menu">
+          <li>
+            <a href="#">
+              <span class="fa fa-envelope-o"></span>Newsletter</a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa fa-twitter-square"></span>Twitter</a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa fa-linkedin-square"></span>Linkedin</a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa fa-facebook-square"></span>Facebook</a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa fa-google-plus-square"></span>Google+</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

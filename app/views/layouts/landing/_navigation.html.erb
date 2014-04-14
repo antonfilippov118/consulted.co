@@ -1,0 +1,68 @@
+<div id="nav" class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="logo" href="#">
+          <%= image_tag 'logo2x.png', alt: 'consulted.co', id: 'logo-white' %>
+          <%= image_tag 'logo2x_black.png', alt: 'consulted.co', id: 'logo-black', class: 'hidden' %>
+        </a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to '#landing-advice' do  %>
+              <%= content_tag :span do %>
+                Your benefit
+              <% end %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#landing-offerings' do  %>
+              <%= content_tag :span do %>
+                Service offerings
+              <% end %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#landing-howitworks' do  %>
+              <%= content_tag :span do %>
+                How it works
+              <% end %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#landing-wecanhelpyou' do  %>
+              <%= content_tag :span do %>
+                Typical use cases
+              <% end %>
+            <% end %>
+          </li>
+          <% if @user.nil? %>
+            <li>
+              <%= link_to new_user_registration_path, class: 'btn btn-default' do  %>
+                Signup
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path, class: 'btn btn-default' do  %>
+                Login
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to overview_path, class: 'btn btn-default' do %>
+                Continue to your dashboard <i class="fa fa-arrow-right"></i>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
