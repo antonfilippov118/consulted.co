@@ -9,30 +9,50 @@
         <p class="popup-slogan">Signup - it's free!</p>
       </div>
       <div class="modal-body">
-        <div class="popup-row">
-          <input type="text" class="form-control" placeholder="Full name">
-        </div>
-        <div class="popup-row">
-          <input type="email" class="form-control" placeholder="Email">
-          <span class="checked"></span>
-        </div>
-        <div class="popup-row">
-          <span class="info flaticon flaticon-info"> Your email is never shared</span>
-        </div>
-        <div class="popup-row">
-          <input type="password" class="form-control" placeholder="Password">
-        </div>
-        <div class="popup-row">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> I want to receive the Newsletter (optional)
-            </label>
+        <div id="sign_up_social">
+          <div class="popup-row">
+            <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
+              Connect with LinkedIn
+            <% end %>
+          </div>
+          <div class="popup-row text-center">
+            <a class="toggle_login">I want to signup with my email</a>
           </div>
         </div>
-        <div class="popup-row">
-          <button type="button" class="btn btn-primary sub">Complete signup</button>
+        <div id="sign_up_email" style="display:none">
+          <%= form_for(resource, as: resource_name, url: user_registration_path(resource), remote: true) do |f| %>
+            <div class="popup-row">
+              <%= f.text_field :name, class: 'form-control', placeholder: 'Full name' %>
+            </div>
+            <div class="popup-row">
+              <%= f.text_field :email, placeholder: 'Email', class: 'form-control' %>
+              <span class="checked" style="display:none"></span>
+            </div>
+            <div class="popup-row">
+              <span class="info flaticon flaticon-info"> Your email is never shared</span>
+            </div>
+            <div class="popup-row">
+              <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+            </div>
+            <div class="popup-row">
+              <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
+            </div>
+            <div class="popup-row">
+              <div class="checkbox">
+                <label>
+                  <%= f.check_box :newsletter %> I want to receive the Newsletter (optional)
+                </label>
+              </div>
+            </div>
+            <div class="popup-row">
+              <%= f.submit "Complete signup", class: 'btn btn-primary sub' %>
+            </div>
+            <div class="popup-row text-center">
+              <a class="toggle_login">I want to sign up with one of my social media profiles</a>
+            </div>
+          <% end %>
         </div>
-        <p class="popup-text">By signing up you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> and you confirm that you are 18 years old or over.</p>
+        <p class="popup-text">By signing up you agree to our <%= link_to 'Terms of Service', terms_path%> and <%= link_to 'Privacy Policy',privacy_path %> and you confirm that you are 18 years old or over.</p>
       </div>
     </div>
   </div>

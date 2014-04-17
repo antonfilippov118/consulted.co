@@ -15,18 +15,16 @@
           <%= link_to settings_path do %>
             Settings
           <% end %>
-          <%= link_to destroy_user_session_path do %>
+          <%= link_to destroy_user_session_path, method: :delete do %>
             Logout
           <% end %>
         </div>
       </div>
     <% else %>
       <div id="account">
-        <div>
-          <%= link_to new_user_session_path, class: 'btn btn-default' do %>
-            You are not logged in right now. Click here to login.
-          <% end %>
-        </div>
+        <%= link_to new_user_session_path, class: 'btn btn-default' do %>
+          You are not logged in right now. Click here to login.
+        <% end %>
       </div>
     <% end %>
   </div>

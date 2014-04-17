@@ -26,5 +26,6 @@
 //= require consulted/review
 //= require consulted/menu
 //= require consulted/login
+//= require consulted/profile
 // Angular based apps
 //= require_tree ./consulted
