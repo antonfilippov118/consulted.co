@@ -1,0 +1,18 @@
+<div id="groups">
+  <h2>Or browse our service offerings</h2>
+  <div class="row" ng-repeat="root in roots">
+    <div class="col-md-3" ng-repeat="group in root">
+      <div class="advice-group">
+        <div class="advice-head">{{group.name}}</div>
+        <p>{{group.description}}</p>
+        <ul>
+          <li ng-repeat="child in group.children | limitTo:3">
+            <span>{{child.name}}</span>
+          </li>
+          <li ng-show="group.children.length > 3"> + {{group.children.length - 3}} more </li>
+        </ul>
+        <a class="btn btn-primary" ng-href="#!/{{group.slug}}">Details</a>
+      </div>
+    </div>
+  </div>
+</div>

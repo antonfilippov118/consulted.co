@@ -1,7 +1,7 @@
 /*
  * typeahead.js
  * https://github.com/twitter/typeahead.js
- * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
+ * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
  */
 
 var SearchIndex = (function() {
@@ -19,8 +19,7 @@ var SearchIndex = (function() {
     this.datumTokenizer = o.datumTokenizer;
     this.queryTokenizer = o.queryTokenizer;
 
-    this.datums = [];
-    this.trie = newNode();
+    this.reset();
   }
 
   // instance methods
@@ -47,7 +46,7 @@ var SearchIndex = (function() {
         tokens = normalizeTokens(that.datumTokenizer(datum));
 
         _.each(tokens, function(token) {
-          var node, chars, ch, ids;
+          var node, chars, ch;
 
           node = that.trie;
           chars = token.split('');
@@ -94,6 +93,11 @@ var SearchIndex = (function() {
 
       return matches ?
         _.map(unique(matches), function(id) { return that.datums[id]; }) : [];
+    },
+
+    reset: function reset() {
+      this.datums = [];
+      this.trie = newNode();
     },
 
     serialize: function serialize() {

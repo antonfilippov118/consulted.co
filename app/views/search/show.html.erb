@@ -1,19 +1,8 @@
-<div class="search">
-  <div class="row">
-    <div id="consulted_finder">
-      <script type="text/ng-template" id="finder">
-        <%= render partial: 'search/ng/finder' %>
-      </script>
-      <script type="text/ng-template" id="display">
-        <%= render partial: 'search/ng/display' %>
-      </script>
-    </div>
-  </div>
-  <div class="row">
-    <div id="consulted_categories">
-      <script type="text/ng-template" id="categories">
-        <%= render partial: 'search/ng/categories' %>
-      </script>
-    </div>
-  </div>
+<div ng-app="consulted.browser">
+  <div ng-view></div>
+  <% %w(bread lookup main browse group learn).each do |partial| %>
+  <script type="text/ng-template" id="<%= partial %>">
+    <%= render partial: "search/ng/#{partial}"  %>
+  </script>
+  <% end %>
 </div>

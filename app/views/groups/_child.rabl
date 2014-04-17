@@ -1,5 +1,4 @@
-attributes :id, :name, :description
-node(:link) { |group| url_for group }
+attributes :id, :name, :description, :slug
 child :children => :children do
   extends 'groups/child'
 end

@@ -17,6 +17,7 @@
 //= require moment/moment
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
+//= require angular-route/angular-route
 //= require angular-bootstrap/ui-bootstrap
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
@@ -25,12 +26,4 @@
 //= require consulted/review
 //= require consulted/menu
 // Angular based apps
-//= require consulted/common/app
-//= require consulted/settings/notifications
-//= require consulted/offers/setup
-//= require consulted/search/finder
-//= require consulted/search/categories
-//= require consulted/scheduler/scheduler
-//= require consulted/scheduler/calendar
-//= require consulted/bootstrap
-
+//= require_tree ./consulted

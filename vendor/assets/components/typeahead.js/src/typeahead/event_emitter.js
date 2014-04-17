@@ -1,7 +1,7 @@
 /*
  * typeahead.js
  * https://github.com/twitter/typeahead.js
- * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
+ * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
  */
 
 // inspired by https://github.com/jharding/boomerang
@@ -57,7 +57,7 @@ var EventEmitter = (function() {
   }
 
   function trigger(types) {
-    var that = this, type, callbacks, args, syncFlush, asyncFlush;
+    var type, callbacks, args, syncFlush, asyncFlush;
 
     if (!this._callbacks) { return this; }
 
@@ -90,7 +90,7 @@ var EventEmitter = (function() {
   }
 
   function getNextTick() {
-    var nextTickFn, messageChannel;
+    var nextTickFn;
 
     // IE10+
     if (window.setImmediate) {
