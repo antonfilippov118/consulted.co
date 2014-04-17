@@ -21,8 +21,8 @@
   ],
   "dependencies": {
     "moment": "~2.5.1",
-    "angular": "~1.2.13",
-    "angular-route": "~1.2.13",
+    "angular": "~1.2.16",
+    "angular-route": "~1.2.16",
     "css-toggle-switch": "~2.1.4",
     "typeahead.js": "~0.10.1",
     "angular-typeahead": "~0.1.1",

@@ -1,0 +1,32 @@
+<div id="learnmore" class="modal-content">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-8">
+        <p class="learnmore-head heading">{{group.name}}</p>
+        <p class="learnmore-subhead">Typical questions answered in this category</p>
+        <div class="row">
+          <div class="col-md-6">
+            {{group.seeker_gain}}
+          </div>
+        </div>
+        <p class="learnmore-subhead">What do advice seekers look for</p>
+        <div class="row">
+          <div class="col-md-12">
+            {{group.seeker_gain}}
+          </div>
+        </div>
+        <p class="learnmore-subhead">What a certain meeting time normally gets you</p>
+        <div class="row">
+          <div class="col-md-12">
+            {{group.length_gain}}
+          </div>
+        </div>
+      </div>
+      <div class="learnmore-side col-md-4">
+        <p class="learnmore-head">Typical experts background/qualification</p>
+        {{group.expert_background}}
+        <a class="btn btn-primary btn-big" ng-href="/groups/{{group.slug}}">Browse experts</a>
+      </div>
+    </div>
+  </div>
+</div>

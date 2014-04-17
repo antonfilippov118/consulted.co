@@ -1,1 +1,1 @@
-$ () -> $('#nav').css top: '0px',opacity: '1'
+$ () -> $('#nav').css top: '0px', opacity: '1'

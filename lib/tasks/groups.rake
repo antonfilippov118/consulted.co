@@ -30,11 +30,27 @@ namespace :groups do
         children: [
           {
             name: 'Bingo',
-            description: 'Stratagems for Bingo and more!'
+            description: 'Stratagems for Bingo and more!',
+            children: [
+              {
+                name: 'Stratagems',
+                description: 'Advanced Stratagems for later use'
+              },
+              {
+                name: 'Tactics',
+                description: 'Lesser known tactics'
+              }
+            ]
           },
           {
             name: 'The colourful world of stocks',
-            description: 'Stoks and more!'
+            description: 'Stocks and more!',
+            children: [
+              {
+                name: 'Vesting',
+                description: 'Gaining shares over time'
+              }
+            ]
           },
           {
             name: 'Company takeovers',
@@ -61,7 +77,13 @@ namespace :groups do
             children: [
               {
                 name: 'Branding',
-                description: 'Bradning'
+                description: 'Branding',
+                children: [
+                  {
+                    name: 'Insights from the industry',
+                    description: 'High quality industry insights on branding'
+                  }
+                ]
               },
               {
                 name: 'Consumer & Shopper insights',
@@ -79,7 +101,13 @@ namespace :groups do
               },
               {
                 name: 'Risk management',
-                description: 'Tired of uncalculable risks?'
+                description: 'Tired of uncalculable risks?',
+                children: [
+                  {
+                    name: 'Calculation',
+                    description: 'Advanced risk calculation'
+                  }
+                ]
               }
             ]
           }

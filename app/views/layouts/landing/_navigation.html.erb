@@ -8,36 +8,36 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a id="logo" href="#">
-          <%= image_tag 'logo2x.png', alt: 'consulted.co', id: 'logo-white' %>
-          <%= image_tag 'logo2x_black.png', alt: 'consulted.co', id: 'logo-black', class: 'hidden' %>
-        </a>
+        <%= link_to root_path, id: 'logo' do %>
+          <%= image_tag 'logo2x.png', alt: 'CONSULTED.co', id: 'logo-white' %>
+          <%= image_tag 'logo2x_black.png', alt: 'CONSULTED.co', id: 'logo-black', class: 'hidden' %>
+        <% end %>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <%= link_to '#landing-advice' do  %>
+            <%= link_to "#{root_path}#landing-advice" do  %>
               <%= content_tag :span do %>
                 Your benefit
               <% end %>
             <% end %>
           </li>
           <li>
-            <%= link_to '#landing-offerings' do  %>
+            <%= link_to "#{root_path}#landing-offerings" do  %>
               <%= content_tag :span do %>
                 Service offerings
               <% end %>
             <% end %>
           </li>
           <li>
-            <%= link_to '#landing-howitworks' do  %>
+            <%= link_to "#{root_path}#landing-howitworks" do  %>
               <%= content_tag :span do %>
                 How it works
               <% end %>
             <% end %>
           </li>
           <li>
-            <%= link_to '#landing-wecanhelpyou' do  %>
+            <%= link_to "#{root_path}#landing-wecanhelpyou" do  %>
               <%= content_tag :span do %>
                 Typical use cases
               <% end %>

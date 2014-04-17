@@ -4,29 +4,67 @@ app.service 'GroupData', [
   '$http'
   '$q'
   GroupData = (http, q) ->
-    groups = http.get('/groups.json')
+    getData = () ->
+      result = q.defer()
+      http.get('/groups.json', cache: yes).then (response) ->
+        result.resolve response.data
+      result.promise
+
     getGroups: () ->
       result = q.defer()
-      groups.then (response) ->
+      getData().then (groups) ->
+        result.resolve groups
+      , (err) ->
+        result.reject err
+      result.promise
+
+    findGroup: (slug) ->
+      result = q.defer()
+      find = (data, slug) ->
+        for group in data
+          if group.slug is slug
+            return group
+          found = find group.children, slug
+          return found if found
+      getData().then (groups) ->
+        result.resolve find groups, slug
+      result.promise
+
+    showGroup: (slug) ->
+      result = q.defer()
+      http.get("/groups/#{slug}.json", cache: yes).then (response) ->
         result.resolve response.data
       , (err) ->
         result.reject err
       result.promise
-    findGroup: (id) ->
-      result = q.defer()
-      groups.then (response) ->
-        {data} = response
-        find = (data, id) ->
-          for group in data
-            if group.id is id
-              return group
-            found = find group.children, id
-            return found if found
 
-        group = find data, id
-        result.resolve find data, id
+    findBreadCrumb: (slug) ->
+      deferredCrumbs = q.defer()
+      slice = (o, properties...) ->
+        ret = {}
+        ret[p] = o[p] for p in properties
+        ret
 
-      result.promise
+      find = (a, slug) ->
+        for o in a
+          if(o.slug is slug)
+              return [ slice(o, 'name', 'slug') ]
+          if(sub = find(o.children, slug))
+              return [ slice(o, 'name', 'slug') ].concat(sub)
+        return
+
+      getData().then (groups) ->
+        crumbs = find groups, slug
+        deferredCrumbs.resolve crumbs
+      deferredCrumbs.promise
+
+    isSubCategory: (group) ->
+      for child in group.children
+        if child.children.length > 0
+          return no
+      yes
+
+
 ]
 
 app.service 'OfferData', [
