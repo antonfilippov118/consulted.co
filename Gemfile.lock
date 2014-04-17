@@ -408,7 +408,6 @@ DEPENDENCIES
   factory_girl_rails
   flay (~> 2.4.0)
   flog (~> 4.2.0)
-  font-awesome-rails
   foreman
   guard (~> 2.2.4)
   guard-bundler (~> 2.0.0)
