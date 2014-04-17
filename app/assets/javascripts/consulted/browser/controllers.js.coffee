@@ -70,8 +70,16 @@ app.controller "BrowseCtrl", [
   '$scope'
   'GroupData'
   (scope, GroupData) ->
+    scope.loading = yes
     GroupData.getGroups().then (groups) ->
       scope.roots = (groups.splice(0, 4) while groups.length)
+    , ->
+      scope.error = yes
+    .finally () ->
+      scope.loading = no
+
+
+
 ]
 
 app.controller 'BreadCtrl', [

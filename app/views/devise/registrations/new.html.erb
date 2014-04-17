@@ -1,36 +1,39 @@
-<div class="signup">
-  <div class="box">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="signup_box">
-          <h4>Signup with an existing account</h4>
-          <br>
-          <ul class="social_buttons">
-            <li>
-              <%= link_to user_omniauth_authorize_path(provider: 'linkedin'), class: 'linkedin', data: { disable_with: 'Connecting...'} do %>
-                <i class="fa fa-linkedin"></i> Sign up with LinkedIn
-              <% end %>
-            </li>
-          </ul>
-          <hr class="intro-divider">
-          <h4>Signup with email</h5>
-          <%= form_for(resource, as: resource_name, url: user_registration_path(resource)) do |f| %>
-            <%= devise_error_messages! %>
-            <div>
-              <%= f.label :email %><br />
-              <%= f.email_field :email %>
-            </div>
-            <div>
-              <%= f.submit 'Sign up', class: 'btn' %>
-            </div>
-          <% end %>
-          <%= link_to "Email already in use? Try to restore password!", new_password_path(resource_name) %>
+<div class="modal fade" id="login_simple" tabindex="-1" role="dialog" aria-labelledby="logo_bk" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="logo_bk">
+          <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
+        </h4>
+        <p class="popup-slogan">Signup - it's free!</p>
+      </div>
+      <div class="modal-body">
+        <div class="popup-row">
+          <input type="text" class="form-control" placeholder="Full name">
         </div>
+        <div class="popup-row">
+          <input type="email" class="form-control" placeholder="Email">
+          <span class="checked"></span>
+        </div>
+        <div class="popup-row">
+          <span class="info flaticon flaticon-info"> Your email is never shared</span>
+        </div>
+        <div class="popup-row">
+          <input type="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="popup-row">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> I want to receive the Newsletter (optional)
+            </label>
+          </div>
+        </div>
+        <div class="popup-row">
+          <button type="button" class="btn btn-primary sub">Complete signup</button>
+        </div>
+        <p class="popup-text">By signing up you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> and you confirm that you are 18 years old or over.</p>
       </div>
     </div>
   </div>
-  <!-- /.container -->
 </div>
-
-
-

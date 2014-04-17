@@ -15,6 +15,10 @@ body {
   }
 }
 
+[ng-click] {
+  cursor: pointer;
+}
+
 .heading, #profile .heading {
   font: 400 28px/42px 'Helvetica Neue',sans-serif;
   margin: 42px auto 14px;
