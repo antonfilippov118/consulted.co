@@ -17,14 +17,14 @@ class Users::DashboardController < Users::BaseController
     if @user.update_attributes contact_params
       redirect_to overview_path
     else
-      render :contact, alert: 'Could not save yur contact email, please try again.'
+      render :contact, alert: 'Could not save your contact email, please try again.'
     end
   end
 
   private
 
   def contact_params
-    params.permit :contact_email
+    params.require(:user).permit :contact_email, :newsletter
   end
 
   def needs_contact_email?
