@@ -16,7 +16,7 @@
     <div class="wrapper">
       <div id="navbar">
         <%= render partial: 'layouts/application/header' %>
-        <% unless user_signed_in? %>
+        <% if user_signed_in? %>
           <%= render partial: 'layouts/application/navigation' %>
         <% end %>
       </div>
