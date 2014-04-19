@@ -3,7 +3,6 @@
     <a ng-href="#!/">Overview</a>
   </li>
   <li ng-repeat="crumb in crumbs">
-    <a ng-href="#!/{{crumb.slug}}" ng-hide="$last">{{crumb.name}}</a>
-    <span ng-show="$last">{{crumb.name}}</span>
+    <a ng-href="#!/{{crumb.slug}}">{{crumb.name}}</a>
   </li>
 </ul>

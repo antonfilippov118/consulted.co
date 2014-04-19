@@ -771,6 +771,7 @@ textarea.form-control {
   margin: 42px 0 0;
   overflow: hidden;
   padding: 4px 0 8px;
+
   @media (max-width: 768px) {
     margin: 16px 0 0;
   }
@@ -800,6 +801,7 @@ textarea.form-control {
 .result .bread {
   font-size: 13px;
   margin: 0;
+  height: 50px;
 }
 
 .result .bread li:after {
