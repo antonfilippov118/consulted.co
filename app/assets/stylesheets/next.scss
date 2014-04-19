@@ -3155,6 +3155,28 @@ textarea.form-control {
 
 /* Footer ************************************************************************************************************************/
 
+p.signup-btn {
+  background: #fff;
+  margin: 0;
+  a.btn {
+    background: #6b7a99;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    padding: 8px 40px;
+    text-transform: none;
+  }
+  & + .postbtn {
+    color: #777;
+    font-weight: 700;
+    margin: -4px 0 0;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px 0;
+    background: #fff;
+  }
+}
+
 #footer {
   border-top: 1px solid #ddd;
   color: #30323b;

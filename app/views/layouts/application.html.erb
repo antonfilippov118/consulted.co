@@ -23,6 +23,16 @@
           <%= yield %>
         </div>
       </section>
+      <% if show_signup?  %>
+        <p class="text-center signup-btn">
+          <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
+            Sign Up
+          <% end %>
+        </p>
+        <p class="postbtn">
+          <%= link_to 'interested to join as expert?', '#' %>
+        </p>
+      <% end %>
       <div class="push"></div>
     </div>
     <div class="footer">

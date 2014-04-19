@@ -11,7 +11,7 @@ module Omniauthable
 
   module Linkedin
     def connect_to_linkedin(auth)
-      return true unless self.user_linkedin_connection.nil?
+      return true unless user_linkedin_connection.nil?
       self.providers = providers.nil? ? [auth.provider] : [auth.provider]
       self.uid       = auth.uid
       self.email     = auth.info.email
