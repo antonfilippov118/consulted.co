@@ -228,7 +228,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :linkedin, ENV['LINKEDIN_APIKEY'], ENV['LINKEDIN_SECRETKEY'] , scope: 'r_fullprofile r_emailaddress r_network'
+  config.omniauth :linkedin, ENV['LINKEDIN_APIKEY'], ENV['LINKEDIN_SECRETKEY'] , scope: 'r_fullprofile r_emailaddress'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

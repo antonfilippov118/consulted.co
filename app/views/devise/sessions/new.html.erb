@@ -1,17 +1,22 @@
-<div class="modal fade" id="login_simple" tabindex="-1" role="dialog" aria-labelledby="logo_bk" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="logo_bk">
+<div class="signup login">
+  <div class="well col-md-6 col-md-offset-3">
+    <div class="content">
+      <div class="header">
+        <h4 class="title" id="logo_bk">
           <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
         </h4>
-        <p class="popup-slogan">Welcome!</p>
+        <p class="popup-slogan text-center">Welcome!</p>
+        <hr>
       </div>
-      <div class="modal-body">
+      <div class="body">
         <div class="popup-row">
           <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
             Connect with LinkedIn
+          <% end %>
+        </div>
+        <div class="popup-row">
+          <%= link_to '#', class: 'btn btn-primary flaticon flaticon-facebook' do %>
+            Connect with Facebook
           <% end %>
         </div>
         <div class="popup-row control-cover">

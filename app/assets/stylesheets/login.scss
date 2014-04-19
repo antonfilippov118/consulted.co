@@ -1,3 +1,11 @@
-.toggle_login {
-  cursor: pointer;
+.signup, .login {
+  .toggle_login {
+    cursor: pointer;
+  }
+
+  margin: 6% 0;
+
+  .content {
+    min-height: 40%;
+  }
 }
