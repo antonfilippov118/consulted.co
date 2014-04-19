@@ -1,0 +1,18 @@
+<div class="modal fade" id="tz_modal" tabindex="-1" role="dialog" aria-labelledby="Timezone" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="Timezone change">Change your timezone</h4>
+      </div>
+      <%= form_for @user, url: timezone_path, remote: true do |f| -%>
+        <div class="modal-body">
+          <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control' %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Save", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

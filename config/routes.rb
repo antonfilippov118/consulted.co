@@ -56,6 +56,7 @@ Consulted::Application.routes.draw do
 
     get :contact_email, controller: 'users/dashboard', action: :contact
     patch :contact_email, controller: 'users/dashboard', action: :update_contact
+    patch :timezone, controller: 'users/dashboard', action: :timezone
   end
 
   resources :groups, only: [:show, :index]
