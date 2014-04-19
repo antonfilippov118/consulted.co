@@ -21,11 +21,13 @@
         </div>
       </div>
     <% else %>
-      <div id="account">
-        <%= link_to new_user_session_path, class: 'btn btn-default' do %>
-          You are not logged in right now. Click here to login.
-        <% end %>
-      </div>
+      <% unless login_view? %>
+        <div id="account">
+          <%= link_to new_user_session_path, class: 'btn btn-default' do %>
+            You are not logged in right now. Click here to login.
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </header>
