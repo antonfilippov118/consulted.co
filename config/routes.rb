@@ -55,7 +55,9 @@ Consulted::Application.routes.draw do
     end
   end
 
-  resources :groups, only: [:show, :index]
+  resources :groups, only: [:show, :index] do
+    post :search
+  end
 
   resource :offers, only: [:show]
 
