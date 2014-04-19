@@ -62,6 +62,7 @@ app.controller "GroupCtrl", [
 
     scope.$on 'group:ready', (_, group) ->
       offering = GroupData.isSubCategory(group)
+      subcat   = group.depth >= 1 && !offering
       if offering
         number = 2
       else
@@ -69,6 +70,7 @@ app.controller "GroupCtrl", [
       scope.groups   = (group.children.splice(0, number) while group.children.length)
       scope.offering = offering
       scope.group    = group
+      scope.subcat   = subcat
 
     scope.learn = (group) ->
       modalInstance = modal.open
