@@ -2,10 +2,8 @@ class Users::DashboardController < Users::BaseController
   before_filter :needs_contact_email?, only: :contact
   before_filter :remind_confirmation?, only: :show
   def show
-    @requests     = @user.requests.active
-    @outstanding  = Request.active.by @user
-    @calls        = @user.active_calls
-    @upcoming     = @user.future_calls
+    @next_7_days = []
+    @after_7_days = []
   end
 
   def history

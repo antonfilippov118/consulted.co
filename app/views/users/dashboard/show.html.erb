@@ -18,11 +18,14 @@
           <div id="quickaccess-text">
             <p>I want to...</p>
             <div class="clr">
-              <%= link_to do %>
+              <%= link_to '#' do %>
                 Manage calls I requested (I seek advice)
               <% end %>
             </div>
-            <div class="clr"><a href="#">Manage calls I offered (I offer advice)</a>
+            <div class="clr">
+            <%= link_to '#' do %>
+              Manage calls I offered (I offer advice)
+            <% end %>
             </div>
           </div>
         </div>
@@ -32,109 +35,42 @@
     <div class="overview-table-head">In the next 7 days</div>
     <table class="overview-table table table-striped">
       <tbody>
-        <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
+        <% if @next_7_days.any? %>
+          <tr>
+            <td>Requested</td>
+            <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
+            </td>
+            <td>Sheduled</td>
+            <td><a class="link-cancel" href="#">cancel</a>
           </td>
         </tr>
-        <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr class="pending">
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Pending your confirmation</td>
-          <td><a class="link-confirm" href="#">confirm</a>  <a class="link-deny" href="#">deny</a>
-          </td>
-        </tr>
-        <tr class="pending">
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Pending your confirmation</td>
-          <td><a class="link-confirm" href="#">confirm</a>  <a class="link-deny" href="#">deny</a>
-          </td>
-        </tr>
+        <% else %>
+          <tr>
+            <td colspan="3">The are are no calls in the next 7 days.</td>
+            <td></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 
-    <div class="overview-table-head">In the next 7 days</div>
+    <div class="overview-table-head">In 7 days or more</div>
     <table class="overview-table table table-striped">
       <tbody>
-        <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
+        <% if @after_7_days.any? %>
+          <tr>
+            <td>Requested</td>
+            <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
+            </td>
+            <td>Sheduled</td>
+            <td><a class="link-cancel" href="#">cancel</a>
           </td>
         </tr>
-        <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Sheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <tr class="pending">
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Pending your confirmation</td>
-          <td><a class="link-confirm" href="#">confirm</a>  <a class="link-deny" href="#">deny</a>
-          </td>
-        </tr>
-        <tr class="pending">
-          <td>Offered</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Pending your confirmation</td>
-          <td><a class="link-confirm" href="#">confirm</a>  <a class="link-deny" href="#">deny</a>
-          </td>
-        </tr>
+        <% else %>
+          <tr>
+            <td colspan="3">The are are no calls in the next 7 days.</td>
+            <td></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
-
 </div>
