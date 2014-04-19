@@ -1,59 +1,65 @@
-<div class="modal fade" id="login_simple" tabindex="-1" role="dialog" aria-labelledby="logo_bk" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="logo_bk">
-          <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
-        </h4>
-        <p class="popup-slogan">Signup - it's free!</p>
-      </div>
-      <div class="modal-body">
-        <div id="sign_up_social">
-          <div class="popup-row">
-            <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
-              Connect with LinkedIn
-            <% end %>
-          </div>
-          <div class="popup-row text-center">
-            <a class="toggle_login">I want to signup with my email</a>
-          </div>
+<div class="signup login">
+  <div class="well col-md-6 col-md-offset-3">
+    <div class="content">
+      <%= form_for(resource, as: resource_name, url: user_registration_path(resource)) do |f| %>
+        <div class="header">
+          <h4 class="title" id="logo_bk">
+            <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
+          </h4>
+          <p class="popup-slogan text-center">Signup - it's free!</p>
+          <hr>
+          <%= render partial: 'layouts/messages' %>
         </div>
-        <div id="sign_up_email" style="display:none">
-          <%= form_for(resource, as: resource_name, url: user_registration_path(resource), remote: true) do |f| %>
+        <div class="body">
+          <div id="sign_up_social">
             <div class="popup-row">
-              <%= f.text_field :name, class: 'form-control', placeholder: 'Full name' %>
+              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
+                Connect with LinkedIn
+              <% end %>
             </div>
             <div class="popup-row">
-              <%= f.text_field :email, placeholder: 'Email', class: 'form-control' %>
-              <span class="checked" style="display:none"></span>
-            </div>
-            <div class="popup-row">
-              <span class="info flaticon flaticon-info"> Your email is never shared</span>
-            </div>
-            <div class="popup-row">
-              <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
-            </div>
-            <div class="popup-row">
-              <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
-            </div>
-            <div class="popup-row">
-              <div class="checkbox">
-                <label>
-                  <%= f.check_box :newsletter %> I want to receive the Newsletter (optional)
-                </label>
-              </div>
-            </div>
-            <div class="popup-row">
-              <%= f.submit "Complete signup", class: 'btn btn-primary sub' %>
+              <%= link_to '#', class: 'btn btn-primary flaticon flaticon-facebook' do %>
+                Connect with Facebook
+              <% end %>
             </div>
             <div class="popup-row text-center">
-              <a class="toggle_login">I want to sign up with one of my social media profiles</a>
+              <a class="toggle_login">I want to signup with my email</a>
             </div>
-          <% end %>
+          </div>
+          <div id="sign_up_email" style="display:none">
+              <div class="popup-row">
+                <%= f.text_field :name, class: 'form-control', placeholder: 'Full name' %>
+              </div>
+              <div class="popup-row">
+                <%= f.email_field :email, placeholder: 'Email', class: 'form-control' %>
+                <span class="checked" style="display:none"></span>
+              </div>
+              <div class="popup-row">
+                <span class="info flaticon flaticon-info"> Your email is never shared</span>
+              </div>
+              <div class="popup-row">
+                <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+              </div>
+              <div class="popup-row">
+                <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
+              </div>
+              <div class="popup-row">
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :newsletter %> I want to receive the Newsletter (optional)
+                  </label>
+                </div>
+              </div>
+              <div class="popup-row">
+                <%= f.submit "Complete signup", class: 'btn btn-primary sub' %>
+              </div>
+              <div class="popup-row text-center">
+                <a class="toggle_login">I want to sign up with one of my social media profiles</a>
+              </div>
+          </div>
+          <p class="popup-text">By signing up you agree to our <%= link_to 'Terms of Service', terms_path%> and <%= link_to 'Privacy Policy',privacy_path %> and you confirm that you are 18 years old or over.</p>
         </div>
-        <p class="popup-text">By signing up you agree to our <%= link_to 'Terms of Service', terms_path%> and <%= link_to 'Privacy Policy',privacy_path %> and you confirm that you are 18 years old or over.</p>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

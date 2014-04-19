@@ -11,8 +11,7 @@ class User
   field :profile_image_uid
 
   dragonfly_accessor :profile_image do
-    # TODO: replace with appropriate default image
-    default [Rails.root, 'app/assets/images/alex.jpg'].join '/'
+    default [Rails.root, 'app/assets/images/anon.png'].join '/'
   end
 
   field :name, type: String, default: ''

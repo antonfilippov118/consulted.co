@@ -104,7 +104,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming his account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
-  config.allow_unconfirmed_access_for = 0
+  config.allow_unconfirmed_access_for = 2.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -112,7 +112,7 @@ Devise.setup do |config|
   # their account can't be confirmed with the token any more.
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
-  config.confirm_within = 1.day
+  config.confirm_within = 2.days
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
@@ -228,7 +228,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :linkedin, ENV['LINKEDIN_APIKEY'], ENV['LINKEDIN_SECRETKEY'] , scope: 'r_fullprofile r_emailaddress r_network'
+  config.omniauth :linkedin, ENV['LINKEDIN_APIKEY'], ENV['LINKEDIN_SECRETKEY'] , scope: 'r_fullprofile r_emailaddress'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
