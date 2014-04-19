@@ -1012,7 +1012,7 @@ textarea.form-control {
 }
 
 .rating-hand {
-  background: url("../images/hand.png") 50% 50% no-repeat;
+  background: image-url("hand.png") 50% 50% no-repeat;
   color: #fff;
   height: 33px;
   line-height: 43px;
@@ -1054,7 +1054,7 @@ textarea.form-control {
   margin: 26px 0;
   text-align: center;
   & a {
-    background: url("../images/arrdown.svg") 50% 35px no-repeat;
+    background: image-url("arrdown.svg") 50% 35px no-repeat;
     display: block;
     padding-bottom: 26px;
     &:hover {
@@ -1221,7 +1221,7 @@ textarea.form-control {
 }
 
 .form-control.chk {
-  background: url("../images/chk.png") 100% 50% no-repeat white;
+  background: image-url("chk.png") 100% 50% no-repeat white;
   padding-right: 30px;
 }
 
@@ -1331,7 +1331,7 @@ textarea.form-control {
 }
 
 .checked {
-  background: url("../images/chk.png") 0 0 no-repeat;
+  background: image-url("chk.png") 0 0 no-repeat;
   height: 32px;
   position: absolute;
   right: 5px;
@@ -1992,7 +1992,7 @@ textarea.form-control {
 }
 
 .policy.signed {
-  background: url("../images/chk.png") 4px -5px no-repeat;
+  background: image-url("chk.png") 4px -5px no-repeat;
 }
 
 .policy p {
@@ -2031,7 +2031,7 @@ textarea.form-control {
 }
 
 .saved {
-  background: url("../images/chk.png") 0 1px no-repeat;
+  background: image-url("chk.png") 0 1px no-repeat;
   display: inline-block;
   line-height: 34px;
   padding-left: 32px;
