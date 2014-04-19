@@ -15,11 +15,16 @@
   <body>
     <%# Main navigation %>
     <%= render partial: 'layouts/static/navigation' %>
-    <div class="slide-text container">
-      <%= yield %>
+    <div class="wrapper">
+      <div class="slide-text container">
+        <%= yield %>
+      </div>
+      <div class="push"></div>
     </div>
-    <%= render partial: 'layouts/footer' %>
-    <div id="copy">&copy; 2014 - consulted.co</div>
+    <div class="footer">
+      <%= render partial: 'layouts/footer' %>
+      <div id="copy">&copy; 2014 - consulted.co</div>
+    </div>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'static' %>
   </body>
