@@ -53,6 +53,9 @@ Consulted::Application.routes.draw do
         get :review, path: '/:slug/:offer_id'
       end
     end
+
+    get :contact_email, controller: 'users/dashboard', action: :contact
+    patch :contact_email, controller: 'users/dashboard', action: :update_contact
   end
 
   resources :groups, only: [:show, :index]
