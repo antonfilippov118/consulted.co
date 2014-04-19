@@ -127,9 +127,8 @@ class User
     (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_to }
   end
 
-  # NOTE: these methods need for 2-step registration via email
-  def password_required?
-    super if confirmed?
+  def remind_confirmation?
+    !confirmed? && Time.now - confirmation_sent_at >= 24.hours
   end
 
   def password_match?

@@ -1,7 +1,8 @@
 <div>
   <div bread group="group"></div>
-  <h2 class="heading ng-cloak" ng-hide="offering">Choose a category</h2>
-  <h2 class="heading ng-cloak" ng-show="offering">Choose an offering</h2>
+  <h2 class="heading ng-cloak" ng-hide="offering || subcat">Choose a category</h2>
+  <h2 class="heading ng-cloak" ng-show="offering && !subcat">Choose an offering</h2>
+  <h2 class="heading ng-cloak" ng-show="!offering && subcat">Choose a subcategory</h2>
   <div class="row ng-cloak" ng-hide="offering">
     <div class="col-md-4" ng-repeat="group in groups">
       <ul class="list list-big">

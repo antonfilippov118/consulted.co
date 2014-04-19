@@ -1,5 +1,6 @@
 class Users::DashboardController < Users::BaseController
   before_filter :needs_contact_email?, only: :contact
+  before_filter :remind_confirmation?, only: :show
   def show
     @requests     = @user.requests.active
     @outstanding  = Request.active.by @user
@@ -34,6 +35,12 @@ class Users::DashboardController < Users::BaseController
 
     unless new_user && needs_contact_email && social
       redirect_to overview_path
+    end
+  end
+
+  def remind_confirmation?
+    if @user.remind_confirmation?
+      flash[:alert] = 'Your account is still not confirmed! You have 24 hours left before it will be deactivated!'
     end
   end
 end

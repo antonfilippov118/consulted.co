@@ -119,24 +119,4 @@ describe User do
       expect(user.slug).to eql 'florian'
     end
   end
-
-  describe '#password_required?' do
-    subject { user.password_required? }
-
-    context 'with uncofirmed user' do
-      before do
-        user.stub(:confirmed?) { false }
-      end
-
-      it { should be_false }
-    end
-
-    context 'with cofirmed user' do
-      before do
-        user.stub(:confirmed?) { true }
-      end
-
-      it { should be_true }
-    end
-  end
 end
