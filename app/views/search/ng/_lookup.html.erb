@@ -3,9 +3,38 @@
   <div id="search">
     <form role="form" ng-submit="lookup()">
       <div id="search-box">
-        <input type="text" class="form-control" placeholder="How can we help? e.g. &quot;people hiring&quot;">
+        <input type="text" ng-model="term" class="form-control" placeholder="How can we help? e.g. &quot;risk calculation&quot;">
       </div>
-      <button type="submit" class="btn btn-primary" id="search-sub">Search</button>
+      <button type="submit" class="btn btn-primary" ng-disabled="searching" id="search-sub">Search</button>
+      <div ng-show="searching" class="text-center">
+        <br>
+        <i class="fa fa-refresh fa-2x fa-spin"></i>
+      </div>
+      <div ng-show="!result && search_active && !searching" class="text-center">
+        <h1>No results</h1>
+      </div>
+      <div class="results" ng-show="search_active && !searching && result">
+        <h2>{{groups.length}} service offering{{groups.length != 1 ? 's' : ''}} found</h2>
+        <div class="row">
+          <div class="col-md-6" ng-repeat="group in groups">
+            <div class="result">
+              <h3>{{group.name}}</h3>
+              <div bread group="group"></div>
+              <p>{{group.description}}</p>
+              <div class="result-bottom">
+                <a class="result-info" ng-click="learn(group)">
+                  <span class="flaticon flaticon-info"></span>Learn more
+                </a>
+                <a ng-href="/groups/{{group.slug}}" class="btn btn-primary">Show experts</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center" ng-show="search_active">
+        <hr>
+        <p><a ng-click="reset()">Back to overview</a></p>
+      </div>
     </form>
   </div>
 </div>

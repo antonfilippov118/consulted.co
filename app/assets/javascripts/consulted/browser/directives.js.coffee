@@ -19,10 +19,22 @@ app.directive "browse", [
 ]
 
 app.directive 'bread', [
-  () ->
+  '$location'
+  'GroupData'
+  (location, GroupData) ->
     replace: yes
-    scope: yes
+    scope:
+      group: "="
     templateUrl: 'bread'
-    controller: 'BreadCtrl'
+    link: (scope) ->
+      scope.$watch 'group', (group) ->
+        return if group is undefined
+        GroupData.findBreadCrumb(group.slug).then (crumbs) ->
+          scope.crumbs = crumbs
+        , (err) ->
+          scope.error = yes
+
+
+
 
 ]

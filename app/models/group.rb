@@ -16,4 +16,5 @@ class Group
   before_destroy :destroy_children
 
   has_many :calls
+
 end

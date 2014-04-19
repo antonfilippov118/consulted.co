@@ -1,18 +1,49 @@
 app = angular.module "consulted.browser.controllers", [
   'consulted.common'
   'ui.bootstrap'
+  'consulted.browser.services'
 ]
 
 app.controller "LookupCtrl", [
   '$scope'
-  (scope) ->
+  'Search'
+  '$rootScope'
+  '$modal'
+  (scope, Search, rootScope, modal) ->
     scope.lookup = ->
-      console.log 'searching'
+      return unless scope.term
+      return if scope.searching
+      scope.search_active = yes
+      scope.searching = yes
+      rootScope.$emit 'search:enable'
+      Search.do(scope.term).then (groups) ->
+        scope.result = groups.length > 0
+        scope.groups = groups
+      , (err) ->
+        scope.error = yes
+      .finally () ->
+        scope.searching = no
+
+    scope.reset = () ->
+      scope.term = ''
+      rootScope.$emit 'search:disable'
+      scope.search_active = no
+
+    scope.learn = (group) ->
+      modalInstance = modal.open
+        templateUrl: 'learn'
+        controller: 'WindowCtrl'
+        windowClass: 'modal-learn'
+        resolve:
+          group: -> group.slug
 ]
 
 app.controller "MainCtrl", [
   '$scope'
-  (scope) ->
+  '$rootScope'
+  (scope, $rootScope) ->
+    $rootScope.$on 'search:enable', -> scope.search_active = yes
+    $rootScope.$on 'search:disable', -> scope.search_active = no
 ]
 
 app.controller "GroupCtrl", [
@@ -35,8 +66,9 @@ app.controller "GroupCtrl", [
         number = 2
       else
         number = 3
-      scope.groups = (group.children.splice(0, number) while group.children.length)
+      scope.groups   = (group.children.splice(0, number) while group.children.length)
       scope.offering = offering
+      scope.group    = group
 
     scope.learn = (group) ->
       modalInstance = modal.open
@@ -69,33 +101,6 @@ app.controller "WindowCtrl", [
 app.controller "BrowseCtrl", [
   '$scope'
   'GroupData'
-  (scope, GroupData) ->
-    scope.loading = yes
-    GroupData.getGroups().then (groups) ->
-      scope.roots = (groups.splice(0, 4) while groups.length)
-    , ->
-      scope.error = yes
-    .finally () ->
-      scope.loading = no
-
-
-
-]
-
-app.controller 'BreadCtrl', [
-  '$scope'
-  '$location'
-  '$routeParams'
-  'GroupData'
-  (scope, location, routeParams, GroupData) ->
-    scope.breadcrumbsActive = () ->
-      switch location.path()
-        when '/' then no
-        else yes
-
-    GroupData.findBreadCrumb(routeParams.slug).then (crumbs) ->
-      scope.crumbs = crumbs
-    , (err) ->
-      scope.error = yes
-
+  BrowseCtrl = (scope, GroupData) ->
+    GroupData.getGroups()
 ]
