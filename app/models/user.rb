@@ -19,6 +19,7 @@ class User
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
   field :timezone, type: String, default: 'Europe/Berlin'
+  field :contact_email, type: String
 
   field :providers, type: Array
 
@@ -39,7 +40,7 @@ class User
   #
   # Indizes
   #
-  index({ email: 1, slug: 1 }, unique: true)
+  index({ email: 1, slug: 1, uid: 1}, unique: true)
 
   #
   # Favorites

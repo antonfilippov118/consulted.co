@@ -1,0 +1,39 @@
+<div class="signup login">
+  <div class="well col-md-6 col-md-offset-3">
+    <div class="content">
+      <%= form_for(@user, url: contact_email_path(@user)) do |f| -%>
+        <div class="header">
+          <h4 class="modal-title" id="logo_bk">
+           <%= image_tag 'logo_black.png', alt: 'CONSULTED.co' %>
+          </h4>
+          <p class="popup-slogan text-center">Welcome
+            <%= @user.name %>!</p>
+          <hr>
+          <%= render partial: 'layouts/messages' %>
+        </div>
+        <div class="body">
+          <p class="popup-img">
+            <%= image_tag @user.profile_image.url, alt: @user.name %>
+          </p>
+          <p class="popup-name">Hi <%= @user.name %>, you are now connected!</p>
+          <p class="popup-text">Please provide your email address below to complete the signup. Your email is never shared.</p>
+          <p class="popup-text">If you do not provide an email address, we'll use <strong><%= @user.email %></strong>. You can change this setting later.</p>
+          <div class="popup-row">
+            <%= f.email_field :contact_email, class: 'form-control', placeholder: 'Email' %>
+          </div>
+          <div class="popup-row">
+            <div class="checkbox">
+              <label>
+                <%= f.check_box :newsletter %>I want to receive the Newsletter (optional)
+              </label>
+            </div>
+          </div>
+          <div class="popup-row">
+            <%= f.submit "Complete signup", class: 'btn btn-primary sub' %>
+          </div>
+          <p class="popup-text">By signing up you agree to our <%= link_to 'Terms of Service', terms_path %> and <%= link_to 'Privacy Policy', privacy_path  %> and you confirm that you are 18 years old or over.</p>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>
