@@ -5,4 +5,5 @@ class User::LinkedinConnection
 
   field :token
   field :secret
+  field :last_synchronization, type: DateTime
 end

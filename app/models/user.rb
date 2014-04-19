@@ -39,7 +39,7 @@ class User
   #
   # Indizes
   #
-  index({ email: 1, slug: 1 }, unique: true)
+  index({ email: 1, slug: 1, uid: 1}, unique: true)
 
   #
   # Favorites

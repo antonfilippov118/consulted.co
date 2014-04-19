@@ -113,6 +113,7 @@ class SynchronizeLinkedinProfile
 
     executed do |context|
       user = context.fetch :user
+      user.user_linkedin_connection.last_synchronization = Time.now
       if user.save
         next context
       else
@@ -123,9 +124,8 @@ class SynchronizeLinkedinProfile
 
   private
 
-  # TODO: move this to config
-  API_KEY = '778ilmargr3n73'
-  SECRET_KEY = 'GZdkA1QdBbuc8GVm'
+  API_KEY = ENV['LINKEDIN_APIKEY']
+  SECRET_KEY = ENV['LINKEDIN_SECRETKEY']
 
   def self.create_client(user)
     client = LinkedIn::Client.new(API_KEY, SECRET_KEY)
