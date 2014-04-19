@@ -10,7 +10,13 @@ class GroupsController < ApplicationController
   end
 
   def search
-    result = FindsGroup.for params[:text]
+    result = FindsGroup.for search_params.fetch(:text)
     @groups = result.fetch :groups
+  end
+
+  private
+
+  def search_params
+    params.permit :text
   end
 end
