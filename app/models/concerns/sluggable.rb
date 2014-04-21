@@ -3,7 +3,7 @@ module Sluggable
     extend ActiveSupport::Concern
 
     def default_slug
-      slug = name.downcase.gsub ' ', ''
+      slug = name.gsub ' ', ''
       slug = email.downcase.split('@').first if slug == ''
       slug ||= ''
       i = 1
