@@ -55,8 +55,6 @@ app.service 'GroupData', [
 
       getData().then (groups) ->
         crumbs = find groups, slug
-        crumbs.splice crumbs.length-1, 1
-        console.log crumbs
         deferredCrumbs.resolve crumbs
       deferredCrumbs.promise
 

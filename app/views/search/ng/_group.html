@@ -7,7 +7,7 @@
     <div class="col-md-4" ng-repeat="group in groups">
       <ul class="list list-big">
         <li ng-repeat="child in group | orderBy:'name'">
-          <a ng-href="#!/{{child.slug}}">{{child.name}}</a>
+          <a ng-href="#/{{child.slug}}">{{child.name}}</a>
         </li>
       </ul>
     </div>
