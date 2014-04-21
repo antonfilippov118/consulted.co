@@ -44,7 +44,9 @@
         <div class="basics-sect">
           <p class="basics-head">Your expert profile page</p>
           <p class="bigger blue">
-            <%= expert_page @user %>
+            <%= link_to expert_page(@user), target: '_blank' do %>
+              <%= expert_page @user %>
+            <% end %>
           </p>
         </div>
         <div class="basics-sect">
