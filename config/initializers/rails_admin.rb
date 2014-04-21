@@ -21,9 +21,8 @@ RailsAdmin.config do |config|
 
   config.model User do
     list do
-      field :profile_image
       field :name
-      field :email
+      field :contact_email
       field :status
     end
 

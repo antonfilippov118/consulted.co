@@ -52,9 +52,17 @@ GIT
       build-essential (>= 0.0.0)
       yum-epel (>= 0.0.0)
 
+GIT
+  remote: https://github.com/someara/imagemagick
+  ref: master
+  sha: 891a842ad71a8dadc5ec6ed4fa564493e71e2bce
+  specs:
+    imagemagick (0.2.2)
+
 DEPENDENCIES
   apt (>= 0)
   build-essential (>= 0)
+  imagemagick (>= 0)
   mongodb (>= 0)
   nodejs (>= 0)
   npm (>= 0)
