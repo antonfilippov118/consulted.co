@@ -2,7 +2,7 @@
   <div id="profile-main" class="row divider">
     <div class="profile-info col-md-7">
       <div class="profile-image">
-        <%= image_tag @expert.profile_image.url, alt: @expert.name, class: 'profile-img' %>
+        <%= image_tag profile_image_url, alt: @expert.name, class: 'profile-img' %>
         <% if linkedin_profile? %>
           <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin" %>
         <% end %>

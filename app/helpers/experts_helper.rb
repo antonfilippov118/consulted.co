@@ -1,35 +1,11 @@
 module ExpertsHelper
 
-  def possible_expert?
-    @user.can_be_an_expert?
-  end
-
-  def needs_more_contacts?
-    @user.linkedin_network < User.required_connections
-  end
-
-  def needs_confirmation?
-    !@user.confirmed?
-  end
-
-  def needs_linkedin?
-    !@user.linkedin?
-  end
-
-  def needs_payment?
-    false
-  end
-
-  def needs_expert_terms?
-    false
-  end
-
   def profile_image_url
-    @user.profile_image.remote_url
+    @expert.profile_image.url
   end
 
   def current_company
-    @user.companies.current
+    @expert.companies.current
   end
 
   def current_company_name
@@ -37,7 +13,7 @@ module ExpertsHelper
   end
 
   def past_companies
-    @user.companies.delete_if { |c| c == current_company }
+    @expert.companies.delete_if { |c| c == current_company }
   end
 
   def company_url
@@ -56,24 +32,24 @@ module ExpertsHelper
   end
 
   def linkedin_profile?
-    return false if @user.user_linkedin_connection.nil?
-    @user.linkedin?
+    return false if @expert.user_linkedin_connection.nil?
+    @expert.linkedin?
   end
 
   def linkedin_profile_url
-    @user.user_linkedin_connection.public_profile_url
+    @expert.user_linkedin_connection.public_profile_url
   end
 
   def name
-    @user.name
+    @expert.name
   end
 
   def summary
-    @user.summary
+    @expert.summary
   end
 
   def speaks_language?(language)
-    @user.languages.include? language
+    @expert.languages.include? language
   end
 
   def timezone
@@ -81,11 +57,11 @@ module ExpertsHelper
   end
 
   def no_offers?
-    @user.offers.enabled.length > 0
+    @expert.offers.enabled.length > 0
   end
 
   def active_profile?
-    @user.can_be_an_expert? && @user.wants_to_be_an_expert?
+    @expert.can_be_an_expert? && @user.wants_to_be_an_expert?
   end
 
   def profile_class
@@ -96,10 +72,6 @@ module ExpertsHelper
 
   def required_contacts
     Settings.required_network
-  end
-
-  def hours_left
-    distance_of_time_in_words(@user.confirmation_sent_at + 48.hours - Time.now)
   end
 
   def possible_times
@@ -136,11 +108,11 @@ module ExpertsHelper
   end
 
   def education?
-    @user.educations.any?
+    @expert.educations.any?
   end
 
   def educations
-    @user.educations
+    @expert.educations
   end
 
   def education_span(education)

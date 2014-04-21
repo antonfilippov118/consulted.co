@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ExpertsHelper do
+describe UsersHelper do
   before(:each) do
     User.delete_all
   end
