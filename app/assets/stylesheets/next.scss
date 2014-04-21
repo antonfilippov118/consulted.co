@@ -2763,8 +2763,14 @@ textarea.form-control {
   }
   &.yellow {
     background: #F8F4C6;
+    & p.heading {
+      color: #C6BA35;
+    }
     .eligibility-status {
       background: #C6C035;
+      a {
+        color: #fff;
+      }
     }
   }
 }

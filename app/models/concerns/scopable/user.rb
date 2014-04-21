@@ -3,7 +3,7 @@ module Scopable
     extend ActiveSupport::Concern
 
     included do
-      scope :experts, -> { where linkedin_network: { :$gte => ::User.required_connections } }
+      scope :experts, -> { where linkedin_network: { :$gte => ::User.required_connections }, wants_to_be_an_expert: true }
       scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
       scope :with_languages, -> languages { where languages: { :$all => languages } }
       scope :with_slug, -> slug { where slug: slug }

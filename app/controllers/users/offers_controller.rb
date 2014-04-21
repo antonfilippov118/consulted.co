@@ -21,6 +21,14 @@ class Users::OffersController < Users::BaseController
     end
   end
 
+  def activate
+    result = TogglesUserExpert.for @user
+    if result.failure?
+      flash[:notice] = result.message
+    end
+    redirect_to offers_path
+  end
+
   helper ExpertsHelper
 
   private

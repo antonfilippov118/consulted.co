@@ -11,6 +11,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     expert.availabilities.create starts: Time.now - 2.hours, ends: Time.now + 2.hours
     expert.offers.create rate: 25, experience: 2, lengths: %w(30 60), group: group
@@ -30,6 +31,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     expert.availabilities.create starts: Time.now - 2.hours, ends: Time.now + 2.hours
     expert.offers.create rate: 25, experience: 2, lengths: %w(30 60), group: group
@@ -68,6 +70,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     expert.availabilities.create starts: Time.now - 2.hours, ends: Time.now + 2.hours
     expert.offers.create rate: 25, experience: 2, lengths: %w(30 60), group: group
@@ -96,6 +99,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     expert.availabilities.create starts: Time.now - 2.hours, ends: Time.now + 2.hours
     expert.offers.create rate: 25, experience: 2, lengths: %w(30 60), group: group
@@ -120,6 +124,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     starts = DateTime.now.change(hour: 12, minute: 0)
     ends   = starts + 2.hours
@@ -153,6 +158,7 @@ describe FindsAvailableExperts do
 
     expert = User.create valid_params.merge linkedin_network: 10_000, languages: %w(english mandarin)
     expert.confirm!
+    expert.be_an_expert!
 
     starts = DateTime.now.change(hour: 12, minute: 0)
     ends   = starts + 2.hours

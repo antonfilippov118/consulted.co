@@ -20,7 +20,9 @@
             <% if @user.wants_to_be_an_expert? %>
               Active
             <% else %>
-              Activate your profile now!
+              <%= link_to activate_offers_path, method: :put do %>
+                Activate!
+              <% end %>
             <% end %>
           <% else %>
             Inactive
@@ -31,7 +33,7 @@
     <div class="clr text-right">
       <p>
         <% if active_profile? %>
-          <%= link_to '#', class: 'redsemi' do %>
+          <%= link_to activate_offers_path, class: 'redsemi', method: :put do %>
             <small>Deactivate</small>
           <% end %>
         <% end %>

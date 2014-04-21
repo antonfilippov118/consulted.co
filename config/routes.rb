@@ -25,6 +25,7 @@ Consulted::Application.routes.draw do
 
     resource :offers, only: [:show, :update], controller: 'users/offers' do
       get :list
+      put :activate
     end
 
     get :history, controller: 'users/dashboard', action: :history, path: 'history'

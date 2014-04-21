@@ -142,6 +142,10 @@ class User
     password == password_confirmation && !password.blank?
   end
 
+  def be_an_expert!
+    update_attribute :wants_to_be_an_expert, !wants_to_be_an_expert
+  end
+
   private
 
   def self.required_connections
