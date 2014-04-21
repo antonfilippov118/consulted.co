@@ -2,6 +2,13 @@
 
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+  #
+  # TODO
+  # Remmove this helper, once the application goes live
+  #
+  include AuthenticationHelper
+  before_filter :authenticate!, except: [:handle, :lookup], if: -> { Rails.env.production? }
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
@@ -30,21 +37,6 @@ class ApplicationController < ActionController::Base
 
   def set_timezone
     Time.zone = @user.timezone unless @user.nil?
-  end
-
-  #
-  # TODO: remove this once the project goes live
-  # There is an exception for the twilio calls (handle and lookup)
-  #
-  USERS = { ENV['USER'] => ENV['PASSWORD'] }
-
-  before_filter :authenticate, except: [:handle, :lookup]
-
-  def authenticate
-    return true unless Rails.env.production?
-    authenticate_or_request_with_http_digest('Consulted.co Platform') do |name|
-      USERS[name]
-    end
   end
 
   after_filter :set_csrf_cookie
