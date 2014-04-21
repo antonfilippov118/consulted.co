@@ -46,6 +46,7 @@ class User
   # Favorites
   #
   embeds_many :favorites, class_name: 'User::Favorite'
+  accepts_nested_attributes_for :favorites
 
   #
   # Devise
