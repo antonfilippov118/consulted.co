@@ -7,19 +7,17 @@ module AuthenticationHelper
   USERS  = { ENV['USER'] => ENV['PASSWORD'] }
   SECRET = Digest::SHA2.digest "#{ENV['USER']}#{ENV['PASSWORD']}"
   def authenticate!
+    return true if value == SECRET
 
-    value = cookies[:consulted_secret]
-    if value == SECRET
-      return true
-    else
-      authenticated = authenticated = authenticate_or_request_with_http_digest('Consulted.co Platform beta') do |name|
-        USERS[name]
-      end
-
-      return false unless authenticated
-      cookies[:consulted_secret] = SECRET
-      true
+    authenticated = authenticate_or_request_with_http_digest('Consulted.co Platform beta') do |name|
+      USERS[name]
     end
+    return false unless authenticated
+    cookies[:consulted_secret] = SECRET
+    true
   end
 
+  def value
+    cookies[:consulted_secret]
+  end
 end

@@ -18,6 +18,6 @@ module ApplicationHelper
   end
 
   def default_title
-    "Consulted - On-Demand Expert Marketplace"
+    'Consulted - On-Demand Expert Marketplace'
   end
 end

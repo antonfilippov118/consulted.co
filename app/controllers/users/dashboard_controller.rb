@@ -7,7 +7,7 @@ class Users::DashboardController < Users::BaseController
     @after_7_days = []
   end
 
-  def
+  def history
     title! 'Your calls'
   end
 

@@ -2,6 +2,7 @@ class Users::OffersController < Users::BaseController
   skip_before_filter :verify_authenticity_token, only: :update
   include ExpertsHelper
   def show
+    title! 'Offer your time'
   end
 
   def list

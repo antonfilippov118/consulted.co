@@ -132,7 +132,7 @@ class User
   end
 
   def remind_confirmation?
-    !confirmed? && Time.now - confirmation_sent_at >= 24.hours
+    !confirmed? && confirmation_sent_at + 48.hours - Time.now <= 24.hours
   end
 
   def password_match?
@@ -145,6 +145,6 @@ class User
   private
 
   def self.required_connections
-    10
+    Settings.required_network
   end
 end

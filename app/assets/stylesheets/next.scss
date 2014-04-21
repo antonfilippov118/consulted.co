@@ -2752,6 +2752,21 @@ textarea.form-control {
       background: #91c635;
     }
   }
+  &.red {
+    background: #F8C6CE;
+    & p.heading {
+      color: #f00;
+    }
+    .eligibility-status {
+      background: #C63535;
+    }
+  }
+  &.yellow {
+    background: #F8F4C6;
+    .eligibility-status {
+      background: #C6C035;
+    }
+  }
 }
 
 .meeting-heading {
