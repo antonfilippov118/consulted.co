@@ -14,35 +14,35 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <%= link_to "#{root_path}#landing-advice" do  %>
-              <%= content_tag :span do %>
-                Your benefit
+          <% unless user_signed_in? %>
+            <li>
+              <%= link_to "#{root_path}#landing-advice" do  %>
+                <%= content_tag :span do %>
+                  Your benefit
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to "#{root_path}#landing-offerings" do  %>
-              <%= content_tag :span do %>
-                Service offerings
+            </li>
+            <li>
+              <%= link_to "#{root_path}#landing-offerings" do  %>
+                <%= content_tag :span do %>
+                  Service offerings
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to "#{root_path}#landing-howitworks" do  %>
-              <%= content_tag :span do %>
-                How it works
+            </li>
+            <li>
+              <%= link_to "#{root_path}#landing-howitworks" do  %>
+                <%= content_tag :span do %>
+                  How it works
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to "#{root_path}#landing-wecanhelpyou" do  %>
-              <%= content_tag :span do %>
-                Typical use cases
+            </li>
+            <li>
+              <%= link_to "#{root_path}#landing-wecanhelpyou" do  %>
+                <%= content_tag :span do %>
+                  Typical use cases
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
-          <% if @user.nil? %>
+            </li>
             <li>
               <%= link_to new_user_registration_path, class: 'btn btn-default' do  %>
                 Signup
@@ -56,7 +56,7 @@
           <% else %>
             <li>
               <%= link_to overview_path, class: 'btn btn-default' do %>
-                Continue to your dashboard <i class="fa fa-arrow-right"></i>
+                Continue to the platform <i class="fa fa-arrow-right"></i>
               <% end %>
             </li>
           <% end %>
