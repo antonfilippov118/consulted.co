@@ -12,4 +12,12 @@ module ApplicationHelper
       overview_path
     end
   end
+
+  def title!(value)
+    @title = value
+  end
+
+  def default_title
+    "Consulted - On-Demand Expert Marketplace"
+  end
 end

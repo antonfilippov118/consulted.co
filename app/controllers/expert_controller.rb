@@ -6,6 +6,7 @@ class ExpertController < ApplicationController
       return render404
     end
     @expert = user
+    title! "#{@expert.name} - Profile"
   end
 
   def render404
