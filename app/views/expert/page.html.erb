@@ -3,61 +3,45 @@
     <div class="profile-info col-md-7">
       <div class="profile-image">
         <%= image_tag @expert.profile_image.url, alt: @expert.name, class: 'profile-img' %>
-        <% if @user.linkedin? %>
-          <%= link_to '', '#', class: "flaticon flaticon-linkedin" %>
+        <% if linkedin_profile? %>
+          <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin" %>
         <% end %>
-        <a href="#" class="flaticon flaticon-twitter"></a>
       </div>
       <h1>
         <%= @expert.name %>
         <span class="flaticon flaticon-star"></span>
       </h1>
-      <p class="bigger">Sales Manager at <a href="#">Microsoft</a>
-        <br>
-        <small>New York '13</small>
+      <% unless current_company.nil? %>
+        <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %>
+      <% end %>
       </p>
       <div class="profile-heading">Profile summary</div>
-      <p class="bigger">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p class="bigger"><%= summary %></p>
     </div>
     <div class="profile-side col-md-offset-1 col-md-4">
-      <div class="profile-heading">Previous positions</div>
-      <ul class="profile-posed">
-        <li>
-          <span>
-            <strong>Ford</strong>, Sales Manager, Springfield, '12-'13</span>
-        </li>
-        <li>
-          <span>
-            <strong>Ford</strong>, Postman, Springfield, '06-'12</span>
-        </li>
-        <li>
-          <span>
-            <strong>Municipality</strong>, Courier, Springfield, '89-'03</span>
-        </li>
-        <li>
-          <span>
-            <strong>Municipality</strong>, Courier, Springfield, '89-'03</span>
-        </li>
-      </ul>
-      <div class="profile-heading">Education</div>
-      <ul class="profile-posed">
-        <li>
-          <span>
-            <strong>Ford</strong>, Sales Manager, Springfield, '12-'13</span>
-        </li>
-        <li>
-          <span>
-            <strong>Ford</strong>, Postman, Springfield, '06-'12</span>
-        </li>
-        <li>
-          <span>
-            <strong>Municipality</strong>, Courier, Springfield, '89-'03</span>
-        </li>
-        <li>
-          <span>
-            <strong>Municipality</strong>, Courier, Springfield, '89-'03</span>
-        </li>
-      </ul>
+      <% if past_companies.any? %>
+        <div class="profile-heading">Previous positions</div>
+        <ul class="profile-posed">
+          <% past_companies.each do |company| %>
+            <li>
+              <span>
+                <strong><%= company.name %></strong>, <%= company.position %>, <%= career_span(company) %></li>
+              </span>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if education? %>
+        <div class="profile-heading">Education</div>
+        <ul class="profile-posed">
+          <% educations.each do |edu| %>
+            <li>
+              <span>
+                <strong><%= edu.name %></strong>, <%= edu.degree %> <%= education_span(edu).nil? ? '' : education_span(edu) %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   </div>
 
@@ -139,7 +123,7 @@
     </div>
   </div>
 
-  <h2 class="heading">Book a call with Jonatahn Smith</h2>
+  <h2 class="heading">Book a call with <%= @expert.name %></h2>
   <div class="book">
     <div class="clr book-langs">
       <div class="book-lang">English</div>

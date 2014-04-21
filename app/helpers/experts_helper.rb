@@ -1,4 +1,5 @@
 module ExpertsHelper
+
   def possible_expert?
     @user.can_be_an_expert?
   end
@@ -28,11 +29,39 @@ module ExpertsHelper
   end
 
   def current_company
-    @user.current_company.name
+    @user.companies.current
+  end
+
+  def current_company_name
+    current_company.name
+  end
+
+  def past_companies
+    @user.companies.delete_if { |c| c == current_company }
+  end
+
+  def company_url
+    "https://www.linkedin.com/company/#{current_company.linkedin_id}"
+  end
+
+  def career_span(company)
+    from = "'#{company.from.to_s[-2..3]}"
+    return from if company.current?
+    return from if company.from == company.to
+    "#{from}-'#{company.to.to_s[-2..3]}"
   end
 
   def current_position
-    @user.current_position
+    current_company.position
+  end
+
+  def linkedin_profile?
+    return false if @user.user_linkedin_connection.nil?
+    @user.linkedin?
+  end
+
+  def linkedin_profile_url
+    @user.user_linkedin_connection.public_profile_url
   end
 
   def name
@@ -41,14 +70,6 @@ module ExpertsHelper
 
   def summary
     @user.summary
-  end
-
-  def previous_companies
-    @user.companies.drop 1
-  end
-
-  def previous_companies?
-    previous_companies.any?
   end
 
   def speaks_language?(language)
@@ -108,5 +129,21 @@ module ExpertsHelper
 
   def expert_page(expert)
     "#{root_url}#{expert.slug}"
+  end
+
+  def education?
+    @user.educations.any?
+  end
+
+  def educations
+    @user.educations
+  end
+
+  def education_span(education)
+    return if education.from == 0 && education.to == 0
+    return "'#{education.from.to_s[-2..3]}" if education.to == education.from
+    return "'#{education.from.to_s[-2..3]}" if education.to == 0
+    return "'#{education.to.to_s[-2..3]}" if education.from == 0
+    "#{education.from.to.to_s[-2..3]}-'#{education.to.to_s[-2..3]}"
   end
 end

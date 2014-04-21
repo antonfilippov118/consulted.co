@@ -110,14 +110,6 @@ class User
     providers.include? 'linkedin'
   end
 
-  def current_position
-    current_company.position
-  end
-
-  def current_company
-    companies.first
-  end
-
   def active_calls
     (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_to }
   end
