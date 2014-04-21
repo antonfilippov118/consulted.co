@@ -1,4 +1,4 @@
-<% if user_signed_in? and user_expert_page? %>
+<% if user_signed_in? and !user_expert_page? %>
   <span id="bookmark">
     <%= link_to favorite_path(@expert), method: :patch, remote: true do %>
       <% if bookmarked?(@expert) %>
