@@ -5,7 +5,7 @@ module NavigationHelper
   end
 
   def show_signup?
-    return false if !(controller_path =~ /admins/).nil?
+    return false unless (controller_path =~ /admins/).nil?
     !user_signed_in? && !current_page?(new_user_registration_path) && !current_page?(new_user_session_path)
   end
 
