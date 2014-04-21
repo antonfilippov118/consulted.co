@@ -9,6 +9,7 @@ class SynchronizeLinkedinProfile
       SynchCareer,
       SynchEducation,
       SynchImage,
+      SynchUrl,
       SaveUser
     ]
   end
@@ -105,6 +106,17 @@ class SynchronizeLinkedinProfile
       next context if url.nil?
       image  = SynchronizeLinkedinProfile.retrieve url.first
       context[:user].profile_image = image
+    end
+  end
+
+  class SynchUrl
+    include LightService::Action
+
+    executed do |context|
+      client = context.fetch :client
+      url    = client.profile(fields: 'public-profile-url').fetch :public_profile_url
+      next context if url.nil?
+      context[:user].user_linkedin_connection.public_profile_url = url
     end
   end
 

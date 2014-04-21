@@ -41,11 +41,6 @@ class User
   field :status, type: String, default: STATUS_LIST.first
 
   #
-  # Indizes
-  #
-  index({ email: 1, slug: 1, uid: 1 }, unique: true)
-
-  #
   # Favorites
   #
   embeds_many :favorites, class_name: 'User::Favorite'

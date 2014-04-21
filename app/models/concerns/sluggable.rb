@@ -16,8 +16,10 @@ module Sluggable
 
     included do
       field :slug, type: String
+      field :lower_slug, type: String
       before_save do
         self.slug = default_slug if self.slug.nil?
+        self.lower_slug = self.slug.downcase if lower_slug.nil?
       end
     end
   end

@@ -6,7 +6,7 @@ module Scopable
       scope :experts, -> { where linkedin_network: { :$gte => ::User.required_connections }, wants_to_be_an_expert: true }
       scope :confirmed, -> { where confirmation_sent_at: { :$lte => Time.now } }
       scope :with_languages, -> languages { where languages: { :$all => languages } }
-      scope :with_slug, -> slug { where slug: slug }
+      scope :with_slug, -> slug { any_of({ slug: slug }, { lower_slug: slug }) }
       scope :rates_between, -> lower, upper { where :'offers.rate' => { :$lte => upper, :$gte => lower } }
       scope :experiences_between, -> lower, upper { where :'offers.experience' => { :$lte => upper, :$gte => lower } }
       scope :on_day, -> day { where :'availabilities.day' => day, :'availabilities.recurring' => true }
