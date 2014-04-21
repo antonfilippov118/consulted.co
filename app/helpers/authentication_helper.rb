@@ -4,8 +4,7 @@ module AuthenticationHelper
   # TODO: remove this once the project goes live
   # There is an exception for the twilio calls (handle and lookup)
   #
-  #USERS  = { ENV['USER'] => ENV['PASSWORD'] }
-  USERS  = { 'florian' => 'tester' }
+  USERS  = { ENV['USER'] => ENV['PASSWORD'] }
   SECRET = Digest::SHA2.digest "#{ENV['USER']}#{ENV['PASSWORD']}"
   def authenticate!
 
