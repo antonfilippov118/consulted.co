@@ -131,6 +131,10 @@ module ExpertsHelper
     "#{root_url}#{expert.slug}"
   end
 
+  def user_expert_page?
+    @user == @expert
+  end
+
   def education?
     @user.educations.any?
   end
@@ -145,5 +149,9 @@ module ExpertsHelper
     return "'#{education.from.to_s[-2..3]}" if education.to == 0
     return "'#{education.to.to_s[-2..3]}" if education.from == 0
     "#{education.from.to.to_s[-2..3]}-'#{education.to.to_s[-2..3]}"
+  end
+
+  def bookmarked?(expert)
+    @user.favorites.where(favorite_id: expert.id).exists?
   end
 end

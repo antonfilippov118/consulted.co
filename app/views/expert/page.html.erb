@@ -9,7 +9,7 @@
       </div>
       <h1>
         <%= @expert.name %>
-        <span class="flaticon flaticon-star"></span>
+        <%= render partial: 'users/favorites/bookmark' %>
       </h1>
       <% unless current_company.nil? %>
         <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %>
