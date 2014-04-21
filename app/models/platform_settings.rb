@@ -2,11 +2,13 @@ class PlatformSettings
   include Mongoid::Document
   include Validatable::PlatformSettings
 
-  field :platform_fee, type: Integer, default: 1
-  field :cancellation_fee, type: Integer, default: 1
+  field :platform_fee, type: Integer, default: 15
+  field :cancellation_fee, type: Integer, default: 50
+  field :cancellation_period, type: Integer, default: 12
   field :call_dispute_period, type: Integer, default: 0
-  field :block_time, type: Integer, default: 1
+  field :block_time, type: Integer, default: 10
   field :session_timeout, type: Integer, default: 0
+  field :required_network, type: Integer, default: 10
 
   before_validation :ensure_has_only_one_record, on: :create
 
