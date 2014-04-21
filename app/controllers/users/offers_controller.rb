@@ -2,6 +2,7 @@ class Users::OffersController < Users::BaseController
   skip_before_filter :verify_authenticity_token, only: :update
   include ExpertsHelper
   def show
+    title! 'Offer your time'
   end
 
   def list
@@ -18,6 +19,14 @@ class Users::OffersController < Users::BaseController
     else
       render json: { error: result.message }
     end
+  end
+
+  def activate
+    result = TogglesUserExpert.for @user
+    if result.failure?
+      flash[:notice] = result.message
+    end
+    redirect_to offers_path
   end
 
   helper ExpertsHelper

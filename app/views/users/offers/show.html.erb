@@ -1,37 +1,105 @@
-<div class="offer_your_time">
-  <% unless possible_expert?  %>
-    <div class="alert alert-warning">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      You are not able to be booked yet. You still need to:
-      <ul>
-        <% if needs_more_contacts? %>
-          <li>Ensure you have <em><%= User.required_connections %></em> connections in your LinkedIn network.</li>
-        <% end %>
-        <% if needs_confirmation? %>
-          <li>You need to confirm your email address.</li>
-        <% end %>
-        <% if needs_linkedin? %>
-          <li>You need to add a LinkedIn account. <%= link_to 'Connect one now', settings_accounts_path %></li>
-        <% end %>
-      </ul>
+<div id="offerfull-basics" class="offerfull">
+  <div class="well clr">
+    <div class="col-md-12">
+      <div class="eligibility row <%= profile_class %>">
+        <div class="col-md-9">
+          <% if @user.can_be_an_expert? %>
+            <p class="heading">Great, you're eligible!</p>
+            <% if @user.wants_to_be_an_expert? %>
+              <p>Your profile is active!</p>
+            <% else %>
+              <p>You can activate your profile now!</p>
+            <% end %>
+          <% else %>
+            <p class="heading">You cannot be an expert yet!</p>
+            <p>There is some required information missing before you can offer your services with us.</p>
+          <% end %>
+        </div>
+        <div class="eligibility-status elg col-md-3">
+          <% if @user.can_be_an_expert? %>
+            <% if @user.wants_to_be_an_expert? %>
+              Active
+            <% else %>
+              <%= link_to activate_offers_path, method: :put do %>
+                Activate!
+              <% end %>
+            <% end %>
+          <% else %>
+            Inactive
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-  <h2>Offer your time
-    <small>
-      <% if possible_expert? %>
-        <i class="fa fa-check success"></i> You are able to be an expert!
-      <% end %>
-    </small>
-  </h2>
-  <% if possible_expert? %>
-    <%= render partial: 'page' %>
-    <%= render partial: 'review' %>
-    <%= render partial: 'location' %>
-    <%= render partial: 'offers' %>
-    <%= render partial: 'scheduler' %>
-    <%= render partial: 'language' %>
-    <%= render partial: 'settings' %>
-  <% else %>
-    <p>It appears we do not have the information necessary to allow you to offer your time as an expert. </p>
-  <% end %>
+    <div class="clr text-right">
+      <p>
+        <% if active_profile? %>
+          <%= link_to activate_offers_path, class: 'redsemi', method: :put do %>
+            <small>Deactivate</small>
+          <% end %>
+        <% end %>
+      </p>
+    </div>
+    <% if active_profile? %>
+      <div class="col-md-4">
+        <div class="basics-sect">
+          <p class="basics-head">Your expert profile page</p>
+          <p class="bigger blue">
+            <%= link_to expert_page(@user), target: '_blank' do %>
+              <%= expert_page @user %>
+            <% end %>
+          </p>
+        </div>
+        <div class="basics-sect">
+          <p class="basics-head">Your location</p>
+          <div class="clr">
+            <select class="form-control">
+              <option selected="">Germany</option>
+              <option>UK</option>
+              <option>USA</option>
+              <option>France</option>
+            </select>
+            <span class="info flaticon flaticon-info">Please provide your location as we let advice seekers filter by location.</span>
+          </div>
+        </div>
+        <div class="basics-sect">
+          <p class="basics-head">Your timezone</p>
+          <p>Pacific Standart Time (GMT-8) <a class="btn btn-primary btn-xs right" href="#">Change</a>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-offset-2 col-md-6">
+        <p class="profile-heading">A few quick reminders
+          <a class="right" href="#">
+            <small>See all reminders</small>
+          </a>
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim venia incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco esse cillum dolore eu fugiat nulla pariatur anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore aliquip ex.</p>
+        <p>Lorem elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis irure dolor in reprehenderit in voluptate velit.</p>
+      </div>
+    <% end %>
+    <% unless @user.can_be_an_expert? %>
+      <hr>
+      <div class=" col-md-12">
+        <p class="lead">These are the things you need to do:</p>
+        <ul>
+          <% if needs_more_contacts? %>
+            <li>You need at least <%= required_contacts %> in your Linkedin network. We use this information to verify your profile's authenticity.</li>
+          <% end %>
+          <% if needs_linkedin? %>
+            <li>You need a profile at <%= link_to 'Linkedin', 'https://linkedin.com', target: '_blank' %> to offer your services on our platform.</li>
+          <% end %>
+          <% if needs_confirmation? %>
+            <li>You have not confirmed your email address yet. Please note that you have <strong><%= hours_left %></strong> before this account will become <strong>unusable and eventually be deleted</strong>. You can send yourself another confirmation email <%= link_to 'here', '#', target: '_blank' %>.</li>
+          <% end %>
+          <% if needs_payment? %>
+            <li>You still need to attach a payment method to your account. You can do so <%= link_to 'in the payment settings', billing_settings_path, target: '_blank'  %>.</li>
+          <% end %>
+          <% if needs_expert_terms? %>
+            <li>You need to accept the terms for experts on our platform. You can do so <%= link_to 'here', '#', target: '_blank' %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= favicon_link_tag  %>
-    <title><%= content_for?(:title) ? yield(:title) : "CONSULTED.co" %></title>
+    <%= favicon_link_tag 'favicon.png' %>
+    <title>Consulted - On-Demand Expert Marketplace</title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "CONSULTED.co" %>">
     <!--[if lt IE 9]>
       <%= javascript_include_tag 'compatibility' %>
@@ -39,7 +39,7 @@
     <%= render partial: 'layouts/landing/testimonials' %>
 
     <%= render partial: 'layouts/footer' %>
-    <div id="copy">&copy; 2014 - consulted.co</div>
+    <%= render partial: 'layouts/copy' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'landing' %>
   </body>

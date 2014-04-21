@@ -23,6 +23,9 @@ class User
 
   field :providers, type: Array
 
+  # determines wheter or not the user wants to be an expert
+  field :wants_to_be_an_expert, type: Boolean, default: false
+
   ## Linkedin
   field :uid
   field :linkedin_network, type: Integer, default: 0
@@ -36,11 +39,6 @@ class User
 
   field :country
   field :status, type: String, default: STATUS_LIST.first
-
-  #
-  # Indizes
-  #
-  index({ email: 1, slug: 1, uid: 1 }, unique: true)
 
   #
   # Favorites
@@ -112,14 +110,6 @@ class User
     providers.include? 'linkedin'
   end
 
-  def current_position
-    current_company.position
-  end
-
-  def current_company
-    companies.first
-  end
-
   def active_calls
     (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_to }
   end
@@ -129,7 +119,7 @@ class User
   end
 
   def remind_confirmation?
-    !confirmed? && Time.now - confirmation_sent_at >= 24.hours
+    !confirmed? && confirmation_sent_at + 48.hours - Time.now <= 24.hours
   end
 
   def password_match?
@@ -139,9 +129,13 @@ class User
     password == password_confirmation && !password.blank?
   end
 
+  def be_an_expert!
+    update_attribute :wants_to_be_an_expert, !wants_to_be_an_expert
+  end
+
   private
 
   def self.required_connections
-    10
+    Settings.required_network
   end
 end

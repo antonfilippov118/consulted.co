@@ -7,8 +7,6 @@ app.config [
   '$routeProvider'
   '$locationProvider'
   browserConfiguration = (routeProvider, locationProvider) ->
-    locationProvider.hashPrefix "!"
-
     routeProvider
       .when "/",
         controller: "MainCtrl"

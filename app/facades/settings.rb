@@ -3,7 +3,7 @@
 class Settings
   def self.method_missing(attribute)
     @platform_settings ||= PlatformSettings.last
-
+    @platform_settings ||= PlatformSettings.new
     @platform_settings.send(attribute)
   end
 end

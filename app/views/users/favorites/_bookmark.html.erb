@@ -1,0 +1,17 @@
+<% if user_signed_in? and user_expert_page? %>
+  <span id="bookmark">
+    <%= link_to favorite_path(@expert), method: :patch, remote: true do %>
+      <% if bookmarked?(@expert) %>
+        <span>
+          <span class="fa fa-star"></span>
+          <span>Remove from my bookmarks</span>
+        </span>
+      <% else %>
+        <span>
+          <span class="fa fa-star-o"></span>
+          <span>Add to my bookmarks</span>
+        </span>
+      <% end %>
+    <% end %>
+  </span>
+<% end %>

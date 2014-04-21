@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= favicon_link_tag  %>
-    <title><%= content_for?(:title) ? yield(:title) : "Consulted" %></title>
+    <%= favicon_link_tag 'favicon.png'  %>
+    <title><%= @title ? "#{@title} - Consulted" : default_title %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Consulted" %>">
     <%= stylesheet_link_tag "follow" %>
     <!--[if lt IE 9]>
@@ -39,7 +39,7 @@
     </div>
     <div class="footer">
       <%= render partial: 'layouts/footer' %>
-      <div id="copy">© <%= Time.now.year %> - CONSULTED.co</div>
+      <%= render partial: 'layouts/copy' %>
     </div>
     <%= javascript_include_tag "application" %>
     <% if analytics_key %>

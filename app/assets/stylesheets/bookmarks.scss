@@ -1,0 +1,21 @@
+#bookmark {
+  .fa {
+    color: #BFCA42;
+  }
+  .fa + span {
+    display: none;
+  }
+
+  & :hover {
+    .fa + span {
+      display: inline;
+      font-size: 12px;
+      line-height: 22px;
+      color: #666;
+    }
+  }
+
+  a:hover {
+    text-decoration:none;
+  }
+}

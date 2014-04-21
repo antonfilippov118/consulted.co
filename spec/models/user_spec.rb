@@ -93,16 +93,16 @@ describe User do
 
       user = User.first
 
-      expect(user.slug).to eql 'florian'
+      expect(user.slug).to eql 'Florian'
     end
 
     it 'should use incrementary initial slugs for users with the same name' do
       User.create! valid_params
 
-      expect(User.first.slug).to eql 'florian'
+      expect(User.first.slug).to eql 'Florian'
 
       User.create! valid_params.merge email: 'florian1@consulted.co'
-      expect(User.last.slug).to eql 'florian1'
+      expect(User.last.slug).to eql 'Florian1'
     end
   end
 
@@ -116,7 +116,7 @@ describe User do
 
       user = User.first
 
-      expect(user.slug).to eql 'florian'
+      expect(user.slug).to eql 'Florian'
     end
   end
 end

@@ -1,25 +1,177 @@
-<div class="row">
-  <div class="container">
-    <div class="col-lg-3">
-      <br>
-      <%= image_tag @expert.profile_image.url, class: 'img-responsive img-circle' %>
-    </div>
-    <div class="col-lg-9">
-      <h3><%= @expert.name %></h3>
-      <h4>Current position</h4>
-      <p class="lead"><%= @expert.current_position %></p>
-      <p>At <%= @expert.current_company.name %></p>
-      <hr>
-      <ul>
-        <% @expert.offers.enabled.each do |offer| %>
-          <li>
-            <h5><%= offer.name %> <small><%= offer.rate %> USD per hour</small></h5>
-            <p>Experience: <%= offer.experience %> years</p>
-            <p><%= offer.description %></p>
-            <%= link_to 'Select this offer', '#', class: 'btn btn-primary'  %>
-          </li>
+<div id="profile">
+  <div id="profile-main" class="row divider">
+    <div class="profile-info col-md-7">
+      <div class="profile-image">
+        <%= image_tag @expert.profile_image.url, alt: @expert.name, class: 'profile-img' %>
+        <% if linkedin_profile? %>
+          <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin" %>
         <% end %>
-      </ul>
+      </div>
+      <h1>
+        <%= @expert.name %>
+        <%= render partial: 'users/favorites/bookmark' %>
+      </h1>
+      <% unless current_company.nil? %>
+        <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %>
+      <% end %>
+      </p>
+      <div class="profile-heading">Profile summary</div>
+      <p class="bigger"><%= summary %></p>
+    </div>
+    <div class="profile-side col-md-offset-1 col-md-4">
+      <% if past_companies.any? %>
+        <div class="profile-heading">Previous positions</div>
+        <ul class="profile-posed">
+          <% past_companies.each do |company| %>
+            <li>
+              <span>
+                <strong><%= company.name %></strong>, <%= company.position %>, <%= career_span(company) %></li>
+              </span>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if education? %>
+        <div class="profile-heading">Education</div>
+        <ul class="profile-posed">
+          <% educations.each do |edu| %>
+            <li>
+              <span>
+                <strong><%= edu.name %></strong>, <%= edu.degree %> <%= education_span(edu).nil? ? '' : education_span(edu) %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   </div>
+
+  <h2 class="heading">Expert's service offerings</h2>
+  <div class="clr profile-offering">
+    <div class="clr">
+      <h3 class="left">Offering 1</h3>
+      <a class="btn btn-select" href="#">Select this offer</a>
+    </div>
+    <ul class="bread">
+      <li><a href="#">Overview</a>
+      </li>
+      <li><a href="#">Advice group Three</a>
+      </li>
+      <li><a href="#">Category Two</a>
+      </li>
+      <li class="active">Subcategory One</li>
+    </ul>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="profile-heading">Expert's note
+          <small class="right">Category Experience: 3-5 years</small>
+        </div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
+        </p>
+      </div>
+      <div class="col-md-5">
+        <div class="profile-heading">Description</div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <div class="expert-pph text-center">
+          <span class="price">$75</span>/hour</div>
+        <div class="expert-rating">
+          <div class="rating-hand">5</div>
+          at avg. $65
+          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clr profile-offering">
+    <div class="clr">
+      <h3 class="left">Offering 1</h3>
+      <a class="btn btn-select active" href="#">Selected</a>
+    </div>
+    <ul class="bread">
+      <li><a href="#">Overview</a>
+      </li>
+      <li><a href="#">Advice group Three</a>
+      </li>
+      <li><a href="#">Category Two</a>
+      </li>
+      <li class="active">Subcategory One</li>
+    </ul>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="profile-heading">Expert's note
+          <small class="right">Category Experience: 3-5 years</small>
+        </div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
+        </p>
+      </div>
+      <div class="col-md-5">
+        <div class="profile-heading">Description</div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <div class="expert-pph text-center">
+          <span class="price">$75</span>/hour</div>
+        <div class="expert-rating">
+          <div class="rating-hand">5</div>
+          at avg. $65
+          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="heading">Book a call with <%= @expert.name %></h2>
+  <div class="book">
+    <div class="clr book-langs">
+      <div class="book-lang">English</div>
+      <div class="book-lang active">Mandarin</div>
+      <div class="book-lang">Spanish</div>
+      <div class="book-lang">Arabic</div>
+      <div class="book-lang">German</div>
+    </div>
+    <div class="clr book-periods">
+      <div class="book-period-prev">&nbsp;</div>
+      <div class="book-period">Monday, 23 March 2014, 11:15 - 1:00pm</div>
+      <div class="book-period-next">&nbsp;</div>
+    </div>
+    <div class="clr book-weekdays">
+      <div class="book-weekday active">Monday</div>
+      <div class="book-weekday">Tuesday</div>
+      <div class="book-weekday">Wednesday</div>
+      <div class="book-weekday">Thursday</div>
+      <div class="book-weekday">Friday</div>
+      <div class="book-weekday">Saturday</div>
+      <div class="book-weekday">Sunday</div>
+    </div>
+    <div class="clr book-times">
+      <div class="book-time-row"></div>
+      <div class="book-time-row"></div>
+      <div class="book-time-row">
+        <div class="book-time" style="left:0">
+          11:15-1:00p
+          <span class="flaticon flaticon-refresh time-refresh"></span>
+          <span class="flaticon flaticon-close time-close"></span>
+          <span class="flaticon flaticon-sort time-sort"></span>
+        </div>
+        <div class="book-time" style="left:28.57%">
+          11:15-1:00p
+          <span class="flaticon flaticon-refresh time-refresh"></span>
+          <span class="flaticon flaticon-close time-close"></span>
+          <span class="flaticon flaticon-sort time-sort"></span>
+        </div>
+      </div>
+      <div class="book-time-row"></div>
+      <div class="book-time-row"></div>
+      <div class="book-time-row"></div>
+      <div class="book-time-row"></div>
+      <div class="book-time-row"></div>
+    </div>
+  </div>
+  <a class="book-summary" href="#">
+    <span class="bigger">Show booking summary</span>
+    you can review before you submit
+  </a>
 </div>

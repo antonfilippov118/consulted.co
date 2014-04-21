@@ -1,11 +1,9 @@
 class ExpertController < ApplicationController
   rescue_from Mongoid::Errors::DocumentNotFound, with: :render404
   def page
-    user = User.experts.find_by slug: params[:slug]
-    unless user.can_be_an_expert?
-      return render404
-    end
-    @expert = user
+    user = User.experts.with_slug params[:slug].downcase
+    @expert = user.first
+    title! "#{@expert.name} - Profile"
   end
 
   def render404

@@ -9,6 +9,7 @@ class SynchronizeLinkedinProfile
       SynchCareer,
       SynchEducation,
       SynchImage,
+      SynchUrl,
       SaveUser
     ]
   end
@@ -55,6 +56,7 @@ class SynchronizeLinkedinProfile
       user      = client.profile fields: %w(positions last-name first-name summary)
       name      = "#{user.first_name} #{user.last_name}"
       summary   = user.summary
+
       if user.positions.all.nil?
         companies = []
       else
@@ -63,8 +65,14 @@ class SynchronizeLinkedinProfile
             name: p.company['name'],
             linkedin_id: p.company['id'],
             industry: p.company['industry'],
-            position: p.title
+            position: p.title,
+            from: p.start_date.year,
+            current: p.is_current
           }
+          unless p.is_current
+            params.merge! to: p.end_date.year
+          end
+
           User::LinkedinCompany.new params
         end
       end
@@ -87,8 +95,16 @@ class SynchronizeLinkedinProfile
         educations = user.educations.all.map do |education|
           params = {
             degree: education.degree,
-            name: education.school_name
+            name: education.school_name,
+            field: education.field_of_study,
+            notes: education.notes
           }
+          unless education.end_date.nil?
+            params.merge! to: education.end_date.year
+          end
+          unless education.start_date.nil?
+            params.merge! to: education.start_date.year
+          end
           User::LinkedinEducation.new params
         end
       end
@@ -105,6 +121,17 @@ class SynchronizeLinkedinProfile
       next context if url.nil?
       image  = SynchronizeLinkedinProfile.retrieve url.first
       context[:user].profile_image = image
+    end
+  end
+
+  class SynchUrl
+    include LightService::Action
+
+    executed do |context|
+      client = context.fetch :client
+      url    = client.profile(fields: 'public-profile-url').fetch :public_profile_url
+      next context if url.nil?
+      context[:user].user_linkedin_connection.public_profile_url = url
     end
   end
 

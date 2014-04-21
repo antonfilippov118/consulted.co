@@ -2,11 +2,13 @@ class Users::DashboardController < Users::BaseController
   before_filter :needs_contact_email?, only: :contact
   before_filter :remind_confirmation?, only: :show
   def show
+    title! 'Overview'
     @next_7_days = []
     @after_7_days = []
   end
 
   def history
+    title! 'Your calls'
   end
 
   def contact
