@@ -28,12 +28,13 @@ app.directive 'bread', [
     templateUrl: 'bread'
     link: (scope, el, attrs) ->
       scope.hideGroup = attrs['hideGroup'] isnt undefined
+      scope.hideRoot  = attrs['hideRoot'] isnt undefined
 
       scope.$watch 'group', (group) ->
         return if group is undefined
         GroupData.findBreadCrumb(group.slug).then (crumbs) ->
           crumbs.splice(crumbs.length - 1, 1) if scope.hideGroup
-
+          console.log crumbs
           scope.crumbs = crumbs
         , (err) ->
           scope.error = yes

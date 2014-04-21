@@ -1,5 +1,5 @@
 <ul class="bread" ng-show="crumbs.length > 0">
-  <li>
+  <li ng-hide="hideRoot">
     <a ng-href="#/">Find an expert: Home</a>
   </li>
   <li ng-repeat="crumb in crumbs">
