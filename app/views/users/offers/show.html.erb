@@ -42,12 +42,18 @@
     <% if active_profile? %>
       <div class="col-md-4">
         <div class="basics-sect">
-          <p class="basics-head">Your expert profile page</p>
+          <p class="basics-head">
+            Your expert profile page
+            <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="You can share it within your acquaintances who would like to get insights from you so they can get on your schedule on your terms – works great for after speaking engagements or when you get cold called."></span>
+          </p>
           <p class="bigger blue">
             <%= link_to expert_page(@user), target: '_blank' do %>
               <%= expert_page @user %>
             <% end %>
+
+            <%= link_to 'Change', '#', class: "btn btn-primary btn-xs right", data: { target: '#ep_modal', toggle: 'modal' }  %>
           </p>
+          <%= render partial: 'expert_page_modal' %>
         </div>
         <div class="basics-sect">
           <p class="basics-head">Your location</p>
@@ -60,19 +66,19 @@
         </div>
         <div class="basics-sect">
           <p class="basics-head">Your timezone</p>
-          <p>Pacific Standart Time (GMT-8) <a class="btn btn-primary btn-xs right" href="#">Change</a>
+          <p>
+            <%= render partial: 'users/dashboard/timezone' %>
+            <%= link_to 'Change', '#', class: "btn btn-primary btn-xs right", data: { target: '#tz_modal', toggle: 'modal' }  %>
           </p>
+          <%= render partial: 'users/dashboard/timezone_modal', locals: { url: profile_settings_path } %>
         </div>
       </div>
       <div class="col-md-offset-2 col-md-6">
-        <p class="profile-heading">A few quick reminders
-          <a class="right" href="#">
-            <small>See all reminders</small>
-          </a>
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim venia incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco esse cillum dolore eu fugiat nulla pariatur anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore aliquip ex.</p>
-        <p>Lorem elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis irure dolor in reprehenderit in voluptate velit.</p>
+        <p class="profile-heading">A few quick reminders</p>
+        <p>Once a call is confirmed, we will share a call-in number with you – your personal contact data is never shared (we will share your public LinkedIn profile though) </p>
+        <p>Once someone requests a call with you, we will email you and you have xx hours to accept</p>
+        <p>If you successfully complete meetings, your meeting partner can award you an “awesome” in the particular category – we will display your &quot;awesome&quot;-count in the match results</p>
+        <p>We will not share or post any negative reviews should you get some (we will only email you to let you know)</p>
       </div>
     <% end %>
     <% unless @user.can_be_an_expert? %>

@@ -4,9 +4,10 @@
       <div class="col-md-7">
         <h1>
           Upcoming Calls
-          <span class="flaticon flaticon-help help"></span>
+          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Overview about your upcoming calls - requested or offered ones"></span>
         </h1>
         <div class="ovr-timezone">
+          <strong>Your timezone</strong>
           <%= render partial: 'timezone' %>
           <a class="btn btn-primary btn-xs" id="change_tz" data-toggle="modal" data-target="#tz_modal">Change</a>
         </div>

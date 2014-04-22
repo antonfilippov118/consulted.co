@@ -4,7 +4,7 @@ class SlugValidator < ActiveModel::Validator
     application = application_words.include? user.slug
 
     if forbidden || application
-      user.errors.add :slug, 'is not an allowed value'
+      user.errors.add :slug, 'is not an allowed value!'
     end
 
     if contains_invalid_characters? user.slug
