@@ -6,7 +6,7 @@ class StaticController < ApplicationController
     make_the_most
     about_us
     privacy
-    success_stories
+    case_studies
     terms
   ).each do |method_name|
     define_method(method_name) do
@@ -20,7 +20,7 @@ class StaticController < ApplicationController
       make_the_most: 'Make the most of it',
       about_us: 'About us',
       privacy: 'Privacy policy',
-      success_stories: 'Success stories',
+      case_studies: 'Case studies',
       terms: 'Terms & conditions'
     }
   end

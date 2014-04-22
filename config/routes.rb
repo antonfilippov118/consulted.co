@@ -86,7 +86,7 @@ Consulted::Application.routes.draw do
     :make_the_most,
     :about_us,
     :privacy,
-    :success_stories,
+    :case_studies,
     :terms
   ].each do |page|
     get page, controller: :static

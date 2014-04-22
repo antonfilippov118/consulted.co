@@ -2,7 +2,7 @@
   <div class="container">
     <div id="foot-info">
       <p class="foot-text">We democratize access to high value expert advice for businesses</p>
-      <p class="foot-addr">Consulted.co, Inc
+      <p class="foot-addr">Consulted, Inc
         <br/>28 2nd Street, 3rd Floor
         <br/>San Francisco, CA, 94105</p>
     </div>
@@ -16,8 +16,8 @@
             <% end %>
           </li>
           <li>
-            <%= link_to success_stories_path do %>
-              Success stories
+            <%= link_to case_studies_path do %>
+              Case studies
             <% end %>
           </li>
           <li>
@@ -51,7 +51,7 @@
             <%# This is external - via Zendesk %>
               <%= link_to 'https://consultedco.zendesk.com/hc/en-us', target: '_blank' do %>
                 Help
-                <% end %>
+              <% end %>
           </li>
           <li>
             <%= link_to terms_path do %>
