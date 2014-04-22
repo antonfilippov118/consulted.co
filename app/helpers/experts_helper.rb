@@ -60,10 +60,6 @@ module ExpertsHelper
     @expert.offers.enabled.length > 0
   end
 
-  def active_profile?
-    @expert.can_be_an_expert? && @user.wants_to_be_an_expert?
-  end
-
   def profile_class
     return 'yellow' if @user.can_be_an_expert? && !@user.wants_to_be_an_expert?
     return 'red' unless @user.can_be_an_expert?

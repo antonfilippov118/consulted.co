@@ -2,6 +2,7 @@
  *= require fonts
  *= require bootstrap
  *= require main
+ *= require save
  *= require sticky
  *= require fixes
  */

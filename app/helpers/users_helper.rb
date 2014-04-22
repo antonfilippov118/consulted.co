@@ -26,4 +26,9 @@ module UsersHelper
   def hours_left
     distance_of_time_in_words(@user.confirmation_sent_at + 48.hours - Time.now)
   end
+
+  def active_profile?
+    @user.can_be_an_expert? && @user.wants_to_be_an_expert?
+  end
+
 end
