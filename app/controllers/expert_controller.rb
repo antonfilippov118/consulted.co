@@ -3,8 +3,6 @@ class ExpertController < ApplicationController
   def page
     user = User.experts.with_slug slug
     @expert = user.first
-    binding.pry
-
     render404 if @expert.nil?
     title! "#{@expert.name} - Profile"
   end
