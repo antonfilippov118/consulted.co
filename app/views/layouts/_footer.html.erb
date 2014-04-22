@@ -2,7 +2,7 @@
   <div class="container">
     <div id="foot-info">
       <p class="foot-text">We democratize access to high value expert advice for businesses</p>
-      <p class="foot-addr">Consulted.co, Inc
+      <p class="foot-addr">Consulted, Inc
         <br/>28 2nd Street, 3rd Floor
         <br/>San Francisco, CA, 94105</p>
     </div>
@@ -15,9 +15,8 @@
               How it works
             <% end %>
           </li>
-          <li>
-            <%= link_to success_stories_path do %>
-              Success stories
+            <%= link_to case_studies_path do %>
+              Case studies
             <% end %>
           </li>
           <li>
@@ -43,15 +42,15 @@
           <li>
             <%= link_to about_us_path do %>
               About Us
-              <% end %>
+            <% end %>
           </li>
           <li><a href="#">Contact Us</a>
           </li>
           <li>
             <%# This is external - via Zendesk %>
-              <%= link_to 'https://consultedco.zendesk.com/hc/en-us', target: '_blank' do %>
+              <%= link_to 'https://consultedco.zendesk.com/hc/en-us' do %>
                 Help
-                <% end %>
+              <% end %>
           </li>
           <li>
             <%= link_to terms_path do %>
@@ -69,27 +68,27 @@
         <p class="foot-menu-head">Connect</p>
         <ul class="foot-menu">
           <li>
-            <%= link_to 'http://eepurl.com/QuL_f' do %>
+            <%= link_to 'http://eepurl.com/QuL_f', target: '_blank' do %>
               <span class="fa fa-envelope-o"></span>Newsletter
             <% end %>
           </li>
           <li>
-            <%= link_to 'https://twitter.com/consultedco' do %>
+            <%= link_to 'https://twitter.com/consultedco', target: '_blank' do %>
               <span class="fa fa-twitter-square"></span>Twitter
             <% end %>
           </li>
           <li>
-            <%= link_to 'https://www.linkedin.com/company/consulted-inc-/' do %>
+            <%= link_to 'https://www.linkedin.com/company/consulted-inc-/', target: '_blank' do %>
               <span class="fa fa-linkedin-square"></span>Linkedin
             <% end %>
           </li>
           <li>
-            <%= link_to 'https://www.facebook.com/ConsultedCo' do %>
+            <%= link_to 'https://www.facebook.com/ConsultedCo', target: '_blank' do %>
               <span class="fa fa-facebook-square"></span>Facebook
             <% end %>
           </li>
           <li>
-            <%= link_to 'https://www.google.com/+ConsultedCo' do %>
+            <%= link_to 'https://www.google.com/+ConsultedCo', target: '_blank' do %>
               <span class="fa fa-google-plus-square"></span>Google+
             <% end %>
           </li>

@@ -16,7 +16,7 @@
             <%= image_tag @user.profile_image.url, alt: @user.name %>
           </p>
           <p class="popup-name">Hi <%= @user.name %>, you are now connected!</p>
-          <p class="popup-text">Please provide your email address below to complete the signup. Your email is never shared.</p>
+          <p class="popup-text">Please provide your email address below to complete the sign up. Your email is never shared.</p>
           <p class="popup-text">If you do not provide an email address, we'll use <strong><%= @user.email %></strong>. You can change this setting later.</p>
           <div class="popup-row">
             <%= f.email_field :contact_email, class: 'form-control', placeholder: 'Email' %>

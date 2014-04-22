@@ -6,7 +6,7 @@
     <h3><%= expert.name %></h3>
     <p class="lead"><%= offer_for(expert: expert).description %></p>
     <% if @user.nil? %>
-      <%= link_to 'Signup to book this expert', new_user_registration_path %>
+      <%= link_to 'Sign up to book this expert', new_user_registration_path %>
     <% else %>
       <%= link_to 'Book this expert', review_requests_path(expert.slug, offer_for(expert, @group)) %>
     <% end %>
