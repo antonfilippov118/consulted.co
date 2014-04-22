@@ -26,16 +26,16 @@
             - or -
           </div>
           <div class="popup-row control-cover">
-            <%= f.text_field :email, class: 'form-control', placeholder: 'Login with your email', id: 'login_field' %>
+            <%= f.text_field :email, class: 'form-control', placeholder: 'Log in with your email', id: 'login_field' %>
           </div>
           <div class="popup-row control-cover" id="password_fields" style="display:none">
             <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
-            <%= f.submit "Login", class: 'btn btn-primary' %>
+            <%= f.submit "Log in", class: 'btn btn-primary' %>
           </div>
 
           <div class="popup-row text-center">
             <%= link_to new_user_registration_path do %>
-              No account yet? Signup here!
+              No account yet? Sign up here!
             <% end %>
           </div>
         </div>
