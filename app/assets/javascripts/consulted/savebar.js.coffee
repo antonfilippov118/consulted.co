@@ -5,10 +5,12 @@ $ ->
     opts = $.extend {
       text: "<strong>#{text}</strong>"
       layout: 'bottom'
-      template: '<div class="message"><span class="noty_text"></span></div>'
-      timeout: 2000
+      template: '<div class="noty_message"><span class="noty_text"></span></div>'
+      timeout: 1000
     }, opts
-    notification = noty opts
+    setTimeout ->
+      noty opts
+    , 500
 
   window.CONSULTED.trigger = trigger
 

@@ -52,12 +52,9 @@
         <div class="basics-sect">
           <p class="basics-head">Your location</p>
           <div class="clr">
-            <select class="form-control">
-              <option selected="">Germany</option>
-              <option>UK</option>
-              <option>USA</option>
-              <option>France</option>
-            </select>
+            <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+              <%= f.country_select :country, nil, {}, class: 'form-control' %>
+            <% end %>
             <span class="info flaticon flaticon-info">Please provide your location as we let advice seekers filter by location.</span>
           </div>
         </div>
