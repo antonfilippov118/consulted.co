@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  layout 'offering', only: :show
   include SearchHelper
   def index
     @groups = Group.roots

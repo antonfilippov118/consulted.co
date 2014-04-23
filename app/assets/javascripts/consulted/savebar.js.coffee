@@ -7,6 +7,7 @@ $ ->
       layout: 'bottom'
       template: '<div class="noty_message"><span class="noty_text"></span></div>'
       timeout: 1000
+      type: 'success'
     }, opts
     setTimeout ->
       noty opts
