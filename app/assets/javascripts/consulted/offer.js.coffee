@@ -7,5 +7,7 @@ $ ->
   $('.meeting-setting').on 'change', submitForm
   $('.language').on 'click', submitForm
 
-
-
+  $(".help").tooltip
+    placement: 'top'
+  .click () ->
+    $(this).tooltip('toggle')

@@ -12,7 +12,7 @@
     <![endif]-->
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body ng-app="consulted.finder" data-group="<%= @group.slug %>">
     <div class="wrapper">
       <div id="navbar">
         <%= render partial: 'layouts/application/header' %>
@@ -20,9 +20,9 @@
           <%= render partial: 'layouts/application/navigation' %>
         <% end %>
       </div>
+      <div filter></div>
       <section id="main">
         <div class="container">
-          <%= yield %>
         </div>
       </section>
       <%= render partial: 'layouts/signup' %>
@@ -41,6 +41,11 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', '<%= analytics_key %>', 'consulted.co');
       ga('send', 'pageview');
+    </script>
+    <% end %>
+    <% %w(filter).each do |partial| %>
+    <script type="text/ng-template" id="<%= partial %>">
+      <%= render partial: "groups/ng/#{partial}"  %>
     </script>
     <% end %>
   </body>

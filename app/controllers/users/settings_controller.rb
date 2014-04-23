@@ -54,10 +54,6 @@ class Users::SettingsController < Users::BaseController
   end
 
   def handle_js(result)
-    if result.failure?
-      render json: { errors: result[:errors], message: result.message }
-    else
-      render json: { success: true }
-    end
+    @result = result
   end
 end

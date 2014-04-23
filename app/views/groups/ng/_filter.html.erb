@@ -1,0 +1,273 @@
+<div>
+  <div id="filter" ng-hide="open">
+    <div class="container">
+      <span class="filter-prop">
+        <strong>Days:</strong>Mon, Tue, Wed</span>
+      <span class="filter-prop">
+        <strong>Locations:</strong>North America, South America, Western Europe</span>
+      <span class="filter-prop">
+        <strong>Languages:</strong>English, Spanish</span>
+      <span class="filter-prop">
+        <strong>Hourly rate:</strong>$45-$70</span>
+      <span class="filter-prop">
+        <strong>Experience:</strong>3-5 years</span>
+    </div>
+  </div>
+  <div id="filter-expanded" ng-show="open" ng-class="{'in':open}">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="ovr-timezone">
+            <strong>Your timezone:</strong>Pacific Standart Time (GMT-8) <a class="btn btn-primary btn-xs" href="#">Change</a>
+          </div>
+          <h1>Choose your options</h1>
+          <div class="fexp-block">
+            <div class="fexp-head">
+              Availability Day
+              <a href="#" class="btn btn-default btn-xs">All</a>
+              <a href="#" class="btn btn-primary btn-xs">Specific Date</a>
+            </div>
+            <div class="fexp-body fexp-body-7 clr">
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group1[]" value="value1">
+                <div class="round"></div>Sunday
+                <small>20 mar</small>
+              </label>
+              <label class="check round-check in">
+                <input type="checkbox" name="chk_group1[]" value="value2" checked="">
+                <div class="round"></div>Monday
+                <small>21 mar</small>
+              </label>
+              <label class="check round-check in">
+                <input type="checkbox" name="chk_group1[]" value="value3" checked="">
+                <div class="round"></div>Tuesday
+                <small>22 mar</small>
+              </label>
+              <label class="check round-check in">
+                <input type="checkbox" name="chk_group1[]" value="value4" checked="">
+                <div class="round"></div>Wednesday
+                <small>23 mar</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group1[]" value="value5">
+                <div class="round"></div>Thursday
+                <small>24 mar</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group1[]" value="value6">
+                <div class="round"></div>Friday
+                <small>25 mar</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group1[]" value="value7">
+                <div class="round"></div>Saturday
+                <small>26 mar</small>
+              </label>
+            </div>
+          </div>
+          <div class="fexp-block">
+            <div class="fexp-head">
+              Availability Time
+              <a href="#" class="btn btn-default btn-xs">All Day</a>
+              <a href="#" class="btn btn-primary btn-xs">Specific Time</a>
+            </div>
+            <div class="fexp-body fexp-body-9 clr">
+              <label class="check round-check in">
+                <input type="checkbox" name="chk_group2[]" value="value1" checked="">
+                <div class="round"></div>
+                <small>Until 6am</small>
+              </label>
+              <label class="check round-check in">
+                <input type="checkbox" name="chk_group2[]" value="value2" checked="">
+                <div class="round"></div>
+                <small>6am-8am</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value3">
+                <div class="round"></div>
+                <small>8am-10am</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value4">
+                <div class="round"></div>
+                <small>10am-12am</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value5">
+                <div class="round"></div>
+                <small>12am-2pm</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value6">
+                <div class="round"></div>
+                <small>2pm-4pm</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value7">
+                <div class="round"></div>
+                <small>4pm-6pm</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value8">
+                <div class="round"></div>
+                <small>6pm-8pm</small>
+              </label>
+              <label class="check round-check">
+                <input type="checkbox" name="chk_group2[]" value="value9">
+                <div class="round"></div>
+                <small>After 8pm</small>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div id="filter-boxparams" class="col-md-5">
+          <div class="half">
+            <div class="fexp-block">
+              <p class="fexp-head-sm">Expert location</p>
+              <div class="fexp-body">
+                <div class="clr">
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group3[]" value="value1" checked="">North America</label>
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group3[]" value="value2" checked="">South America</label>
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group3[]" value="value3" checked="">Western Europe</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group3[]" value="value4">Eastern Europe</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group3[]" value="value5">East Asia</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group3[]" value="value6">South Asia</label>
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group3[]" value="value7">specific country</label>
+                </div>
+              </div>
+            </div>
+            <div class="fexp-block">
+              <p class="fexp-head-sm">Language</p>
+              <div class="fexp-body">
+                <div class="clr">
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group4[]" value="value1" checked="">English</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group4[]" value="value2">Mandarin</label>
+                  <label class="check line-check in">
+                    <input type="checkbox" name="chk_group4[]" value="value3" checked="">Spanish</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group4[]" value="value4">Arabic</label>
+                  <label class="check line-check">
+                    <input type="checkbox" name="chk_group4[]" value="value5">German</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="half">
+            <div class="fexp-block">
+              <p class="fexp-head-sm">Hourly rate</p>
+              <div class="clr">
+                <span class="irs" id="irs-1">
+                  <span class="irs">
+                    <span class="irs-line">
+                      <span class="irs-line-left"></span>
+                      <span class="irs-line-mid"></span>
+                      <span class="irs-line-right"></span>
+                    </span>
+                    <span class="irs-min" style="display: none;">0</span>
+                    <span class="irs-max" style="display: none;">1</span>
+                    <span class="irs-from" style="left: 56.5px; display: block;">$34</span>
+                    <span class="irs-to" style="left: 162.5px; display: block;">$89</span>
+                    <span class="irs-single" style="left: 92px; display: none;">$34 — $89</span>
+                    <span class="irs-diapason" style="left: 70.5px; width: 106px;"></span>
+                    <span class="irs-slider from last" style="left: 64px;"></span>
+                    <span class="irs-slider to" style="left: 170px;"></span>
+                  </span>
+                  <span class="irs-grid"></span>
+                </span>
+                <input type="text" class="ranger" name="example_name" value="34;89" data-min="0" data-max="100" data-from="45" data-to="70" style="display: none;">
+              </div>
+            </div>
+            <div class="fexp-block">
+              <p class="fexp-head-sm">Years of offering experience</p>
+              <div class="clr">
+                <span class="irs" id="irs-2">
+                  <span class="irs">
+                    <span class="irs-line">
+                      <span class="irs-line-left"></span>
+                      <span class="irs-line-mid"></span>
+                      <span class="irs-line-right"></span>
+                    </span>
+                    <span class="irs-min" style="display: none;">0</span>
+                    <span class="irs-max" style="display: none;">1</span>
+                    <span class="irs-from" style="left: 67.5px; display: block;">$3</span>
+                    <span class="irs-to" style="left: 114.5px; display: block;">$5</span>
+                    <span class="irs-single" style="left: 76.5px; display: none;">$3 — $5</span>
+                    <span class="irs-diapason" style="left: 78.125px; width: 47.75px;"></span>
+                    <span class="irs-slider from" style="left: 72px;"></span>
+                    <span class="irs-slider to" style="left: 119px;"></span>
+                  </span>
+                  <span class="irs-grid"></span>
+                </span>
+                <input type="text" class="ranger" name="example_name" value="3;5" data-min="0" data-max="8" data-from="3" data-to="5" style="display: none;">
+              </div>
+            </div>
+            <div class="fexp-block">
+              <p class="fexp-head-sm">Awesome Count</p>
+              <div class="clr">
+                <span class="irs" id="irs-3">
+                  <span class="irs">
+                    <span class="irs-line">
+                      <span class="irs-line-left"></span>
+                      <span class="irs-line-mid"></span>
+                      <span class="irs-line-right"></span>
+                    </span>
+                    <span class="irs-min" style="display: none;">0</span>
+                    <span class="irs-max" style="display: none;">1</span>
+                    <span class="irs-from" style="left: 22.5px; display: block;">$5</span>
+                    <span class="irs-to" style="left: 118.5px; display: block;">$23</span>
+                    <span class="irs-single" style="left: 54.5px; display: none;">$5 — $23</span>
+                    <span class="irs-diapason" style="left: 33.78571428571428px; width: 98.22857142857141px;"></span>
+                    <span class="irs-slider from" style="left: 27px;"></span>
+                    <span class="irs-slider to" style="left: 126px;"></span>
+                  </span>
+                  <span class="irs-grid"></span>
+                </span>
+                <input type="text" class="ranger" name="example_name" value="5;23" data-min="0" data-max="35" data-from="5" data-to="23" style="display: none;">
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <div id="keywords" class="fexp-block">
+            <div class="fexp-head">
+              Keywords
+              <span class="tag flaticon flaticon-close">John</span>
+              <span class="tag flaticon flaticon-close">consulting</span>
+              <span class="tag flaticon flaticon-close">banking</span>
+              <span class="addtag">add</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 text-center">
+          <label id="onlybook" class="check">
+            <input type="checkbox" name="chk_group5[]" value="value1">Search only my bookmarks</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="filter-toggle-wrap">
+    <div class="container">
+      <span id="filter-toggle" class="flaticon flaticon-points" ng-click="open = !open"></span>
+    </div>
+  </div>
+</div>

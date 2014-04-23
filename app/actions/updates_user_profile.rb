@@ -16,7 +16,7 @@ class UpdatesUserProfile
 
       unless user.update_attributes params
         context[:errors] = user.errors
-        context.fail! 'Could not update profile!'
+        context.fail! "Could not update profile! (#{user.errors.full_messages.join ", "})"
       end
     end
   end
