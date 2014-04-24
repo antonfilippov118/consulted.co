@@ -1,3 +1,30 @@
-<div>
-
+<div class="clr">
+  <div class="clr row">
+    <div class="col-md-3">
+      <div class="advice-group" ng-class="{'selected':isActive('career-advancement')}">
+        <div class="advice-head">Career advancement</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Functional advice</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Industry Insights</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Methodological Advice</div>
+      </div>
+    </div>
+  </div>
+  <div class="loading text-center" ng-show="loading">
+    <i class="fa fa-refresh fa-spin fa-2x"></i>
+  </div>
+  <div ng-hide="loading">
+    <div category-bar></div>
+  </div>
 </div>

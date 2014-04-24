@@ -10,6 +10,12 @@ app.service 'GroupData', [
         result.resolve response.data
       result.promise
 
+    isLastCategory = (group) ->
+      for child in group.children
+        if child.children.length > 0
+          return no
+      yes
+
     getGroups: () ->
       result = q.defer()
       getData().then (groups) ->
@@ -26,6 +32,19 @@ app.service 'GroupData', [
             return group
           found = find group.children, slug
           return found if found
+      getData().then (groups) ->
+        result.resolve find groups, slug
+      result.promise
+
+    findParent: (node) ->
+      result =  q.defer()
+      {slug} = node
+      find = (groups, slug) ->
+        for group in groups
+          slugs = group.children.map (obj) -> obj.slug
+          return group if slug in slugs
+          group = find group.children, slug
+          return group if group
       getData().then (groups) ->
         result.resolve find groups, slug
       result.promise
@@ -48,9 +67,9 @@ app.service 'GroupData', [
       find = (a, slug) ->
         for o in a
           if(o.slug is slug)
-              return [ slice(o, 'name', 'slug') ]
+              return [ slice(o, 'name', 'slug', 'children', 'depth') ]
           if(sub = find(o.children, slug))
-              return [ slice(o, 'name', 'slug') ].concat(sub)
+              return [ slice(o, 'name', 'slug', 'children', 'depth') ].concat(sub)
         return
 
       getData().then (groups) ->
@@ -58,12 +77,12 @@ app.service 'GroupData', [
         deferredCrumbs.resolve crumbs
       deferredCrumbs.promise
 
-    isSubCategory: (group) ->
-      for child in group.children
-        if child.children.length > 0
-          return no
-      yes
+    isLastCategory: isLastCategory
 
+    isSecondToLastCategory: (group) ->
+      for child in group.children
+        return no unless isLastCategory(group)
+      yes
 
 ]
 

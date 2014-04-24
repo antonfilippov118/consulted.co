@@ -1,26 +1,31 @@
 <div>
-  <h2>Browse our offerings</h2>
-  <div class="row">
-    <div class="container">
-      <div class="col-lg-3">
-        <select class="form-control" ng-options="group.name for group in groups" ng-model="segment"></select>
-      </div>
-      <div ng-show="segment.children.length > 0" class="col-lg-3">
-        <select class="form-control" ng-options="group.name for group in segment.children" ng-model="subgroup"></select>
-      </div>
-      <div class="col-lg-3" ng-show="subgroup.children.length > 0">
-        <select class="form-control" ng-options="group.name for group in subgroup.children" ng-model="category"></select>
-      </div>
-      <div class="col-lg-3" ng-show="category.children.length > 0">
-        <select class="form-control" ng-options="group.name for group in category.children" ng-model="service_offering"></select>
-      </div>
+  <div class="clr selectoffer-cats" ng-repeat="level in crumbs" ng-hide="last(level)">
+    <div
+      class="selectoffer-cat"
+      ng-repeat="child in level.children"
+      ng-class="{'sel':inPath(child.slug)}"
+      ng-click="select(child)"
+    >
+        {{child.name}}
     </div>
   </div>
-  <div class="row" ng-show="current_selection.children.length === 0">
-    <div class="container">
-      <h3>{{current_selection.name}}</h3>
-      <p class="lead">{{current_selection.description}}</p>
-      <div class="text-center"><a ng-href="{{current_selection.link}}" class="btn btn-primary">View Experts</a></div>
+  <div class="row pool clr" ng-hide="group.depth === 0">
+    <div class="col-md-4">
+      <div class="clr selectoffer-subcats">
+        <div class="selectoffer-subcat" ng-click="select(sibling)" ng-repeat="sibling in getActiveGroup().children" ng-class="{'sel':inPath(sibling.slug)}">
+          {{sibling.name}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="result" ng-repeat="child in getSubGroup()">
+        <h3>{{child.name}}</h3>
+        <p>{{child.description}}</p>
+        <div class="result-bottom">
+          <a class="result-info" ng-click="learn(child)"><span class="flaticon flaticon-info"></span>Learn more</a>
+          <a ng-href="/groups/{{child.slug}}" class="btn btn-primary">Select</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
