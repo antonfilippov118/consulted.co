@@ -164,6 +164,11 @@ app.controller "WindowCtrl", [
 app.controller "BrowseCtrl", [
   '$scope'
   'GroupData'
-  BrowseCtrl = (scope, GroupData) ->
+  '$location'
+  BrowseCtrl = (scope, GroupData, location) ->
     GroupData.getGroups()
+    scope.select = (path) ->
+      location.path path
+
+
 ]
