@@ -47,4 +47,13 @@ describe FindsGroup do
     groups = result.fetch :groups
     expect(groups.first.name).to eql 'Foo'
   end
+
+  it 'should have no problem with brackets' do
+    Group.create name: 'Foo & (bar)'
+    result =  find_action.for 'Foo & (bar)'
+    expect(result.success?).to be_true
+
+    groups = result.fetch :groups
+    expect(groups.first.name).to eql 'Foo & (bar)'
+  end
 end

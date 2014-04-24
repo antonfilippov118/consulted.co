@@ -10,6 +10,7 @@
 }
 #groups {
   .advice-group {
+    min-height: 350px;
     &.disabled {
       button {
         position: absolute;

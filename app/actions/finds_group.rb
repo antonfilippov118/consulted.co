@@ -15,7 +15,8 @@ class FindsGroup
 
     executed do |context|
       text = context.fetch :text
-      regexp = Regexp.new ".*#{text}.*", 'i'
+      regexp = Regexp.new ".*#{Regexp.escape(text)}.*", 'i'
+
       context[:by_name] = Group.leaves.any_of(name: regexp).to_a
     end
   end
@@ -24,7 +25,8 @@ class FindsGroup
     include LightService::Action
     executed do |context|
       text = context.fetch :text
-      regexp = Regexp.new ".*#{text}.*", 'i'
+      regexp = Regexp.new ".*#{Regexp.escape(text)}.*", 'i'
+
       context[:by_description] = Group.leaves.any_of(description: regexp).to_a
     end
   end
