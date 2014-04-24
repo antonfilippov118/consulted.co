@@ -12,6 +12,11 @@
   .advice-group {
     min-height: 350px;
     &.disabled {
+      &.selected {
+        .advice-head {
+          background: #464a5e;
+        }
+      }
       button {
         position: absolute;
         bottom: 26px;
