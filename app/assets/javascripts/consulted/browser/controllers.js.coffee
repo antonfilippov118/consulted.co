@@ -86,6 +86,7 @@ app.controller "GroupCtrl", [
   '$location'
   (scope, GroupData, routeParams, modal, location) ->
     scope.loading = yes
+
     GroupData.findGroup(routeParams.slug).then (group) ->
       if group is undefined
         return location.path '/'
@@ -116,6 +117,9 @@ app.controller "GroupCtrl", [
 
     scope.select = (group) ->
       location.path "#{group.slug}"
+
+    scope.goto = (path) ->
+      location.path path
 
     scope.last = (level) ->
       return no unless level

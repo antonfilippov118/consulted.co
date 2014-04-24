@@ -1,23 +1,23 @@
 <div class="clr">
   <div class="clr row">
     <div class="col-md-3">
-      <div class="advice-group" ng-class="{'selected':isActive('career-advancement')}">
-        <div class="advice-head">Career advancement</div>
+      <div class="advice-group" ng-class="{'selected':inPath('career-advancement-in-professional-services')}">
+        <div class="advice-head" ng-click-"goto('career-advancement-in-professional-services')">Career advancement</div>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="advice-group disabled">
-        <div class="advice-head">Functional advice</div>
+      <div class="advice-group disabled" ng-class="{'selected':inPath('functional-advice')}">
+        <div class="advice-head" ng-click-"goto('functional-advice')">Functional advice</div>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="advice-group disabled">
-        <div class="advice-head">Industry Insights</div>
+      <div class="advice-group disabled" ng-class="{'selected':inPath('industry-insights')}">
+        <div class="advice-head" ng-click-"goto('industry-insights')">Industry Insights</div>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="advice-group disabled">
-        <div class="advice-head">Methodological Advice</div>
+      <div class="advice-group disabled" ng-class="{'selected':inPath('methodological-advice')}">
+        <div class="advice-head" ng-click-"goto('methodological-advice')">Methodological Advice</div>
       </div>
     </div>
   </div>
