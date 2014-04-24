@@ -14,10 +14,14 @@ app.controller "LookupCtrl", [
     scope.lookup = ->
       return unless scope.term
       return if scope.searching
+      {term} = scope
+      if angular.isObject term
+        term = term.name
+
       scope.search_active = yes
       scope.searching = yes
       rootScope.$emit 'search:enable'
-      Search.do(scope.term).then (groups) ->
+      Search.do(term).then (groups) ->
         scope.result = groups.length > 0
         scope.groups = groups
       , (err) ->
