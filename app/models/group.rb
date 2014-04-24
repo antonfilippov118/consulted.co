@@ -24,7 +24,7 @@ class Group
     if tag.is_a? String
       tag = tag.split ' '
     end
-    any_in :tag_array.in => tag
+    any_in :tag_array.in => tag.map(&:downcase)
   end
 
   def tags
@@ -33,7 +33,7 @@ class Group
 
   def tags=(items)
     if items.present?
-      self.tag_array = items.split(SPLITTER).map(&:strip).reject(&:blank?)
+      self.tag_array = items.split(SPLITTER).map(&:strip).reject(&:blank?).map(&:downcase)
     else
       self.tag_array = []
     end

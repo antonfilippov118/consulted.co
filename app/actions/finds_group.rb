@@ -5,6 +5,7 @@ class FindsGroup
     with(text: text).reduce [
       FindByName,
       FindByDescription,
+      FindByTag,
       MergeResults
     ]
   end
@@ -28,12 +29,21 @@ class FindsGroup
     end
   end
 
+  class FindByTag
+    include LightService::Action
+
+    executed do |context|
+      text = context.fetch :text
+      context[:by_tag] = Group.leaves.with_tag(text).to_a
+    end
+  end
+
   class MergeResults
     include LightService::Action
 
     executed do |context|
-      by_name, by_description = context.values_at :by_name, :by_description
-      context[:groups] = (by_name + by_description).uniq
+      by_name, by_description, by_tag = context.values_at :by_name, :by_description, :by_tag
+      context[:groups] = (by_name + by_description + by_tag).uniq
     end
   end
 end
