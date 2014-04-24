@@ -8,7 +8,6 @@
 .noty_message {
   color: green;
 }
-
 #groups {
   .advice-group {
     &.disabled {
@@ -33,7 +32,7 @@
       &.selected:after {
         border: 8px solid transparent;
         border-top: 8px solid #474b5e;
-        content: '';
+        content:'';
         display: block;
         left: 50%;
         margin-left: -8px;
@@ -42,4 +41,10 @@
       }
     }
   }
+}
+.modal {
+  overflow-y: auto;
+}
+.modal-open {
+  overflow: auto;
 }
