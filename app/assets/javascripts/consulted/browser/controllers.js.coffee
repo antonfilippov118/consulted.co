@@ -107,6 +107,7 @@ app.controller "GroupCtrl", [
 
     scope.$on 'group:ready', (_, group) ->
       GroupData.findParent(group).then (parent) ->
+        return if parent is undefined
         if group.children.length is 0
           return location.path "#{parent.slug}"
         scope.parent = parent
