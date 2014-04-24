@@ -20,6 +20,13 @@ class Group
 
   has_many :calls
 
+  def self.with_tag(tag)
+    if tag.is_a? String
+      tag = tag.split ' '
+    end
+    any_in :tag_array.in => tag
+  end
+
   def tags
     (tag_array || []).join SPLITTER
   end
