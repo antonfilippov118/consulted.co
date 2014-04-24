@@ -10,18 +10,15 @@
 }
 #groups {
   .advice-group {
-    min-height: 350px;
+    min-height: 400px;
     &.disabled {
+      button {
+        background-color: #C8CCCF;
+      }
       &.selected {
         .advice-head {
           background: #464a5e;
         }
-      }
-      button {
-        position: absolute;
-        bottom: 26px;
-        margin-left: 42px;
-        background-color: #C8CCCF;
       }
       .advice-head {
         background: #B3B5BD;
@@ -29,6 +26,11 @@
           border-color: #B3B5BD transparent transparent;
         }
       }
+    }
+    button {
+      position: absolute;
+      bottom: 26px;
+      margin-left: 42px;
     }
   }
   .clr {
@@ -48,6 +50,4 @@
     }
   }
 }
-
-@import 'typeahead'
-
+@import'typeahead'
