@@ -16,7 +16,7 @@
       <div class="results" ng-show="search_active && !searching && result">
         <h2>{{groups.length}} service offering{{groups.length != 1 ? 's' : ''}} found</h2>
         <div class="row">
-          <div class="col-md-6" ng-repeat="group in groups">
+          <div class="col-md-6" ng-repeat="group in groups | orderBy:'name'">
             <div class="result">
               <h3>{{group.name}}</h3>
               <div bread group="group" hide-group hide-root></div>
