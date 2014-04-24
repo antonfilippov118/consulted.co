@@ -70,6 +70,7 @@ RailsAdmin.config do |config|
       field :length_gain
       field :parent
       field :children
+      field :tags
     end
 
     show do
@@ -82,6 +83,7 @@ RailsAdmin.config do |config|
       field :length_gain
       field :parent
       field :children
+      field :tags
     end
   end
 

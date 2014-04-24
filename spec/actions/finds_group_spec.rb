@@ -38,4 +38,13 @@ describe FindsGroup do
     groups = result.fetch :groups
     expect(groups.length).to eql 0
   end
+
+  it 'should match groups by tag' do
+    Group.create name: 'Foo', tag_array: %w(foo bar)
+    result =  find_action.for 'bar'
+    expect(result.success?).to be_true
+
+    groups = result.fetch :groups
+    expect(groups.first.name).to eql 'Foo'
+  end
 end
