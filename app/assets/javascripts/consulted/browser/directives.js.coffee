@@ -18,6 +18,25 @@ app.directive "browse", [
     controller: 'BrowseCtrl'
 ]
 
+app.directive 'child', [
+  () ->
+    replace: yes
+    scope:
+      child: "="
+    templateUrl: 'child'
+    controller: 'ChildCtrl'
+]
+
+app.directive 'categoryBar', [
+  () ->
+    replace: yes
+    scope: no
+    templateUrl: 'categories'
+    link: (scope) ->
+      scope.currentSibling = (group) ->
+        group is scope.group
+]
+
 app.directive 'bread', [
   '$location'
   'GroupData'
@@ -38,8 +57,5 @@ app.directive 'bread', [
           scope.crumbs = crumbs
         , (err) ->
           scope.error = yes
-
-
-
 
 ]

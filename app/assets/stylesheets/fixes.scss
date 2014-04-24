@@ -1,12 +1,45 @@
 [ng-click] {
   cursor: pointer;
 }
-
 .service-head {
   font-weight: 700;
   color: #555;
 }
-
 .noty_message {
   color: green;
+}
+
+#groups {
+  .advice-group {
+    &.disabled {
+      button {
+        position: absolute;
+        bottom: 26px;
+        margin-left: 42px;
+        background-color: #C8CCCF;
+      }
+      .advice-head {
+        background: #B3B5BD;
+        &:after {
+          border-color: #B3B5BD transparent transparent;
+        }
+      }
+    }
+  }
+  .clr {
+    .advice-group {
+      min-height: inherit;
+      margin-bottom: 10px;
+      &.selected:after {
+        border: 8px solid transparent;
+        border-top: 8px solid #474b5e;
+        content: '';
+        display: block;
+        left: 50%;
+        margin-left: -8px;
+        position: absolute;
+        top: 85%;
+      }
+    }
+  }
 }
