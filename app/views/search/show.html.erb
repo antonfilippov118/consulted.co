@@ -1,4 +1,5 @@
 <div ng-app="consulted.browser" class="consulted-app browser">
+  <div lookup></div>
   <div ng-view></div>
   <% %w(bread lookup main browse group learn).each do |partial| %>
   <script type="text/ng-template" id="<%= partial %>">

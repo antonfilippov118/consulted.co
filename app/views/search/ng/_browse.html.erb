@@ -1,112 +1,54 @@
 <div id="groups">
   <h2>Or browse our service offerings</h2>
   <div class="row">
-    <div class="col-md-3">
-      <div class="advice-group">
-        <div class="advice-head">Finance</div>
-        <p>Description of the first group, called 'Finance' and explanation what it does.</p>
-        <ul>
-          <li>
-            <span>
-              <%= link_to "Strategems", "#{groups_path}/Strategems" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Tactics", "#{groups_path}/tactics" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Vesting", "#{groups_path}/vesting" %>
-            </span>
-          </li>
-          <li>
-            <span>+ 100 more</span>
-          </li>
-        </ul>
-        <%= link_to 'Details', "#{find_an_expert_path}#/finance", class: 'btn btn-primary' %>
+    <div class="initial">
+      <div class="col-md-3">
+        <div class="advice-group">
+          <div class="advice-head">Career advancement</div>
+          <p>Description of career advancements</p>
+          <ul>
+            <li>
+              <span>
+                <%= link_to "Issue advice", "#{groups_path}/issue-advice" %>
+              </span>
+            </li>
+            <li>
+              <span>
+                <%= link_to "Career mentoring", "#{groups_path}/career-mentoring" %>
+              </span>
+            </li>
+            <li>
+              <span>
+                <%= link_to "Mock interview", "#{groups_path}/mock-interview" %>
+              </span>
+            </li>
+            <li>
+              <span>+ 200 more</span>
+            </li>
+          </ul>
+          <%= link_to 'Details', "#{find_an_expert_path}#/career-advancement", class: 'btn btn-primary' %>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="advice-group">
-        <div class="advice-head">Functional advice</div>
-        <p> Description for functional advice</p>
-        <ul>
-          <li>
-            <span>
-              <%= link_to "Customer experience", "#{groups_path}/customer-experience" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Customer lifecycle", "#{groups_path}/customer-lifecycle" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Caclulation", "#{groups_path}/calculation" %>
-            </span>
-          </li>
-          <li>
-            <span>+ 200 more</span>
-          </li>
-        </ul>
-        <%= link_to 'Details', "#{find_an_expert_path}#/functional-advice", class: 'btn btn-primary' %>
+      <div class="col-md-3">
+        <div class="advice-group disabled">
+          <div class="advice-head">Functional advice</div>
+          <p>We're currently looking for experts in this category!</p>
+          <button class="btn btn-primary disabled">Details</button>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="advice-group">
-        <div class="advice-head">Methodological advice</div>
-        <p>The description for this category</p>
-        <ul>
-          <li>
-            <span>
-              <%= link_to "Sounding board", "#{groups_path}/sounding-board" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Idea generation", "#{groups_path}/idea-generation" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Problem structuring", "#{groups_path}/problem-structuring" %>
-            </span>
-          </li>
-          <li>
-            <span>+ 50 more</span>
-          </li>
-        </ul>
-        <%= link_to 'Details', "#{find_an_expert_path}#/methodological-advice", class: 'btn btn-primary' %>
+      <div class="col-md-3">
+        <div class="advice-group disabled">
+          <div class="advice-head">Industry Insights</div>
+          <p>We're currently looking for experts in this category!</p>
+          <button class="btn btn-primary disabled">Details</button>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="advice-group">
-        <div class="advice-head">Career advancement</div>
-        <p>Description of career advancements</p>
-        <ul>
-          <li>
-            <span>
-              <%= link_to "Issue advice", "#{groups_path}/issue-advice" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Career mentoring", "#{groups_path}/career-mentoring" %>
-            </span>
-          </li>
-          <li>
-            <span>
-              <%= link_to "Mock interview", "#{groups_path}/mock-interview" %>
-            </span>
-          </li>
-          <li>
-            <span>+ 20 more</span>
-          </li>
-        </ul>
-        <%= link_to 'Details', "#{find_an_expert_path}#/career-advancement", class: 'btn btn-primary' %>
+      <div class="col-md-3">
+        <div class="advice-group disabled">
+          <div class="advice-head">Methodological Advice</div>
+          <p>We're currently looking for experts in this category!</p>
+          <button class="btn btn-primary disabled">Details</button>
+        </div>
       </div>
     </div>
   </div>

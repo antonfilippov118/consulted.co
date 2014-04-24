@@ -1,31 +1,3 @@
 <div>
-  <div bread group="group"></div>
-  <h2 class="heading ng-cloak" ng-hide="offering || subcat">Choose a category</h2>
-  <h2 class="heading ng-cloak" ng-show="offering && !subcat">Choose an offering</h2>
-  <h2 class="heading ng-cloak" ng-show="!offering && subcat">Choose a subcategory</h2>
-  <div class="row ng-cloak" ng-hide="offering">
-    <div class="col-md-4" ng-repeat="group in groups">
-      <ul class="list list-big">
-        <li ng-repeat="child in group | orderBy:'name'">
-          <a ng-href="#/{{child.slug}}">{{child.name}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div id="offerings" ng-show="offering">
-    <div class="row" ng-repeat="group in groups">
-      <div class="col-md-6" ng-repeat="child in group">
-        <div class="result">
-          <h3>{{child.name}}</h3>
-          <p>{{child.description}}</p>
-          <div class="result-bottom">
-            <a ng-click="learn(child)" class="result-info">
-              <span class="flaticon flaticon-info"></span>Learn more
-            </a>
-            <a ng-href="/groups/{{child.slug}}" class="btn btn-primary">Show experts</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </div>
