@@ -1,6 +1,7 @@
 app = angular.module "consulted.browser", [
   "consulted.browser.directives"
   "ngRoute"
+  'siyfion.sfTypeahead'
 ]
 
 app.config [

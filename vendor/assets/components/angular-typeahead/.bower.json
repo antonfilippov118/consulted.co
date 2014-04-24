@@ -21,6 +21,6 @@
     "commit": "fe1d738c739e9f55ef547644b3e1cb300b59b4e9"
   },
   "_source": "git://github.com/Siyfion/angular-typeahead.git",
-  "_target": "~0.1.1",
+  "_target": "0.1.4",
   "_originalSource": "angular-typeahead"
 }
