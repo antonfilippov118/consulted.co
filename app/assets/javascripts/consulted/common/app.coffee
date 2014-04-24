@@ -11,6 +11,7 @@ app.service 'GroupData', [
       result.promise
 
     isLastCategory = (group) ->
+      return no unless group
       for child in group.children
         if child.children.length > 0
           return no

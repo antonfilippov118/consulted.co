@@ -3,7 +3,7 @@
   <div id="search">
     <form role="form" ng-submit="lookup()">
       <div id="search-box">
-        <input type="text" ng-model="term" class="form-control" placeholder="How can we help? e.g. &quot;risk calculation&quot;">
+        <input datasets="data" options="options" type="text" ng-model="term" class="sfTypeahead form-control" placeholder="How can we help? E.g. &quot;Valuation&quot;, &quot;Growth Strategy&quot;, etc.">
       </div>
       <button type="submit" class="btn btn-primary" ng-disabled="searching" id="search-sub">Search</button>
       <div ng-show="searching" class="text-center">
@@ -16,7 +16,7 @@
       <div class="results" ng-show="search_active && !searching && result">
         <h2>{{groups.length}} service offering{{groups.length != 1 ? 's' : ''}} found</h2>
         <div class="row">
-          <div class="col-md-6" ng-repeat="group in groups">
+          <div class="col-md-6" ng-repeat="group in groups | orderBy:'name'">
             <div class="result">
               <h3>{{group.name}}</h3>
               <div bread group="group" hide-group hide-root></div>

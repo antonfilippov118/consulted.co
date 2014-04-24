@@ -9,7 +9,8 @@ app.controller "LookupCtrl", [
   'Search'
   '$rootScope'
   '$modal'
-  (scope, Search, rootScope, modal) ->
+  'GroupData'
+  (scope, Search, rootScope, modal, GroupData) ->
     scope.lookup = ->
       return unless scope.term
       return if scope.searching
@@ -36,6 +37,33 @@ app.controller "LookupCtrl", [
         windowClass: 'modal-learn'
         resolve:
           group: -> group.slug
+
+    scope.options =
+      highlight: yes
+
+    offerings = new Bloodhound
+      datumTokenizer: (g) -> Bloodhound.tokenizers.whitespace(g.name)
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+      local: []
+
+    offerings.initialize()
+
+    scope.data =
+      displayKey: 'name'
+      source: offerings.ttAdapter()
+
+    GroupData.getGroups().then (groups) ->
+      collect = (groups, result = []) ->
+        for group in groups
+          if group.children.length is 0
+            result.push group
+          else
+            collect group.children, result
+        result
+      items = collect groups
+      offerings.add item for item in items
+
+
 ]
 
 app.controller "MainCtrl", [
@@ -108,12 +136,6 @@ app.controller "GroupCtrl", [
         windowClass: 'modal-learn'
         resolve:
           group: -> group.slug
-]
-
-app.controller 'ChildCtrl', [
-  '$scope'
-  (scope) ->
-
 ]
 
 app.controller "WindowCtrl", [
