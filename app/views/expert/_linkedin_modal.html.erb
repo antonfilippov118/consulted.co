@@ -1,0 +1,29 @@
+<div class="modal fade" id="linkedin_modal" tabindex="-1" role="dialog" aria-labelledby="Linkedin Synchronisation" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="Timezone change">Resynchronize your Linkedin data</h4>
+      </div>
+      <div class="modal-body">
+        <div class="popup-row">
+          <p>This will synchronize your current Linkedin profile with your CONSULTED.co profile.</p>
+          <p>We will synchronize the following:</p>
+          <ul>
+            <li>Your full name</li>
+            <li>Your summary</li>
+            <li>Your career information</li>
+            <li>Your education</li>
+          </ul>
+        </div>
+        <div class="popup-row">
+          <p>Do you wish to continue?</p>
+          <p>
+            <%= link_to 'Yes', linkedin_settings_path, class: 'btn btn-success', remote: true, method: :patch, id: 'synchronize_linkedin' %>
+            <button type="button" class="btn btn-danger" data-dismiss='modal'>No</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

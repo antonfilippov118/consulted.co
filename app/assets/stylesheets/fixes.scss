@@ -50,4 +50,12 @@
     }
   }
 }
+#main {
+  .alert {
+    &.notice {
+      background: #3276b1;
+   }
+  }
+}
+
 @import'typeahead'

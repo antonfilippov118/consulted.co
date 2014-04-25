@@ -33,6 +33,14 @@ class Users::SettingsController < Users::BaseController
     end
   end
 
+  def linkedin
+    respond_to do |format|
+      format.js do
+        @result = SynchronizeLinkedinProfile.for @user
+      end
+    end
+  end
+
   private
 
   def user_profile_params
