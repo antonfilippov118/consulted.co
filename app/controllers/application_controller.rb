@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
   # Remmove this helper, once the application goes live
   #
   include AuthenticationHelper
-  #before_filter :authenticate!, except: [:handle, :lookup], if: -> { Rails.env.production? }
+
+  before_filter :authenticate!, except: [:handle, :lookup], if: -> { Rails.env.production? }
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
