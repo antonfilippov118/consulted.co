@@ -10,23 +10,6 @@ app.directive "lookup", [
     controller: 'LookupCtrl'
 ]
 
-app.directive "browse", [
-  () ->
-    replace: yes
-    scope: yes
-    templateUrl: "browse"
-    controller: 'BrowseCtrl'
-]
-
-app.directive 'child', [
-  () ->
-    replace: yes
-    scope:
-      child: "="
-    templateUrl: 'child'
-    controller: 'ChildCtrl'
-]
-
 app.directive 'categoryBar', [
   () ->
     replace: yes

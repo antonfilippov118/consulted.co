@@ -70,14 +70,6 @@ app.controller "LookupCtrl", [
 
 ]
 
-app.controller "MainCtrl", [
-  '$scope'
-  '$rootScope'
-  (scope, $rootScope) ->
-    $rootScope.$on 'search:enable', -> scope.search_active = yes
-    $rootScope.$on 'search:disable', -> scope.search_active = no
-]
-
 app.controller "GroupCtrl", [
   '$scope'
   'GroupData'
