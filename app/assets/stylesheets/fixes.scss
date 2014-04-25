@@ -89,5 +89,9 @@ input.tag-add {
   width: 100px;
   height: 27px;
 }
+#onlybook.in:after {
+  left: 20px;
+  background: #91c632;
+}
 
 @import'typeahead'

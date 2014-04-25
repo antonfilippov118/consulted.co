@@ -14,26 +14,48 @@ app.directive 'filter', [
 app.directive 'languages', [
   'Language'
   (Language) ->
-    scope: no
+    scope: yes
     replace: no
     link: (scope) ->
       scope.languages = Language.getLanguages()
       scope.isActive  = Language.isActive
       scope.toggle    = Language.toggle
 ]
-
-app.directive 'tags', [
-  'Tags'
-  (Tags) ->
-    sope: no
+app.directive 'continents', [
+  'Continent'
+  (Continent) ->
+    scope: yes
     replace: no
     link: (scope) ->
-      scope.tags   = Tags.getTags()
-      scope.remove = Tags.remove
+      scope.continents = Continent.getContinents()
+      scope.isActive   = Continent.isActive
+      scope.toggle     = Continent.toggle
+
+]
+
+app.directive 'bookmark', [
+  'Bookmark'
+  (Bookmark) ->
+    replace: no
+    scope: yes
+    link: (scope) ->
+      scope.isActive = Bookmark.isActive
+      scope.toggle   = Bookmark.toggle
+
+]
+
+app.directive 'tags', [
+  'Tag'
+  (Tag) ->
+    scope: yes
+    replace: no
+    link: (scope) ->
+      scope.tags   = Tag.getTags()
+      scope.remove = Tag.remove
       scope.add    = () ->
         if scope.adding isnt yes
           return scope.adding = yes
-        Tags.add scope.next_tag
+        Tag.add scope.next_tag
         scope.next_tag = ""
         scope.adding = no
 

@@ -2,15 +2,17 @@
   <div id="filter" ng-hide="open">
     <div class="container">
       <span class="filter-prop">
-        <strong>Days:</strong>Mon, Tue, Wed</span>
+        <strong>Days:</strong> Mon, Tue, Wed</span>
+      <span class="filter-prop" ng-show="currentLocations().length > 0">
+        <strong>Locations:</strong> {{currentLocations().join(", ")}}</span>
+      <span class="filter-prop" ng-show="currentLanguages().length > 0">
+        <strong>Languages:</strong>
+        <span ng-repeat="lang in currentLanguages()">{{lang | capitalize}}<span ng-hide="$last">, </span></span>
+      </span>
       <span class="filter-prop">
-        <strong>Locations:</strong>North America, South America, Western Europe</span>
+        <strong>Hourly rate:</strong> $45-$70</span>
       <span class="filter-prop">
-        <strong>Languages:</strong>English, Spanish</span>
-      <span class="filter-prop">
-        <strong>Hourly rate:</strong>$45-$70</span>
-      <span class="filter-prop">
-        <strong>Experience:</strong>3-5 years</span>
+        <strong>Experience:</strong> 3-5 years</span>
     </div>
   </div>
   <div id="filter-expanded" ng-show="open" ng-class="{'in':open}">
@@ -127,24 +129,13 @@
         </div>
         <div id="filter-boxparams" class="col-md-5">
           <div class="half">
-            <div class="fexp-block">
+            <div class="fexp-block" continents>
               <p class="fexp-head-sm">Expert location</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group3[]" value="value1" checked="">North America</label>
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group3[]" value="value2" checked="">South America</label>
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group3[]" value="value3" checked="">Western Europe</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group3[]" value="value4">Eastern Europe</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group3[]" value="value5">East Asia</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group3[]" value="value6">South Asia</label>
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group3[]" value="value7">specific country</label>
+                  <label class="check line-check" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents">
+                    <input type="checkbox" ng-click="toggle(continent)">{{continent}}
+                  </label>
                 </div>
               </div>
             </div>
@@ -248,9 +239,11 @@
             </div>
           </div>
         </div>
-        <div class="col-md-5 text-center">
-          <label id="onlybook" class="check">
-            <input type="checkbox" name="chk_group5[]" value="value1">Search only my bookmarks</label>
+        <div class="col-md-5 text-center" bookmark>
+          <label id="onlybook" class="check" ng-class="{'in':isActive()}">
+            <input type="checkbox" ng-click="toggle()">
+            Search only my bookmarks
+          </label>
         </div>
       </div>
     </div>
