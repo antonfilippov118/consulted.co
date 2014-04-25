@@ -1,4 +1,7 @@
 <div id="profile">
+  <% if user_expert_page? %>
+    <div class="alert notice">This is your expert page as ther users see it - if some data is out of sync with your Linkedin profile, <%= link_to 'resynchronize your data here', '#'  %></div>
+  <% end %>
   <div id="profile-main" class="row divider">
     <div class="profile-info col-md-7">
       <div class="profile-image">
