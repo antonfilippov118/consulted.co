@@ -1,113 +1,111 @@
-<div>
-  <div class="row">
-    <div class="initial">
-      <div class="col-md-3">
-        <div class="advice-group">
-          <div class="advice-head">Career advancement</div>
-          <p>Improve your chances to land or grow your professional services job with guidance from insiders</p>
-          <ul>
-            <li>
-              <span>
-                <%= link_to "Mock interviews for Management Consulting", '#' %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to "General Mentoring & Professional Growth Insights", "#{groups_path}/general-mentoring-and-professional-growth-insights" %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to "Relationship building & networking", "#{groups_path}/relationship-building-and-networking" %>
-              </span>
-            </li>
-            <li>
-              <span>+ 20 more</span>
-            </li>
-          </ul>
-          <button class="btn btn-primary" ng-click="select('career-advancement-in-professional-services')">Details</button>
-        </div>
+<div class="row">
+  <div class="initial">
+    <div class="col-md-3">
+      <div class="advice-group">
+        <div class="advice-head">Career advancement</div>
+        <p>Improve your chances to land or grow your professional services job with guidance from insiders</p>
+        <ul>
+          <li>
+            <span>
+              <%= link_to "Mock interviews for Management Consulting", '#' %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to "General Mentoring & Professional Growth Insights", "#{groups_path}/general-mentoring-and-professional-growth-insights" %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to "Relationship building & networking", "#{groups_path}/relationship-building-and-networking" %>
+            </span>
+          </li>
+          <li>
+            <span>+ 20 more</span>
+          </li>
+        </ul>
+        <button class="btn btn-primary" ng-click="select('career-advancement-in-professional-services')">Details</button>
       </div>
-      <div class="col-md-3">
-        <div class="advice-group disabled">
-          <div class="advice-head">Functional advice</div>
-          <p>Understand specific approaches and get insights from functional experts to support your business</p>
-          <ul>
-            <li>
-              <span>
-                <%= link_to 'Due Diligences', "#{groups_path}/due-diligence-acquisition-and-vendor"  %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to 'Pricing & Margin Management', "#{groups_path}/pricing-and-margin-management"  %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to 'Startup Financing', "#"  %>
-              </span>
-            </li>
-            <li>
-              <span>+ 150 more</span>
-            </li>
-          </ul>
-          <button class="btn btn-primary" ng-click="select('functional-advice')">Details</button>
-        </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Functional advice</div>
+        <p>Understand specific approaches and get insights from functional experts to support your business</p>
+        <ul>
+          <li>
+            <span>
+              <%= link_to 'Due Diligences', "#{groups_path}/due-diligence-acquisition-and-vendor" %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to 'Pricing & Margin Management', "#{groups_path}/pricing-and-margin-management" %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to 'Startup Financing', "#" %>
+            </span>
+          </li>
+          <li>
+            <span>+ 150 more</span>
+          </li>
+        </ul>
+        <button class="btn btn-primary" ng-click="select('functional-advice')">Details</button>
       </div>
-      <div class="col-md-3">
-        <div class="advice-group disabled">
-          <div class="advice-head">Industry Insights</div>
-          <p>Obtain granular industry insights on demand from the people who live it on day-to-day basis</p>
-          <ul>
-            <li>
-              <span>
-                <%= link_to 'Automotive: Body Components & Trim', '#' %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to 'Insurance: Employee Benefits & Pensions', '#' %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to 'Metals & Mining: Iron Ore Production', '#'  %>
-              </span>
-            </li>
-            <li>
-              <span>+ 250 more</span>
-            </li>
-          </ul>
-          <button class="btn btn-primary" ng-click="select('industry-insights')">Details</button>
-        </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Industry Insights</div>
+        <p>Obtain granular industry insights on demand from the people who live it on day-to-day basis</p>
+        <ul>
+          <li>
+            <span>
+              <%= link_to 'Automotive: Body Components & Trim', '#' %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to 'Insurance: Employee Benefits & Pensions', '#' %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to 'Metals & Mining: Iron Ore Production', '#' %>
+            </span>
+          </li>
+          <li>
+            <span>+ 250 more</span>
+          </li>
+        </ul>
+        <button class="btn btn-primary" ng-click="select('industry-insights')">Details</button>
       </div>
-      <div class="col-md-3">
-        <div class="advice-group disabled">
-          <div class="advice-head">Methodological Advice</div>
-          <p>Advance your ideas with proven frameworks and their correct applications</p>
-          <ul>
-            <li>
-              <span>
-                <%= link_to "Business Problem Structuring", "#" %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to "Interview Structuring", "#" %>
-              </span>
-            </li>
-            <li>
-              <span>
-                <%= link_to "Sounding Board Review", "#" %>
-              </span>
-            </li>
-            <li>
-              <span>+ 20 more</span>
-            </li>
-          </ul>
-          <button class="btn btn-primary" ng-click="select('methodological-advice')">Details</button>
-        </div>
+    </div>
+    <div class="col-md-3">
+      <div class="advice-group disabled">
+        <div class="advice-head">Methodological Advice</div>
+        <p>Advance your ideas with proven frameworks and their correct applications</p>
+        <ul>
+          <li>
+            <span>
+              <%= link_to "Business Problem Structuring", "#" %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to "Interview Structuring", "#" %>
+            </span>
+          </li>
+          <li>
+            <span>
+              <%= link_to "Sounding Board Review", "#" %>
+            </span>
+          </li>
+          <li>
+            <span>+ 20 more</span>
+          </li>
+        </ul>
+        <button class="btn btn-primary" ng-click="select('methodological-advice')">Details</button>
       </div>
     </div>
   </div>

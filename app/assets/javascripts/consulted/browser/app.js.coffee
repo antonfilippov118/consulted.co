@@ -10,8 +10,8 @@ app.config [
   browserConfiguration = (routeProvider, locationProvider) ->
     routeProvider
       .when "/",
-        controller: "MainCtrl"
-        templateUrl: "main"
+        controller: "BrowseCtrl"
+        templateUrl: "browse"
       .when "/:slug",
         controller: 'GroupCtrl'
         templateUrl: 'group'
