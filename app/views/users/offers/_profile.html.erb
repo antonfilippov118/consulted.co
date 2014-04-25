@@ -1,0 +1,98 @@
+<div id="offerfull-profile" class="offerfull">
+  <div class="offerfull-head border">
+    <p class="offerfull-heading">Profile</p>
+    <p class="bigger">Review your information which we took from your social profile.</p>
+  </div>
+  <p>This information will be searchable to people looking for a meeting - you can choose not to show some of the information, however, people will find and select you based on what they see.</p>
+  <div class="flat-well">
+    <div class="clr">
+      <div class="profile-info col-md-8">
+        <div class="profile-image">
+          <%= image_tag own_profile_image_url, alt: @user.name, class: 'profile-img' %>
+        </div>
+        <h1><%= @user.name %></h1>
+        <% unless own_current_company.nil? %>
+          <p class="bigger"><%= own_current_position %> at <%= link_to own_current_company_name, own_company_url, target: '_blank' %></p>
+        <% end %>
+        </p>
+        <span class="note noteup">always shared</span>
+      </div>
+      <div class="col-md-4">
+        <div class="profile-side">
+          <div class="profile-heading2">Something not as it should be?</div>
+          <ul class="check-list">
+            <li class="flaticon flaticon-check">
+              <%= link_to 'Reload your social data', '', data: { target: '#linkedin_modal', toggle: 'modal' }  %>
+            </li>
+            <li class="flaticon flaticon-check">
+              <%= link_to 'See Help/FAQ', '//consultedco.zendesk.com/', target: '_blank' %>
+            </li>
+            <li class="flaticon flaticon-check">
+              <%= link_to 'Contact us', contact_path  %>
+            </li>
+          </ul>
+          <%= render partial: 'linkedin_modal' %>
+        </div>
+      </div>
+    </div>
+    <div class="clr">
+      <p class="profile-heading">Profile summary</p>
+      <%= form_for @user, url: profile_settings_path, remote: true, html: { class: 'toggle-form' } do |f| -%>
+        <% if summary_shared? %>
+          <span class="note notedown toggle-shared" href="#summary" data-target="#shares_summary" data-text="share this">don't share this</span>
+        <% else %>
+          <span class="note notedown toggle-shared" href="#summary" data-target="#shares_summary" data-text="don't share this">share this</span>
+        <% end %>
+        <%= f.hidden_field :shares_summary, id: 'shares_summary' %>
+      <% end %>
+      <div id="summary" class="<%= summary_shared? ? '' : 'disabled' %>">
+        <%= simple_format own_summary %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="profile-heading">Education</p>
+        <%= form_for @user, url: profile_settings_path, remote: true, html: { class: 'toggle-form' } do |f| -%>
+          <% if education_shared? %>
+            <span class="note notedown toggle-shared" href="#education" data-target="#shares_education" data-text="share this">don't share this</span>
+          <% else %>
+            <span class="note notedown toggle-shared" href="#education" data-target="#shares_education" data-text="don't share this">share this</span>
+          <% end %>
+          <%= f.hidden_field :shares_education, id: 'shares_education' %>
+        <% end %>
+        <% if own_educations.any? %>
+          <ul id="education" class="profile-posed<%= education_shared? ? '' : ' disabled' %>">
+            <% own_educations.each do |edu| %>
+              <li>
+                <span>
+                  <strong><%= edu.name %></strong>, <%= edu.degree %> <%= education_span(edu).nil? ? '' : education_span(edu) %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <% if own_past_companies.any? %>
+          <p class="profile-heading">Previous positions</p>
+          <%= form_for @user, url: profile_settings_path, remote: true, html: { class: 'toggle-form' } do |f| -%>
+            <% if career_shared? %>
+              <span class="note notedown toggle-shared" href="#career" data-target="#shares_career" data-text="share this">don't share this</span>
+            <% else %>
+              <span class="note notedown toggle-shared" href="#career" data-target="#shares_career" data-text="don't share this">share this</span>
+            <% end %>
+            <%= f.hidden_field :shares_career, id: 'shares_career' %>
+          <% end %>
+          <ul id='career' class="profile-posed<%= career_shared? ? '' : ' disabled' %>">
+            <% own_past_companies.each do |company| %>
+              <li>
+                <span>
+                  <strong><%= company.name %></strong>, <%= company.position %>, <%= career_span(company) %></li>
+                </span>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

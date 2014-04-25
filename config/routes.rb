@@ -75,6 +75,7 @@ Consulted::Application.routes.draw do
   get :find_an_expert, controller: 'search', action: :show
 
   post :search, to: 'search#search'
+  get :contact, controller: 'contacts', action: 'new'
 
   namespace :call do
     post '/', action: :handle
