@@ -44,7 +44,7 @@ class Users::SettingsController < Users::BaseController
   private
 
   def user_profile_params
-    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, languages: []
+    params.require(:user).permit :name, :slug, :email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, :shares_career, :shares_education, :shares_summary, languages: []
   end
 
   def timezone_params

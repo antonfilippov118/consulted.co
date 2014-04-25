@@ -29,6 +29,9 @@ class User
   ## Linkedin
   field :uid
   field :linkedin_network, type: Integer, default: 0
+  field :shares_summary, type: Boolean, default: true
+  field :shares_education, type: Boolean, default: true
+  field :shares_career, type: Boolean, default: true
 
   # notifications
   field :meeting_notification, type: Boolean, default: true

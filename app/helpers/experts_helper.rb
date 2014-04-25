@@ -16,6 +16,14 @@ module ExpertsHelper
     @expert.companies.delete_if { |c| c == current_company }
   end
 
+  def past_companies?
+    @expert.shares_career?
+  end
+
+  def summary?
+    @expert.shares_summary?
+  end
+
   def company_url
     "https://www.linkedin.com/company/#{current_company.linkedin_id}"
   end
@@ -104,7 +112,7 @@ module ExpertsHelper
   end
 
   def education?
-    @expert.educations.any?
+    @expert.educations.any? && @expert.shares_education?
   end
 
   def educations

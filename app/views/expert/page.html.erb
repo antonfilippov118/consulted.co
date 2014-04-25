@@ -1,52 +1,56 @@
 <div id="profile">
   <% if user_expert_page? %>
-    <div class="alert notice">This is your expert page as ther users see it - if some data is out of sync with your Linkedin profile, <%= link_to 'resynchronize your data here', '', data: { toggle: 'modal', target: '#linkedin_modal' }  %></div>
-    <%= render partial: 'linkedin_modal' %>
+    <div class="alert notice">This is your expert page - to edit your information and availability, <%= link_to 'click here', offers_path %></div>
   <% end %>
   <div id="profile-main" class="row divider">
     <div class="profile-info col-md-7">
       <div class="profile-image">
         <%= image_tag profile_image_url, alt: @expert.name, class: 'profile-img' %>
         <% if linkedin_profile? %>
-          <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin" %>
+          <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin", target: '_blank' %>
         <% end %>
       </div>
       <h1>
         <%= @expert.name %>
         <%= render partial: 'users/favorites/bookmark' %>
       </h1>
-      <% unless current_company.nil? %>
-        <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %>
+      <% unless current_company.nil? or !past_companies? %>
+        <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %></p>
       <% end %>
-      </p>
-      <div class="profile-heading">Profile summary</div>
-      <p class="bigger"><%= simple_format summary %></p>
-    </div>
-    <div class="profile-side col-md-offset-1 col-md-4">
-      <% if past_companies.any? %>
-        <div class="profile-heading">Previous positions</div>
-        <ul class="profile-posed">
-          <% past_companies.each do |company| %>
-            <li>
-              <span>
-                <strong><%= company.name %></strong>, <%= company.position %>, <%= career_span(company) %></li>
-              </span>
-          <% end %>
-        </ul>
-      <% end %>
-      <% if education? %>
-        <div class="profile-heading">Education</div>
-        <ul class="profile-posed">
-          <% educations.each do |edu| %>
-            <li>
-              <span>
-                <strong><%= edu.name %></strong>, <%= edu.degree %> <%= education_span(edu).nil? ? '' : education_span(edu) %>
-              </span>
-            </li>
-          <% end %>
-        </ul>
+      <% if summary? %>
+        <div class="profile-heading">Profile summary</div>
+        <p class="bigger"><%= simple_format summary %></p>
       <% end %>
     </div>
+    <% if past_companies? or education? %>
+      <div class="profile-side col-md-offset-1 col-md-4">
+        <% if past_companies? %>
+          <div class="profile-heading">Previous positions</div>
+          <ul class="profile-posed">
+            <% past_companies.each do |company| %>
+              <li>
+                <span>
+                  <strong><%= company.name %></strong>, <%= company.position %>, <%= career_span(company) %></li>
+                </span>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if education? %>
+          <div class="profile-heading">Education</div>
+          <ul class="profile-posed">
+            <% educations.each do |edu| %>
+              <li>
+                <span>
+                  <strong><%= edu.name %></strong>, <%= edu.degree %> <%= education_span(edu).nil? ? '' : education_span(edu) %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="block"></div>
+    <% end %>
   </div>
 
   <h2 class="heading">Expert's service offerings</h2>

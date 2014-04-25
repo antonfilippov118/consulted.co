@@ -50,6 +50,30 @@
     }
   }
 }
+
+#offerfull-basics {
+  .notedown {
+    cursor: pointer;
+    &:hover {
+      background: #5C9DE6;
+      &:before {
+        border-top: 4px solid #5C9DE6;
+      }
+    }
+  }
+  .disabled, .disabled span {
+    color: #ccc !important;
+  }
+  .toggle-form {
+    margin-top: -40px;
+    float: right;
+  }
+}
+#profile-main {
+  .block {
+    height: 200px;
+  }
+}
 #main {
   .alert {
     &.notice {
