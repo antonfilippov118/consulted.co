@@ -1,9 +1,10 @@
 <div ng-app="consulted.browser" class="consulted-app browser" id="groups">
-  <% %w(bread lookup main browse group categories learn).each do |partial| %>
+  <% %w(bread lookup browse group categories learn).each do |partial| %>
   <script type="text/ng-template" id="<%= partial %>">
     <%= render partial: "search/ng/#{partial}"  %>
   </script>
   <% end %>
+  <h1>Find the right expert for your problem</h1>
   <div lookup></div>
   <h2>Or browse our service offerings</h2>
   <div ng-view></div>
