@@ -37,6 +37,7 @@ Consulted::Application.routes.draw do
       get '/notifications', controller: 'users/settings', action: :notifications
 
       patch :profile, controller: 'users/settings', action: :user_update
+      patch :linkedin, controller: 'users/settings', action: :linkedin
       put :timezone, controller: 'users/settings', action: :timezone_update
     end
 
