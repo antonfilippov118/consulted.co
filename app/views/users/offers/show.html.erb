@@ -105,5 +105,7 @@
       </div>
     <% end %>
   </div>
-  <%= render partial: 'profile' %>
+  <% if active_profile? %>
+    <%= render partial: 'profile' %>
+  <% end %>
 </div>
