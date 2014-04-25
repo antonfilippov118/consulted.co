@@ -82,4 +82,12 @@
   }
 }
 
+.tag-adding-form {
+  display:inline;
+}
+input.tag-add {
+  width: 100px;
+  height: 27px;
+}
+
 @import'typeahead'

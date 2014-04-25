@@ -1,6 +1,7 @@
 app = angular.module 'consulted.finder', [
   'consulted.finder.services'
   'consulted.finder.directives'
+  'consulted.common'
 ]
 
 app.run [

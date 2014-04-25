@@ -4,7 +4,7 @@ app = angular.module 'consulted.finder.controllers', [
 
 app.controller 'FilterCtrl', [
   '$scope'
-  (scope) ->
-
+  'Language'
+  FilterCtrl = (scope, Language) ->
 
 ]

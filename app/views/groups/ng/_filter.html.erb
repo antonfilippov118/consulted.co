@@ -17,9 +17,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-7">
-          <div class="ovr-timezone">
-            <strong>Your timezone:</strong>Pacific Standart Time (GMT-8) <a class="btn btn-primary btn-xs" href="#">Change</a>
-          </div>
+          <% if user_signed_in? %>
+            <div class="ovr-timezone">
+              <strong>Your timezone</strong>
+              <%= render partial: 'users/dashboard/timezone' %>
+              <a class="btn btn-primary btn-xs" id="change_tz" data-toggle="modal" data-target="#tz_modal">Change</a>
+              <%= render partial: 'users/dashboard/timezone_modal' %>
+            </div>
+          <% end %>
           <h1>Choose your options</h1>
           <div class="fexp-block">
             <div class="fexp-head">
@@ -143,20 +148,13 @@
                 </div>
               </div>
             </div>
-            <div class="fexp-block">
+            <div class="fexp-block" languages>
               <p class="fexp-head-sm">Language</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group4[]" value="value1" checked="">English</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group4[]" value="value2">Mandarin</label>
-                  <label class="check line-check in">
-                    <input type="checkbox" name="chk_group4[]" value="value3" checked="">Spanish</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group4[]" value="value4">Arabic</label>
-                  <label class="check line-check">
-                    <input type="checkbox" name="chk_group4[]" value="value5">German</label>
+                  <label class="check line-check" ng-class="{'in':isActive(language)}" ng-repeat="language in languages">
+                    <input type="checkbox" ng-click="toggle(language)" > {{language | capitalize}}
+                  </label>
                 </div>
               </div>
             </div>
@@ -234,27 +232,19 @@
                 <input type="text" class="ranger" name="example_name" value="5;23" data-min="0" data-max="35" data-from="5" data-to="23" style="display: none;">
               </div>
             </div>
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7" tags>
           <div id="keywords" class="fexp-block">
             <div class="fexp-head">
               Keywords
-              <span class="tag flaticon flaticon-close">John</span>
-              <span class="tag flaticon flaticon-close">consulting</span>
-              <span class="tag flaticon flaticon-close">banking</span>
-              <span class="addtag">add</span>
+              <span class="tag flaticon flaticon-close" ng-repeat="tag in tags" ng-click="remove(tag)">{{tag}}</span>
+              <form ng-submit="add()" class="tag-adding-form" ng-show="adding">
+                <input type="text" class="tag-add" ng-model="next_tag">
+              </form>
+              <span class="addtag" ng-click="add()">add</span>
             </div>
           </div>
         </div>

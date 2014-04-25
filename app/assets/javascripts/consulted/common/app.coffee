@@ -257,3 +257,8 @@ app.filter "week", [() ->
     return input.isoWeek() if iso
     return input.week()
 ]
+
+app.filter "capitalize", () ->
+  (input) -> "#{input.charAt(0).toUpperCase()}#{input.slice(1)}"
+
+
