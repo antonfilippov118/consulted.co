@@ -1,7 +1,7 @@
 <div>
   <div id="filter" ng-hide="open">
     <div class="container">
-      <span class="filter-prop">
+      <span class="filter-prop" ng-show="currentDays().length > 0">
         <strong>Days:</strong> Mon, Tue, Wed</span>
       <span class="filter-prop" ng-show="currentLocations().length > 0">
         <strong>Locations:</strong> {{currentLocations().join(", ")}}</span>
@@ -10,9 +10,9 @@
         <span ng-repeat="lang in currentLanguages()">{{lang | capitalize}}<span ng-hide="$last">, </span></span>
       </span>
       <span class="filter-prop">
-        <strong>Hourly rate:</strong> $45-$70</span>
+        <strong>Hourly rate:</strong> ${{currentRate().from}} - ${{currentRate().to}}</span>
       <span class="filter-prop">
-        <strong>Experience:</strong> 3-5 years</span>
+        <strong>Experience:</strong> {{currentExperience().from}} - {{currentExperience().to}} years</span>
     </div>
   </div>
   <div id="filter-expanded" ng-show="open" ng-class="{'in':open}">
@@ -151,76 +151,16 @@
             </div>
           </div>
           <div class="half">
-            <div class="fexp-block">
+            <div class="fexp-block" rate>
               <p class="fexp-head-sm">Hourly rate</p>
               <div class="clr">
-                <span class="irs" id="irs-1">
-                  <span class="irs">
-                    <span class="irs-line">
-                      <span class="irs-line-left"></span>
-                      <span class="irs-line-mid"></span>
-                      <span class="irs-line-right"></span>
-                    </span>
-                    <span class="irs-min" style="display: none;">0</span>
-                    <span class="irs-max" style="display: none;">1</span>
-                    <span class="irs-from" style="left: 56.5px; display: block;">$34</span>
-                    <span class="irs-to" style="left: 162.5px; display: block;">$89</span>
-                    <span class="irs-single" style="left: 92px; display: none;">$34 — $89</span>
-                    <span class="irs-diapason" style="left: 70.5px; width: 106px;"></span>
-                    <span class="irs-slider from last" style="left: 64px;"></span>
-                    <span class="irs-slider to" style="left: 170px;"></span>
-                  </span>
-                  <span class="irs-grid"></span>
-                </span>
-                <input type="text" class="ranger" name="example_name" value="34;89" data-min="0" data-max="100" data-from="45" data-to="70" style="display: none;">
+                <input type="text" class="ranger" data-min="<%= @rates.min %>" data-max="<%= @rates.max %>" data-from="<%= @rates.min %>" data-to="<%= @rates.max %>" />
               </div>
             </div>
-            <div class="fexp-block">
+            <div class="fexp-block" experience>
               <p class="fexp-head-sm">Years of offering experience</p>
               <div class="clr">
-                <span class="irs" id="irs-2">
-                  <span class="irs">
-                    <span class="irs-line">
-                      <span class="irs-line-left"></span>
-                      <span class="irs-line-mid"></span>
-                      <span class="irs-line-right"></span>
-                    </span>
-                    <span class="irs-min" style="display: none;">0</span>
-                    <span class="irs-max" style="display: none;">1</span>
-                    <span class="irs-from" style="left: 67.5px; display: block;">$3</span>
-                    <span class="irs-to" style="left: 114.5px; display: block;">$5</span>
-                    <span class="irs-single" style="left: 76.5px; display: none;">$3 — $5</span>
-                    <span class="irs-diapason" style="left: 78.125px; width: 47.75px;"></span>
-                    <span class="irs-slider from" style="left: 72px;"></span>
-                    <span class="irs-slider to" style="left: 119px;"></span>
-                  </span>
-                  <span class="irs-grid"></span>
-                </span>
-                <input type="text" class="ranger" name="example_name" value="3;5" data-min="0" data-max="8" data-from="3" data-to="5" style="display: none;">
-              </div>
-            </div>
-            <div class="fexp-block">
-              <p class="fexp-head-sm">Awesome Count</p>
-              <div class="clr">
-                <span class="irs" id="irs-3">
-                  <span class="irs">
-                    <span class="irs-line">
-                      <span class="irs-line-left"></span>
-                      <span class="irs-line-mid"></span>
-                      <span class="irs-line-right"></span>
-                    </span>
-                    <span class="irs-min" style="display: none;">0</span>
-                    <span class="irs-max" style="display: none;">1</span>
-                    <span class="irs-from" style="left: 22.5px; display: block;">$5</span>
-                    <span class="irs-to" style="left: 118.5px; display: block;">$23</span>
-                    <span class="irs-single" style="left: 54.5px; display: none;">$5 — $23</span>
-                    <span class="irs-diapason" style="left: 33.78571428571428px; width: 98.22857142857141px;"></span>
-                    <span class="irs-slider from" style="left: 27px;"></span>
-                    <span class="irs-slider to" style="left: 126px;"></span>
-                  </span>
-                  <span class="irs-grid"></span>
-                </span>
-                <input type="text" class="ranger" name="example_name" value="5;23" data-min="0" data-max="35" data-from="5" data-to="23" style="display: none;">
+                <input type="text" class="ranger" data-min="<%= @experience.min %>" data-max="<%= @experience.max %>" data-from="<%= @experience.min %>" data-to="<%= @experience.max %>" />
               </div>
             </div>
           </div>

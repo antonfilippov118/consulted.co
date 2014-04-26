@@ -26,6 +26,10 @@
     "css-toggle-switch": "~2.1.4",
     "typeahead.js": "~0.10.1",
     "angular-bootstrap": "~0.10.0",
-    "angular-typeahead": "0.1.4"
+    "angular-typeahead": "0.1.4",
+    "respond": "~1.4.2",
+    "html5shiv": "~3.7.1",
+    "noty": "~2.2.2",
+    "ion-range-slider": "~1.9.1"
   }
 }

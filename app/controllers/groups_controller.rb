@@ -8,6 +8,9 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find params[:id]
     redirect_to search_path if @group.children?
+    experts = User.experts.with_group(@group)
+    @rates = []
+    @experience = []
   end
 
   def search

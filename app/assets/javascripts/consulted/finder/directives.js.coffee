@@ -30,6 +30,42 @@ app.directive 'continents', [
       scope.continents = Continent.getContinents()
       scope.isActive   = Continent.isActive
       scope.toggle     = Continent.toggle
+]
+
+app.directive 'rate', [
+  'Rate'
+  (Rate) ->
+    replace: no
+    scope: yes
+    link: (scope, el) ->
+      select = (values) ->
+        {fromNumber, toNumber} = values
+        Rate.set fromNumber, toNumber
+
+      slider = el.find '.ranger'
+      slider.ionRangeSlider
+        type: 'double'
+        prefix: '$'
+        hideMinMax: yes
+        onFinish: select
+]
+
+app.directive 'experience', [
+  'Experience'
+  (Experience) ->
+    replace: no
+    scope: yes
+    link: (scope, el) ->
+      select = (values) ->
+        {fromNumber, toNumber} = values
+        Experience.set fromNumber, toNumber
+
+      slider = el.find '.ranger'
+      slider.ionRangeSlider
+        type: 'double'
+        prefix: '$'
+        hideMinMax: yes
+        onFinish: select
 
 ]
 
@@ -58,6 +94,5 @@ app.directive 'tags', [
         Tag.add scope.next_tag
         scope.next_tag = ""
         scope.adding = no
-
 
 ]

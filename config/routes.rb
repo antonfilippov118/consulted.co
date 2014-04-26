@@ -70,6 +70,7 @@ Consulted::Application.routes.draw do
 
   namespace :users do
     get :available, to: 'utilities#available'
+    get :regions, to: 'utilities#region'
   end
 
   get :find_an_expert, controller: 'search', action: :show

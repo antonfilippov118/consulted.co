@@ -54,7 +54,9 @@ app.service 'Tag', [
 
 app.service 'Continent', [
   'Search'
-  (Search) ->
+  '$http'
+  '$q'
+  (Search, http, q) ->
 
     activeContinents = []
     country = ""
@@ -64,14 +66,10 @@ app.service 'Continent', [
       Search.trigger opts
 
     getContinents: () ->
-      [
-        'North America'
-        'South America'
-        'Western Europe'
-        'Eastern Europe'
-        'East Asia'
-        'South Asia'
-      ]
+      result = q.defer()
+      http.get('/users/regions.json', cache: yes).then (response) ->
+        result.resolve response.data
+      result.promise
 
     getCurrent: -> activeContinents
 
@@ -104,6 +102,51 @@ app.service 'Bookmark', [
       Search.trigger bookmark: bookmark
     isActive: -> bookmark
 
+]
+
+app.service 'Rate', [
+  'Search'
+  (Search) ->
+    current_rate = {}
+
+    trigger = () ->
+      Search.trigger rate_lower: current_rate.from, rate_upper: current_rate.to
+
+    defaults =
+      from: 0
+      to: 1000
+
+    set: (from, to)->
+      current_rate.from = from
+      current_rate.to = to
+      trigger()
+
+    getCurrent: ->
+      unless current_rate.from and current_rate.to
+        return defaults
+      current_rate
+]
+app.service 'Experience', [
+  'Search'
+  (Search) ->
+    current_exp = {}
+
+    trigger = () ->
+      Search.trigger experience_upper: current_exp.to, experience_lower: current_exp.from
+
+    defaults =
+      from: 0
+      to: 50
+
+    set: (from, to)->
+      current_exp.from = from
+      current_exp.to = to
+      trigger()
+
+    getCurrent: ->
+      unless current_exp.from and current_exp.to
+        return defaults
+      current_exp
 ]
 
 app.service 'Search', [

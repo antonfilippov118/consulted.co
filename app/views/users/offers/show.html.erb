@@ -59,7 +59,7 @@
           <p class="basics-head">Your location</p>
           <div class="clr">
             <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
-              <%= f.country_select :country, nil, {}, class: 'form-control' %>
+              <%= f.country_select :country, nil, { iso_codes: true }, class: 'form-control' %>
             <% end %>
             <span class="info flaticon flaticon-info">Please provide your location as we let advice seekers filter by location.</span>
           </div>

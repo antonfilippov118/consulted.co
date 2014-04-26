@@ -12,6 +12,11 @@ class PlatformSettings
 
   before_validation :ensure_has_only_one_record, on: :create
 
+  def continents
+    regions = Country.all.map { |country| Country.new(country.last).continent }
+    regions.uniq
+  end
+
   private
 
   def ensure_has_only_one_record

@@ -10,4 +10,5 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
 //= require noty/js/noty/packaged/jquery.noty.packaged.min
+//= require ion-range-slider/js/ion.rangeSlider.js
 //= require_tree ./consulted
