@@ -5,6 +5,7 @@ class User
   include Validatable::User
   include Sluggable::User
   include Scopable::User
+  include Geo::Continent
 
   extend Dragonfly::Model
 
@@ -40,7 +41,6 @@ class User
   field :max_meetings_per_day, type: Integer, default: 0
   field :start_delay, type: Integer, default: 0
 
-  field :country
   field :status, type: String, default: STATUS_LIST.first
 
   #

@@ -44,7 +44,7 @@ class SynchronizeLinkedinProfile
     executed do |context|
       client = context.fetch :client
       info   = client.profile fields: 'location'
-      context[:user].country = Country.new(info.location.country.code).name
+      context[:user].country = Country.new(info.location.country.code)
     end
   end
 
