@@ -128,7 +128,7 @@ describe User do
       user.save
 
       expect(User.first.continent).to eql 'Europe'
-      expect(User.first.subregion).to eql 'Western Europe'
+      expect(User.first.region).to eql 'Western Europe'
     end
   end
 end

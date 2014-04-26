@@ -7,6 +7,10 @@ module Geo
       field :continent
       field :region
 
+      index country: 1
+      index region: 1
+      index continent: 1
+
       before_save do
         unless country.nil?
           self.continent = country.continent
