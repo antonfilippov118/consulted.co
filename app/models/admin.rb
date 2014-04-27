@@ -18,4 +18,8 @@ class Admin
   field :last_sign_in_ip,    type: String
 
   field :super_admin, type: Boolean, default: false
+
+  def to_liquid
+    {}
+  end
 end

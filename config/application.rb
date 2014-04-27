@@ -49,5 +49,7 @@ module Consulted
         '.eot',  '.otf', '.svc', '.woff', '.ttf', # Fonts
       ]
     end)
+
+    config.autoload_paths += Dir["#{config.root}/lib/liquid/**/"]
   end
 end

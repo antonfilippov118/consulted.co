@@ -26,4 +26,8 @@ class Request
   scope :declined, -> { where declined: true }
   scope :cancelled, -> { where cancelled: true }
   scope :accepted, -> { where accepted: true, cancelled: false, declined: false }
+
+  def to_liquid
+    { name: name }
+  end
 end

@@ -2,10 +2,10 @@
 
 # email validator class for validating emails, the weak checking
 # is intended, as the user has to confirm his email anyway
-class EmailValidator < ActiveModel::Validator
-  def validate(record)
-    if (regexp =~ record.email).nil?
-      record.errors.add :email, options[:message] || 'is not properly formatted!'
+class EmailValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    if (regexp =~ value).nil?
+      record.errors.add attribute, options[:message] || 'is not properly formatted!'
     end
   end
 

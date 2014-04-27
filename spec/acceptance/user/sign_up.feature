@@ -3,6 +3,7 @@ Feature: Sign up using email and password
   As a user
   I want to register a new account
 
+  @javascript
   Scenario: User signs up successfully with email
     Given I am on registration page
     When I submit registration form with required fields

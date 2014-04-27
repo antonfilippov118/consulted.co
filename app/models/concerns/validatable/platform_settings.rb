@@ -8,6 +8,7 @@ module Validatable
       validates_numericality_of :call_dispute_period, greater_than_or_equal_to: 0
       validates_numericality_of :block_time, greater_than: 0
       validates_numericality_of :session_timeout, greater_than_or_equal_to: 0
+      validates :email_default_from, email: true
     end
   end
 end

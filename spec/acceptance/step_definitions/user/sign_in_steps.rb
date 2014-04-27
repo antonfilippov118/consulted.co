@@ -7,10 +7,11 @@ step 'I go to forgot password page' do
 end
 
 step 'I submit login form with valid credentials' do
-  fill_in 'user_email', with: @current_user.email
+  fill_in 'login_field', with: @current_user.email
+  page.find('#login_field').trigger 'change'
   fill_in 'user_password', with: @current_user.password
 
-  click_button 'Login'
+  click_button 'Log in'
 end
 
 step 'I should be logged in' do

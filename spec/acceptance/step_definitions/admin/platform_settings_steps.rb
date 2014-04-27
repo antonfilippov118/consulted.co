@@ -12,6 +12,12 @@ end
 
 step 'I should see platform settings' do
   @platform_settings.attributes.except('_id').each do |attribute, value|
+    if attribute == 'required_network'
+      within 'table tbody tr.platform_settings_row' do
+        click_link '...'
+      end
+    end
+
     page.should have_content(attribute.humanize)
 
     within 'table tbody tr.platform_settings_row' do

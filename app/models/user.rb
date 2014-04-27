@@ -88,7 +88,7 @@ class User
   has_many :requests, inverse_of: :seeker, class_name: 'Call'
   has_many :calls, inverse_of: :expert
 
-  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities
+  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities, :favorites
 
   # TODO: since Mongoid hasn't random, so far this simple method just works.
   # In future we can add custom mongoid finder module and method to mongoid
@@ -139,6 +139,14 @@ class User
 
   def be_an_expert!
     update_attribute :wants_to_be_an_expert, !wants_to_be_an_expert
+  end
+
+  def to_liquid
+    {
+      id: id.to_s,
+      email: email,
+      name: name
+    }
   end
 
   private
