@@ -50,13 +50,11 @@
     }
   }
 }
-
 #landing-main {
   .postbtn a {
     color: #fff;
   }
 }
-
 #offerfull-basics {
   .notedown {
     cursor: pointer;
@@ -84,18 +82,36 @@
   .alert {
     &.notice {
       background: #3276b1;
-   }
+    }
   }
 }
-
 #landing-testimonials:before {
   font-size:32px !important;
   line-height: 58px !important;
 }
-
 .sign-text a {
   color: #444;
+}
+.signup-now {
+  text-align: center;
+  .signup-btn {
+    background:#6b7a99;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    margin:42px 0 0;
+    padding:8px 40px;
+    text-transform:none;
+    @media (max-width:480px) {
+      margin:16px 0 0;
+    }
+    &:hover {
+      background:#596988;
+    }
   }
-
-@import 'filters';
-@import 'typeahead';
+  .postbtn a {
+    color: #777;
+  }
+}
+@import'filters';
+ @import'typeahead';

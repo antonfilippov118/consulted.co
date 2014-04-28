@@ -23,13 +23,6 @@
         <li data-target="#testimonial-carousel" data-slide-to="2"></li>
       </ol>
     </div>
-    <p class="text-center">
-      <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
-        Sign up
-      <% end %>
-    </p>
-    <p class="postbtn">
-      <%= link_to 'interested to join as expert?', join_as_expert_path %>
-    </p>
+    <%= render partial: 'layouts/signup' %>
   </div>
 </div>

@@ -1,0 +1,34 @@
+ .transition {
+  -webkit-transition:all 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -moz-transition:all 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -o-transition:all 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition:all 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.transition-vis {
+  -webkit-transition:visibility 0.4s ease-in-out;
+  -moz-transition:visibility 0.4s ease-in-out;
+  -o-transition:visibility 0.4s ease-in-out;
+  transition:visibility 0.4s ease-in-out;
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius:$radius;
+  -moz-border-radius:$radius;
+  -ms-border-radius:$radius;
+  border-radius:$radius;
+}
+@mixin box-shadow($boxshadow) {
+  -webkit-box-shadow:$boxshadow;
+  -moz-box-shadow:$boxshadow;
+  box-shadow:$boxshadow;
+}
+@mixin text-shadow($textshadow) {
+  -webkit-text-shadow:$textshadow;
+  -moz-text-shadow:$textshadow;
+  text-shadow:$textshadow;
+}
+@mixin background-size($bgsize) {
+  -webkit-background-size:$bgsize;
+  -moz-background-size:$bgsize;
+  -o-background-size:$bgsize;
+  background-size:$bgsize;
+}
