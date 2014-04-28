@@ -1,6 +1,47 @@
 <div class="container">
+
   <%= render partial: 'back' %>
-  <h1>How it works</h1>
-  <p>TODO</p>
-  <%= render partial: 'layouts/signup' %>
+
+    <h1 class="text-center">How It Works</h1>
+
+    <div id="howitworks">
+      <div class="how-row row">
+        <div class="col-md-4 text-center">
+          <span class="glyphicon glyphicon-search"></span>
+        </div>
+        <div class="col-md-8">
+          <p class="semibold">1. Browse service offerings to find the right expert</p>
+          <ul>
+            <li>Explore our range of well defined service offerings for your specific problem and select an expert who meets your need and availability</li>
+          </ul>
+        </div>
+      </div>
+      <div class="how-row row">
+        <div class="col-md-4 right text-center">
+          <span class="glyphicon glyphicon-user"></span>
+        </div>
+        <div class="col-md-8 left">
+          <p class="semibold">2. Schedule a call</p>
+          <ul>
+            <li>Once you scheduled a call, the expert receives your request and will respond to within 24 hours</li>
+            <li>If confirmed, you receive a confirmation email with the call details</li>
+          </ul>
+        </div>
+      </div>
+      <div class="how-row row">
+        <div class="col-md-4 text-center">
+          <span class="glyphicon glyphicon-phone"></span>
+        </div>
+        <div class="col-md-8">
+          <p class="semibold">3. Connect with the expert through our call bridge</p>
+          <ul>
+            <li>At the agreed date and time, connect to the expert using one of the call in numbers and dial the conference code</li>
+            <li>24 hours after the call is completed we will process the payment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <%= render partial: 'layouts/signup' %>
+
 </div>
