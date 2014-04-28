@@ -63,7 +63,6 @@ app.directive 'experience', [
       slider = el.find '.ranger'
       slider.ionRangeSlider
         type: 'double'
-        prefix: '$'
         hideMinMax: yes
         onFinish: select
 

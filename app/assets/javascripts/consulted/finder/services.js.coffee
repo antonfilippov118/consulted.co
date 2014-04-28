@@ -54,9 +54,7 @@ app.service 'Tag', [
 
 app.service 'Continent', [
   'Search'
-  '$http'
-  '$q'
-  (Search, http, q) ->
+  (Search) ->
 
     activeContinents = []
     country = ""
@@ -66,10 +64,16 @@ app.service 'Continent', [
       Search.trigger opts
 
     getContinents: () ->
-      result = q.defer()
-      http.get('/users/regions.json', cache: yes).then (response) ->
-        result.resolve response.data
-      result.promise
+      [
+       "Europe"
+       "Asia"
+       "North America"
+       "Africa"
+       "Antarctica"
+       "South America"
+       "Australia"
+     ]
+
 
     getCurrent: -> activeContinents
 

@@ -133,6 +133,9 @@
               <p class="fexp-head-sm">Expert location</p>
               <div class="fexp-body">
                 <div class="clr">
+                  <label class="check line-check" ng-class="{'in':allActive()}">
+                    <input type="checkbox" ng-click="all()"> All
+                  </label>
                   <label class="check line-check" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents">
                     <input type="checkbox" ng-click="toggle(continent)">{{continent}}
                   </label>
