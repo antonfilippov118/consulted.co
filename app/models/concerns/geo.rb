@@ -3,7 +3,7 @@ module Geo
     extend ActiveSupport::Concern
 
     included do
-      field :country, type: Country
+      field :country, type: String
       field :continent
       field :region
 
@@ -13,8 +13,9 @@ module Geo
 
       before_save do
         unless country.nil?
-          self.continent = country.continent
-          self.region    = country.subregion
+          country_obj    = Country.new country
+          self.continent = country_obj.continent
+          self.region    = country_obj.subregion
         end
       end
     end

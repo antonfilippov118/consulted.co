@@ -27,7 +27,7 @@
 
     <h2 class="heading">It’s easy, fits your busy schedule and is made for business professionals</h2>
     <ol>
-      <li>Signup for free – we will only charge a 15% platform fee when advice you offer</li>
+      <li>Sign up for free – we will only charge a 15% platform fee when advice you offer</li>
       <li>Identify your areas of expertise in our Service Offerings and briefly describe your experience in each</li>
       <li>Indicate when you are available for telephone conversation with our easy to use scheduling tool and you are listed (and bookable) on CONSULTED</li>
       <li>Once an advice seeker requests a call, you receive an email notification and have 24 hours to confirm</li>
@@ -78,13 +78,10 @@
     </div>
   </dl>
 
-  <p class="text-center clr"><a href="#">See all Frequently Asked Questions (FAQs)</a>
+  <p class="text-center clr">
+    <%= link_to 'See all Frequently Asked Questions (FAQs)', 'https://consultedco.zendesk.com/hc/en-us', target: '_blank' %>
   </p>
 
-
-  <div class="text-center clr">
-    <a class="sign-btn btn btn-primary" href="#">Sign Up</a>
-    <p class="sign-text">interested to join as expert?</p>
-  </div>
+  <%= render partial: 'layouts/signup' %>
 
 </div>
