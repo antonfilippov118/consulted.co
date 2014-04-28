@@ -38,7 +38,7 @@
     <%= render partial: 'layouts/landing/use_cases' %>
     <%= render partial: 'layouts/landing/testimonials' %>
 
-    <%= render partial: 'layouts/footer' %>
+    <%= render partial: 'layouts/footer', locals: { inverted: false } %>
     <%= render partial: 'layouts/copy' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'landing' %>

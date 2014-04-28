@@ -2,6 +2,7 @@
  *= require fonts
  *= require bootstrap
  *= require next
+ *= require footer
  *= require fixes
  *= require login
  *= require sticky
