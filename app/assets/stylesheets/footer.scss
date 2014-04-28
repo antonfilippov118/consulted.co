@@ -73,7 +73,7 @@
     @include theme(#373944, #464957, #fff, #ccc)
   }
   &.inverted {
-    @include theme(#c5c5c5, #373944, #373944, #464a5e)
+    @include theme(#ddd, #c5c5c5, #373944, #464a5e)
   }
 }
 #copy {
