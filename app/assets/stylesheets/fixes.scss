@@ -11,14 +11,17 @@
 #groups {
   .advice-group {
     min-height: 400px;
+    &.selected {
+      .advice-head {
+        background: #406d93;
+      }
+      &:after {
+        border-top: 8px solid #406d93 !important;
+      }
+    }
     &.disabled {
       button {
         background-color: #C8CCCF;
-      }
-      &.selected {
-        .advice-head {
-          background: #464a5e;
-        }
       }
       .advice-head {
         background: #B3B5BD;
