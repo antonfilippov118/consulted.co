@@ -12,16 +12,28 @@ app.service 'Language', [
   'Search'
   (Search) ->
     activeLanguages = []
+    defaults = ['english', 'mandarin', 'spanish', 'arabic', 'german']
+    allActive = yes
 
-    getLanguages: () ->
-      ['english', 'mandarin', 'spanish', 'arabic', 'german']
+    getLanguages: () -> defaults
 
     isActive: (lang) ->
       lang in activeLanguages
 
-    getCurrent: -> activeLanguages
+    getCurrent: ->
+      return ['All'] if allActive
+      activeLanguages
+
+    allActive: -> allActive
+
+    toggleAll: () ->
+      allActive = !allActive
+      if allActive
+        activeLanguages = []
+        Search.trigger languages: defaults
 
     toggle: (lang) ->
+      allActive = no
       idx = activeLanguages.indexOf lang
       if idx > -1
         activeLanguages.splice idx, 1
@@ -57,38 +69,39 @@ app.service 'Continent', [
   (Search) ->
 
     activeContinents = []
-    country = ""
-    countryActive = no
+    defaults = [
+        "Europe"
+        "Asia"
+        "North America"
+        "Africa"
+        "Antarctica"
+        "South America"
+        "Australia"
+    ]
+    allActive = yes
 
     trigger = (opts = { continents: activeContinents }) ->
       Search.trigger opts
 
-    getContinents: () ->
-      [
-       "Europe"
-       "Asia"
-       "North America"
-       "Africa"
-       "Antarctica"
-       "South America"
-       "Australia"
-     ]
+    getContinents: () -> defaults
 
-
-    getCurrent: -> activeContinents
+    getCurrent: ->
+      return ['All'] if allActive
+      activeContinents
 
     isActive: (continent) ->
       continent in activeContinents
 
-    setOnly: (continent) ->
-      activeContinents = [continent]
-      trigger()
+    allActive: -> allActive
 
-    setCountry: (_country) ->
-      country = _country
-      trigger country: country
+    toggleAll: () ->
+      allActive = !allActive
+      if allActive
+        activeContinents = []
+        trigger continents: defaults
 
     toggle: (continent) ->
+      allActive = no
       idx = activeContinents.indexOf continent
       if idx > -1
         activeContinents.splice idx, 1
