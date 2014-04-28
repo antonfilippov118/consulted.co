@@ -1,68 +1,79 @@
-@mixin theme($foreground, $background, $color) {
+@mixin theme($foreground, $background, $color, $linkcolor) {
   background: $foreground;
   font-size: 14px;
   color: $color;
-  font-family: 'Open Sans'; // same as landing
-
-  a {
-    color: $color;
-  }
+  font-family:'Helvetica Neue';
 
   #foot-info {
     float:left;
-    width:35%
-  }
-  #foot-info p {
-    margin-right:25%
+    width:35%;
+    @media(max-width:991px) {
+      float:none;
+      width:auto;
+    }
+    & p {
+      margin-right:25%;
+      @media(max-width:580px) {
+        margin-right:0;
+      }
+    }
   }
   #foot-menu {
     border-left:1px dashed $background;
     float:right;
-    width:65%
+    width:65%;
+    @media(max-width:991px) {
+      float:none;
+      width:auto;
+    }
+    & .col-md-4 {
+      @media(max-width:991px) {
+        float:left;
+        width:33.333333%;
+      }
+      @media(max-width:580px) {
+        float:none;
+        width:auto;
+      }
+    }
   }
   .foot-text {
     line-height:22px;
+    font-size: 22px;
     margin:24px 0 16px
   }
   .foot-addr, .foot-menu a {
     display:block;
     font-weight:300;
-    line-height:26px
+    line-height:26px;
+    color: $linkcolor;
   }
   .foot-menu-head {
     border-bottom:1px dashed $background;
     font-weight:700;
     margin:0 -15px;
     padding:24px 15px 12px;
-    text-transform:uppercase
+    text-transform:uppercase;
   }
   .foot-menu {
     display:block;
     list-style:none;
     margin:4px 0 20px;
-    padding:0
+    padding:0;
   }
   .foot-menu li {
-    display:block
+    display:block;
   }
   .foot-menu span {
-    width:22px
+    width:22px;
   }
 }
 #footer {
-
   &.landing {
-    $foreground: #373944;
-    $background: #464957;
-    $color: #fff;
-    @include theme($foreground, $background, $color)
+    @include theme(#373944, #464957, #fff, #ccc)
   }
-
   &.inverted {
-    $background: #373944;
-    $foreground: #ddd;
-    $color: #373944;
-    @include theme($foreground, $background, $color)
+    @include theme(#ddd, #373944, #373944, #464a5e)
   }
 }
 #copy {

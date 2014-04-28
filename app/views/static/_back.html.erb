@@ -1,0 +1,5 @@
+<% unless user_signed_in? %>
+  <p class="back-home text-left clr"><span class="flaticon flaticon-arrowleft"></span>
+    <%= link_to 'back to homepage', root_path  %>
+  </p>
+<% end %>

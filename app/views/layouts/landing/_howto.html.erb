@@ -7,7 +7,11 @@
       <div class="how how-shedule col-md-4 text-center">Schedule a call</div>
       <div class="how how-connect col-md-4 text-center">Connect with the expert through our call bridge</div>
     </div>
-    <p class="link-centered"><a href="#">Learn More<span class="fa fa-arrow-right"></span></a></p>
+    <p class="link-centered">
+    <%= link_to how_it_works_path do %>
+      Learn more<span class="fa fa-arrow-right"></span>
+    <% end %>
+    </p>
   </div>
 </div>
 <div class="slide-text text-grey">

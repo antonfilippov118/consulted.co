@@ -90,7 +90,9 @@ Consulted::Application.routes.draw do
     :about_us,
     :privacy,
     :case_studies,
-    :terms
+    :terms,
+    :join_as_expert,
+    :how_it_works
   ].each do |page|
     get page, controller: :static
   end

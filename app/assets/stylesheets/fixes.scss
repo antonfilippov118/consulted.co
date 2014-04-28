@@ -88,5 +88,10 @@
   }
 }
 
+#landing-testimonials:before {
+  font-size:32px !important;
+  line-height: 58px !important;
+}
+
 @import 'filters';
 @import 'typeahead';

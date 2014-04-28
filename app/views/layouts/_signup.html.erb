@@ -1,10 +1,10 @@
 <% if show_signup?  %>
-  <p class="text-center signup-btn">
-    <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
-      Sign up
+  <div class="text-center clr">
+    <%= link_to 'Sign up', new_user_registration_path, class: 'sign-btn btn btn-primary'  %>
+    <% unless current_page?(join_as_expert_path) %>
+      <p class="sign-text">
+        <%= link_to 'initerested to join as an expert?', join_as_expert_path  %>
+      </p>
     <% end %>
-  </p>
-  <p class="postbtn">
-    <%= link_to 'interested to join as expert?', '#' %>
-  </p>
+  </div>
 <% end %>
