@@ -1,4 +1,4 @@
-<div id="nav" class="navbar navbar-default smallbar" role="navigation">
+<div id="landnav" class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -14,7 +14,13 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <% unless user_signed_in? %>
+           <% if user_signed_in? %>
+            <li>
+              <%= link_to overview_path, class: 'btn btn-default' do %>
+                Continue to the platform <i class="fa fa-arrow-right"></i>
+              <% end %>
+            </li>
+          <% else %>
             <li>
               <%= link_to "#{root_path}#landing-advice" do  %>
                 <%= content_tag :span do %>
@@ -51,12 +57,6 @@
             <li>
               <%= link_to new_user_session_path, class: 'btn btn-default' do  %>
                 Log in
-              <% end %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to overview_path, class: 'btn btn-default' do %>
-                Continue to the platform <i class="fa fa-arrow-right"></i>
               <% end %>
             </li>
           <% end %>

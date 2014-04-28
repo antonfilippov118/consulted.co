@@ -9,16 +9,16 @@
     <!--[if lt IE 9]>
       <%= javascript_include_tag 'compatibility' %>
     <![endif]-->
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'follow' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="landing">
     <%# Main navigation %>
     <%= render partial: 'layouts/static/navigation' %>
     <div class="wrapper">
-      <div class="slide-text container">
+      <section id="main">
         <%= yield %>
-      </div>
+      </section>
       <div class="push"></div>
     </div>
     <div class="footer">
