@@ -3,6 +3,7 @@
  *= require bootstrap
  *= require main
  *= require save
+ *= require footer
  *= require sticky
  *= require fixes
  */
