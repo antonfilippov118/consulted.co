@@ -13,7 +13,8 @@ module Geo
 
       before_save do
         unless country.nil?
-          country_obj    = Country.new country
+          country_obj    = Country.find_by_name country
+          country_obj    = Country.new country_obj.first
           self.continent = country_obj.continent
           self.region    = country_obj.subregion
         end
