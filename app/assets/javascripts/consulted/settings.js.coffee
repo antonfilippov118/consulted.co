@@ -8,7 +8,7 @@ $ ->
 
     # set the reverse
     hidden = $(el.data('target'))
-    console.log hidden.val() is 'true'
+
     if hidden.val() is "true"
       hidden.val("false")
     else
