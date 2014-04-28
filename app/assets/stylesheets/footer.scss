@@ -1,5 +1,5 @@
-@mixin theme($foreground, $background, $color, $linkcolor) {
-  background: $foreground;
+@mixin theme($background, $foreground, $color, $linkcolor) {
+  background: $background;
   font-size: 14px;
   color: $color;
   font-family:'Helvetica Neue';
@@ -19,7 +19,7 @@
     }
   }
   #foot-menu {
-    border-left:1px dashed $background;
+    border-left:1px dashed $foreground;
     float:right;
     width:65%;
     @media(max-width:991px) {
@@ -49,7 +49,7 @@
     color: $linkcolor;
   }
   .foot-menu-head {
-    border-bottom:1px dashed $background;
+    border-bottom:1px dashed $foreground;
     font-weight:700;
     margin:0 -15px;
     padding:24px 15px 12px;
@@ -73,7 +73,7 @@
     @include theme(#373944, #464957, #fff, #ccc)
   }
   &.inverted {
-    @include theme(#ddd, #373944, #373944, #464a5e)
+    @include theme(#c5c5c5, #373944, #373944, #464a5e)
   }
 }
 #copy {
