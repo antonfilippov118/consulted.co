@@ -187,7 +187,7 @@ app.service 'Search', [
       timer = timeout () ->
         data = angular.extend currentOptions, options
         searching()
-        http.post('/search.json', data: data).then (searchResult) ->
+        http.post('/search.json', data).then (searchResult) ->
           lastSearch = searchResult
         , (err) ->
           console.log err

@@ -116,5 +116,10 @@
     color: #777;
   }
 }
-@import'filters';
- @import'typeahead';
+
+.eligibility-status a {
+  color: white;
+  font-size: 22px;
+}
+@import 'filters';
+@import 'typeahead';

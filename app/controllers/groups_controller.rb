@@ -12,16 +12,7 @@ class GroupsController < ApplicationController
     @experience = result.fetch :experience
   end
 
-  def search
-    result = FindsGroup.for search_params.fetch(:text)
-    @groups = result.fetch :groups
-  end
-
   private
-
-  def search_params
-    params.permit :text
-  end
 
   def service_offering?
     @group = Group.find params[:id]

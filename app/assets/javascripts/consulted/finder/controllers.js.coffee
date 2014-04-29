@@ -26,7 +26,7 @@ app.controller 'ResultCtrl', [
   'Search'
   '$rootScope'
   (scope, Search, rootScope) ->
-    Search.trigger()
+    Search.trigger({}, yes)
 
     rootScope.$on 'result', (_, result) ->
       scope.result = result
