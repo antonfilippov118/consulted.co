@@ -21,7 +21,7 @@
         <% end %>
       </div>
       <div filter></div>
-      <section id="main">
+      <section id="main" ng-controller="ResultCtrl">
         <div class="container">
         </div>
       </section>
@@ -43,7 +43,7 @@
       ga('send', 'pageview');
     </script>
     <% end %>
-    <% %w(filter).each do |partial| %>
+    <% %w(filter result).each do |partial| %>
     <script type="text/ng-template" id="<%= partial %>">
       <%= render partial: "groups/ng/#{partial}"  %>
     </script>

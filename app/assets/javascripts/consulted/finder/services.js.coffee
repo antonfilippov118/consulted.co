@@ -171,17 +171,31 @@ app.service 'Search', [
   '$http'
   '$q'
   'Configuration'
-  (timeout, http, q, Configuration) ->
+  '$rootScope'
+  (timeout, http, q, Configuration, rootScope) ->
     timer = null
 
     currentOptions =
       group: Configuration.getGroup()
 
-    save = (options = {}) ->
+    lastSearch = null
+
+    searching = (bool = yes) ->
+      rootScope.$broadcast 'searching', bool
+
+    save = (options = {}, instant = no) ->
       timer = timeout () ->
-        console.log 'saving...'
-        console.log  angular.extend currentOptions, options
-      , 2000
+        data = angular.extend currentOptions, options
+        searching()
+        http.post('/search.json', data: data).then (searchResult) ->
+          lastSearch = searchResult
+        , (err) ->
+          console.log err
+        .finally () ->
+          searching no
+      , do ->
+        return 2000 unless instant
+        0
 
     trigger: (options) ->
       timeout.cancel timer unless timer is null

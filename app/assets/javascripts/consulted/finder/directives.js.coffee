@@ -99,3 +99,11 @@ app.directive 'tags', [
         scope.adding = no
 
 ]
+
+app.directive 'result', [
+  () ->
+    replace: yes
+    templateUrl: 'result'
+    scope: yes
+    controller: 'ResultCtrl'
+]
