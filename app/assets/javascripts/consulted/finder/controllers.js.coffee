@@ -20,3 +20,15 @@ app.controller 'FilterCtrl', [
     scope.currentExperience = -> Experience.getCurrent()
     scope.currentDays       = -> []
 ]
+
+app.controller 'ResultCtrl', [
+  '$scope'
+  'Search'
+  '$rootScope'
+  (scope, Search, rootScope) ->
+    Search.trigger({}, yes)
+
+    rootScope.$on 'result', (_, result) ->
+      scope.result = result
+
+]

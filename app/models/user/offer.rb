@@ -4,7 +4,7 @@ class User::Offer
   embedded_in :user
 
   field :description, type: String
-  field :experience, type: Integer
+  field :experience, type: Integer, default: 0
   field :rate, type: Integer, default: 0
   field :lengths, type: Array, default: []
   field :enabled, type: Boolean, default: true

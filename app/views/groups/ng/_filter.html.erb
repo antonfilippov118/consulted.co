@@ -79,12 +79,12 @@
               <a href="#" class="btn btn-primary btn-xs">Specific Time</a>
             </div>
             <div class="fexp-body fexp-body-9 clr">
-              <label class="check round-check in">
+              <label class="check round-check">
                 <input type="checkbox" name="chk_group2[]" value="value1" checked="">
                 <div class="round"></div>
                 <small>Until 6am</small>
               </label>
-              <label class="check round-check in">
+              <label class="check round-check">
                 <input type="checkbox" name="chk_group2[]" value="value2" checked="">
                 <div class="round"></div>
                 <small>6am-8am</small>
@@ -133,7 +133,10 @@
               <p class="fexp-head-sm">Expert location</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents">
+                  <label class="check line-check" ng-class="{'in':allActive()}">
+                    <input type="checkbox" ng-click="toggleAll()"> All
+                  </label>
+                  <label class="check line-check" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents | order">
                     <input type="checkbox" ng-click="toggle(continent)">{{continent}}
                   </label>
                 </div>
@@ -143,7 +146,10 @@
               <p class="fexp-head-sm">Language</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check" ng-class="{'in':isActive(language)}" ng-repeat="language in languages">
+                  <label class="check line-check" ng-class="{'in':allActive()}">
+                    <input type="checkbox" ng-click="toggleAll()"> All
+                  </label>
+                  <label class="check line-check" ng-class="{'in':isActive(language)}" ng-repeat="language in languages | order">
                     <input type="checkbox" ng-click="toggle(language)" > {{language | capitalize}}
                   </label>
                 </div>

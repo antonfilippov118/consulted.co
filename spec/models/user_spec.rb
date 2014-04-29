@@ -123,7 +123,7 @@ describe User do
   describe 'Country and Subcontinent' do
     it 'should assign regions and subregions for filtering' do
       user = User.new valid_params
-      user.country = 'Germany'
+      user.country = 'de'
 
       user.save
 

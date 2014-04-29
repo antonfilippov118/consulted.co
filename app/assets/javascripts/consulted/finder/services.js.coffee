@@ -12,16 +12,28 @@ app.service 'Language', [
   'Search'
   (Search) ->
     activeLanguages = []
+    defaults = ['english', 'mandarin', 'spanish', 'arabic', 'german']
+    allActive = yes
 
-    getLanguages: () ->
-      ['english', 'mandarin', 'spanish', 'arabic', 'german']
+    getLanguages: () -> defaults
 
     isActive: (lang) ->
       lang in activeLanguages
 
-    getCurrent: -> activeLanguages
+    getCurrent: ->
+      return ['All'] if allActive
+      activeLanguages
+
+    allActive: -> allActive
+
+    toggleAll: () ->
+      allActive = !allActive
+      if allActive
+        activeLanguages = []
+        Search.trigger languages: defaults
 
     toggle: (lang) ->
+      allActive = no
       idx = activeLanguages.indexOf lang
       if idx > -1
         activeLanguages.splice idx, 1
@@ -54,37 +66,42 @@ app.service 'Tag', [
 
 app.service 'Continent', [
   'Search'
-  '$http'
-  '$q'
-  (Search, http, q) ->
+  (Search) ->
 
     activeContinents = []
-    country = ""
-    countryActive = no
+    defaults = [
+        "Europe"
+        "Asia"
+        "North America"
+        "Africa"
+        "Antarctica"
+        "South America"
+        "Australia"
+    ]
+    allActive = yes
 
     trigger = (opts = { continents: activeContinents }) ->
       Search.trigger opts
 
-    getContinents: () ->
-      result = q.defer()
-      http.get('/users/regions.json', cache: yes).then (response) ->
-        result.resolve response.data
-      result.promise
+    getContinents: () -> defaults
 
-    getCurrent: -> activeContinents
+    getCurrent: ->
+      return ['All'] if allActive
+      activeContinents
 
     isActive: (continent) ->
       continent in activeContinents
 
-    setOnly: (continent) ->
-      activeContinents = [continent]
-      trigger()
+    allActive: -> allActive
 
-    setCountry: (_country) ->
-      country = _country
-      trigger country: country
+    toggleAll: () ->
+      allActive = !allActive
+      if allActive
+        activeContinents = []
+        trigger continents: defaults
 
     toggle: (continent) ->
+      allActive = no
       idx = activeContinents.indexOf continent
       if idx > -1
         activeContinents.splice idx, 1
@@ -154,17 +171,31 @@ app.service 'Search', [
   '$http'
   '$q'
   'Configuration'
-  (timeout, http, q, Configuration) ->
+  '$rootScope'
+  (timeout, http, q, Configuration, rootScope) ->
     timer = null
 
     currentOptions =
       group: Configuration.getGroup()
 
-    save = (options = {}) ->
+    lastSearch = null
+
+    searching = (bool = yes) ->
+      rootScope.$broadcast 'searching', bool
+
+    save = (options = {}, instant = no) ->
       timer = timeout () ->
-        console.log 'saving...'
-        console.log  angular.extend currentOptions, options
-      , 2000
+        data = angular.extend currentOptions, options
+        searching()
+        http.post('/search.json', data).then (searchResult) ->
+          lastSearch = searchResult
+        , (err) ->
+          console.log err
+        .finally () ->
+          searching no
+      , do ->
+        return 2000 unless instant
+        0
 
     trigger: (options) ->
       timeout.cancel timer unless timer is null

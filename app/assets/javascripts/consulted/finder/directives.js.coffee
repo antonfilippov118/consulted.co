@@ -19,6 +19,8 @@ app.directive 'languages', [
     link: (scope) ->
       scope.languages = Language.getLanguages()
       scope.isActive  = Language.isActive
+      scope.toggleAll = Language.toggleAll
+      scope.allActive = Language.allActive
       scope.toggle    = Language.toggle
 ]
 app.directive 'continents', [
@@ -30,6 +32,8 @@ app.directive 'continents', [
       scope.continents = Continent.getContinents()
       scope.isActive   = Continent.isActive
       scope.toggle     = Continent.toggle
+      scope.toggleAll  = Continent.toggleAll
+      scope.allActive  = Continent.allActive
 ]
 
 app.directive 'rate', [
@@ -63,7 +67,6 @@ app.directive 'experience', [
       slider = el.find '.ranger'
       slider.ionRangeSlider
         type: 'double'
-        prefix: '$'
         hideMinMax: yes
         onFinish: select
 
@@ -95,4 +98,12 @@ app.directive 'tags', [
         scope.next_tag = ""
         scope.adding = no
 
+]
+
+app.directive 'result', [
+  () ->
+    replace: yes
+    templateUrl: 'result'
+    scope: yes
+    controller: 'ResultCtrl'
 ]
