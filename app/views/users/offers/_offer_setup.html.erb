@@ -1,0 +1,10 @@
+<div class="consulted-app" id="offer_setup">
+  <% %w(categories offering editor).each do |partial| %>
+  <script type="text/ng-template" id="<%= partial %>">
+    <%= render partial: "users/offers/ng/offer_setup/#{partial}"  %>
+  </script>
+  <% end %>
+  <script type="text/ng-template" id="learn">
+    <%= render partial: "search/ng/learn"  %>
+  </script>
+</div>

@@ -1,7 +1,7 @@
 $ ->
   window.CONSULTED = window.CONSULTED || {}
   savebar = $('#savebar')
-  trigger = (text = "Saved profile information!", opts) ->
+  trigger = (text = "Profile updated", opts) ->
     opts = $.extend {
       text: "<strong>#{text}</strong>"
       layout: 'bottom'

@@ -1,2 +1,2 @@
 collection @offers
-attributes :description, :rate, :experience, :lengths, :group_id, :name
+attributes :description, :rate, :experience, :lengths, :name, :slug

@@ -11,14 +11,6 @@
 #groups {
   .advice-group {
     min-height: 400px;
-    &.selected {
-      .advice-head {
-        background: #406d93;
-      }
-      &:after {
-        border-top: 8px solid #406d93 !important;
-      }
-    }
     &.disabled {
       button {
         background-color: #C8CCCF;
@@ -28,6 +20,14 @@
         &:after {
           border-color: #B3B5BD transparent transparent;
         }
+      }
+    }
+    &.selected {
+      .advice-head {
+        background: #406d93;
+      }
+      &:after {
+        border-top: 8px solid #406d93 !important;
       }
     }
     button {
@@ -50,6 +50,14 @@
         position: absolute;
         top: 85%;
       }
+    }
+  }
+}
+#offer_setup {
+  .root.sel {
+    background: #406d93;
+    &:after {
+      border-top: 8px solid #406d93;
     }
   }
 }

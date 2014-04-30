@@ -12,6 +12,7 @@ describe UpdatesOrCreatesOffer do
     user.confirm!
 
     result = UpdatesOrCreatesOffer.for user, offer_params
+
     expect(result.success?).to be_true
     expect(user.offers.count).to eq 1
   end
@@ -26,7 +27,7 @@ describe UpdatesOrCreatesOffer do
 
     expect(result.success?).to be_true
     expect(user.offers.count).to eq 1
-    offer = user.offers.first
+    offer = User.first.offers.first
     expect(offer.experience).to eq 25
     expect(offer.rate).to eq 10
     expect(offer.enabled).to be_true
@@ -35,9 +36,7 @@ describe UpdatesOrCreatesOffer do
 
   def offer_params
     {
-      group: {
-        id: Group.first.id.to_s
-      },
+      slug: Group.first.slug,
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, quisquam, voluptas illum recusandae officiis non amet molestiae voluptate laudantium numquam nostrum facilis! Ipsa, iusto, dignissimos ipsam fuga incidunt dolorem quas!',
       experience: 25,
       rate: 10,

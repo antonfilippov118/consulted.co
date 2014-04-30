@@ -13,7 +13,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body ng-app="consulted.finder" data-group="<%= @group.slug %>">
-    <div class="wrapper">
+    <div class="wrapper" class="offerfull-form">
       <div id="navbar">
         <%= render partial: 'layouts/application/header' %>
         <% if user_signed_in? %>

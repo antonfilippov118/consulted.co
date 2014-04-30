@@ -13,7 +13,7 @@ class UpdatesOrCreatesOffer
     include LightService::Action
     executed do |context|
       params = context.fetch :params
-      id     = params[:group][:id]
+      id     = params[:slug]
       begin
         context[:group] = Group.find id
       rescue => e
@@ -28,7 +28,6 @@ class UpdatesOrCreatesOffer
       group  = context.fetch :group
       user   = context.fetch :user
       offer  = user.offers.with_group(group)
-
       context[:offer] = offer
     end
   end
@@ -39,7 +38,10 @@ class UpdatesOrCreatesOffer
     executed do |context|
       offer  = context.fetch :offer
       user   = context.fetch :user
+      group  = context.fetch :group
       params = context.fetch :params
+      params.delete :slug
+      params = params.merge group: group
 
       begin
         if offer.exists?

@@ -25,6 +25,14 @@ app.service 'GroupData', [
         result.reject err
       result.promise
 
+    getRoots: () ->
+      result =  q.defer()
+      getData().then (groups) ->
+        roots = []
+        roots.push group for group in groups
+        result.resolve roots
+      result.promise
+
     findGroup: (slug) ->
       result = q.defer()
       find = (data, slug) ->
@@ -90,7 +98,23 @@ app.service 'GroupData', [
 app.service 'OfferData', [
   '$http'
   '$q'
-  OfferData = (http, q) ->
+  '$timeout'
+  '$rootScope'
+  OfferData = (http, q, timeout, rootScope) ->
+    timer = null
+    save = (offer, saveTxt) ->
+      result = q.defer()
+      http.put('/offers.json', offer).then (response) ->
+        result.resolve response.data
+        if saveTxt
+          CONSULTED.trigger saveTxt
+      , (err) ->
+        result.reject err
+        CONSULTED.trigger('There was an error saving your selection!', type: 'error')
+      .finally () ->
+        rootScope.$broadcast 'offers:update'
+
+      result.promise
 
     getOffers: () ->
       result = q.defer()
@@ -99,13 +123,15 @@ app.service 'OfferData', [
       , (err) ->
         result.reject err
       result.promise
-    save: (offer) ->
-      result = q.defer()
-      http.put('/offers.json', offer).then (response) ->
-        result.resolve response.data
-      , (err) ->
-        result.reject err
-      result.promise
+
+
+    delayedSave: (offer) ->
+      timeout.cancel timer if timer?
+      timer = timeout ->
+        save offer, 'Your changes were saved.'
+      , 2000
+
+    save: save
 ]
 
 app.service 'UserData', [

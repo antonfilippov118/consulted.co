@@ -1,0 +1,81 @@
+<div id="offerfull-setup" class="offerfull">
+  <div class="offerfull-head border">
+    <p class="offerfull-heading">Setup offers</p>
+    <p class="bigger">Set your rate and meeting settings.</p>
+  </div>
+  <p>After a successful meeting we will pay out <%= 100 - Settings.platform_fee %>% of the rate you provide below. <%= Settings.platform_fee %>% is our fee.</p>
+  <div ng-show="offers.length == 0" class="text-center">
+    <h3>You have no offers selected yet.</h3>
+  </div>
+  <div class="clr flat-well setupoffr" ng-repeat="offer in offers | orderBy:'name'" ng-hide="offers.length == 0">
+    <span class="flaticon flaticon-close setupoffr-close" ng-click="remove(offer)"></span>
+    <p class="setupoffr-heading">{{offer.name}}
+      <a class="result-info right" ng-click="learn(offer)">
+        <span class="flaticon flaticon-info"></span> Learn more</a>
+    </p>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row setupoffr-row">
+          <div class="col-md-6">
+            <p class="bigger prop">Rate per hour, $</p>
+          </div>
+          <div class="col-md-6 text-center">
+            <input class="form-control input-sm" type="text" ng-change="save(offer)" ng-model="offer.rate">
+            <span class="bigger">= <span rate="offer.rate" fee="<%= Settings.platform_fee %>"></span> paid out to you</span>
+          </div>
+        </div>
+        <div class="row setupoffr-row">
+          <div class="col-md-6">
+            <p class="bigger prop">Offered time slot, minutes
+              <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Select the different durations you would can be booked at"></span>
+            </p>
+            <small>We will apply based rate accordingly.</small>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="time-select">
+              <div class="time-point" ng-click="toggleTime(time, offer)" ng-repeat="time in times" ng-class="{'sel':selected(time, offer)}"></div>
+            </div>
+            <div class="time-legend">
+              <div class="legend" ng-repeat="time in times">{{time}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row setupoffr-row">
+          <div class="col-md-6">
+            <p class="bigger prop">Relevant years of category experience
+              <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Indicate your years of experience in this particular service offering"></span>
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="clr">
+              <input type="text" ng-change="save(offer)" ion-range min="1" max="30" ng-model="offer.experience">
+            </div>
+          </div>
+        </div>
+        <div class="row setupoffr-row">
+          <div class="col-md-6">
+            <p class="bigger prop">Your current awesome count
+              <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Indicates praise for great advice. Measures how many times you received an “awesome” in this particular service offering"></span>
+            </p>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="expert-rating">
+              <div class="rating-hand">0</div>
+              at avg. $65
+              <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="‘Awesome count’ shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate ‘awesomes’ were collected"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <p>
+          <span class="bigger">Brief note on what makes you experienced in this category</span>
+          <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="2 – 3 brief sentences on why you will be able you help in this category and what you are especially good at – the crisper the better!"></span>
+        </p>
+        <div class="clr">
+          <textarea class="form-control" ng-model="offer.description" ng-change="save(offer)" rows="7"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

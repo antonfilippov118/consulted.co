@@ -19,6 +19,7 @@ class Group
   before_destroy :destroy_children
 
   has_many :calls
+  has_many :offers
 
   def self.with_tag(tag)
     if tag.is_a? String
