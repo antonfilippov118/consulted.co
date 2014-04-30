@@ -183,21 +183,21 @@ app.service 'Search', [
     searching = (bool = yes) ->
       rootScope.$broadcast 'searching', bool
 
-    save = (options = {}, instant = no) ->
-      timer = timeout () ->
-        data = angular.extend currentOptions, options
-        searching()
-        http.post('/search.json', data).then (searchResult) ->
-          lastSearch = searchResult
-        , (err) ->
-          console.log err
-        .finally () ->
-          searching no
-      , do ->
-        return 2000 unless instant
-        0
+    save = (options = {}) ->
+      data = angular.extend currentOptions, options
+      searching()
+      http.post('/search.json', data).then (response) ->
+        rootScope.$broadcast 'result', response.data
+      , (err) ->
+        console.log err
+      .finally () ->
+        searching no
 
-    trigger: (options) ->
-      timeout.cancel timer unless timer is null
-      save options
+    do: save
+
+    trigger: (options, timeoutValue = 1000) ->
+      timeout.cancel timer if timer?
+      timeout ->
+        save options
+      , timeoutValue
 ]

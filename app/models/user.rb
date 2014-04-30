@@ -81,9 +81,9 @@ class User
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
-  embeds_many :offers, class_name: 'User::Offer'
   embeds_many :availabilities, class_name: 'User::Availability'
 
+  has_many :offers
   has_many :requests, inverse_of: :expert
   has_many :meetings, inverse_of: :expert, class_name: 'Call'
   has_many :calls, inverse_of: :seeker

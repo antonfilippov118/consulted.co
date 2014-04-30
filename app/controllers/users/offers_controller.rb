@@ -34,6 +34,6 @@ class Users::OffersController < Users::BaseController
   private
 
   def offer_params
-    params.require(:offer).permit :description, :experience, :rate, :enabled, lengths: [], group: [:id]
+    params.permit :description, :experience, :rate, :enabled, :slug, lengths: [], group: [:id]
   end
 end

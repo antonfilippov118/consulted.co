@@ -20,6 +20,10 @@
           <%= render partial: 'layouts/application/navigation' %>
         <% end %>
       </div>
+      <% if current_page?(offers_path) %>
+        <%# special sub navigation for the offer your time page %>
+        <%= render partial: 'users/offers/navigation' %>
+      <% end %>
       <section id="main">
         <div class="container">
           <%= yield %>

@@ -1,0 +1,12 @@
+<div class="result">
+  <h3>{{group.name}}</h3>
+  <p>{{group.description}}</p>
+  <div class="result-bottom">
+    <a class="result-info" ng-click="foo(group)">
+      <span class="flaticon flaticon-info"></span>Learn more
+    </a>
+    <i class="fa fa-refresh fa-spin" ng-show="selecting"></i>
+    <button ng-hide="selected(group)" type="button" class="btn btn-primary" ng-click="select(group)">Select</button>
+    <span ng-show="selected(group)" class="flaticon flaticon-check result-selected">Selected</span>
+  </div>
+</div>

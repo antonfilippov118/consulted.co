@@ -26,8 +26,8 @@ class RequestsAnExpert
       end
 
       context[:expert]   = expert
-      context[:offer_id] = offer.is_a?(User::Offer) ? offer.id.to_s : offer
-      context[:offer]    = offer.is_a?(User::Offer) ? offer : expert.offers.find(offer)
+      context[:offer_id] = offer.is_a?(Offer) ? offer.id.to_s : offer
+      context[:offer]    = offer.is_a?(Offer) ? offer : expert.offers.find(offer)
       context[:start]    = start
       context[:length]   = length
       context[:seeker]   = seeker

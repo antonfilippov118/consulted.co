@@ -5,13 +5,13 @@ class SearchController < ApplicationController
   end
 
   def search
-    result = FindsOffers.for search_params, current_user
-    @experts = result.fetch :experts
+    result  = FindsOffers.for search_params, current_user
+    @offers = result.fetch :offers
   end
 
   private
 
   def search_params
-    params.permit :group, :continents, :languages, :bookmark
+    params.permit :group, :bookmark, :rate_lower, :rate_upper, :experience_lower, :experience_upper, continents: [], languages: []
   end
 end
