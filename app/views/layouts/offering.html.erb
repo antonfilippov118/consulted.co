@@ -23,6 +23,59 @@
       <div filter></div>
       <section id="main" ng-controller="ResultCtrl">
         <div class="container">
+        <div class="text-center" ng-show="searching">
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+          </div>
+          <div class="text-center" ng-show="!searching && offers.length == 0">
+            <h3>No results.</h3>
+          </div>
+          <div ng-show="!searching && offers.length > 0">
+            <div class="expert clr" ng-repeat="offer in offers">
+              <div class="expert-left">
+                <div class="expert-info">
+                  <div class="expert-images">
+                    <div class="expert-img">
+                      <img ng-src="{{offer.expert.image}}" alt="{{offer.expert.name}}">
+                    </div>
+                    <a ng-href="{{offer.expert.profile_url}}" target="_blank">Full Profile</a>
+                  </div>
+                  <div class="expert-name heading2">{{offer.expert.name}}</div>
+                  <div class="expert-exp">
+                    <strong>Category Experience:</strong> {{offer.experience}} years</div>
+                  <div class="expert-pph">
+                    <span class="price">${{offer.rate}}</span>/hour</div>
+                </div>
+                <div class="expert-cite">
+                  {{offer.description}}
+                </div>
+              </div>
+              <div class="expert-right">
+                <div class="expert-history">
+                  <ul>
+                  </ul>
+                </div>
+                <div class="expert-rating">
+                  <div class="rating-hand">0</div>
+                  <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="'Awesome count' shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate 'awesomes' were collected"></span>
+                </div>
+                <div class="expert-end">
+                  <div class="expert-act">
+                    25 March, 2014
+                    <br>11:00am
+                    <br>Up to 2 hours
+                    <br>
+                    <% if user_signed_in? %>
+                      <%= link_to 'Contact', '#', class: 'btn btn-primary' %>
+                    <% else %>
+                      <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
+                        Sign up to book
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <%= render partial: 'layouts/signup' %>
@@ -43,7 +96,7 @@
       ga('send', 'pageview');
     </script>
     <% end %>
-    <% %w(filter result).each do |partial| %>
+    <% %w(filter).each do |partial| %>
     <script type="text/ng-template" id="<%= partial %>">
       <%= render partial: "groups/ng/#{partial}"  %>
     </script>

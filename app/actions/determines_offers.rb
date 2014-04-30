@@ -3,19 +3,9 @@ class DeterminesOffers
 
   def self.for(group)
     with(group: group).reduce [
-      FindExperts,
       FindOffers,
       MapValues
     ]
-  end
-
-  class FindExperts
-    include LightService::Action
-
-    executed do |context|
-      group = context.fetch :group
-      context[:experts] = User.experts.with_group group
-    end
   end
 
   class FindOffers
@@ -23,11 +13,7 @@ class DeterminesOffers
 
     executed do |context|
       group = context.fetch :group
-      experts = context.fetch :experts
-
-      context[:offers] = experts.map do |expert|
-        expert.offers.where(group: group).first
-      end
+      context[:offers] = Offer.valid.with_group group
     end
   end
 

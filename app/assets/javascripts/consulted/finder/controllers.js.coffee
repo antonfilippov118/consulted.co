@@ -1,5 +1,6 @@
 app = angular.module 'consulted.finder.controllers', [
   'consulted.finder.services'
+  'ui.bootstrap'
 ]
 
 app.controller 'FilterCtrl', [
@@ -24,11 +25,14 @@ app.controller 'FilterCtrl', [
 app.controller 'ResultCtrl', [
   '$scope'
   'Search'
-  '$rootScope'
-  (scope, Search, rootScope) ->
-    Search.trigger({}, yes)
+  (scope, Search) ->
+    Search.do({})
 
-    rootScope.$on 'result', (_, result) ->
-      scope.result = result
+    scope.$on 'searching', (_, bool) ->
+      scope.searching = bool
+
+    scope.$on 'result', (_, result) ->
+      console.log result
+      scope.offers = result
 
 ]

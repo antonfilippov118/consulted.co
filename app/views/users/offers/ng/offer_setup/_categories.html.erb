@@ -13,16 +13,16 @@
       <div class="selectoffer-group root" ng-repeat="root in roots | orderBy:'name'" ng-click="use(root)" ng-class="{'sel':inPath(root)}">{{root.name}}</div>
     </div>
     <div class="clr selectoffer-cats" ng-show="selectedRoot()">
-      <div class="selectoffer-cat" ng-click="use(group)" ng-repeat="group in selectedRoot().children" ng-class="{'sel':inPath(group)}">{{group.name}}</div>
+      <div class="selectoffer-cat" ng-click="use(group)" ng-repeat="group in selectedRoot().children | orderBy:'name'" ng-class="{'sel':inPath(group)}">{{group.name}}</div>
     </div>
     <div class="row pool clr" ng-show="selectedGroup()">
       <div class="col-md-4">
         <div class="clr selectoffer-subcats">
-          <div class="selectoffer-subcat" ng-repeat="group in selectedGroup().children" ng-class="{'sel':inPath(group)}" ng-click="use(group)">{{group.name}}</div>
+          <div class="selectoffer-subcat" ng-repeat="group in selectedGroup().children | orderBy:'name'" ng-class="{'sel':inPath(group)}" ng-click="use(group)">{{group.name}}</div>
         </div>
       </div>
       <div class="col-md-8">
-        <div class="result" service-offering="group" offers="offers" ng-repeat="group in selectedCategory().children"></div>
+        <div class="result" service-offering="group" offers="offers" ng-repeat="group in selectedCategory().children | orderBy:'name'"></div>
       </div>
     </div>
   </div>
