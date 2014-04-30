@@ -128,8 +128,8 @@ app.service 'OfferData', [
     delayedSave: (offer) ->
       timeout.cancel timer if timer?
       timer = timeout ->
-        save offer, 'Your changes were saved.'
-      , 3000
+        save offer, 'Your changes were saved.', timeout: 700
+      , 1000
 
     save: save
 ]

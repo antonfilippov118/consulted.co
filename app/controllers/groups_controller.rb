@@ -1,7 +1,8 @@
 class GroupsController < ApplicationController
+  include SearchHelper
   layout 'offering', only: :show
   before_filter :service_offering?, only: :show
-  include SearchHelper
+
   def index
     @groups = Group.roots
   end
@@ -10,6 +11,11 @@ class GroupsController < ApplicationController
     result = DeterminesOffers.for @group
     @rates = result.fetch :rates
     @experience = result.fetch :experience
+  end
+
+  def search
+    result = FindsGroup.for search_params.fetch :text
+    @groups = result.fetch :groups
   end
 
   private
