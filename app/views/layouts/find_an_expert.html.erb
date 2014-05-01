@@ -57,8 +57,10 @@ x<!DOCTYPE html>
                   </ul>
                 </div>
                 <div class="expert-rating">
-                  <div class="rating-hand">0</div>
-                  <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="'Awesome count' shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate 'awesomes' were collected"></span>
+                  <div ng-show="offer.awesomes.length > 0">
+                    <div class="rating-hand">0</div>
+                    <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="'Awesome count' shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate 'awesomes' were collected"></span>
+                  </div>
                 </div>
                 <div class="expert-end">
                   <div class="expert-act">

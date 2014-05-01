@@ -66,11 +66,16 @@ class SynchronizeLinkedinProfile
             linkedin_id: p.company['id'],
             industry: p.company['industry'],
             position: p.title,
-            from: p.start_date.year,
             current: p.is_current
           }
           unless p.is_current
             params.merge! to: p.end_date.year
+          end
+          unless p.end_date.nil?
+            params.merge! to: p.end_date.year
+          end
+          unless p.start_date.nil?
+            params.merge! to: p.start_date.year
           end
 
           User::LinkedinCompany.new params

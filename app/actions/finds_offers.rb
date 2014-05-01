@@ -7,10 +7,10 @@ class FindsOffers
       FindExperts,
       FilterExpertsByLanguages,
       FilterExpertsByContinents,
+      ExcludeSelf,
       FindOffers,
       FilterOffersByRate,
       FilterOffersByExperience
-      # ExcludeSelf
     ]
   end
 
@@ -60,6 +60,19 @@ class FindsOffers
     end
   end
 
+  class ExcludeSelf
+    include LightService::Action
+
+    executed do |context|
+      user = context.fetch :user
+
+      next context if user.nil?
+      experts = context.fetch :experts
+      experts = experts.where id: { :$ne => user.id }
+      context[:experts] = experts
+    end
+  end
+
   class FindOffers
     include LightService::Action
 
@@ -95,19 +108,6 @@ class FindsOffers
       upper = params.fetch :rate_upper
       lower = params.fetch :rate_lower
       context[:offers] = offers.with_rate lower, upper
-    end
-  end
-
-  class ExcludeSelf
-    include LightService::Action
-
-    executed do |context|
-      user = context.fetch :user
-      next context if user.nil?
-      experts = context.fetch :experts
-
-      experts = experts.where id: { :$ne => user.id }
-      context[:experts] = experts
     end
   end
 end
