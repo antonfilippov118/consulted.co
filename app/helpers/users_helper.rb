@@ -86,4 +86,23 @@ module UsersHelper
     @user
   end
 
+  def break_settings
+    [
+      ['No break', 0],
+      ['15 minutes', 15],
+      ['30 Minutes', 30],
+      ['45 Minutes', 45],
+      ['1 Hour', 60]
+    ]
+  end
+
+  def delays
+    [
+      ['Right away', 0],
+      ['15 minutes', 15],
+      ['30 Minutes', 30],
+      ['45 Minutes', 45],
+      ['1 Hour', 60]
+    ]
+  end
 end

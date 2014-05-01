@@ -1,0 +1,137 @@
+<ul class="bread">
+  <li><a href="#">Overview</a>
+  </li>
+  <li><a href="#">Advice group Three</a>
+  </li>
+  <li><a href="#">Category Two</a>
+  </li>
+  <li><a href="#">Subcategory One</a>
+  </li>
+  <li class="active">Jonathan Smith</li>
+</ul>
+<h2 class="heading">Your selection</h2>
+<div id="expert">
+  <%= form_for @request do |f| -%>
+    <div class="expert-main row divider">
+      <div class="profile-info col-md-6">
+        <div class="profile-image">
+          <%= image_tag profile_image_url, class: 'profile-img', alt: name %>
+          <div class="clr text-center">
+            <%# Rating? %>
+            <%# <span class="rating-point"></span> %>
+          </div>
+        </div>
+        <h1>
+          <%= name %>
+          <%= render partial: 'users/favorites/bookmark' %>
+          <div class="profile-links right">
+            <% if linkedin_profile? %>
+              <%= link_to '', linkedin_profile_url, class: 'flaticon flaticon-linkedin', target: '_blank'  %>
+            <% end %>
+            <%# TODO: social %>
+          </div>
+        </h1>
+        <div class="clr profile-price expert-pph">
+          <span class="price">$<%= @offer.rate %></span>/hour
+          <small>(our fee included)</small>
+        </div>
+        <p>
+          <%= link_to name, expert_page, target: '_blank' %>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-talk">
+          <div class="profile-heading2">Choose how long you want to talk</div>
+          <div class="profile-time clr">
+            <div class="time-select">
+              <% @offer.lengths.sort.each do |time| %>
+                <div class="time-point" data-target="#time_<%= time %>" data-hint="<%= time %>"></div>
+                <%= f.radio_button :length, time, id: "time_#{time}", class: 'hidden' %>
+              <% end %>
+            </div>
+            <div class="greensemi right">
+            <span id="howlong"></span>minutes</div>
+          </div>
+          <!-- <p class="bigger">Tuesday, 25 March, 2014, 11:00am - 12:30pm</p> -->
+        </div>
+      </div>
+    </div>
+    <div class="expert-details row">
+      <div class="col-md-6">
+        <h2>Meeting details</h2>
+        <div class="meeting-details">
+          <div class="row">
+            <div class="col-md-4">
+              <span class="bigger semibold">Service Offering:</span>
+            </div>
+            <div class="col-md-8">
+              <div class="bigger"><%= @offer.name %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="bigger semibold">Meeting via:</span>
+            </div>
+            <div class="col-md-8">
+              <div class="bigger">Call bridge</div>
+              <small>We will provide a call-in number in your email confirmation</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="bigger semibold">Languages:</span>
+            </div>
+            <div class="col-md-8">
+              <div class="bigger"><%= expert_languages %></div>
+              <small>Based on your and call partner's preferences</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="bigger semibold">Payment:</span>
+            </div>
+            <div class="col-md-8">
+              <div class="bigger">Paypal</div>
+              <small>Will be charged after the meeting</small>
+            </div>
+          </div>
+        </div>
+        <div class="clr">
+          <div class="row">
+            <div class="col-md-4">
+              <p class="greensemi">Confirmation:</p>
+            </div>
+            <div class="col-md-8">
+              <p>
+                <small>Your call partners has 24 hours to accept or decline your request. We will send you a email.</small>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <p class="redsemi">Cancellation:</p>
+            </div>
+            <div class="col-md-8">
+              <p>
+                <small>You may cancel your request until the person has accepted. After that will be a charge. See <a href="#">cancellation policy</a>.</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="clr meeting-form">
+          <div class="clr">
+            <p class="bigger">Your message</p>
+          </div>
+          <div class="clr">
+            <textarea class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short."></textarea>
+          </div>
+          <div class="clr">
+            <%= f.submit "Send binding request", class: 'btn btn-primary',  data: { disable_with: 'Sending...' } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

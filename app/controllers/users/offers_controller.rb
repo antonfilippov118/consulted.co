@@ -1,6 +1,4 @@
 class Users::OffersController < Users::BaseController
-  skip_before_filter :verify_authenticity_token, only: :update
-  include ExpertsHelper
   def show
     title! 'Offer your time'
   end
@@ -29,7 +27,15 @@ class Users::OffersController < Users::BaseController
     redirect_to offers_path
   end
 
-  helper ExpertsHelper
+  def book
+  end
+
+  def review
+    @offer   = Offer.find_by url: params[:offer_id]
+    @expert  = @offer.expert
+    @request = Request.new
+    title! "#{@offer.name} by #{@offer.expert.name}"
+  end
 
   private
 

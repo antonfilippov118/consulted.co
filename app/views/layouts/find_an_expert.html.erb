@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -53,20 +53,19 @@
               <div class="expert-right">
                 <div class="expert-history">
                   <ul>
+                    <li ng-repeat="company in offer.expert.companies">{{company.name}}, {{company.position}}, {{company.from}}</li>
                   </ul>
                 </div>
                 <div class="expert-rating">
-                  <div class="rating-hand">0</div>
-                  <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="'Awesome count' shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate 'awesomes' were collected"></span>
+                  <div ng-show="offer.awesomes.length > 0">
+                    <div class="rating-hand">0</div>
+                    <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="'Awesome count' shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate 'awesomes' were collected"></span>
+                  </div>
                 </div>
                 <div class="expert-end">
                   <div class="expert-act">
-                    25 March, 2014
-                    <br>11:00am
-                    <br>Up to 2 hours
-                    <br>
                     <% if user_signed_in? %>
-                      <%= link_to 'Contact', '#', class: 'btn btn-primary' %>
+                      <a ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
                     <% else %>
                       <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
                         Sign up to book

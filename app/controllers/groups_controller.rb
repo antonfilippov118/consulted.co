@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   include SearchHelper
-  layout 'offering', only: :show
+  layout 'find_an_expert', only: :show
   before_filter :service_offering?, only: :show
 
   def index

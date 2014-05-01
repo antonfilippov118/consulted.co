@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   end
 
   def search
-    result  = FindsOffers.for search_params, current_user
+    result  = FindsOffers.for search_params, @user
     @offers = result.fetch :offers
   end
 end
