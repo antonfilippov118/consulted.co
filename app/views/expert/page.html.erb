@@ -64,7 +64,7 @@
       <div class="clr">
         <h3 class="left"><%= offer.name %></h3>
         <% unless user_expert_page? %>
-          <%= link_to 'Select this offer', offers_path(offer.url)  %>
+          <%= link_to 'Select this offer', offers_path_for(offer), class: 'btn btn-select'  %>
         <% end %>
       </div>
       <ul class="bread">
