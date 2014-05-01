@@ -39,7 +39,7 @@ class User
   field :notification_time, type: Integer, default: 15
   field :break, type: Integer, default: 15
   field :max_meetings_per_day, type: Integer, default: 0
-  field :start_delay, type: Integer, default: 0
+  field :start_delay, type: Integer, default: 30
 
   field :status, type: String, default: STATUS_LIST.first
 
