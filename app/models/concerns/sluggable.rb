@@ -5,6 +5,7 @@ module Sluggable
     def default_slug
       slug = name.gsub ' ', ''
       slug = email.downcase.split('@').first if slug == ''
+      slug = slug.downcase
       slug ||= ''
       i = 1
       while ::User.with_slug(slug).exists?
@@ -19,7 +20,6 @@ module Sluggable
       field :lower_slug, type: String
       before_save do
         self.slug = default_slug if self.slug.nil?
-        self.lower_slug = self.slug.downcase
       end
     end
   end

@@ -1,0 +1,8 @@
+<p class="bigger blue" id="change_expert">
+  <%= link_to expert_page(@user), target: '_blank' do %>
+    <%= expert_page @user %>
+  <% end %>
+
+  <%= link_to 'Change', '#', class: "btn btn-primary btn-xs right", data: { target: '#ep_modal', toggle: 'modal' }  %>
+</p>
+<%= render partial: 'users/offers/expert_page_modal' %>

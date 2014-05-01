@@ -44,7 +44,7 @@ module UsersHelper
   end
 
   def own_past_companies
-    user.companies.delete_if { |c| c == own_current_company }
+    user.companies.select { |c| c != own_current_company }.compact
   end
 
   def own_company_url

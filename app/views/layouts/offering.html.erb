@@ -23,7 +23,8 @@
       <div filter></div>
       <section id="main" ng-controller="ResultCtrl">
         <div class="container">
-        <div class="text-center" ng-show="searching">
+          <h1><%= @group.name %></h1>
+          <div class="text-center" ng-show="searching">
             <i class="fa fa-spin fa-refresh fa-2x"></i>
           </div>
           <div class="text-center" ng-show="!searching && offers.length == 0">

@@ -3,7 +3,8 @@ class UpdatesUserProfile
 
   def self.with_params(user, params = {})
     with(user: user, params: params).reduce [
-      UpdateUser
+      UpdateUser,
+      UpdateOfferSlugs
     ]
   end
 
@@ -18,6 +19,17 @@ class UpdatesUserProfile
         context[:errors] = user.errors
         context.fail! "Could not update profile! (#{user.errors.full_messages.join ", "})"
       end
+    end
+  end
+
+  class UpdateOfferSlugs
+    include LightService::Action
+
+    executed do |context|
+      params = context.fetch :params
+      next context if params[:slug].nil?
+      user = context.fetch :user
+      user.offers.map(&:save)
     end
   end
 end

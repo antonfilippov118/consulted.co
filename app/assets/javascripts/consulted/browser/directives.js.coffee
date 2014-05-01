@@ -20,6 +20,18 @@ app.directive 'categoryBar', [
         group is scope.group
 ]
 
+app.directive 'popular', [
+  '$location'
+  (location) ->
+    replace: yes
+    scope: yes
+    templateUrl: 'popular'
+    link: (scope) ->
+      scope.selected = () ->
+        location.path() isnt '/'
+
+]
+
 app.directive 'bread', [
   '$location'
   'GroupData'
