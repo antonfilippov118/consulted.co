@@ -15,7 +15,12 @@
         <%= render partial: 'users/favorites/bookmark' %>
       </h1>
       <% unless current_company.nil? or !past_companies? %>
-        <p class="bigger"><%= current_position %> at <%= link_to current_company_name, company_url, target: '_blank' %></p>
+        <p class="bigger"><%= current_position %> at
+        <% if company_url %>
+          <%= link_to current_company_name, company_url, target: '_blank' %></p>
+        <% else %>
+          <%= current_company_name %>
+        <% end %>
       <% end %>
       <% if summary? %>
         <div class="profile-heading">Profile summary</div>

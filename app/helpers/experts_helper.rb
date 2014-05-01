@@ -13,7 +13,7 @@ module ExpertsHelper
   end
 
   def past_companies
-    @expert.companies.delete_if { |c| c == current_company }
+    @expert.companies.select { |c| c != current_company }.compact
   end
 
   def past_companies?
@@ -25,6 +25,8 @@ module ExpertsHelper
   end
 
   def company_url
+    return false if current_company.nil?
+    return false unless current_company.linkedin_id
     "https://www.linkedin.com/company/#{current_company.linkedin_id}"
   end
 

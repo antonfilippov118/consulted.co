@@ -12,9 +12,14 @@
         </div>
         <h1><%= @user.name %></h1>
         <% unless own_current_company.nil? %>
-          <p class="bigger"><%= own_current_position %> at <%= link_to own_current_company_name, own_company_url, target: '_blank' %></p>
+          <p class="bigger"><%= own_current_position %> at
+            <% if own_company_url %>
+              <%= link_to own_current_company_name, own_company_url, target: '_blank' %></p>
+            <% else %>
+              <%= own_current_company_name %>
+            <% end %>
+          </p>
         <% end %>
-        </p>
         <span class="note noteup">always shared</span>
       </div>
       <div class="col-md-4">
