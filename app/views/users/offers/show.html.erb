@@ -46,14 +46,7 @@
             Your expert profile page
             <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="You can share it within your acquaintances who would like to get insights from you so they can get on your schedule on your terms – works great for after speaking engagements or when you get cold called."></span>
           </p>
-          <p class="bigger blue">
-            <%= link_to expert_page(@user), target: '_blank' do %>
-              <%= expert_page @user %>
-            <% end %>
-
-            <%= link_to 'Change', '#', class: "btn btn-primary btn-xs right", data: { target: '#ep_modal', toggle: 'modal' }  %>
-          </p>
-          <%= render partial: 'expert_page_modal' %>
+          <%= render partial: 'expert_page_change' %>
         </div>
         <div class="basics-sect">
           <p class="basics-head">Your location</p>

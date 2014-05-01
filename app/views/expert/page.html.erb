@@ -5,13 +5,13 @@
   <div id="profile-main" class="row divider">
     <div class="profile-info col-md-7">
       <div class="profile-image">
-        <%= image_tag profile_image_url, alt: @expert.name, class: 'profile-img' %>
+        <%= image_tag profile_image_url, alt: name, class: 'profile-img' %>
         <% if linkedin_profile? %>
           <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin", target: '_blank' %>
         <% end %>
       </div>
       <h1>
-        <%= @expert.name %>
+        <%= name %>
         <%= render partial: 'users/favorites/bookmark' %>
       </h1>
       <% unless current_company.nil? or !past_companies? %>
@@ -131,7 +131,7 @@
     </div>
   </div>
 
-  <h2 class="heading">Book a call with <%= @expert.name %></h2>
+  <h2 class="heading">Book a call with <%= name %></h2>
   <div class="book">
     <div class="clr book-langs">
       <div class="book-lang">English</div>

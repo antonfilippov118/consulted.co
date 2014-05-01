@@ -26,7 +26,7 @@ class SlugValidator < ActiveModel::Validator
   end
 
   def contains_invalid_characters?(slug)
-    regexp = /:|\/|\?|\#|\[|\]|\@|\!|\$|\&|\'|\(|\)|\*|\+|\,|\;|\=|\"|\s/
+    regexp = /:|\/|\?|\#|\[|\]|\@|\!|\$|\&|\'|\(|\)|\*|\+|\,|\;|\=|\"|\s|\./
     !(slug =~ regexp).nil?
   end
 

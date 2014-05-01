@@ -19,7 +19,7 @@ module Sluggable
       field :lower_slug, type: String
       before_save do
         self.slug = default_slug if self.slug.nil?
-        self.lower_slug = self.slug.downcase
+        self.slug = slug.downcase
       end
     end
   end
