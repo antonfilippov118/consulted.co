@@ -59,91 +59,55 @@
   </div>
 
   <h2 class="heading">Expert's service offerings</h2>
-  <div class="clr profile-offering">
-    <div class="clr">
-      <h3 class="left">Offering 1</h3>
-      <a class="btn btn-select" href="#">Select this offer</a>
-    </div>
-    <ul class="bread">
-      <li><a href="#">Overview</a>
-      </li>
-      <li><a href="#">Advice group Three</a>
-      </li>
-      <li><a href="#">Category Two</a>
-      </li>
-      <li class="active">Subcategory One</li>
-    </ul>
-    <div class="row">
-      <div class="col-md-5">
-        <div class="profile-heading">Expert's note
-          <small class="right">Category Experience: 3-5 years</small>
+  <% @expert.offers.valid.each do |offer| %>
+    <div class="clr profile-offering">
+      <div class="clr">
+        <h3 class="left"><%= offer.name %></h3>
+        <% unless user_expert_page? %>
+          <%= link_to 'Select this offer', offers_path(offer.url)  %>
+        <% end %>
+      </div>
+      <ul class="bread">
+        <li><a href="#">Overview</a>
+        </li>
+        <li><a href="#">Advice group Three</a>
+        </li>
+        <li><a href="#">Category Two</a>
+        </li>
+        <li class="active">Subcategory One</li>
+      </ul>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="profile-heading">Expert's note
+            <small class="right">Category Experience: <%= offer.experience %> years</small>
+          </div>
+          <p><%= offer.description %></p>
         </div>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
-        </p>
-      </div>
-      <div class="col-md-5">
-        <div class="profile-heading">Description</div>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
-        </p>
-      </div>
-      <div class="col-md-2">
-        <div class="expert-pph text-center">
-          <span class="price">$75</span>/hour</div>
-        <div class="expert-rating">
-          <div class="rating-hand">5</div>
-          at avg. $65
-          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+        <div class="col-md-5">
+          <div class="profile-heading">Description</div>
+          <p><%= offer.group.description %></p>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="clr profile-offering">
-    <div class="clr">
-      <h3 class="left">Offering 1</h3>
-      <a class="btn btn-select active" href="#">Selected</a>
-    </div>
-    <ul class="bread">
-      <li><a href="#">Overview</a>
-      </li>
-      <li><a href="#">Advice group Three</a>
-      </li>
-      <li><a href="#">Category Two</a>
-      </li>
-      <li class="active">Subcategory One</li>
-    </ul>
-    <div class="row">
-      <div class="col-md-5">
-        <div class="profile-heading">Expert's note
-          <small class="right">Category Experience: 3-5 years</small>
-        </div>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
-        </p>
-      </div>
-      <div class="col-md-5">
-        <div class="profile-heading">Description</div>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "... <a href="#">more</a>
-        </p>
-      </div>
-      <div class="col-md-2">
-        <div class="expert-pph text-center">
-          <span class="price">$75</span>/hour</div>
-        <div class="expert-rating">
-          <div class="rating-hand">5</div>
-          at avg. $65
-          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+        <div class="col-md-2">
+          <div class="expert-pph text-center">
+            <span class="price">$<%= offer.rate %></span>/hour</div>
+          <div class="expert-rating">
+            <div class="rating-hand">5</div>
+            at avg. $65
+            <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <h2 class="heading">Book a call with <%= name %></h2>
   <div class="book">
     <div class="clr book-langs">
-      <div class="book-lang">English</div>
-      <div class="book-lang active">Mandarin</div>
-      <div class="book-lang">Spanish</div>
-      <div class="book-lang">Arabic</div>
-      <div class="book-lang">German</div>
+      <div class="book-lang <%= 'active' if @expert.languages.include?('arabic') %>">Arabic</div>
+      <div class="book-lang <%= 'active' if @expert.languages.include?('english') %>">English</div>
+      <div class="book-lang <%= 'active' if @expert.languages.include?('german') %>">German</div>
+      <div class="book-lang <%= 'active' if @expert.languages.include?('mandarin') %>">Mandarin</div>
+      <div class="book-lang <%= 'active' if @expert.languages.include?('spanish') %>">Spanish</div>
     </div>
     <div class="clr book-periods">
       <div class="book-period-prev">&nbsp;</div>
@@ -183,8 +147,4 @@
       <div class="book-time-row"></div>
     </div>
   </div>
-  <a class="book-summary" href="#">
-    <span class="bigger">Show booking summary</span>
-    you can review before you submit
-  </a>
 </div>
