@@ -98,11 +98,13 @@ module UsersHelper
 
   def delays
     [
-      ['Right away', 0],
-      ['15 minutes', 15],
-      ['30 Minutes', 30],
-      ['45 Minutes', 45],
-      ['1 Hour', 60]
+      ['30 minutes', 30],
+      ['1 hour', 60],
+      ['4 hours', 240],
+      ['1 day', 1440],
+      ['2 days', 2880],
+      ['3 days', 4320],
+      ['1 week', 10080]
     ]
   end
 end
