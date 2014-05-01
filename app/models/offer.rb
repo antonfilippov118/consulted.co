@@ -1,5 +1,6 @@
 class Offer
   include Mongoid::Document
+  include Sluggable::Offer
   belongs_to :group
   belongs_to :user
 

@@ -1,5 +1,8 @@
 collection @offers
-attributes :description, :rate, :experience
+attributes :description, :rate, :experience, :url
+node :id do |offer|
+  offer.id.to_s
+end
 child :expert => :expert do
   attributes :name
   node :image do |user|

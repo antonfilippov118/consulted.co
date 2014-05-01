@@ -105,12 +105,19 @@ module ExpertsHelper
     expert.offers.with_group(group).first || User::Offer.new
   end
 
-  def expert_page(expert)
+  def expert_page(expert = nil)
+    if expert.nil?
+      expert = @expert
+    end
     "#{root_url}#{expert.slug}"
   end
 
   def user_expert_page?
     @user == @expert
+  end
+
+  def expert_languages
+    @expert.languages.map(&:capitalize).join ', '
   end
 
   def education?

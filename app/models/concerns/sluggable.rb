@@ -23,4 +23,18 @@ module Sluggable
       end
     end
   end
+
+  module Offer
+    extend ActiveSupport::Concern
+    def slug_url
+      "#{slug}-with-#{expert.lower_slug}"
+    end
+
+    included do
+      field :url
+      before_save do
+        self.url = slug_url
+      end
+    end
+  end
 end

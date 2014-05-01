@@ -65,7 +65,7 @@ x<!DOCTYPE html>
                 <div class="expert-end">
                   <div class="expert-act">
                     <% if user_signed_in? %>
-                      <%= link_to 'Contact', '#', class: 'btn btn-primary' %>
+                      <a ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
                     <% else %>
                       <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
                         Sign up to book

@@ -28,6 +28,10 @@ Consulted::Application.routes.draw do
       put :activate
     end
 
+    resources :offers, only: [], controller: 'users/offers' do
+      get :review
+    end
+
     get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
     resource :settings, only: [] do
