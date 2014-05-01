@@ -1,0 +1,51 @@
+<div id="offerfull-meeting" class="offerfull">
+  <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+    <div class="offerfull-head">
+      <p class="offerfull-heading">Meeting</p>
+      <p class="bigger">Select all the languages you are comfortable conducting the call in.</p>
+    </div>
+    <div class="clr">
+      <div class="clr book-langs">
+        <div data-target="#arabic" class="book-lang language<%= ' active' if @user.languages.include?('arabic')  %>">Arabic</div>
+        <div data-target="#english" class="book-lang language<%= ' active' if @user.languages.include?('english')  %>">English</div>
+        <div data-target="#german" class="book-lang language<%= ' active' if @user.languages.include?('german')  %>">German</div>
+        <div data-target="#mandarin" class="book-lang language<%= ' active' if @user.languages.include?('mandarin')  %>">Mandarin</div>
+        <div data-target="#spanish" class="book-lang language<%= ' active' if @user.languages.include?('spanish')  %>">Spanish</div>
+        <input type="checkbox" <%= 'checked="checked"' if @user.languages.include?('arabic') %> id="arabic" class="hidden" name="user[languages][]" value="arabic">
+        <input type="checkbox" <%= 'checked="checked"' if @user.languages.include?('english') %> id="english" class="hidden" name="user[languages][]" value="english">
+        <input type="checkbox" <%= 'checked="checked"' if @user.languages.include?('german') %> id="german" class="hidden" name="user[languages][]" value="german">
+        <input type="checkbox" <%= 'checked="checked"' if @user.languages.include?('mandarin') %> id="mandarin" class="hidden" name="user[languages][]" value="mandarin">
+        <input type="checkbox" <%= 'checked="checked"' if @user.languages.include?('spanish') %> id="spanish" class="hidden" name="user[languages][]" value="spanish">
+      </div>
+      <div class="clr">
+        <div class="row meeting-row">
+          <div class="col-md-8">
+            <p class="meeting-heading">Max meetings per day</p>
+            <p>How many meetings can be boooked per day?</p>
+          </div>
+          <div class="col-md-4">
+            <%= f.text_field :max_meetings_per_day, id: 'meetings_per_day', data: { min: 1, max: 10, from: @user.max_meetings_per_day } %>
+          </div>
+        </div>
+        <div class="row meeting-row">
+          <div class="col-md-8">
+            <p class="meeting-heading">Break after meeting</p>
+            <p>Do you want a break after a meeting or back to back? </p>
+          </div>
+          <div class="col-md-4">
+            <%= f.select :break, break_settings, {}, class: 'form-control meeting-setting' %>
+          </div>
+        </div>
+        <div class="row meeting-row">
+          <div class="col-md-8">
+            <p class="meeting-heading">Short notice availability</p>
+            <p>How long before the start time can a meeting be booked? <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Indicates how available you are for shorter notice calls. We recommend to only choose a short availability if you are able to respond quickly. "></span></p>
+          </div>
+          <div class="col-md-4">
+            <%= f.select :start_delay, delays, {}, class: 'form-control meeting-setting' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

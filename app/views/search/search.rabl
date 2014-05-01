@@ -8,4 +8,7 @@ child :expert => :expert do
   node :profile_url do |user|
     "#{root_url}#{user.slug}"
   end
+  child :companies => :companies do
+    attribute :name, :position, :from
+  end
 end
