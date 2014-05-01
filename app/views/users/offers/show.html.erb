@@ -11,8 +11,8 @@
               <p>You can activate your profile now!</p>
             <% end %>
           <% else %>
-            <p class="heading">You cannot be an expert yet!</p>
-            <p>There is some required information missing before you can offer your services with us.</p>
+            <p class="heading">You cannot offer your time just yet...</p>
+            <p>...you need to provide some additional information</p>
           <% end %>
         </div>
         <div class="eligibility-status elg col-md-3">
@@ -87,10 +87,10 @@
         <p class="lead">These are the things you need to do:</p>
         <ul>
           <% if needs_more_contacts? %>
-            <li>You need at least <%= required_contacts %> in your Linkedin network. We use this information to verify your profile's authenticity.</li>
+            <li>In order to ensure authenticity, we require our experts to have more than <%= required_contacts %> LinkedIn connections</li>
           <% end %>
           <% if needs_linkedin? %>
-            <li>You need a profile at <%= link_to 'Linkedin', 'https://linkedin.com', target: '_blank' %> to offer your services on our platform.</li>
+            <li>If you have more than <%= required_contacts %> LinkedIn connections, please go to your <%= link_to 'Profile Setting', settings_path %> and connect your LinkedIn profile</li>
           <% end %>
           <% if needs_confirmation? %>
             <li>You have not confirmed your email address yet. Please note that you have <strong><%= hours_left %></strong> before this account will become <strong>unusable and eventually be deleted</strong>. You can send yourself another confirmation email <%= link_to 'here', '#', target: '_blank' %>.</li>
