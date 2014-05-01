@@ -75,7 +75,7 @@ class SynchronizeLinkedinProfile
             params.merge! to: p.end_date.year
           end
           unless p.start_date.nil?
-            params.merge! to: p.start_date.year
+            params.merge! from: p.start_date.year
           end
 
           User::LinkedinCompany.new params
