@@ -111,8 +111,6 @@ app.service 'OfferData', [
       , (err) ->
         result.reject err
         CONSULTED.trigger('There was an error saving your selection!', type: 'error')
-      .finally () ->
-        rootScope.$broadcast 'offers:update'
 
       result.promise
 
@@ -124,6 +122,7 @@ app.service 'OfferData', [
         result.reject err
       result.promise
 
+    reload: -> rootScope.$broadcast 'offers:update'
 
     delayedSave: (offer) ->
       timeout.cancel timer if timer?

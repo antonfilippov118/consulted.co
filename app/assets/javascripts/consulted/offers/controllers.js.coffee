@@ -40,10 +40,10 @@ app.controller 'OfferCtrl', [
   (scope, OfferData) ->
 
     scope.select = (offer) ->
-      offer.enabled = yes
       scope.selecting = yes
-      OfferData.save(offer).finally () ->
+      OfferData.save(enabled: yes, slug: offer.slug).finally () ->
         scope.selecting = no
+        OfferData.reload()
 
 ]
 
@@ -72,8 +72,8 @@ app.controller 'EditorCtrl', [
       trigger offer
 
     scope.remove = (offer) ->
-      offer.enabled = no
-      OfferData.save offer
+      OfferData.save(enabled: no, slug: offer.slug).then OfferData.reload
+
 
     scope.save = (offer) ->
       trigger offer
