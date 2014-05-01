@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user!
-    @user = env['warden'].user
+    @user = current_user
   end
 
   def set_timezone
