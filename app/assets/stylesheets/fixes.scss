@@ -11,23 +11,22 @@
 #groups {
   .advice-group {
     min-height: 400px;
-    &.disabled {
-      button {
-        background-color: #C8CCCF;
-      }
-      .advice-head {
-        background: #B3B5BD;
-        &:after {
-          border-color: #B3B5BD transparent transparent;
-        }
+
+    .advice-head {
+      &:hover {
+        background-color: #406d93;
       }
     }
+
     &.selected {
       .advice-head {
         background: #406d93;
+        &:after {
+          border-top-color: #406d93 !important;
+        }
       }
       &:after {
-        border-top: 8px solid #406d93 !important;
+        border-top-color: #406d93 !important;
       }
     }
     button {
@@ -128,6 +127,10 @@
 .eligibility-status a {
   color: white;
   font-size: 22px;
+}
+
+.bread li:last-child:after {
+  content: '';
 }
 
 @import 'filters';
