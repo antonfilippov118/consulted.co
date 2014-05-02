@@ -30,8 +30,8 @@
           <div class="text-center" ng-show="!searching && offers.length == 0">
             <h3>No results.</h3>
           </div>
-          <div ng-show="!searching && offers.length > 0" class="ng-cloak">
-            <div class="expert clr" ng-repeat="offer in offers">
+          <div ng-show="!searching && offers.length > 0">
+            <div class="expert clr ng-cloak" ng-repeat="offer in offers">
               <div class="expert-left">
                 <div class="expert-info">
                   <div class="expert-images">
@@ -65,7 +65,7 @@
                 <div class="expert-end">
                   <div class="expert-act">
                     <% if user_signed_in? %>
-                      <a ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
+                      <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
                     <% else %>
                       <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
                         Sign up to book

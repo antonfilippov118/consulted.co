@@ -7,7 +7,6 @@ class FindsOffers
       FindExperts,
       FilterExpertsByLanguages,
       FilterExpertsByContinents,
-      ExcludeSelf,
       FindOffers,
       FilterOffersByRate,
       FilterOffersByExperience
@@ -57,19 +56,6 @@ class FindsOffers
       experts    = context.fetch :experts
       continents = params.fetch :continents
       context[:experts] = experts.with_continent continents
-    end
-  end
-
-  class ExcludeSelf
-    include LightService::Action
-
-    executed do |context|
-      user = context.fetch :user
-
-      next context if user.nil?
-      experts = context.fetch :experts
-      experts = experts.where id: { :$ne => user.id }
-      context[:experts] = experts
     end
   end
 

@@ -1,4 +1,5 @@
 class Users::OffersController < Users::BaseController
+  before_filter :user_is_expert?, only: [:review]
   def show
     title! 'Offer your time'
   end
@@ -31,8 +32,6 @@ class Users::OffersController < Users::BaseController
   end
 
   def review
-    @offer   = Offer.find_by url: params[:offer_id]
-    @expert  = @offer.expert
     @request = Request.new
     title! "#{@offer.name} by #{@offer.expert.name}"
   end
@@ -41,5 +40,13 @@ class Users::OffersController < Users::BaseController
 
   def offer_params
     params.permit :description, :experience, :rate, :enabled, :slug, lengths: [], group: [:id]
+  end
+
+  def user_is_expert?
+    @offer   = Offer.find_by url: params[:offer_id]
+    @expert  = @offer.expert
+    if @expert == @user
+      redirect_to group_path(@offer.group)
+    end
   end
 end
