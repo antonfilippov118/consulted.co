@@ -114,4 +114,21 @@ app.directive 'offer', [
     templateUrl: 'offer'
     scope:
       offer: "="
+    link: (scope) ->
+      scope.showDescription = no
+      scope.toggleDescription = () ->
+        scope.showDescription = !scope.showDescription
+
+      scope.showToggle = scope.offer.expert.companies.length > 3
+      allCareer = no
+      scope.allActive = -> allCareer
+      scope.careerLimit = () ->
+        if allCareer
+          1000
+        else
+          3
+
+      scope.toggleCareer = () ->
+        allCareer = !allCareer
+
 ]
