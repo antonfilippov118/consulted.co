@@ -8,6 +8,8 @@ $ ->
       template: '<div class="noty_message"><span class="noty_text"></span></div>'
       timeout: 1000
       type: 'success'
+      maxVisible: 1
+      killer: yes
     }, opts
     setTimeout ->
       noty opts
