@@ -49,7 +49,6 @@ Consulted::Application.routes.draw do
     resources :favorites, except: [:edit, :new], controller: 'users/favorites'
 
     resources :requests, controller: 'users/requests', except: [:new] do
-      get :success
       member do
         patch :cancel
         patch :decline
@@ -58,6 +57,15 @@ Consulted::Application.routes.draw do
       collection do
         get :review, path: '/:slug/:offer_id'
       end
+    end
+
+    resource :requests, only: [] do
+      get :success
+    end
+
+    resources :calls, only: [], controller: 'users/calls' do
+      patch :confirm
+      patch :cancel
     end
 
     get :contact_email, controller: 'users/dashboard', action: :contact

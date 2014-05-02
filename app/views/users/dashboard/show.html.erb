@@ -1,77 +1,36 @@
 <div class="dashboard container">
   <%= render partial: 'layouts/messages' %>
-    <div class="overview-head row">
-      <div class="col-md-7">
-        <h1>
-          Upcoming Calls
-          <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Overview about your upcoming calls - requested or offered ones"></span>
-        </h1>
-        <div class="ovr-timezone">
-          <strong>Your timezone</strong>
-          <%= render partial: 'timezone' %>
-          <a class="btn btn-primary btn-xs" id="change_tz" data-toggle="modal" data-target="#tz_modal">Change</a>
-        </div>
-        <%= render partial: 'timezone_modal' %>
+  <div class="overview-head row">
+    <div class="col-md-7">
+      <h1>
+        Upcoming Calls
+        <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Overview about your upcoming calls - requested or offered ones"></span>
+      </h1>
+      <div class="ovr-timezone">
+        <strong>Your timezone</strong>
+        <%= render partial: 'timezone' %>
+        <a class="btn btn-primary btn-xs" id="change_tz" data-toggle="modal" data-target="#tz_modal">Change</a>
       </div>
-      <div class="col-md-offset-1 col-md-4">
-        <div id="quickaccess">
-          <p id="quickaccess-head">Quick Access</p>
-          <div id="quickaccess-text">
-            <p>I want to...</p>
-            <div class="clr">
-              <%= link_to '#' do %>
-                Manage calls I requested
-              <% end %>
-            </div>
-            <div class="clr">
+      <%= render partial: 'timezone_modal' %>
+    </div>
+    <div class="col-md-offset-1 col-md-4">
+      <div id="quickaccess">
+        <p id="quickaccess-head">Quick Access</p>
+        <div id="quickaccess-text">
+          <p>I want to...</p>
+          <div class="clr">
             <%= link_to '#' do %>
-              Manage calls I offered
+              Manage calls I requested
             <% end %>
-            </div>
+          </div>
+          <div class="clr">
+          <%= link_to '#' do %>
+            Manage calls I offered
+          <% end %>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="overview-table-head">In the next 7 days</div>
-    <table class="overview-table table table-striped">
-      <tbody>
-        <% if @next_7_days.any? %>
-          <tr>
-            <td>Requested</td>
-            <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-            </td>
-            <td>Sheduled</td>
-            <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <% else %>
-          <tr>
-            <td colspan="3">The are are no calls in the next 7 days.</td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <div class="overview-table-head">In 7 days or more</div>
-    <table class="overview-table table table-striped">
-      <tbody>
-        <% if @after_7_days.any? %>
-          <tr>
-            <td>Requested</td>
-            <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-            </td>
-            <td>Sheduled</td>
-            <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
-        <% else %>
-          <tr>
-            <td colspan="3">The are are no calls in the next 7 days.</td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  </div>
+  <%= render partial: 'calls' %>
 </div>

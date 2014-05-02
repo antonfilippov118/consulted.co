@@ -17,11 +17,11 @@ module ExpertsHelper
   end
 
   def past_companies?
-    @expert.shares_career?
+    @expert.shares_career? && @expert.companies.any?
   end
 
   def summary?
-    @expert.shares_summary?
+    @expert.shares_summary? && @expert.summary.present?
   end
 
   def company_url

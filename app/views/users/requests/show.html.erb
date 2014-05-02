@@ -1,0 +1,28 @@
+<div class="signup login">
+  <div class="well col-md-6 col-md-offset-3">
+    <div class="content">
+      <div class="header">
+        <h4 class="title text-center" id="logo_bk">
+          Booking confirmed!
+        </h4>
+        <p class="text-center">We just send you an email with all the details for your reference.</p>
+        <hr>
+        <%= render partial: 'layouts/messages' %>
+        <br>
+      </div>
+      <div class="body">
+        <p>Also, you will receive an email call reminder <strong><%= @user.notification_time %> minutes</strong> in advance of the call. You can always change this <%= link_to 'here', settings_path %>.</p>
+        <hr>
+        <div class="popup-row text-center">
+          <%= link_to 'Home', overview_path %>
+        </div>
+        <div class="popup-row text-center">
+          or
+        </div>
+        <div class="popup-row text-center">
+          <%= link_to 'Manage my meetings', history_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

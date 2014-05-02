@@ -14,14 +14,22 @@
         <span class="price">${{offer.rate}}</span>/hour</div>
     </div>
     <div class="expert-cite">
-      {{offer.description}}
+      {{offer.description | truncate:200:showDescription}}
+      <div class="text-center" ng-show="offer.description.length > 200">
+        <a ng-hide="showDescription" ng-click="toggleDescription()">more</a>
+        <a ng-show="showDescription" ng-click="toggleDescription()">less</a>
+      </div>
     </div>
   </div>
   <div class="expert-right">
     <div class="expert-history">
       <ul>
-        <li ng-repeat="company in offer.expert.companies">{{company.name}}, {{company.position}}, {{company.from}}</li>
+        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from}}</li>
       </ul>
+      <div class="text-center" ng-show="showToggle">
+        <a ng-hide="allActive()" ng-click="toggleCareer()">show all</a>
+        <a ng-show="allActive()" ng-click="toggleCareer()">show less</a>
+      </div>
     </div>
     <div class="expert-rating">
       <div ng-show="offer.awesomes.length > 0">
