@@ -6,14 +6,18 @@ module CallsHelper
 
   def call_status(call)
     if seeker? call
-      seeker_status.fetch call.status
+      'Requested'
     else
-      expert_status.fetch call.status
+      'Offered'
     end
   end
 
   def pending?(call)
     call.status == Call::Status::REQUESTED
+  end
+
+  def active?(call)
+    call.status == Call::Status::ACTIVE
   end
 
   def seeker?(call)
@@ -37,21 +41,9 @@ module CallsHelper
     end
   end
 
-  def seeker_status
-    {
-      Call::Status::REQUESTED => 'Requested',
-      Call::Status::ACTIVE => 'Scheduled',
-      Call::Status::CANCELLED => 'Cancelled',
-      Call::Status::DECLINED => 'Declined'
-    }
-  end
-
-  def expert_status
-    {
-      Call::Status::REQUESTED => 'Offered',
-      Call::Status::ACTIVE => 'Scheduled',
-      Call::Status::CANCELLED => 'Cancelled'
-    }
+  def upcoming_calls
+    @next_7_days = Call.for(@user).order_by [:created_at, :desc]
+    @after_7_days = []
   end
 
   def expert_request_status

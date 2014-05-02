@@ -18,6 +18,9 @@ class Call
   field :length, type: Integer
   field :status, type: Integer, default: Call::Status::REQUESTED
 
+  field :confirmed_at, type: DateTime
+  field :cancelled_at, type: DateTime
+
   index pin: 1
 
   delegate :name, to: :offer
@@ -30,7 +33,7 @@ class Call
     active_from <= Time.now && Time.now <= active_to
   end
 
-  scope :active, -> { where active_from: { :$lte => Time.now }, active_to: { :$gte => Time.now } }
+  # scope :active, -> { where active_from: { :$lte => Time.now }, active_to: { :$gte => Time.now } }
   scope :future, -> { where active_from: { :$gte => Time.now } }
   scope :past, -> { where active_to: { :$lte => Time.now } }
   scope :by_pin, -> pin { where pin: pin }

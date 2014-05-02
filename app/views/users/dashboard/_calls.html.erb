@@ -1,22 +1,51 @@
-<div id="active_calls">
-  <h5>Current Calls</h5>
-  <ul>
-    <% if calls.any? %>
-      <% calls.each do |call| %>
-        <%= render partial: 'users/dashboard/call', collection: calls %>
+<div id="calls">
+  <div class="overview-table-head">In the next 7 days</div>
+  <table class="overview-table table table-striped">
+    <tbody>
+      <% if @next_7_days.any? %>
+        <% @next_7_days.each do |call| %>
+          <tr class="<%= call_class(call) %>">
+            <td><%= call_status(call) %></td>
+            <td>Call with <%= partner_for call %></td>
+            <td><%= request_status(call) %></td>
+            <td>
+              <% if expert?(call) and pending?(call) %>
+                <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>
+                <%= link_to 'deny', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
+              <% end %>
+              <% if active?(call) %>
+                <%= link_to 'cancel', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="3">The are are no calls in the next 7 days.</td>
+          <td></td>
+        </tr>
       <% end %>
-    <% else %>
-      <li class="none">You have no upcoming calls.</li>
-    <% end %>
-  </ul>
-  <h5>Upcoming calls</h5>
-  <ul>
-    <% if upcoming.any? %>
-      <% upcoming.each do |call| %>
-        <%= render partial: 'users/dashboard/call', collection: calls %>
+    </tbody>
+  </table>
+
+  <div class="overview-table-head">In 7 days or more</div>
+  <table class="overview-table table table-striped">
+    <tbody>
+      <% if @after_7_days.any? %>
+        <tr>
+          <td>Requested</td>
+          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
+          </td>
+          <td>Sheduled</td>
+          <td><a class="link-cancel" href="#">cancel</a>
+        </td>
+      </tr>
+      <% else %>
+        <tr>
+          <td colspan="3">The are are no calls in the next 7 days.</td>
+          <td></td>
+        </tr>
       <% end %>
-    <% else %>
-      <li class="none">You have no upcoming calls.</li>
-    <% end %>
-  </ul>
+    </tbody>
+  </table>
 </div>

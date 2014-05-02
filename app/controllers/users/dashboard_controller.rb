@@ -1,10 +1,11 @@
 class Users::DashboardController < Users::BaseController
+  include CallsHelper
   before_filter :needs_contact_email?, only: :contact
   before_filter :remind_confirmation?, only: :show
+
   def show
     title! 'Overview'
-    @next_7_days = Call.for(@user)
-    @after_7_days = []
+    upcoming_calls
   end
 
   def history
