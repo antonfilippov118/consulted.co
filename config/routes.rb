@@ -28,7 +28,7 @@ Consulted::Application.routes.draw do
       put :activate
     end
 
-    resources :offers, only: [], controller: 'users/offers' do
+    resources :offers, only: [:create], controller: 'users/offers' do
       get :review
     end
 

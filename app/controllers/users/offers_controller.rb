@@ -36,10 +36,24 @@ class Users::OffersController < Users::BaseController
     title! "#{@offer.name} with #{@offer.expert.name}"
   end
 
+  def create
+    result = RequestsAnExpert.for request_params.merge seeker: @user
+    if result.failure?
+      flash[:warning] = result.message
+      render :review
+    else
+      redirect_to success_requests_path
+    end
+  end
+
   private
 
   def offer_params
     params.permit :description, :experience, :rate, :enabled, :slug, lengths: [], group: [:id]
+  end
+
+  def request_params
+    params.require(:call).permit :message, :offer, :expert, :length, :start
   end
 
   def user_is_expert?

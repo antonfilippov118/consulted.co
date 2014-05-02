@@ -17,7 +17,6 @@ module Sluggable
 
     included do
       field :slug, type: String
-      field :lower_slug, type: String
       before_save do
         self.slug = default_slug if self.slug.nil?
       end
@@ -27,7 +26,7 @@ module Sluggable
   module Offer
     extend ActiveSupport::Concern
     def slug_url
-      "#{slug}-with-#{expert.lower_slug}"
+      "#{slug}-with-#{expert.slug}"
     end
 
     included do
