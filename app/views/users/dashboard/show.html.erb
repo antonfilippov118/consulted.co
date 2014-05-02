@@ -37,14 +37,19 @@
     <table class="overview-table table table-striped">
       <tbody>
         <% if @next_7_days.any? %>
-          <tr>
-            <td>Requested</td>
-            <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-            </td>
-            <td>Sheduled</td>
-            <td><a class="link-cancel" href="#">cancel</a>
-          </td>
-        </tr>
+          <% @next_7_days.each do |call| %>
+            <tr class="<%= call_class(call) %>">
+              <td><%= call_status(call) %></td>
+              <td>Call with <%= partner_for call %></td>
+              <td><%= request_status(call) %></td>
+              <td>
+                <% if expert?(call) and pending?(call) %>
+                  <%= link_to 'confirm', '#', class: 'link-confirm' %>
+                <% end %>
+                <a class="link-cancel" href="#">cancel</a>
+              </td>
+            </tr>
+          <% end %>
         <% else %>
           <tr>
             <td colspan="3">The are are no calls in the next 7 days.</td>

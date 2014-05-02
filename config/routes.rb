@@ -63,8 +63,6 @@ Consulted::Application.routes.draw do
       get :success
     end
 
-    resources :calls, only: [:index], controller: 'users/calls'
-
     get :contact_email, controller: 'users/dashboard', action: :contact
     patch :contact_email, controller: 'users/dashboard', action: :update_contact
     patch :timezone, controller: 'users/dashboard', action: :timezone

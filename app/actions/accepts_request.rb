@@ -1,24 +1,25 @@
 class AcceptsRequest
   include LightService::Organizer
 
-  def self.for(id)
-    with(id: id).reduce [
-      FindRequest,
-      AcceptRequest,
+  def self.for(id, user)
+    with(id: id, user: user).reduce [
+      FindCall,
+      AcceptCall,
       GenerateTwilioCall,
       SendConfirmation
     ]
   end
 
-  class FindRequest
+  class FindCall
     include LightService::Action
 
     executed do |context|
       id = context.fetch :id
-      if id.is_a? Request
+      user = context.fetch :user
+      if id.is_a? Call
         request = id
       else
-        request = Request.find id
+        request = Call.for(user).find id
       end
 
       context[:request] = request

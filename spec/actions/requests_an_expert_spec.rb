@@ -15,9 +15,9 @@ describe RequestsAnExpert do
     result = RequestsAnExpert.for seeker: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
     expect(result.success?).to be_true
 
-    request = expert.requests.first
+    request = expert.calls.first
 
-    expect(request).to be_a Request
+    expect(request).to be_a Call
   end
 
   it 'should send a confirmation mail to the expert' do

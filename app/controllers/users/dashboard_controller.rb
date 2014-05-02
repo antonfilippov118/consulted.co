@@ -3,7 +3,7 @@ class Users::DashboardController < Users::BaseController
   before_filter :remind_confirmation?, only: :show
   def show
     title! 'Overview'
-    @next_7_days = []
+    @next_7_days = Call.for(@user)
     @after_7_days = []
   end
 
