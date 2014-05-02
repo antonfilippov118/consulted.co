@@ -32,7 +32,6 @@ app.controller 'ResultCtrl', [
       scope.searching = bool
 
     scope.$on 'result', (_, result) ->
-      console.log result
       scope.offers = result
 
 ]

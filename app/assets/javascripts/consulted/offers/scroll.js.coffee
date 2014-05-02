@@ -8,6 +8,7 @@ $ ->
     scrollbar = () ->
       position = $(window).scrollTop();
       $('#offerbar').toggleClass 'stick', (position > $('.offerfull').offset().top - 26)
+      $('#offerbar').toggleClass 'hidden', !(position > $('.offerfull').offset().top - 26)
 
     $(window).scrollTop(0)
     $(window).bind 'scroll', () -> scrollbar()

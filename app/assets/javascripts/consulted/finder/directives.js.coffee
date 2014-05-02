@@ -107,3 +107,11 @@ app.directive 'result', [
     scope: yes
     controller: 'ResultCtrl'
 ]
+
+app.directive 'offer', [
+  () ->
+    replace: yes
+    templateUrl: 'offer'
+    scope:
+      offer: "="
+]
