@@ -125,6 +125,10 @@ class User
     !confirmed? && confirmation_sent_at + 48.hours - Time.now <= 24.hours
   end
 
+  def notification_email
+    contact_email || email
+  end
+
   def password_match?
     errors[:password] << 'can\'t be blank' if password.blank?
     errors[:password_confirmation] << 'can\'t be blank' if password_confirmation.blank?

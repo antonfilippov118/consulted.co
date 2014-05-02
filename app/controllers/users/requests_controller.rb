@@ -1,23 +1,16 @@
 class Users::RequestsController < Users::BaseController
 
-  def review
-    @expert  = User.experts.find_by slug: params[:slug]
-    @offer   = @expert.offers.enabled.find params[:offer_id]
-    @request = Request.new
-  end
-
   def create
     result = RequestsAnExpert.for request_params.merge seeker: @user
-    @request = result.fetch :request
-    @offer   = result.fetch :offer
-    @expert  = result.fetch :expert
-
     if result.failure?
-      flash.now[:warning] = result.message
-      render :review
+      flash[:warning] = result.message
+      redirect_back
     else
-      redirect_to request_success_path(@request)
+      redirect_to success_requests_path
     end
+  end
+
+  def show
   end
 
   def success

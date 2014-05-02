@@ -30,13 +30,13 @@
           <div class="profile-heading2">Choose how long you want to talk</div>
           <div class="profile-time clr">
             <div class="time-select">
-              <% @offer.lengths.sort.each do |time| %>
-                <div class="time-point" data-target="#time_<%= time %>" data-hint="<%= time %>"></div>
+              <% possible_lengths.each do |time| %>
+                <div class="time-point" data-value="<%= time %>"></div>
                 <%= f.radio_button :length, time, id: "time_#{time}", class: 'hidden' %>
               <% end %>
             </div>
             <div class="greensemi right">
-            <span id="howlong"></span>minutes</div>
+            <span id="howlong"></span> minutes</div>
           </div>
           <!-- <p class="bigger">Tuesday, 25 March, 2014, 11:00am - 12:30pm</p> -->
         </div>
@@ -111,7 +111,7 @@
             <p class="bigger">Your message</p>
           </div>
           <div class="clr">
-            <textarea class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short."></textarea>
+            <%= f.text_area :message, class: 'form-control', rows: 10, placeholder: 'You can leave here a quick note about the topic. Keep it short.' %>
           </div>
           <div class="clr">
             <%= f.submit "Send binding request", class: 'btn btn-primary',  data: { disable_with: 'Sending...' } %>
@@ -119,5 +119,7 @@
         </div>
       </div>
     </div>
+    <%= f.hidden_field :expert, value: @expert.id %>
+    <%= f.hidden_field :offer, value: @offer.id %>
   <% end %>
 </div>

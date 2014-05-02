@@ -1,14 +1,35 @@
 $ ->
-  select = $('#request_start')
-  span   = $('#end_time')
-  return unless span.length > 0
+  times = $('.time-point')
+  uncheck = (times) ->
+    times.each (index, time) ->
+      time = $(time)
+      time.next('input[type=radio]').removeAttr 'checked'
+    times.removeClass 'sel'
 
-  calc = () ->
-    time   = moment select.val()
-    offset = moment().zone select.val()
-    length = $('[name="request[length]"]:checked').val()
-    span.html time.add('m', length).zone(offset.zone()).format('YYYY-MM-DD HH:mm')
+  check = (time) ->
+    time.next('input[type=radio]').prop 'checked', yes
+    times.each (idx, _time) ->
+      _time = $(_time)
+      _time.addClass 'sel' if _time.data('value') <= time.data('value')
 
-  select.on 'change', calc
-  $('[name="request[length]"]').on 'click', calc
-  calc()
+  show = (time) ->
+    value = time.data 'value'
+    $('#howlong').text value
+
+  times.on 'click', () ->
+    time = $(this)
+    uncheck times
+    check time
+    show time
+
+  times.on 'mouseover', () ->
+    time = $(this)
+    show time
+
+  times.on 'mouseout', () ->
+    value = $('input[type=radio]:checked').val()
+    $('#howlong').text value
+
+  # select the first time on load
+  $(".time-point:first").trigger 'click'
+

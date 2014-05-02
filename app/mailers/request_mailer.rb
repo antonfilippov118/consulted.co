@@ -4,14 +4,20 @@ class RequestMailer < ActionMailer::Base
   def notification(request)
     @request = request
     @expert  = request.expert
-    mail(to: @expert.email, subject: 'You have a new request for a call!')
+    @seeker  = request.seeker
+    mail(to: @expert.notification_email, subject: "#{@seeker.name} has requested a call")
+  end
+
+  def seeker_notification(request)
+    @request = request
+    @expert  = request.expert
+    @seeker  = request.seeker
+    mail(to: @expert.notification_email, subject: "You have requested a call with #{@expert.name}")
   end
 
   def cancellation(request)
     @request = request
     @expert  = request.expert
-
-    mail to: @expert.email, subject: 'A request has been cancelled!'
-
+    mail to: @expert.notification_email, subject: 'A request has been cancelled!'
   end
 end

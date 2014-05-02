@@ -5,7 +5,8 @@ class RequestsAnExpert
     with(params: params).reduce [
       ClearParams,
       CreateRequest,
-      SendExpertNotification
+      SendExpertNotification,
+      SendSeekerNotification
     ]
   end
 
@@ -13,25 +14,26 @@ class RequestsAnExpert
     include LightService::Action
 
     executed do |context|
-      params  = context.fetch :params
-      expert  = params.fetch :expert
-      seeker  = params.fetch :seeker
-      start   = params.fetch :start
-      length  = params.fetch :length
-      offer   = params.fetch :offer
-      message = params.fetch :message
+      begin
+        params  = context.fetch :params
+        expert  = params.fetch :expert
+        seeker  = params.fetch :seeker
+        length  = params.fetch :length
+        offer   = params.fetch :offer
+        message = params[:message]
 
-      if expert.is_a? String
-        expert = User.experts.find expert
+        if expert.is_a? String
+          expert = User.experts.find expert
+        end
+
+        context[:expert]   = expert
+        context[:offer]    = expert.offers.find(offer)
+        context[:length]   = length
+        context[:seeker]   = seeker
+        context[:message]  = message unless message.nil?
+      rescue => e
+        context.fail! e
       end
-
-      context[:expert]   = expert
-      context[:offer_id] = offer.is_a?(Offer) ? offer.id.to_s : offer
-      context[:offer]    = offer.is_a?(Offer) ? offer : expert.offers.find(offer)
-      context[:start]    = start
-      context[:length]   = length
-      context[:seeker]   = seeker
-      context[:message]  = message
     end
   end
 
@@ -40,8 +42,7 @@ class RequestsAnExpert
 
     executed do |context|
       expert  = context.fetch :expert
-      request = expert.requests.create context.slice :seeker, :offer_id, :start, :length, :message
-
+      request = expert.requests.create context.slice :seeker, :offer, :length, :message
       context[:request] = request
     end
   end
@@ -51,6 +52,19 @@ class RequestsAnExpert
 
     executed do |context|
       mail = RequestMailer.notification context.fetch :request
+      begin
+        mail.deliver
+      rescue => e
+        context.fail! e
+      end
+    end
+  end
+
+  class SendSeekerNotification
+    include LightService::Action
+
+    executed do |context|
+      mail = RequestMailer.seeker_notification context.fetch :request
       begin
         mail.deliver
       rescue => e
