@@ -39,7 +39,6 @@ class RequestsAnExpert
     include LightService::Action
 
     executed do |context|
-      expert = context.fetch :expert
       context[:call] = Call.create context.slice(:seeker, :expert, :offer, :length)
     end
   end
