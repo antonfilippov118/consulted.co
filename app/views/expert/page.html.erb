@@ -67,15 +67,7 @@
           <%= link_to 'Select this offer', offers_path_for(offer), class: 'btn btn-select'  %>
         <% end %>
       </div>
-      <ul class="bread">
-        <li><a href="#">Overview</a>
-        </li>
-        <li><a href="#">Advice group Three</a>
-        </li>
-        <li><a href="#">Category Two</a>
-        </li>
-        <li class="active">Subcategory One</li>
-      </ul>
+      <%= render partial: 'layouts/breadcrumbs', locals: { group: offer.group, with_group: false } %>
       <div class="row">
         <div class="col-md-5">
           <div class="profile-heading">Expert's note

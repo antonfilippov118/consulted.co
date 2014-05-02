@@ -48,6 +48,8 @@ module UsersHelper
   end
 
   def own_company_url
+    return false if own_current_company.nil?
+    return false if own_current_company.linkedin_id.nil?
     "https://www.linkedin.com/company/#{own_current_company.linkedin_id}"
   end
 
@@ -104,7 +106,7 @@ module UsersHelper
       ['1 day', 1440],
       ['2 days', 2880],
       ['3 days', 4320],
-      ['1 week', 10080]
+      ['1 week', 10_080]
     ]
   end
 end

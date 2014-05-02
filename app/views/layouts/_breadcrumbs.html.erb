@@ -1,0 +1,16 @@
+<% with_expert = false if local_assigns[:with_expert].nil? %>
+<ul class="bread">
+  <% breadcrumbs(group).each do |crumb| %>
+    <li><%= link_to crumb.name, "#{find_an_expert_path}#/#{crumb.slug}" %></li>
+  <% end %>
+  <% if with_group %>
+    <% if with_expert %>
+      <li><%= link_to group.name, "#{group_path(group)}" %></li>
+    <% else %>
+      <li><%= group.name %></li>
+    <% end %>
+  <% end %>
+  <% if with_expert %>
+    <li><%= @expert.name %></li>
+  <% end %>
+</ul>
