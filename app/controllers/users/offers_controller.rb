@@ -40,6 +40,8 @@ class Users::OffersController < Users::BaseController
     result = RequestsAnExpert.for request_params.merge seeker: @user
     if result.failure?
       flash[:warning] = result.message
+      @offer = result.fetch :offer
+      @expert = result.fetch :expert
       render :review
     else
       redirect_to success_requests_path
