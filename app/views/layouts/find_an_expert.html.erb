@@ -31,7 +31,7 @@
             <h3>No results.</h3>
           </div>
           <div ng-show="!searching && offers.length > 0">
-            <div class="expert clr ng-cloak" ng-repeat="offer in offers">
+            <div class="expert clr ng-cloak" ng-hide="searching" ng-repeat="offer in offers">
               <div class="expert-left">
                 <div class="expert-info">
                   <div class="expert-images">
