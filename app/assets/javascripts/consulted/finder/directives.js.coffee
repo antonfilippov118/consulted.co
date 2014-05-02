@@ -119,7 +119,7 @@ app.directive 'offer', [
       scope.toggleDescription = () ->
         scope.showDescription = !scope.showDescription
 
-      scope.showToggle = scope.offer.expert.companies.length > 3
+      scope.showToggle = scope.offer.expert.companies?.length > 3
       allCareer = no
       scope.allActive = -> allCareer
       scope.careerLimit = () ->

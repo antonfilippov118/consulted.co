@@ -7,8 +7,7 @@
         <div class="profile-image">
           <%= image_tag profile_image_url, class: 'profile-img', alt: name %>
           <div class="clr text-center">
-            <%# Rating? %>
-            <%# <span class="rating-point"></span> %>
+            <%= link_to 'Full profile', expert_page, target: '_blank' %>
           </div>
         </div>
         <h1>
@@ -25,9 +24,6 @@
           <span class="price">$<%= @offer.rate %></span>/hour
           <small>(our fee included)</small>
         </div>
-        <p>
-          <%= link_to name, expert_page, target: '_blank' %>
-        </p>
       </div>
       <div class="col-md-6">
         <div class="profile-talk">

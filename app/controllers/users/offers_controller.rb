@@ -33,7 +33,7 @@ class Users::OffersController < Users::BaseController
 
   def review
     @request = Request.new
-    title! "#{@offer.name} by #{@offer.expert.name}"
+    title! "#{@offer.name} with #{@offer.expert.name}"
   end
 
   private
