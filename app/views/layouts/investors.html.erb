@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag 'favicon.png' %>
+    <title>Consulted - On-Demand Expert Advice</title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : " CONSULTED.co " %>">
+    <!--[if lt IE 9]>
+      <%= javascript_include_tag 'compatibility' %>
+    <![endif]-->
+    <%= stylesheet_link_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div id="landing-main" class="slide-photo">
+      <div class="heading">
+        <h1>Business advice from world-class experts just a phone call away</h1>
+        <h3>Closed beta</h3>
+        <%= yield %>
+      </div>
+      <div id="landing-main-bottom">
+        <div class="container">
+          <p>CONSULTED is a marketplace for on-demand expert advice that allows advice seekers to book telephone calls with professionals who have management consulting, finance and venture capital backgrounds, as well as specialized industry expertise</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <%=  %>
+</html>

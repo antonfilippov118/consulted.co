@@ -2,7 +2,7 @@ class Investor
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  devise :database_authenticatable, :trackable
+  devise :database_authenticatable, :trackable, :timeoutable
 
   field :email
   field :encrypted_password, type: String, default: ''
@@ -15,4 +15,8 @@ class Investor
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
+
+   def timeout_in
+     1.year
+   end
 end

@@ -9,6 +9,7 @@ class PlatformSettings
   field :block_time, type: Integer, default: 10
   field :session_timeout, type: Integer, default: 0
   field :required_network, type: Integer, default: 10
+  field :platform_live, type: Boolean, default: false
 
   before_validation :ensure_has_only_one_record, on: :create
 
