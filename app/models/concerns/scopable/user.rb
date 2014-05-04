@@ -17,6 +17,8 @@ module Scopable
       scope :with_hours_from, -> starts { where :'availabilities.start_hour' => { :$gte => starts } }
       scope :with_hours_to, -> to { where :'availabilities.end_hour' => { :$gte => to } }
       scope :with_group, -> group { where(:'offers.group_id' => group.id) }
+
+      scope :with_email, -> email { any_of({ email: email }, { contact_email: email }, { :'user_linkedin_connection.email' => email }) }
     end
   end
 end

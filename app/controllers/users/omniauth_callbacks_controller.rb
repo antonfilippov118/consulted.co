@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def linkedin
     if current_user
       connect_via_linkedin
@@ -15,10 +16,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def connect_via_linkedin
     if current_user.connect_to_linkedin request.env['omniauth.auth']
-      redirect_to overview_path
+      redirect_to(session[:omniauth_return] || overview_path)
     else
       redirect_to new_user_registration_path
     end
+    session.delete :omniauth_return
   end
 
   def sign_in_via_linkedin

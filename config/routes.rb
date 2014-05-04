@@ -45,6 +45,7 @@ Consulted::Application.routes.draw do
       patch :profile, action: :user_update
       patch :linkedin, action: :linkedin
       put :disconnect_linkedin, action: :linkedin_disconnect
+      patch :connect_linkedin, action: :linkedin_connect
       put :timezone, action: :timezone_update
     end
 

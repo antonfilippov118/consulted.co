@@ -1,4 +1,4 @@
-CONSULTED.trigger 'Disconnected Linkedin. Reloading...'
+CONSULTED.trigger '<i class="fa fa-spin fa-spinner"></i> Disconnected Linkedin. Reloading...'
 setTimeout ->
   window.location.reload()
-, 1000
+, 2000

@@ -49,6 +49,11 @@ class Users::SettingsController < Users::BaseController
     end
   end
 
+  def linkedin_connect
+    session[:omniauth_return] = settings_path
+    redirect_to user_omniauth_authorize_path provider: 'linkedin'
+  end
+
   private
 
   def user_profile_params

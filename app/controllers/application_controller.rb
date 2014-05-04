@@ -2,7 +2,6 @@
 
 class ApplicationController < ActionController::Base
   include ApplicationHelper
-
   #
   # TODO
   # Remove this helper, once the application goes into open beta
