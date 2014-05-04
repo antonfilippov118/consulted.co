@@ -50,6 +50,7 @@ RailsAdmin.config do |config|
   end
 
   config.model Investor do
+    label 'Closed beta users'
     list do
       field :email
       field :note
