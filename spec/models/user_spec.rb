@@ -34,6 +34,7 @@ describe User do
 
     it 'should have a certain number of contacts in linkedin to be an expert' do
       user = User.create valid_params.merge linkedin_network: 10_000
+      user.update_attribute :providers, ['linkedin']
       user.confirm!
       expect(user.can_be_an_expert?).to be_true
     end

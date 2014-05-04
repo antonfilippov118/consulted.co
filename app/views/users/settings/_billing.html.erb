@@ -1,0 +1,50 @@
+<div class="tab-pane" id="settings-billing">
+  <p class="mv15">Your account will be charged/paid after the meeting. To make it work you need a verified PayPal account.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-5">
+          <label class="control-label">I use CONSULTED.co as:</label>
+        </div>
+        <div class="col-md-7">
+          <select class="form-control">
+            <option selected="">Advice seeker</option>
+            <option>Expert</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="billing-advice" class="well">
+    <div class="radio sel">
+      <label>
+        <input class="billing-radio" type="radio" name="billing_adv" value="option1" checked="">
+        <p class="mv15">Billing agreement with CONSULTED.co via PayPal - on-time setup (preferred option [<a href="#">learn why</a>])</p>
+        <div class="row">
+          <div class="col-md-1">
+            <%= image_tag 'paypal.png', alt: 'PayPal' %>
+          </div>
+          <div class="col-md-offset-1 col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control" value="johndoe@gmail.com">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">Change</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input class="billing-radio" type="radio" name="billing_adv" value="option2">
+        <p class="mv15">Enter Credit Card / PayPal payment at time of each booking</p>
+        <p>
+          <span class="info flaticon flaticon-info">When paying by a credit card, the payment is processed via PayPal.
+            <br>However, you don't need to setup a PayPal account.</span>
+        </p>
+      </label>
+    </div>
+  </div>
+
+</div>

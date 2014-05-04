@@ -5,6 +5,7 @@ class User
   include Validatable::User
   include Sluggable::User
   include Scopable::User
+  include Indexable::User
   include Geo::Continent
 
   extend Dragonfly::Model
@@ -99,6 +100,7 @@ class User
   def can_be_an_expert?
     # TODO: Paypal
     return false unless confirmed?
+    return false unless linkedin?
     linkedin_network >= User.required_connections
   end
 

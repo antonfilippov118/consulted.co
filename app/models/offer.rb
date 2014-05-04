@@ -2,7 +2,7 @@ class Offer
   include Mongoid::Document
   include Sluggable::Offer
   belongs_to :group
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
 
   field :description, type: String
   field :experience, type: Integer, default: 1

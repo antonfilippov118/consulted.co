@@ -1,11 +1,8 @@
 class Users::UtilitiesController < ApplicationController
   def available
-    exists = User.where(email: email_params[:email]).exists?
-    if exists
-      render json: false
-    else
-      render json: true
-    end
+    email = email_params.fetch :email
+    exists = User.with_email(email).exists?
+    render json: !exists
   end
 
   private

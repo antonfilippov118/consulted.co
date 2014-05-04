@@ -1,58 +1,14 @@
-<div class="settings profile">
-  <%= render partial: 'headline' %>
-  <%= render partial: 'messages' %>
-  <%= render partial: 'tabs', locals: { active: :profile } %>
-  <%= form_for current_user, url: profile_settings_path do |f| -%>
-    <fieldset>
-      <legend>Basic information</legend>
-      <div class="control-group col-lg-6">
-        <!-- email -->
-        <%= content_tag :div, class: "form-group has-feedback #{current_user.confirmed? ? 'has-success' : 'has-warning'}" do %>
-          <label class="control-label" for="user_email">Email</label>
-          <%= f.email_field :email, class: 'form-control' %>
-          <% if current_user.confirmed? %>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-          <% else %>
-            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="control-group col-lg-6">
-        <div class="form-group">
-          <label for="user_name" class="control-label">Name</label>
-          <%= f.text_field :name, class: 'form-control' %>
-        </div>
-      </div>
-      <div class="control-group col-lg-6">
-        <label for="user_summary">Your summary</label>
-        <%= f.text_area :summary, rows: 6, class: 'form-control' %>
-      </div>
-      <div class="control-group col-lg-6">
-        <label for="user_slug">Your profile at consulted.co</label><br>
-        <div class="controls">
-          <span class="domain">http://consulted.co/</span><%= f.text_field :slug, class: 'form-control slug' %>
-        </div>
-        <br>
-        <label for="user_tz">Your timezone</label>
-        <div class="controls">
-          <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control' %>
-          <span class="help-block">Times shown will be updated accordingly</span>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>Profile image</legend>
-      <div class="control-group col-lg-3">
-        <%= image_tag current_user.profile_image.url, width: 150,  alt: 'Profile image', class: 'img-responsive img-thumbnail' %>
-      </div>
-      <div class="control-group col-lg-9">
-        <p class="lead">Your current image</p>
-        <p>For best display your image should be at least 300x300 pixels</p>
-        <%= f.file_field :profile_image %>
-      </div>
-    </fieldset>
-    <div class="text-center">
-      <%= f.submit "Save", data: { disable_with: 'Saving' }, class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+<h1>Settings</h1>
+<ul id="settings-tabs" class="nav nav-tabs">
+  <li class="active"><a href="#settings-profile" data-toggle="tab">Profile</a>
+  </li>
+  <li class=""><a href="#settings-confident" data-toggle="tab">Confidentality</a>
+  </li>
+  <li class=""><a href="#settings-billing" data-toggle="tab">Billing</a>
+  </li>
+</ul>
+<div id="settings-content" class="tab-content">
+  <%= render partial: 'social' %>
+  <%= render partial: 'confidentiality' %>
+  <%= render partial: 'billing' %>
 </div>

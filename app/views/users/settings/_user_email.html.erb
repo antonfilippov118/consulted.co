@@ -1,0 +1,8 @@
+<div id="user_email">
+  <div class="input-group">
+    <input type="text" readonly class="form-control <%= 'chk' if @user.confirmed? %>" value="<%= @user.notification_email %>">
+    <span class="input-group-btn">
+      <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#email_modal">Change</a>
+    </span>
+  </div>
+</div>
