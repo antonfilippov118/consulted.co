@@ -36,6 +36,7 @@ describe UsersHelper do
     expect(possible_expert?).to be_false
 
     @user = User.create valid_params.merge linkedin_network: 100_000
+    @user.update_attribute :providers, %w(linkedin)
     @user.confirm!
     expect(possible_expert?).to be_true
   end
