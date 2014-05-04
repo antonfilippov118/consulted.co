@@ -2,6 +2,7 @@ class Investors::SessionsController < Devise::SessionsController
   skip_before_filter :authenticate!
   before_filter :live?
   layout 'investors'
+
   private
 
   def after_signin_path

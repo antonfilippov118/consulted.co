@@ -54,6 +54,8 @@ RailsAdmin.config do |config|
     list do
       field :email
       field :note
+      field :sign_in_count
+      field :last_sign_in_at
     end
 
     show do

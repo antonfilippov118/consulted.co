@@ -16,7 +16,7 @@ class Investor
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-   def timeout_in
-     1.year
-   end
+  def timeout_in
+    1.year
+  end
 end
