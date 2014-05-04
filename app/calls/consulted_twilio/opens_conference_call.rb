@@ -3,7 +3,7 @@ module ConsultedTwilio
     def self.for(opts = {})
       call = opts.fetch :call
 
-      name = "#{call.seeker.slug}_with_#{call.expert.slug}_#{Time.now.to_i}"
+      name = "#{call.seeker.slug}_with_#{call.expert.slug}"
       ConsultedTwilio.response.new do |r|
         r.Dial do
           r.Conference name
