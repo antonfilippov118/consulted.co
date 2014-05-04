@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
-  config.included_models = %w[User Group Admin PlatformSettings]
+  config.included_models = %w[User Group Admin PlatformSettings Investor]
 
   config.model User do
     list do
@@ -46,6 +46,25 @@ RailsAdmin.config do |config|
       field :name
       field :email
       field :status
+    end
+  end
+
+  config.model Investor do
+    list do
+      field :email
+      field :note
+    end
+
+    show do
+      field :email
+      field :note
+    end
+
+    edit do
+      field :email
+      field :password
+      field :password_confirmation
+      field :note
     end
   end
 
