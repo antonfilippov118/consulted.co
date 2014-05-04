@@ -1,7 +1,7 @@
 <div class="signup login">
   <div class="well col-md-6 col-md-offset-3">
     <div class="content">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| -%>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), id: 'login-form') do |f| -%>
         <div class="header">
           <h4 class="title" id="logo_bk">
             <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
