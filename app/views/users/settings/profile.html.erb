@@ -1,58 +1,213 @@
-<div class="settings profile">
-  <%= render partial: 'headline' %>
-  <%= render partial: 'messages' %>
-  <%= render partial: 'tabs', locals: { active: :profile } %>
-  <%= form_for current_user, url: profile_settings_path do |f| -%>
-    <fieldset>
-      <legend>Basic information</legend>
-      <div class="control-group col-lg-6">
-        <!-- email -->
-        <%= content_tag :div, class: "form-group has-feedback #{current_user.confirmed? ? 'has-success' : 'has-warning'}" do %>
-          <label class="control-label" for="user_email">Email</label>
-          <%= f.email_field :email, class: 'form-control' %>
-          <% if current_user.confirmed? %>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-          <% else %>
-            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-          <% end %>
+<h1>Settings</h1>
+<ul id="settings-tabs" class="nav nav-tabs">
+  <li class="active"><a href="#settings-profile" data-toggle="tab">Profile</a>
+  </li>
+  <li class=""><a href="#settings-confident" data-toggle="tab">Confidentality</a>
+  </li>
+  <li class=""><a href="#settings-billing" data-toggle="tab">Billing</a>
+  </li>
+</ul>
+<div id="settings-content" class="tab-content">
+  <div class="tab-pane active" id="settings-profile">
+    <div class="row divider">
+      <div class="col-md-7">
+        <label class="input-label">Your email address</label>
+        <%= render partial: 'user_email' %>
+        <div class="modal fade" id="email_modal" tabindex="-1" role="dialog" aria-labelledby="Email" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="Timezone change">Change your email</h4>
+              </div>
+              <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+                <div class="modal-body">
+                  <%= f.email_field :contact_email, class: 'form-control', placeholder: 'Email' %>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <span class="info flaticon flaticon-info">We need a confirmed email address so that we can send you meeting request updates.</span>
+      </div>
+    </div>
+    <div class="row divider">
+      <div class="col-md-7">
+        <label class="input-label">LinkedIn
+          <small class="req">required if you are an expert</small>
+        </label>
+         <% if needs_linkedin? %>
+          <div class="input-group">
+            <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
+              Connect with LinkedIn
+            <% end %>
+          </div>
+        <% else %>
+          <div class="input-group input-wicon input-linkedin flaticon flaticon-linkedin">
+            <input type="text" class="form-control chk" value="<%= @user.email %>">
+            <span class="input-group-btn">
+              <a class="btn btn-primary" type="a" data-toggle="modal" data-target="#linkedin_disco_modal">Disconnect</a>
+            </span>
+          </div>
+          <div class="modal fade" id="linkedin_disco_modal" tabindex="-1" role="dialog" aria-labelledby="Disconnect Linkedin" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="Timezone change">Disconnect your Linkedin profile</h4>
+                </div>
+                <%= form_for @user, url: disconnect_linkedin_settings_path, remote: true, method: :put do |f| -%>
+                  <div class="modal-body">
+                    <p>This will disconnect your linkedin profile.</p>
+                    <p>Are you sure you want to disconnect your profile?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <p>
+                      <%= f.submit "Yes", class: 'btn btn-success' %>
+                      <button type="button" class="btn btn-danger" data-dismiss='modal'>No</button>
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
-      <div class="control-group col-lg-6">
-        <div class="form-group">
-          <label for="user_name" class="control-label">Name</label>
-          <%= f.text_field :name, class: 'form-control' %>
-        </div>
+      <div class="col-md-5">
+        <span class="info flaticon flaticon-info">We use LinkedIn profile from experts as social proof. We require more than <%= Settings.required_network %> contacts. Also we will share a link to your profile with advice seekers in order for them to get a better idea about you.</span>
       </div>
-      <div class="control-group col-lg-6">
-        <label for="user_summary">Your summary</label>
-        <%= f.text_area :summary, rows: 6, class: 'form-control' %>
-      </div>
-      <div class="control-group col-lg-6">
-        <label for="user_slug">Your profile at consulted.co</label><br>
-        <div class="controls">
-          <span class="domain">http://consulted.co/</span><%= f.text_field :slug, class: 'form-control slug' %>
-        </div>
-        <br>
-        <label for="user_tz">Your timezone</label>
-        <div class="controls">
-          <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control' %>
-          <span class="help-block">Times shown will be updated accordingly</span>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>Profile image</legend>
-      <div class="control-group col-lg-3">
-        <%= image_tag current_user.profile_image.url, width: 150,  alt: 'Profile image', class: 'img-responsive img-thumbnail' %>
-      </div>
-      <div class="control-group col-lg-9">
-        <p class="lead">Your current image</p>
-        <p>For best display your image should be at least 300x300 pixels</p>
-        <%= f.file_field :profile_image %>
-      </div>
-    </fieldset>
-    <div class="text-center">
-      <%= f.submit "Save", data: { disable_with: 'Saving' }, class: 'btn btn-primary' %>
     </div>
-  <% end %>
+    <div class="row divider">
+      <div class="col-md-7">
+        <label class="input-label">Twitter</label>
+        <div class="input-group input-wicon input-twitter flaticon flaticon-twitter">
+          <input type="text" class="form-control" value="@johndoe">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button">Change</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <span class="info flaticon flaticon-info">We share this information with advice seekers in order for them to get a better idea about you.</span>
+      </div>
+    </div>
+    <div class="row divider">
+      <div class="col-md-7">
+        <label class="input-label">Meeting reminder</label>
+        <p>Send me an email reminder
+          <input type="text" class="form-control form-control-sm" value="15">minutes before the meeting</p>
+      </div>
+      <div class="col-md-5">
+        <span class="info flaticon flaticon-info">Valid for all upcoming events.</span>
+      </div>
+    </div>
+    <div class="row divider">
+      <div class="col-md-7">
+        <label class="input-label">Time zone</label>
+        <select class="select form-control">
+          <option>Pacific Standart Time (GMT-8)</option>
+          <option>Pacific Standart Time (GMT-8)</option>
+          <option>Pacific Standart Time (GMT-8)</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <span class="info flaticon flaticon-info">We share this information with advice seekers in order for them to get a better idea about you.</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane" id="settings-confident">
+
+    <h2>Confidentiality &amp; Conduct: Marketplace Compliance</h2>
+    <p>In addition to CONSULTED.co terms of Service you agreed to during signup, advice seekers and experts are required to review and sign confidentiality and conduct agreements before they can conduct calls.</p>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <h3>Advice seeker</h3>
+        <p class="confident-head">Required to review and sign if you want to book experts on CONSULTED.co</p>
+        <div class="well">
+          <p>I hereby declare that I have read and comply with the advice <a href="#">seeker policy</a>.</p>
+          <div class="form-group">
+            <input type="text" class="form-control" value="John Doe" disabled="">
+          </div>
+          <div class="policy signed">
+            <p>Signed on 28 March, 2014</p>
+            <p><a href="#">Download a PDF copy of my records.</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
+        <h3>Expert</h3>
+        <p class="confident-head">Required to review and sign if you want to offer your time on CONSULTED.co</p>
+        <div class="well">
+          <p>I hereby declare that I have read and comply with the advice <a href="#">seeker policy</a>.</p>
+          <div class="form-group">
+            <input type="text" class="form-control" value="John Doe" disabled="">
+          </div>
+          <div class="policy">
+            <p class="req">Not signed. You're not able to offer time.</p>
+            <p><a href="#">Download a PDF copy of my records.</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane" id="settings-billing">
+
+    <p class="mv15">Your account will be charged/paid after the meeting. To make it work you need a verified PayPal account.</p>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="control-label">I use CONSULTED.co as:</label>
+          </div>
+          <div class="col-md-7">
+            <select class="form-control">
+              <option selected="">Advice seeker</option>
+              <option>Expert</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="billing-advice" class="well">
+      <div class="radio sel">
+        <label>
+          <input class="billing-radio" type="radio" name="billing_adv" value="option1" checked="">
+          <p class="mv15">Billing agreement with CONSULTED.co via PayPal - on-time setup (preferred option [<a href="#">learn why</a>])</p>
+          <div class="row">
+            <div class="col-md-1">
+              <%= image_tag 'paypal.png', alt: 'PayPal' %>
+            </div>
+            <div class="col-md-offset-1 col-md-4">
+              <div class="input-group">
+                <input type="text" class="form-control" value="johndoe@gmail.com">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button">Change</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input class="billing-radio" type="radio" name="billing_adv" value="option2">
+          <p class="mv15">Enter Credit Card / PayPal payment at time of each booking</p>
+          <p>
+            <span class="info flaticon flaticon-info">When paying by a credit card, the payment is processed via PayPal.
+              <br>However, you don't need to setup a PayPal account.</span>
+          </p>
+        </label>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def connect_via_linkedin
     if current_user.connect_to_linkedin request.env['omniauth.auth']
-      redirect_to new_call_request_path
+      redirect_to overview_path
     else
       redirect_to new_user_registration_path
     end

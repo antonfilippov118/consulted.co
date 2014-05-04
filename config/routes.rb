@@ -39,15 +39,13 @@ Consulted::Application.routes.draw do
 
     get :history, controller: 'users/dashboard', action: :history, path: 'history'
 
-    resource :settings, only: [] do
-      get '/', controller: 'users/settings', action: :profile
-      get '/billing', controller: 'users/settings', action: :billing
-      get '/accounts', controller: 'users/settings', action: :accounts
-      get '/notifications', controller: 'users/settings', action: :notifications
+    resource :settings, only: [], controller: 'users/settings' do
+      get '/',  action: :profile
 
-      patch :profile, controller: 'users/settings', action: :user_update
-      patch :linkedin, controller: 'users/settings', action: :linkedin
-      put :timezone, controller: 'users/settings', action: :timezone_update
+      patch :profile, action: :user_update
+      patch :linkedin, action: :linkedin
+      put :disconnect_linkedin, action: :linkedin_disconnect
+      put :timezone, action: :timezone_update
     end
 
     resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
