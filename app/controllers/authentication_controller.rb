@@ -9,10 +9,15 @@ module AuthenticationController
     Settings.platform_live?
   end
 
+  def production?
+    Rails.env.production?
+  end
+
   included do
     def authenticate!
       return true if live?
       return true if admin? request
+      return true unless production?
 
       if current_investor.nil?
         redirect_to new_investor_session_path

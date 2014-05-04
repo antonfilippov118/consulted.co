@@ -27,6 +27,8 @@
           </div>
           <div class="popup-row control-cover">
             <%= f.text_field :email, class: 'form-control', placeholder: 'Log in with your email', id: 'login_field' %>
+            <span class="checked" style="display:none"></span>
+            <span class="crossed" style="display:none"><i class="fa fa-ban"></i></span>
           </div>
           <div class="popup-row control-cover" id="password_fields" style="display:none">
             <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>

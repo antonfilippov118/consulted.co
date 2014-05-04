@@ -60,7 +60,7 @@ RSpec.configure do |conf|
   end
 
   # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
+  # automatically. This attr_writer :attr_namesill be the default behavior in future versions of
   # rspec-rails.
   conf.infer_base_class_for_anonymous_controllers = false
 

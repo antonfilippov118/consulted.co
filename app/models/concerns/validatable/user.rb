@@ -21,6 +21,7 @@ module Validatable
       validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
       validates_inclusion_of :status, in: STATUS_LIST
       validates_uniqueness_of :slug
+      validates_presence_of :name
       validates_with SlugValidator
     end
   end

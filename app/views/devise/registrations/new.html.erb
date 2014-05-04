@@ -12,7 +12,7 @@
           <br>
         </div>
         <div class="body">
-          <div id="sign_up_social">
+          <div id="sign_up_social" style="display:none">
             <div class="popup-row">
               <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
                 Connect with LinkedIn
@@ -29,20 +29,27 @@
           </div>
           <div id="sign_up_email" style="display:none">
               <div class="popup-row">
-                <%= f.text_field :name, class: 'form-control', placeholder: 'Full name' %>
+                <%= f.text_field :name, class: 'form-control required', placeholder: 'Full name' %>
+                <span class="checked" style="display:none"></span>
+                <span class="crossed" style="display:none"><i class="fa fa-ban"></i></span>
               </div>
               <div class="popup-row">
-                <%= f.email_field :email, placeholder: 'Email', class: 'form-control' %>
+                <%= f.email_field :email, placeholder: 'Email', class: 'form-control email required' %>
                 <span class="checked" style="display:none"></span>
+                <span class="crossed" style="display:none"><i class="fa fa-ban"></i></span>
               </div>
               <div class="popup-row">
                 <span class="info flaticon flaticon-info"> Your email is never shared</span>
               </div>
               <div class="popup-row">
-                <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+                <%= f.password_field :password, placeholder: 'Password', class: 'form-control required' %>
+                <span class="checked" style="display:none"></span>
+                <span class="crossed" style="display:none"><i class="fa fa-ban"></i></span>
               </div>
               <div class="popup-row">
-                <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control' %>
+                <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control required' %>
+                <span class="checked" style="display:none"></span>
+                <span class="crossed" style="display:none"><i class="fa fa-ban"></i></span>
               </div>
               <div class="popup-row">
                 <div class="checkbox">

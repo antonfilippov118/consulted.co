@@ -1442,6 +1442,14 @@ body .expert-name {
   top:5px;
   width:32px;
 }
+.crossed {
+  height:32px;
+  position:absolute;
+  right:-6px;
+  top: 11px;
+  width: 32px;
+  color: red;
+}
 .popup-row .info, .popup-row .checkbox {
   font-size:12px;
   margin:10px 16px;
