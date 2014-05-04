@@ -2,25 +2,16 @@
 
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+
   #
   # TODO
-  # Remmove this helper, once the application goes live
+  # Remove this helper, once the application goes into open beta
   #
-  include AuthenticationHelper
-
-  before_filter :authenticate!, except: [:handle, :lookup], if: -> { Rails.env.production? }
+  include AuthenticationController
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
-
-  def after_sign_in_path_for(resource)
-    determined_path resource
-  end
-
-  def after_sign_out_path_for(resource)
-    root_path
-  end
 
   protected
 

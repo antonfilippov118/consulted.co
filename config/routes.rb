@@ -4,6 +4,10 @@ Consulted::Application.routes.draw do
     sessions: 'admins/sessions'
   }
 
+  investor_controllers = {
+    sessions: 'investors/sessions'
+  }
+
   controllers = {
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
@@ -13,6 +17,7 @@ Consulted::Application.routes.draw do
   }
 
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
+  devise_for :investors, controllers: investor_controllers, only: investor_controllers.keys
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   get :search, controller: 'search', action: :show, path: 'search'

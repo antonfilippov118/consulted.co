@@ -22,7 +22,8 @@ module ConsultedTwilio
         end
 
         begin
-          call = Call.active.by_pin(pin: pin).first
+          call = Call.active.by_pin(pin).first
+          context[:call] = call
           fail if call.nil?
         rescue => e
           context.fail! 'The entered pin was not correct!'

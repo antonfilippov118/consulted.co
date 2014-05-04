@@ -1,5 +1,9 @@
 class CallController < ApplicationController
   skip_before_action :verify_authenticity_token
+
+  # no investor needed for this
+  skip_before_filter :authenticate!
+
   def handle
     render xml: ConsultedTwilio::EnterPin.new.xml
   end
