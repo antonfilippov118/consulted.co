@@ -3,7 +3,7 @@
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal') do |f| -%>
     <div class="col-lg-5"></div>
     <div class="col-xs-12 col-lg-2">
-      <%= f.text_field :email, placeholder: 'Email', class: 'form-control' %> <br>
+      <%= f.text_field :email, placeholder: 'Name', class: 'form-control' %> <br>
       <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
       <%= f.submit "Enter", data: { disable_with: 'Entering...' }, class: 'btn btn-default ' %>
     </div>

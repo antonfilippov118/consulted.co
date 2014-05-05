@@ -12,11 +12,15 @@ module Omniauthable
   module Linkedin
     def connect_to_linkedin(auth)
       return true unless user_linkedin_connection.nil?
-      update_basics auth
-      create_linkedin_connection auth
+
+      self.providers = providers.nil? ? [auth.provider] : [auth.provider]
+      self.uid       = auth.uid
+      self.name      = auth.info.name
+      self.email     = auth.info.email unless email.present?
+      self.password  = Devise.friendly_token[0, 20] if password.nil?
+      self.user_linkedin_connection = User::LinkedinConnection.new params(auth)
 
       return false unless save
-      synchronize_linkedin unless linkedin_synchronized?
       true
     end
 
@@ -26,22 +30,6 @@ module Omniauthable
         secret: auth['extra']['access_token'].secret,
         email: auth.info.email
       }
-    end
-
-    def create_linkedin_connection(auth)
-      self.user_linkedin_connection = User::LinkedinConnection.new params(auth)
-    end
-
-    def update_basics(auth)
-      self.providers = providers.nil? ? [auth.provider] : [auth.provider]
-      self.uid       = auth.uid
-      self.name      = auth.info.name
-
-      unless persisted?
-        self.email     = auth.info.email if email.nil?
-        self.password  = Devise.friendly_token[0, 20] if password.nil?
-      end
-
     end
 
     def disconnect_from_linkedin!
