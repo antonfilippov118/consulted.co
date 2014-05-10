@@ -98,6 +98,10 @@ class User
     criteria.to_a.shuffle[0, count]
   end
 
+  def expert?
+    can_be_an_expert? && wants_to_be_an_expert?
+  end
+
   def can_be_an_expert?
     # TODO: Paypal
     return false unless confirmed?
@@ -113,14 +117,6 @@ class User
   def linkedin?
     return false if providers.nil?
     providers.include? 'linkedin'
-  end
-
-  def active_calls
-    (calls.active + meetings.active).sort { |first, second| first.active_from <=> second.active_to }
-  end
-
-  def future_calls
-    (calls.future + meetings.future).sort { |first, second| first.active_from <=> second.active_to }
   end
 
   def remind_confirmation?
