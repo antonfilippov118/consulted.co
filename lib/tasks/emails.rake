@@ -12,7 +12,7 @@ namespace :emails do
       {
         name: 'signup_confirmation',
         subject: 'Please verify your email address',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>Thanks for creating an account with CONSULTED. Click below to confirm your email address:</p>
 <p><a href="{{confirmation_url}}">{{user.email}}</a></p>
 <p>Thanks,<br>CONSULTED</p>),
@@ -28,7 +28,7 @@ CONSULTED
       {
         name: 'signup_confirmation_reminder',
         subject: 'Reminder to verify your email address',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>About a day ago you created an account with CONSULTED. This is a quick reminder to confirm your
 email address. Simply click the link below to confirm:</p>
 <p><a href="{{confirmation_url}}">{{user.email}}</a></p>
@@ -46,7 +46,7 @@ CONSULTED
       {
         name: 'account_deletion',
         subject: 'Your account was closed',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>This is to confirm that your account was closed. </p>
 <p>Please contact <a href="mailto:support@consulted.co">Support</a> if you feel this has been done in error.</p>
 <p>Thanks,<br>CONSULTED</p>),
@@ -62,7 +62,7 @@ CONSULTED
       {
         name: 'forgotten_password',
         subject: 'Forgotten password request',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>We received a request for a forgotten password.</p>
 <p>To change your CONSULTED password, please click the link below:</p>
 <p><a href="{{reset_url}}">LINK</a></p>
@@ -84,7 +84,7 @@ CONSULTED
       {
         name: 'funds_paid_out',
         subject: 'Funds paid out to you – thanks for being an expert!',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>A payment of <strong>{{ amount | currency }}<strong> was paid out.</p>
 <h4>Payment information</h4>
 <ul>
@@ -109,7 +109,7 @@ CONSULTED
       {
         name: 'payment_received',
         subject: 'Payment received – thanks!',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>A payment of <strong>{{ amount | currency }}<strong> was received.</p>
 <h4>Payment information</h4>
 <ul>
@@ -134,7 +134,7 @@ CONSULTED
       {
         name: 'call_requested_by_seeker',
         subject: 'Call request sent',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You successfully requested a call with {{call.expert.name}}.</p>
 <p>This is <strong>not a final confirmation</strong>. The expert has {{ delay }} hours to accept the meeting request. We will let you know, once this happens.</p>
 <h4>Meeting request details</h4>
@@ -176,7 +176,7 @@ CONSULTED
       {
         name: 'call_requested_to_expert',
         subject: 'You have a new call request – please respond',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You received a request for a call with {{call.seeker.name}}. The call is <strong>not confirmed yet</strong>.</p>
 <p>Please <a href="{{login_url}}">login into CONSULTED to accept the request</a>. You have {{delay}} hours to accept or decline the meeting request.</p>
 <h4>Meeting request details</h4>
@@ -223,7 +223,7 @@ CONSULTED
       {
         name: 'call_final_confirmation_to_seeker',
         subject: 'Call confirmed!',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>{{call.expert.name}} accepted your call request - your <strong>call is now confirmed</strong>.</p>
 <p>As per <a href="{{settings_url}}">your settings</a> you will receive a call reminder {{user.notification_time}} minutes before the call.
 <h4>Meeting request details</h4>
@@ -270,7 +270,7 @@ CONSULTED
       {
         name: 'call_final_confirmation_to_expert',
         subject: 'Call confirmed!',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>The call with {{call.seeker.name}} <strong>is confirmed</strong>.</p>
 <p>As per <a href="{{settings_url}}">your settings</a> you will receive a call reminder {{user.notification_time}} minutes before the call.
 <h4>Meeting request details</h4>
@@ -317,7 +317,7 @@ CONSULTED
       {
         name: 'call_declined_by_expert_to_seeker',
         subject: ' Call declined',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>The call with {{call.expert.name}} <strong>was declined</strong>, either by the expert or automatically if
 the expert did not respond.</p>
 <h4>Meeting request details</h4>
@@ -365,7 +365,7 @@ CONSULTED)
       {
         name: 'call_declined_by_expert_manually',
         subject: 'Call declined (by you)',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You <strong>declined the call</strong> with {{call.seeker.name}}</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -409,7 +409,7 @@ CONSULTED)
       {
         name: 'call_declined_by_expert_auto',
         subject: 'Call declined (by system)',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>The call request from {{call.seeker.name}} you received <strong>was automatically declined</strong> because you did not respond within the confirmation period of {{delay}} hours.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -453,7 +453,7 @@ CONSULTED)
       {
         name: 'call_reminder_to_seeker',
         subject: 'Call reminder',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>As per <a href="{{settings_url}}">your settings</a> this is the call reminder for your call on {{date}}.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -498,7 +498,7 @@ CONSULTED)
       {
         name: 'call_reminder_to_expert',
         subject: 'Call reminder',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>As per <a href="{{settings_url}}">your settings</a> this is the call reminder for your call on {{date}}.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -541,7 +541,7 @@ CONSULTED)
       {
         name: 'call_followup_to_seeker',
         subject: 'Your past call',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You recently completed the call with {{call.expert.name}} on {{date}}.</p>
 <p>Please rate the call (takes less than 1 minute) <a href="{{rating_url}}">here</a>. Thanks for making CONSULTED better!</p>
 <p>If you have any questions, you can reach out to our <a href="mailto:support@consulted.co">support team</a> at any time.</p>
@@ -563,7 +563,7 @@ CONSULTED
       {
         name: 'call_cancelled_by_seeker_to_seeker',
         subject: 'Call cancelled',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p><strong>You cancelled the call</strong> with {{call.expert.name}}. As per our <a href="{{cancellation_url}}">cancellation policy</a> we may charge a cancellation fee if the call was previously confirmed.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -601,7 +601,7 @@ CONSULTED)
       {
         name: 'call_cancelled_by_seeker_to_expert',
         subject: 'Call cancelled',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>Your call with {{call.seeker.name}} <strong>was cancelled by the meeting partner</strong>. As per our <a href="{{cancellation_url}}">cancellation policy</a> you may receive a compensation if the call was previously confirmed.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -640,7 +640,7 @@ CONSULTED
       {
         name: 'call_cancelled_by_expert_to_seeker',
         subject: 'Call cancelled',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>Your call with {{call.expert.name}} <strong>was cancelled by the expert</strong>. As per our <a href="{{cancellation_url}}">cancellation policy</a> you may receive a compensation if the call was previously confirmed.</p>
 <h4>Meeting request details</h4>
 <ul>
@@ -679,7 +679,7 @@ CONSULTED
       {
         name: 'call_cancelled_by_expert_to_expert',
         subject: 'Call cancelled',
-        html_version: %Q(<h6>Hi {{user.name}}!</h6>
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p><strong>You cancelled the call</strong> with {{call.seeker.name}}. As per our <a href="{{cancellation_url}}">cancellation policy</a> we may charge a cancellation fee if the call was previously confirmed.</p>
 <h4>Meeting request details</h4>
 <ul>

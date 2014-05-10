@@ -24,6 +24,26 @@ class EmailTemplate
   private
 
   def template(version)
-    @template = Liquid::Template.parse(send(version))
+    @template = Liquid::Template.parse(acquire(version))
+  end
+
+  def acquire(version)
+    if version == :html_version
+      mail_template send(version)
+    else
+      send version
+    end
+  end
+
+  def mail_template(content)
+    static_template.gsub '##CONTENT##', content
+  end
+
+  def static_template
+    File.read(mail_path)
+  end
+
+  def mail_path
+    Rails.root.join 'app', 'assets', 'templates', 'mail.html'
   end
 end
