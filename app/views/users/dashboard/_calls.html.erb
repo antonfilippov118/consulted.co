@@ -6,14 +6,20 @@
         <% @next_7_days.each do |call| %>
           <tr class="<%= call_class(call) %>">
             <td><%= call_status(call) %></td>
-            <td>Call with <%= partner_for call %></td>
+            <td>
+              Call with <%= name_link(call) %>
+              <% if call.message.present? %>
+                <span class="flaticon flaticon-info help" data-toggle="tooltip" data-placement="top" title="" data-original-title="<%= call.message %>">
+              <% end %>
+            </td>
             <td><%= request_status(call) %></td>
+            <td>PIN: <%= call.pin %></td>
             <td>
               <% if expert?(call) and pending?(call) %>
                 <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>
-                <%= link_to 'deny', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
+                <%= link_to 'decline', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
               <% end %>
-              <% if active?(call) %>
+              <% if cancellable?(call) %>
                 <%= link_to 'cancel', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
               <% end %>
             </td>
@@ -36,7 +42,7 @@
           <td>Requested</td>
           <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
           </td>
-          <td>Sheduled</td>
+          <td>Scheduled</td>
           <td><a class="link-cancel" href="#">cancel</a>
         </td>
       </tr>

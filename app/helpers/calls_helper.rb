@@ -1,7 +1,16 @@
 module CallsHelper
   def partner_for(call)
     person = [call.seeker, call.expert].select { |user| user.id != @user.id }
-    person.first.name
+    person.first
+  end
+
+  def name_link(call)
+    user = partner_for call
+    if user.expert?
+      link_to user.name, expert_page(user), target: '_blank'
+    else
+      user.name
+    end
   end
 
   def call_status(call)
@@ -18,6 +27,10 @@ module CallsHelper
 
   def active?(call)
     call.status == Call::Status::ACTIVE
+  end
+
+  def cancellable?(call)
+    call.status == Call::Status::ACTIVE || call.status == Call::Status::REQUESTED
   end
 
   def seeker?(call)
@@ -49,16 +62,18 @@ module CallsHelper
   def expert_request_status
     {
       Call::Status::REQUESTED => 'Pending your confirmation',
-      Call::Status::ACTIVE => 'Active',
-      Call::Status::CANCELLED => 'Cancelled'
+      Call::Status::ACTIVE => 'Scheduled',
+      Call::Status::CANCELLED => 'Cancelled',
+      Call::Status::DECLINED => 'Declined'
     }
   end
 
   def seeker_request_status
     {
       Call::Status::REQUESTED => 'Awaiting confirmation',
-      Call::Status::ACTIVE => 'Active',
-      Call::Status::CANCELLED => 'Cancelled'
+      Call::Status::ACTIVE => 'Scheduled',
+      Call::Status::CANCELLED => 'Cancelled',
+      Call::Status::DECLINED => 'Declined'
     }
   end
 

@@ -43,8 +43,9 @@ class CancelsCall
     executed do |context|
       call = context.fetch :call
       begin
-        call.status = Call::Status::CANCELLED
+        call.status += 1
         call.save!
+        context[:call] = call
       rescue => e
         context.fail! e.message
       end
@@ -57,7 +58,35 @@ class CancelsCall
     # TODO: depending on who cancelled different emails have to be sent
     executed do |context|
       call = context.fetch :call
-      CallMailer.expert_cancellation(call).deliver
+      user = context.fecth :user
+      begin
+        case call.status
+        when Call::Status::DECLINED then send_decline_emails(call, user)
+        when Call::Status::CANCELLED then send_cancellation_emails(call, user)
+        else context.fail! 'Cannot cancel this call properly!'
+        end
+      rescue => e
+        context.fail! e
+      end
+    end
+
+    private
+
+    def send_decline_emails(call, user)
+      if user == call.expert
+        CallMailer.call_declined_by_expert_to_seeker call
+        CallMailer.call_declined_by_expert_manually call
+      end
+    end
+
+    def send_cancellation_emails(call, user)
+      if user == call.expert?
+        CallMailer.call_cancelled_by_expert_to_seeker(call)
+        CallMailer.call_cancelled_by_expert_to_expert(call)
+      else
+        CallMailer.call_cancelled_by_seeker_to_seeker(call)
+        CallMailer.call_cancelled_by_seeker_to_expert(call)
+      end
     end
   end
 end
