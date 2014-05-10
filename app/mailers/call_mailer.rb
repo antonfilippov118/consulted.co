@@ -1,4 +1,4 @@
-class CallMailer < ActionMailer::Base
+class CallMailer < ApplicationMailer
   def seeker_confirmation(call)
     liquid_mail(:call_final_confirmation_to_seeker, { to: call.seeker.notification_email }, user: call.seeker, call: call)
   end
