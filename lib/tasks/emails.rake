@@ -136,7 +136,7 @@ CONSULTED
         subject: 'Call request sent',
         html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You successfully requested a call with {{call.expert.name}}.</p>
-<p>This is <strong>not a final confirmation</strong>. The expert has {{ delay }} hours to accept the meeting request. We will let you know, once this happens.</p>
+<p>This is <strong>not a final confirmation</strong>. The expert has {{ meeting_timeout }} hours to accept the meeting request. We will let you know, once this happens.</p>
 <h4>Meeting request details</h4>
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
@@ -154,7 +154,7 @@ CONSULTED
         text_version: %Q(Hi {{user.name}}!
 You successfully requested a call with {{call.expert.name}}.
 
-This is not a final confirmation. The expert has {{ delay }} hours to accept the meeting request. We will let you know, once this happens.
+This is not a final confirmation. The expert has {{ meeting_timeout }} hours to accept the meeting request. We will let you know, once this happens.
 
 Meeting request details
 
@@ -178,7 +178,7 @@ CONSULTED
         subject: 'You have a new call request – please respond',
         html_version: %Q(<h3>Hi {{user.name}}!</h3>
 <p>You received a request for a call with {{call.seeker.name}}. The call is <strong>not confirmed yet</strong>.</p>
-<p>Please <a href="{{login_url}}">login into CONSULTED to accept the request</a>. You have {{delay}} hours to accept or decline the meeting request.</p>
+<p>Please <a href="{{login_url}}">login into CONSULTED to accept the request</a>. You have {{meeting_timeout}} hours to accept or decline the meeting request.</p>
 <h4>Meeting request details</h4>
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
@@ -197,9 +197,9 @@ CONSULTED
         text_version: %Q(Hi {{user.name}}!
 You received a request for a call with {{call.seeker.name}}. The call is not confirmed yet.
 
-Please login into CONSULTED to accept the request ({{login_url}}). You have {{delay}} hours to accept or decline the meeting request.
+Please login into CONSULTED to accept the request ({{login_url}}). You have {{meeting_timeout}} hours to accept or decline the meeting request.
 
-This is not a final confirmation. The expert has {{ delay }} hours to accept the meeting request. We will let you know, once this happens.
+This is not a final confirmation. The expert has {{ meeting_timeout }} hours to accept the meeting request. We will let you know, once this happens.
 
 Meeting request details
 
@@ -410,7 +410,7 @@ CONSULTED)
         name: 'call_declined_by_expert_auto',
         subject: 'Call declined (by system)',
         html_version: %Q(<h3>Hi {{user.name}}!</h3>
-<p>The call request from {{call.seeker.name}} you received <strong>was automatically declined</strong> because you did not respond within the confirmation period of {{delay}} hours.</p>
+<p>The call request from {{call.seeker.name}} you received <strong>was automatically declined</strong> because you did not respond within the confirmation period of {{meeting_timeout}} hours.</p>
 <h4>Meeting request details</h4>
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
@@ -429,7 +429,7 @@ to offer your time. You can learn more <a href="#">here</p>
 <p>Thanks,<br>CONSULTED</p>
 ),
         text_version: %Q(Hi {{user.name}}!
-The call request from {{call.seeker.name}} you received was automatically declined because you did not respond within the confirmation period of {{delay}} hours.
+The call request from {{call.seeker.name}} you received was automatically declined because you did not respond within the confirmation period of {{meeting_timeout}} hours.
 
 Meeting request details
 
