@@ -63,7 +63,7 @@ class RequestsAnExpert
     include LightService::Action
 
     executed do |context|
-      mail = RequestMailer.seeker_notification context.fetch :call
+      mail = RequestMailer.seeker_notification context.fetch(:call)
       begin
         mail.deliver
       rescue => e

@@ -14,15 +14,18 @@ class AcceptsCall
     include LightService::Action
 
     executed do |context|
-      id = context.fetch :id
-      user = context.fetch :user
-      if id.is_a? Call
-        call = id
-      else
-        call = Call.for(user).find id
+      begin
+        id = context.fetch :id
+        user = context.fetch :user
+        if id.is_a? Call
+          call = id
+        else
+          call = Call.for(user).find id
+        end
+        context[:call] = call
+      rescue => e
+        context.fail! e.message
       end
-
-      context[:call] = call
     end
   end
 
@@ -32,12 +35,12 @@ class AcceptsCall
     executed do |context|
       begin
         call = context.fetch :call
-        call.status += 1
+        call.status = Call::Status::ACCEPTED
         call.confirmed_at = Time.now
         call.save!
         context[:call] = call
       rescue => e
-        context.fail! e
+        context.fail! e.message
       end
     end
   end
@@ -49,9 +52,9 @@ class AcceptsCall
       call = context.fetch :call
       mail = CallMailer.expert_confirmation call
       begin
-        mail.deliver
+        mail.deliver!
       rescue => e
-        context.fail! e
+        context.fail! e.message
       end
     end
   end
@@ -63,9 +66,9 @@ class AcceptsCall
       call = context.fetch :call
       mail = CallMailer.seeker_confirmation call
       begin
-        mail.deliver
+        mail.deliver!
       rescue => e
-        context.fail! e
+        context.fail! e.message
       end
     end
   end
