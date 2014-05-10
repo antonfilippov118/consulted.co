@@ -1,4 +1,4 @@
-# Load the Rails application.
+  # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
@@ -13,5 +13,5 @@ if Rails.env.production?
     domain:         'heroku.com',
     authentication: :plain
 }
-ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = :smtp
 end
