@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class UserMailer < ApplicationMailer
-  include Devise::Mailers::Helpers
 
   default reply_to: 'support@consulted.co'
 

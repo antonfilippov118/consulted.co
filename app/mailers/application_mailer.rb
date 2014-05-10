@@ -1,9 +1,12 @@
 class ApplicationMailer < ActionMailer::Base
+  include Devise::Mailers::Helpers
+
   protected
 
   def liquid_mail(action, opts, variables = {})
     init variables
-    variables = liquid_variables.merge(variables)
+    variables = liquid_variables.merge(settings).merge(variables)
+
     mail_opts = headers_for(action, opts)
 
     template = EmailTemplate.find_by(name: action)
@@ -52,5 +55,11 @@ class ApplicationMailer < ActionMailer::Base
     [:expert, :user, :seeker].each do |sym|
       initialize_from_record(variables[sym]) unless variables[sym].nil?
     end
+  end
+
+  def settings
+    keys = Settings.fields.keys
+    keys.delete '_id'
+    keys.map { |key| { key => Settings.send(key) } }.reduce(:merge)
   end
 end

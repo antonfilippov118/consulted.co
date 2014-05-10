@@ -1,19 +1,11 @@
-class RequestMailer < ActionMailer::Base
-  default from: 'new-request@consulted.co'
+class RequestMailer < ApplicationMailer
 
   def expert_notification(call, message = nil)
-    @call    = call
-    @expert  = call.expert
-    @seeker  = call.seeker
-    @message = message
-    liquid_mail(:expert_notification, to: @expert.notification_email, subject: "#{@seeker.name} has requested a call")
+    liquid_mail(:call_requested_to_expert, { to: call.expert.notification_email }, call: call, user: call.expert)
   end
 
   def seeker_notification(call)
-    @call    = call
-    @expert  = call.expert
-    @seeker  = call.seeker
-    mail(to: @seeker.notification_email, subject: "You have requested a call with #{@expert.name}")
+    liquid_mail(:call_requested_by_seeker, { to: call.seeker.notification_email }, call: call, user: call.seeker)
   end
 
   def cancellation(call)

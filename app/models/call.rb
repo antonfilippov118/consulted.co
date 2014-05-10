@@ -5,8 +5,9 @@ class Call
 
   class Status
     REQUESTED = 1
-    ACTIVE    = 2
-    CANCELLED = 3
+    DECLINED  = 2
+    ACTIVE    = 3
+    CANCELLED = 4
   end
 
   belongs_to :expert, class_name: 'User', foreign_key: 'expert_id', inverse_of: :experts
@@ -18,6 +19,7 @@ class Call
   field :active_to, type: DateTime
   field :length, type: Integer
   field :status, type: Integer, default: Call::Status::REQUESTED
+  field :message, type: String
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
@@ -28,7 +30,6 @@ class Call
   delegate :group, to: :offer
 
   alias_method :topic, :name
-  attr_accessor :message
 
   def active?
     active_from <= Time.now && Time.now <= active_to

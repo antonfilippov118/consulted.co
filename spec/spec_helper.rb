@@ -53,10 +53,12 @@ RSpec.configure do |conf|
   conf.before(:each) do
     ActionMailer::Base.deliveries.clear
     DatabaseCleaner[:mongoid].start
+    Consulted::TestHelpers::EmailTemplates.create!
   end
 
   conf.after(:each) do
     DatabaseCleaner[:mongoid].clean
+    EmailTemplate.delete_all
   end
 
   # If true, the base class of anonymous controllers will be inferred
