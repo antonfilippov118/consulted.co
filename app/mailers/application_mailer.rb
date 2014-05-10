@@ -6,9 +6,7 @@ class ApplicationMailer < ActionMailer::Base
   def liquid_mail(action, opts, variables = {})
     init variables
     variables = liquid_variables.merge(settings).merge(variables)
-
     mail_opts = headers_for(action, opts)
-
     template = EmailTemplate.find_by(name: action)
     send_liquid_mail(mail_opts, variables, template)
   rescue Mongoid::Errors::DocumentNotFound
@@ -19,7 +17,7 @@ class ApplicationMailer < ActionMailer::Base
     mail_opts[:subject] = template.subject
     mail_opts[:from] = determine_email_from(template)
 
-    variables = liquid_variables.stringify_keys
+    variables = liquid_variables.stringify_keys.merge(urls).merge created_attachments
 
     mail(mail_opts) do |format|
       format.text { render text: template.render(variables, 'text') }
@@ -61,5 +59,25 @@ class ApplicationMailer < ActionMailer::Base
     keys = Settings.fields.keys
     keys.delete '_id'
     keys.map { |key| { key => Settings.send(key) } }.reduce(:merge)
+  end
+
+  def created_attachments
+    logos.each do |logo|
+      attachments.inline["#{logo}.png"] = File.read Rails.root.join('app', 'assets', 'templates', "#{logo}.png")
+    end
+    logos.map { |logo| { "#{logo}_png" => attachments.inline["#{logo}.png"].url } }.reduce :merge
+  end
+
+  def logos
+    %w(consulted twitter linkedin facebook google)
+  end
+
+  def urls
+    {
+      'root_url' => root_url,
+      'settings_url' => settings_url,
+      'terms_url' => terms_url,
+      'privacy_url' => privacy_url
+    }
   end
 end
