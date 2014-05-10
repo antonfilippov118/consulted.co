@@ -18,6 +18,6 @@ class UserMailer < ApplicationMailer
       user: record,
       reset_url: edit_user_password_url(reset_password_token: token)
     }
-    liquid_mail(:reset_password_instructions, opts, variable)
+    liquid_mail(:reset_password_instructions, opts, variables)
   end
 end

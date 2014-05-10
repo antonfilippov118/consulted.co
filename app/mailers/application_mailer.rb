@@ -1,21 +1,13 @@
 class ApplicationMailer < ActionMailer::Base
   protected
 
-  def liquid_mail(action, opts, variables = nil)
-    liquid_variables = collect_liquid_variables
-
-    if variables.nil?
-      mail_opts = opts
-    else
-      [:expert, :user, :seeker].each do |sym|
-        initialize_from_record(variables[sym]) unless variables[sym].nil?
-      end
-      liquid_variables.merge!(variables)
-      mail_opts = headers_for(action, opts)
-    end
+  def liquid_mail(action, opts, variables = {})
+    init variables
+    variables = liquid_variables.merge(variables)
+    mail_opts = headers_for(action, opts)
 
     template = EmailTemplate.find_by(name: action)
-    send_liquid_mail(mail_opts, liquid_variables, template)
+    send_liquid_mail(mail_opts, variables, template)
   rescue Mongoid::Errors::DocumentNotFound
     send_non_liquid_mail(mail_opts, action)
   end
@@ -25,8 +17,6 @@ class ApplicationMailer < ActionMailer::Base
     mail_opts[:from] ||= determine_email_from(template)
 
     variables = liquid_variables.stringify_keys
-
-    binding.pry
 
     mail(mail_opts) do |format|
       format.text { render text: template.render(variables, 'text') }
@@ -41,7 +31,7 @@ class ApplicationMailer < ActionMailer::Base
     mail(mail_opts)
   end
 
-  def collect_liquid_variables
+  def liquid_variables
     {}.tap do |result|
       instance_variables.each do |variable|
         next if variable.to_s =~ /@_/
@@ -56,5 +46,11 @@ class ApplicationMailer < ActionMailer::Base
 
   def determine_email_from(template)
     template.from.presence || Settings.email_default_from
+  end
+
+  def init(variables)
+    [:expert, :user, :seeker].each do |sym|
+      initialize_from_record(variables[sym]) unless variables[sym].nil?
+    end
   end
 end

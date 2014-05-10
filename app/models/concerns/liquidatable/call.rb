@@ -1,11 +1,10 @@
 module Liquidatable
-  module User
+  module Call
     extend ActiveSupport::Concern
 
     def to_liquid
       {
-        'name' => name,
-        'email' => email
+        'time' => 'now'
       }
     end
   end

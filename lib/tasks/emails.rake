@@ -82,8 +82,8 @@ CONSULTED
 )
       },
       {
-        name: ': Funds paid out to you – thanks for being an expert!',
-        subject: 'Your account was closed',
+        name: 'funds_paid_out',
+        subject: 'Funds paid out to you – thanks for being an expert!',
         html_version: %Q(<h6>Hi {{user.name}}!</h6>
 <p>A payment of <strong>{{ amount | currency }}<strong> was paid out.</p>
 <h4>Payment information</h4>
