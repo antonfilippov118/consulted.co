@@ -35,7 +35,7 @@ class AcceptsCall
     executed do |context|
       begin
         call = context.fetch :call
-        call.status = Call::Status::ACCEPTED
+        call.status = Call::Status::ACTIVE
         call.confirmed_at = Time.now
         call.save!
         context[:call] = call
