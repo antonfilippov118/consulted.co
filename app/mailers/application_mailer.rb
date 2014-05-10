@@ -1,15 +1,15 @@
 class ApplicationMailer < ActionMailer::Base
   protected
 
-  def liquid_mail(action, opts, record = nil)
+  def liquid_mail(action, opts, variables = nil)
     liquid_variables = collect_liquid_variables
 
-    if record
-      initialize_from_record(record)
-      liquid_variables.merge!(record.to_liquid.stringify_keys)
-      mail_opts = headers_for(action, opts)
-    else
+    if variables.nil?
       mail_opts = opts
+    else
+      initialize_from_record(variables[:user]) unless variables[:user].nil?
+      liquid_variables.merge!(variables)
+      mail_opts = headers_for(action, opts)
     end
 
     template = EmailTemplate.find_by(name: action)
@@ -22,9 +22,13 @@ class ApplicationMailer < ActionMailer::Base
     mail_opts[:subject] ||= template.subject
     mail_opts[:from] ||= determine_email_from(template)
 
+    variables = liquid_variables.stringify_keys
+
+    binding.pry
+
     mail(mail_opts) do |format|
-      format.text { render text: template.render(liquid_variables, 'text') }
-      format.html { render text: template.render(liquid_variables, 'html') }
+      format.text { render text: template.render(variables, 'text') }
+      format.html { render text: template.render(variables, 'html') }
     end
   end
 

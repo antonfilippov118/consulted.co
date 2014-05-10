@@ -138,7 +138,9 @@ RailsAdmin.config do |config|
     end
 
     edit do
-      field :name
+      field :name do
+        read_only true
+      end
       field :subject
       field :from, :string
       field :html_version
@@ -151,18 +153,18 @@ RailsAdmin.config do |config|
     index
 
     new do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     bulk_delete do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     show
     edit
 
     delete do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     show_in_app do

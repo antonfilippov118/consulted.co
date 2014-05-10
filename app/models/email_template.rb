@@ -17,6 +17,10 @@ class EmailTemplate
     template(version).render options
   end
 
+  def sender
+    from || Settings.email_default_from
+  end
+
   private
 
   def template(version)

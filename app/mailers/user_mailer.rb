@@ -6,12 +6,19 @@ class UserMailer < ApplicationMailer
   default reply_to: 'support@consulted.co'
 
   def confirmation_instructions(record, token, opts = {})
-    @token = token
-    liquid_mail(:confirmation_instructions, { subject: 'Your consulted.co profile activation', from: 'registration@consulted.co' }, record)
+
+    variables = {
+      user: record,
+      confirmation_url: user_confirmation_url(confirmation_token: token)
+    }
+    liquid_mail(:signup_confirmation, { subject: 'Please verify your email address' }, variables)
   end
 
   def reset_password_instructions(record, token, opts = {})
-    @token = token
-    liquid_mail(:reset_password_instructions, opts, record)
+    variables = {
+      user: record,
+      reset_url: edit_user_password_url(reset_password_token: token)
+    }
+    liquid_mail(:reset_password_instructions, opts, variable)
   end
 end

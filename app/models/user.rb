@@ -6,6 +6,7 @@ class User
   include Sluggable::User
   include Scopable::User
   include Indexable::User
+  include Liquidatable::User
   include Geo::Continent
 
   extend Dragonfly::Model
@@ -139,14 +140,6 @@ class User
 
   def be_an_expert!
     update_attribute :wants_to_be_an_expert, !wants_to_be_an_expert
-  end
-
-  def to_liquid
-    {
-      id: id.to_s,
-      email: email,
-      name: name
-    }
   end
 
   private
