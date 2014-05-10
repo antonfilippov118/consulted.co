@@ -7,7 +7,9 @@ class ApplicationMailer < ActionMailer::Base
     if variables.nil?
       mail_opts = opts
     else
-      initialize_from_record(variables[:user]) unless variables[:user].nil?
+      [:expert, :user, :seeker].each do |sym|
+        initialize_from_record(variables[sym]) unless variables[sym].nil?
+      end
       liquid_variables.merge!(variables)
       mail_opts = headers_for(action, opts)
     end

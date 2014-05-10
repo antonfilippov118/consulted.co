@@ -10,7 +10,7 @@ class PlatformSettings
   field :session_timeout, type: Integer, default: 0
   field :required_network, type: Integer, default: 10
   field :platform_live, type: Boolean, default: true
-  field :email_default_from, type: String, default: 'donotreply@consulted.co'
+  field :email_default_from, type: String, default: '"Consulted Notification" <donotreply@consulted.co>'
 
   before_validation :ensure_has_only_one_record, on: :create
 
