@@ -5,6 +5,9 @@ module Liquidatable
     def to_liquid
       {
         'time' => 'now'
+        'message' => message,
+        'seeker' => seeker,
+        'expert' => expert
       }
     end
   end
