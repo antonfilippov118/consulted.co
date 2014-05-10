@@ -3,8 +3,9 @@ step 'I am on registration page' do
 end
 
 step 'I submit registration form with required fields' do
+  page.find('.toggle_login').trigger('click')
   fill_in 'user[email]', with: 'user@example.com'
-  click_button 'Sign up'
+  click_button 'Complete signup'
 end
 
 step 'I should receive registration confirmation email' do

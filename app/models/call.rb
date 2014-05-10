@@ -1,6 +1,7 @@
 class Call
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Liquidatable::Call
 
   class Status
     REQUESTED = 1

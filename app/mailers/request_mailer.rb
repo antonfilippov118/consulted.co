@@ -2,10 +2,11 @@ class RequestMailer < ActionMailer::Base
   default from: 'new-request@consulted.co'
 
   def expert_notification(call, message = nil)
-    @call   = call
-    @expert = call.expert
-    @seeker = call.seeker
-    mail(to: @expert.notification_email, subject: "#{@seeker.name} has requested a call")
+    @call    = call
+    @expert  = call.expert
+    @seeker  = call.seeker
+    @message = message
+    liquid_mail(:expert_notification, to: @expert.notification_email, subject: "#{@seeker.name} has requested a call")
   end
 
   def seeker_notification(call)
@@ -18,6 +19,6 @@ class RequestMailer < ActionMailer::Base
   def cancellation(call)
     @call   = call
     @expert = call.expert
-    mail to: @expert.notification_email, subject: 'A call has been cancelled!'
+    liquid_mail(:request_cancellation, to: @expert.notification_email, subject: 'A call has been cancelled!')
   end
 end

@@ -27,6 +27,7 @@ gem 'mongoid-tree', require: 'mongoid/tree'
 gem 'country_select'
 gem 'rails_admin'
 gem 'twilio-ruby'
+gem 'liquid'
 
 group :production do
   gem 'unicorn'

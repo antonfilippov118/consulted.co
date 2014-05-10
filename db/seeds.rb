@@ -14,3 +14,11 @@ profile_images = %w(alex.jpg florian.jpg sebastian.jpg)
     FactoryGirl.create :company, user: user, name: "Company##{t} of #{user.name}", position: 'Director'
   end
 end
+
+# Seeding email templates
+
+FactoryGirl.create :email_template, :confirmation_instructions
+FactoryGirl.create :email_template, :reset_password_instructions
+FactoryGirl.create :email_template, :admin_welcome
+FactoryGirl.create :email_template, :request_notification
+FactoryGirl.create :email_template, :request_cancellation

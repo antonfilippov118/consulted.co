@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
-  config.included_models = %w[User Group Admin PlatformSettings Investor]
+  config.included_models = %w[User Group Admin PlatformSettings EmailTemplate Investor]
 
   config.model User do
     list do
@@ -132,28 +132,45 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model EmailTemplate do
+    list do
+      exclude_fields :'_id'
+    end
+
+    edit do
+      field :name do
+        read_only true
+      end
+      field :subject
+      field :from, :string
+      field :html_version
+      field :text_version
+    end
+  end
+
   config.actions do
     dashboard
     index
 
     new do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     bulk_delete do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     show
     edit
 
     delete do
-      except %w(PlatformSettings)
+      except %w(PlatformSettings EmailTemplate)
     end
 
     show_in_app do
       hide do
         bindings[:object].is_a?(PlatformSettings) ||
+        bindings[:object].is_a?(EmailTemplate) ||
         (bindings[:object].is_a?(Group) && bindings[:object].children?)
       end
     end
