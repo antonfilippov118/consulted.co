@@ -16,8 +16,8 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def send_liquid_mail(mail_opts, liquid_variables, template)
-    mail_opts[:subject] ||= template.subject
-    mail_opts[:from] ||= determine_email_from(template)
+    mail_opts[:subject] = template.subject
+    mail_opts[:from] = determine_email_from(template)
 
     variables = liquid_variables.stringify_keys
 
