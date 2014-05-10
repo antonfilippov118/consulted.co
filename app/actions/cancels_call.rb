@@ -57,7 +57,7 @@ class CancelsCall
     # TODO: depending on who cancelled different emails have to be sent
     executed do |context|
       call = context.fetch :call
-      CallMailer.expert_cancellation(call).deliver
+     # CallMailer.expert_cancellation(call).deliver
     end
   end
 end

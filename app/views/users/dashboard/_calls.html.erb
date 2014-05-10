@@ -6,7 +6,7 @@
         <% @next_7_days.each do |call| %>
           <tr class="<%= call_class(call) %>">
             <td><%= call_status(call) %></td>
-            <td>Call with <%= partner_for call %></td>
+            <td>Call with <%= link_to partner_for(call).name, expert_page(partner_for(call)) %></td>
             <td><%= request_status(call) %></td>
             <td>
               <% if expert?(call) and pending?(call) %>

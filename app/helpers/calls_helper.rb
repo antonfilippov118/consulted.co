@@ -1,7 +1,7 @@
 module CallsHelper
   def partner_for(call)
     person = [call.seeker, call.expert].select { |user| user.id != @user.id }
-    person.first.name
+    person.first
   end
 
   def call_status(call)
