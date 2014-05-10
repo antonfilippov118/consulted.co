@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 class RequestMailer < ActionMailer::Base
   default from: 'new-request@consulted.co'
 
