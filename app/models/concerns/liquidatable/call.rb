@@ -7,7 +7,9 @@ module Liquidatable
         'time' => 'now',
         'message' => message,
         'seeker' => seeker,
-        'expert' => expert
+        'expert' => expert,
+        'duration' => length,
+        'languages' => expert.languages.map(&:capitalize).join(', ')
       }
     end
   end

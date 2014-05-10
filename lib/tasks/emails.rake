@@ -145,7 +145,7 @@ CONSULTED
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Pending confirmation</li>
 <li>Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -164,7 +164,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Pending confirmation
 - Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -209,7 +209,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Pending confirmation
 - Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -235,7 +235,7 @@ CONSULTED
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
 <li>US toll-free number: +##########</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -256,7 +256,7 @@ Meeting request details
 - Status: Confirmed
 - US toll-free number: +##########
 - Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -282,7 +282,7 @@ CONSULTED
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
 <li>US toll-free number: +##########</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -303,7 +303,7 @@ Meeting request details
 - Status: Confirmed
 - Meeting via: Call bridge
 - US toll-free number: +##########
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -328,7 +328,7 @@ the expert did not respond.</p>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -352,7 +352,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -375,7 +375,7 @@ CONSULTED)
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -395,7 +395,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Meeting partner message: {{call.message}}
@@ -419,7 +419,7 @@ CONSULTED)
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -439,7 +439,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Meeting partner message: {{call.message}}
@@ -464,7 +464,7 @@ CONSULTED)
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
 <li>US toll-free number: +##########</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -485,7 +485,7 @@ Meeting request details
 - Status: Confirmed
 - Meeting via: Call bridge
 - US toll-free number: +##########
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -509,7 +509,7 @@ CONSULTED)
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
 <li>US toll-free number: +##########</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -528,7 +528,7 @@ Meeting request details
 - Status: Confirmed
 - Meeting via: Call bridge
 - US toll-free number: +##########
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -573,7 +573,7 @@ CONSULTED
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -590,7 +590,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Your message to the expert: {{call.message}}
@@ -611,7 +611,7 @@ CONSULTED)
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -628,7 +628,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Meeting partner message: {{call.message}}
@@ -650,7 +650,7 @@ CONSULTED
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Your message to the expert: {{call.message}}</li>
@@ -667,7 +667,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Meeting partner message: {{call.message}}
@@ -689,7 +689,7 @@ CONSULTED
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
-<li>Language: {{call.expert.languages}}</li>
+<li>Language: {{call.languages}}</li>
 <li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
 <li>Payment: PayPal</li>
 <li>Meeting partner message: {{call.message}}</li>
@@ -706,7 +706,7 @@ Meeting request details
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
-- Language: {{call.expert.languages}}
+- Language: {{call.languages}}
 - Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
 - Payment: PayPal
 - Meeting partner message: {{call.message}}
