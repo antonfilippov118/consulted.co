@@ -13,7 +13,11 @@
               <% end %>
             </td>
             <td><%= request_status(call) %></td>
-            <td>PIN: <%= call.pin %></td>
+            <td>
+              <% if active? call %>
+                PIN: <%= call.pin %>
+              <% end %>
+            </td>
             <td>
               <% if expert?(call) and pending?(call) %>
                 <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>

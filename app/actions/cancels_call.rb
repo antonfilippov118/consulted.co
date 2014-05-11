@@ -61,8 +61,8 @@ class CancelsCall
       user = context.fecth :user
       begin
         case call.status
-        when Call::Status::DECLINED then send_decline_emails(call, user)
-        when Call::Status::CANCELLED then send_cancellation_emails(call, user)
+        when Call::Status::DECLINED then decline_emails(call, user).each(&:deliver!)
+        when Call::Status::CANCELLED then cancellation_emails(call, user).each(&:deliver!)
         else context.fail! 'Cannot cancel this call properly!'
         end
       rescue => e
@@ -74,18 +74,26 @@ class CancelsCall
 
     def send_decline_emails(call, user)
       if user == call.expert
-        CallMailer.call_declined_by_expert_to_seeker call
-        CallMailer.call_declined_by_expert_manually call
+        [
+          CallMailer.call_declined_by_expert_to_seeker(call),
+          CallMailer.call_declined_by_expert_manually(call)
+        ]
+      else
+        []
       end
     end
 
     def send_cancellation_emails(call, user)
       if user == call.expert?
-        CallMailer.call_cancelled_by_expert_to_seeker(call)
-        CallMailer.call_cancelled_by_expert_to_expert(call)
+        [
+          CallMailer.call_cancelled_by_expert_to_seeker(call),
+          CallMailer.call_cancelled_by_expert_to_expert(call)
+        ]
       else
-        CallMailer.call_cancelled_by_seeker_to_seeker(call)
-        CallMailer.call_cancelled_by_seeker_to_expert(call)
+        [
+          CallMailer.call_cancelled_by_seeker_to_seeker(call),
+          CallMailer.call_cancelled_by_seeker_to_expert(call)
+        ]
       end
     end
   end
