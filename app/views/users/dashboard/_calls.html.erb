@@ -8,7 +8,7 @@
             <td><%= call_status(call) %></td>
             <td>
               Call with <%= name_link(call) %>
-              <% if call.message.present? %>
+              <% if call.message.present? and expert?(call) %>
                 <span class="flaticon flaticon-info help" data-toggle="tooltip" data-placement="top" title="" data-original-title="<%= call.message %>">
               <% end %>
             </td>
@@ -23,7 +23,10 @@
                 <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>
                 <%= link_to 'decline', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
               <% end %>
-              <% if cancellable?(call) %>
+              <% if seeker?(call) and pending?(call) %>
+                <%= link_to 'abandon', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
+              <% end %>
+              <% if cancellable?(call) and !pending?(call) %>
                 <%= link_to 'cancel', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
               <% end %>
             </td>

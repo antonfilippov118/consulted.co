@@ -5,7 +5,9 @@ class CancelsCall
     with(id: id, user: user).reduce [
       LookupCall,
       DetermineCancellable,
-      CancelCall
+      CancelCall,
+      SendNotifications,
+      SaveCall
     ]
   end
 
@@ -44,7 +46,6 @@ class CancelsCall
       call = context.fetch :call
       begin
         call.status += 1
-        call.save!
         context[:call] = call
       rescue => e
         context.fail! e.message
@@ -58,11 +59,11 @@ class CancelsCall
     # TODO: depending on who cancelled different emails have to be sent
     executed do |context|
       call = context.fetch :call
-      user = context.fecth :user
+      user = context.fetch :user
       begin
         case call.status
-        when Call::Status::DECLINED then decline_emails(call, user).each(&:deliver!)
-        when Call::Status::CANCELLED then cancellation_emails(call, user).each(&:deliver!)
+        when Call::Status::DECLINED then SendNotifications.decline_emails(call, user).each(&:deliver!)
+        when Call::Status::CANCELLED then SendNotifications.cancellation_emails(call, user).each(&:deliver!)
         else context.fail! 'Cannot cancel this call properly!'
         end
       rescue => e
@@ -70,9 +71,7 @@ class CancelsCall
       end
     end
 
-    private
-
-    def send_decline_emails(call, user)
+    def self.decline_emails(call, user)
       if user == call.expert
         [
           CallMailer.call_declined_by_expert_to_seeker(call),
@@ -83,7 +82,7 @@ class CancelsCall
       end
     end
 
-    def send_cancellation_emails(call, user)
+    def self.cancellation_emails(call, user)
       if user == call.expert?
         [
           CallMailer.call_cancelled_by_expert_to_seeker(call),
@@ -94,6 +93,20 @@ class CancelsCall
           CallMailer.call_cancelled_by_seeker_to_seeker(call),
           CallMailer.call_cancelled_by_seeker_to_expert(call)
         ]
+      end
+    end
+  end
+
+  class SaveCall
+    include LightService::Action
+
+    executed do |context|
+      call = context.fetch :call
+
+      begin
+        call.save!
+      rescue => e
+        context.fail! e.message
       end
     end
   end

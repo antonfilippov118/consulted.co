@@ -12,7 +12,7 @@ class Users::CallsController < Users::BaseController
   def cancel
     result = CancelsCall.for call_params[:call_id], @user
     if result.failure?
-      render json: { error: result.message }
+      render json: { error: result.message }, status: :bad_request
     else
       upcoming_calls
     end

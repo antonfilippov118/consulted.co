@@ -6,7 +6,7 @@ module CallsHelper
 
   def name_link(call)
     user = partner_for call
-    if user.expert?
+    if user.expert? && seeker?(call)
       link_to user.name, expert_page(user), target: '_blank'
     else
       user.name
