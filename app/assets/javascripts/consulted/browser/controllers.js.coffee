@@ -156,6 +156,9 @@ app.controller "WindowCtrl", [
       scope.error = yes
     .finally () ->
       scope.loading = no
+    scope.close = () ->
+      modalInstance.dismiss()
+
 ]
 
 app.controller "BrowseCtrl", [

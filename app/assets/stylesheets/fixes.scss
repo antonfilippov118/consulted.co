@@ -62,6 +62,16 @@
     }
   }
 }
+#learnmore {
+  .modal-header {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    z-index: 1000;
+  }
+}
 #landing-main {
   .postbtn a {
     color: #fff;
