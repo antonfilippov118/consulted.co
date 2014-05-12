@@ -109,6 +109,10 @@ class User
     linkedin_network >= User.required_connections
   end
 
+  def past_companies
+    companies.select { |c| c != companies.current }.compact
+  end
+
   def can_be_a_seeker?
     # TODO: Paypal
     return false unless confirmed?

@@ -11,7 +11,19 @@ child :expert => :expert do
   node :profile_url do |user|
     "#{root_url}#{user.slug}"
   end
-  child({ companies: :companies }, if: :shares_career?) do
-    attribute :name, :position, :from
+  node :current_position do |user|
+    user.companies.current.position
+  end
+  node :current_year do |user|
+    user.companies.current.from
+  end
+  child({ past_companies: :companies }, if: :shares_career?) do
+    attribute :name, :position, :from, :to
+  end
+  node :bookmarked do |user|
+    bookmarked? user
+  end
+  node :id do |user|
+    user.id.to_s
   end
 end

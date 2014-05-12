@@ -112,12 +112,16 @@ app.service 'Continent', [
 
 app.service 'Bookmark', [
   'Search'
-  (Search) ->
+  '$http'
+  Bookmark = (Search, http) ->
     bookmark = no
     toggle: () ->
       bookmark = !bookmark
       Search.trigger bookmark: bookmark
     isActive: -> bookmark
+
+    send: (expert) ->
+      http.put("/favorites/#{expert.id}")
 
 ]
 

@@ -20,3 +20,14 @@ app.filter 'truncate', [
       return "#{input}#{elipsis}"
 
 ]
+
+app.filter 'careerYear', [
+  () ->
+    change = (year) ->
+      number = "#{year}".substr -2, 2
+      "'#{number}"
+    (year, yearTo = false) ->
+      return change year unless angular.isNumber yearTo
+      return change year if year is yearTo
+      "#{change(year)}-#{change(yearTo)}"
+]

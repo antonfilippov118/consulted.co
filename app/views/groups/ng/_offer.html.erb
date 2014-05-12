@@ -7,14 +7,25 @@
         </div>
         <a ng-href="{{offer.expert.profile_url}}" target="_blank">Full Profile</a>
       </div>
-      <div class="expert-name heading2">{{offer.expert.name}}</div>
+      <div class="expert-name heading2">
+        {{offer.expert.name}}
+        <span id="bookmark">
+          <span ng-show="offer.expert.bookmarked">
+            <span class="fa fa-star" ng-click="bookmark(offer.expert)"></span>
+          </span>
+          <span ng-hide="offer.expert.bookmarked">
+            <span class="fa fa-star-o" ng-click="bookmark(offer.expert)"></span>
+          </span>
+        </span>
+      </div>
+      <div>{{offer.expert.current_position}} {{offer.expert.current_year | careerYear}}</div>
       <div class="expert-exp">
         <strong>Category Experience:</strong> {{offer.experience}} years</div>
       <div class="expert-pph">
         <span class="price">${{offer.rate}}</span>/hour</div>
     </div>
-    <div class="expert-cite">
-      {{offer.description | truncate:200:showDescription}}
+    <div class="expert-cite" ng-show="offer.description">
+      "{{offer.description | truncate:200:showDescription}}"
       <div class="text-center" ng-show="offer.description.length > 200">
         <a ng-hide="showDescription" ng-click="toggleDescription()">more</a>
         <a ng-show="showDescription" ng-click="toggleDescription()">less</a>
@@ -24,7 +35,7 @@
   <div class="expert-right">
     <div class="expert-history">
       <ul>
-        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from}}</li>
+        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from | careerYear:company.to}}</li>
       </ul>
       <div class="text-center" ng-show="showToggle">
         <a ng-hide="allActive()" ng-click="toggleCareer()">show all</a>
