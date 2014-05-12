@@ -14,7 +14,7 @@ module ConsultedTwilio
 
     def self.defaults
       {
-        voice: 'woman',
+        voice: ConsultedTwilio::VOICE,
         redirect: nil
       }
     end

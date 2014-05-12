@@ -26,7 +26,7 @@ module ConsultedTwilio
           context[:call] = call
           fail if call.nil?
         rescue => e
-          context.fail! 'The entered pin was not correct!'
+          context.fail! 'The access code you entered was not found. Please try again!'
           Rails.logger.info e
         end
       end
