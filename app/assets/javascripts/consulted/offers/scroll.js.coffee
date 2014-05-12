@@ -14,7 +14,6 @@ $ ->
     $(window).bind 'scroll', () -> scrollbar()
 
     $("a[href*=#]:not([href=#])").click ->
-      $('#offerbar').find('li').removeClass 'active'
       parent = $(this).parent()
       parent.addClass 'active' unless parent.hasClass 'active'
       if location.pathname.replace(/^\//, "") is @pathname.replace(/^\//, "") and location.hostname is @hostname
@@ -25,4 +24,5 @@ $ ->
             scrollTop: target.offset().top
           , 1000
           false
+    $('body').scrollspy()
 
