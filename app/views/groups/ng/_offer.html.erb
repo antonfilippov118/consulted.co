@@ -14,8 +14,8 @@
       <div class="expert-pph">
         <span class="price">${{offer.rate}}</span>/hour</div>
     </div>
-    <div class="expert-cite">
-      {{offer.description | truncate:200:showDescription}}
+    <div class="expert-cite" ng-show="offer.description">
+      "{{offer.description | truncate:200:showDescription}}"
       <div class="text-center" ng-show="offer.description.length > 200">
         <a ng-hide="showDescription" ng-click="toggleDescription()">more</a>
         <a ng-show="showDescription" ng-click="toggleDescription()">less</a>
