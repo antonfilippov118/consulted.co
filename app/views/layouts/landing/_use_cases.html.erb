@@ -21,6 +21,10 @@
       </div>
     </div>
     <%# TODO: where does this go? %>
-    <p class="link-centered"><a href="#">Show More Cases<span class="fa fa-arrow-right"></span></a></p>
+    <p class="link-centered">
+      <%= link_to case_studies_path do %>
+      Show More Cases<span class="fa fa-arrow-right"></span></a>
+      <% end %>
+    </p>
   </div>
 </div>
