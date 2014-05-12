@@ -9,6 +9,7 @@ module Liquidatable
         'seeker' => seeker,
         'expert' => expert,
         'duration' => length,
+        'pin' => pin,
         'languages' => expert.languages.map(&:capitalize).join(', ')
       }
     end
