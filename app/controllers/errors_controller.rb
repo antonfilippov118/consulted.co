@@ -8,7 +8,7 @@ class ErrorsController < ApplicationController
   private
 
   def status_code
-    params[:code] || 500
+    params[:code] || '500'
   end
 
   def status_title
