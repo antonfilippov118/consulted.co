@@ -113,6 +113,10 @@ Consulted::Application.routes.draw do
     get page, controller: :static
   end
 
+  %w(404 422 500).each do |code|
+    get "/#{code}", to: 'errors#show', code: code
+  end
+
   get '/:slug', to: 'expert#page'
 
   root to: 'home#index'

@@ -3,12 +3,12 @@ class ExpertController < ApplicationController
   def page
     user = User.experts.with_slug slug
     @expert = user.first
-    render404 if @expert.nil?
+    return render404 if @expert.nil?
     title! "#{@expert.name} - Profile"
   end
 
   def render404
-    fail ActionController::RoutingError, 'Not found'
+    redirect_to '/404'
   end
 
   private

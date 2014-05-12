@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag 'favicon.png'  %>
+    <title><%= @title ? "#{@title} - Consulted" : default_title %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Consulted" %>">
+    <%= stylesheet_link_tag "follow" %>
+  </head>
+  <body>
+    <div class="text-center">
+      <div class="row">
+        <%= link_to root_url do %>
+          <%= image_tag 'logo_black.png', alt: 'CONSULTED.co' %>
+        <% end %>
+      </div>
+      <h1>Something is not right </h1>
+      <%= yield %>
+      <p class="small"><%= link_to 'Click here to g back to our homepage', root_url %></p>
+    </div>
+    <%= render partial: 'layouts/zopim' %>
+  </body>
+</html>

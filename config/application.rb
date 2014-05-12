@@ -51,5 +51,7 @@ module Consulted
     end)
 
     config.autoload_paths += Dir["#{config.root}/lib/liquid/**/"]
+
+    config.exceptions_app = routes
   end
 end

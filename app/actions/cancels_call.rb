@@ -83,17 +83,22 @@ class CancelsCall
     end
 
     def self.cancellation_emails(call, user)
-      if user == call.expert?
-        [
-          CallMailer.call_cancelled_by_expert_to_seeker(call),
-          CallMailer.call_cancelled_by_expert_to_expert(call)
-        ]
-      else
-        [
-          CallMailer.call_cancelled_by_seeker_to_seeker(call),
-          CallMailer.call_cancelled_by_seeker_to_expert(call)
-        ]
-      end
+      return SendNotification.expert_cancelled if user == call.expert?
+      SendNotifications.seeker_cancelled
+    end
+
+    def self.expert_cancelled
+      [
+        CallMailer.call_cancelled_by_expert_to_seeker(call),
+        CallMailer.call_cancelled_by_expert_to_expert(call)
+      ]
+    end
+
+    def self.seeker_cancelled
+      [
+        CallMailer.call_cancelled_by_seeker_to_seeker(call),
+        CallMailer.call_cancelled_by_seeker_to_expert(call)
+      ]
     end
   end
 
