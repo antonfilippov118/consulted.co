@@ -83,16 +83,17 @@
             <li>In order to ensure authenticity, we require our experts to have more than <%= required_contacts %> LinkedIn connections</li>
           <% end %>
           <% if needs_linkedin? %>
-            <li>If you have more than <%= required_contacts %> LinkedIn connections, please go to your <%= link_to 'Profile Setting', settings_path %> and connect your LinkedIn profile</li>
+            <li>If you have more than <%= required_contacts %> LinkedIn connections, please go to your <%= link_to 'profile settings', settings_path %> and connect your LinkedIn profile</li>
           <% end %>
           <% if needs_confirmation? %>
-            <li>You have not confirmed your email address yet. We need your email address confirmed before we can allow you to be an expert on our platform. You can send yourself another confirmation email <%= link_to 'here', '#', target: '_blank' %>.</li>
+            <li>You have not confirmed your email address yet. We need your email address confirmed before we can allow you to be an expert on our platform. You can send yourself another confirmation email <%= link_to 'here.', user_confirmation_path(user: { email: @user.email }), remote: true, method: :post %>
+            </li>
           <% end %>
           <% if needs_payment? %>
             <li>You still need to attach a payment method to your account. You can do so <%= link_to 'in the payment settings', billing_settings_path, target: '_blank'  %>.</li>
           <% end %>
           <% if needs_expert_terms? %>
-            <li>You need to accept the terms for experts on our platform. You can do so <%= link_to 'here', '#', target: '_blank' %></li>
+            <li>You need to accept the terms for experts on our platform. You can do so <%= link_to 'here', user_confirmation_path, method: :post, remote: true %></li>
           <% end %>
         </ul>
       </div>

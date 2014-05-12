@@ -24,6 +24,7 @@ module Validatable
       validates_presence_of :name
       validates_with SlugValidator
       validates_uniqueness_of :contact_email
+      validates_numericality_of :notification_time, only_integer: true, greater_than: 4, message: 'must be at least 5 minutes!'
     end
   end
 end

@@ -22,9 +22,6 @@
       <% else %>
         <div class="input-group input-wicon input-linkedin flaticon flaticon-linkedin">
           <input readonly type="text" class="form-control <%= 'chk' if @user.confirmed? %>" value="<%= @user.linkedin_email %>">
-          <span class="input-group-btn">
-            <a class="btn btn-primary" type="a" data-toggle="modal" data-target="#linkedin_disco_modal">Disconnect</a>
-          </span>
         </div>
         <div class="modal fade" id="linkedin_disco_modal" tabindex="-1" role="dialog" aria-labelledby="Disconnect Linkedin" aria-hidden="true">
           <div class="modal-dialog">
