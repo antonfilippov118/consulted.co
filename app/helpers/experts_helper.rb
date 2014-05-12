@@ -13,7 +13,7 @@ module ExpertsHelper
   end
 
   def past_companies
-    @expert.companies.select { |c| c != current_company }.compact
+    @expert.past_companies
   end
 
   def past_companies?

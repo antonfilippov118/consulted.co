@@ -8,6 +8,7 @@
         <a ng-href="{{offer.expert.profile_url}}" target="_blank">Full Profile</a>
       </div>
       <div class="expert-name heading2">{{offer.expert.name}}</div>
+      <div>{{offer.expert.current_position}} {{offer.expert.current_year | careerYear}}</div>
       <div class="expert-exp">
         <strong>Category Experience:</strong> {{offer.experience}} years</div>
       <div class="expert-pph">
@@ -24,7 +25,7 @@
   <div class="expert-right">
     <div class="expert-history">
       <ul>
-        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from}}</li>
+        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from | careerYear:company.to}}</li>
       </ul>
       <div class="text-center" ng-show="showToggle">
         <a ng-hide="allActive()" ng-click="toggleCareer()">show all</a>
