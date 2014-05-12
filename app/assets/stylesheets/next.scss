@@ -11,6 +11,9 @@ $blue1:#79abe2;
 $darkviolet:#373944;
 $font:'Open Sans', sans-serif;
 $headFont: 'Bitter', sans-serif;
+
+@import 'variables';
+@import 'bootstrap';
 @import 'helpers';
 
 /* Basic styles */

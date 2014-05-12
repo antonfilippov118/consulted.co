@@ -1,5 +1,6 @@
 /* Mixins, variables, etc. */
-
+@import 'variables';
+@import 'bootstrap';
 $headfont: 'Bitter', serif;
 $bodyfont: 'Open Sans', sans-serif;
 
@@ -140,7 +141,6 @@ body{
       &:before{
         @media (max-width:991px){
           color:#bbb;
-          content:'Menu';
           display:block;
           left:-64px;
           position:absolute;
