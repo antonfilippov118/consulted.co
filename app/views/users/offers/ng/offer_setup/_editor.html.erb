@@ -20,7 +20,7 @@
             <p class="bigger prop">Rate per hour, $</p>
           </div>
           <div class="col-md-6 text-center">
-            <input class="form-control input-sm" type="text" ng-change="save(offer)" ng-model="offer.rate">
+            <input class="form-control input-sm" required type="text" ng-change="save(offer)" ng-model="offer.rate">
             <span class="bigger">= <span rate="offer.rate" fee="<%= Settings.platform_fee %>"></span> paid out to you</span>
           </div>
         </div>
@@ -38,6 +38,7 @@
             <div class="time-legend">
               <div class="legend" ng-repeat="time in times">{{time}}</div>
             </div>
+            <div ng-show="noTimeSelected(offer)" class="time-legend" style="color:red;">Please select at least one time.</div>
           </div>
         </div>
         <div class="row setupoffr-row">

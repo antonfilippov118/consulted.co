@@ -71,9 +71,10 @@ app.controller 'EditorCtrl', [
         offer.lengths.push time
       trigger offer
 
+    scope.noTimeSelected = (offer) -> offer.lengths.length is 0
+
     scope.remove = (offer) ->
       OfferData.save(enabled: no, slug: offer.slug).then OfferData.reload
-
 
     scope.save = (offer) ->
       trigger offer
