@@ -55,8 +55,13 @@ body {
   &.landing {
     background:$white;
     padding-top:50px;
-    h1, h2, h3 {
+    h1, h2 {
       font-family: $headFont;
+    }
+
+    h3 {
+      font-weight: 400;
+      font-size: 16px;
     }
   }
 }
