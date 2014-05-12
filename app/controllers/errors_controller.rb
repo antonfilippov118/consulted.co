@@ -16,6 +16,6 @@ class ErrorsController < ApplicationController
       '404' => 'Page not found',
       '422' => 'Rejected',
       '500' => 'Server error'
-    }.fetch status_code
+    }.fetch status_code.to_s
   end
 end
