@@ -1347,7 +1347,11 @@ body .expert-name {
   top:8px;
 }
 .form-control.chk {
-  background:image-url('chk.png') 100% 50% no-repeat $white;
+  background: image-url('chk.png') 100% 50% no-repeat $white;
+  padding-right:30px;
+}
+.form-control.crs {
+  background: image-url('crs.png') 100% 50% no-repeat $white;
   padding-right:30px;
 }
 .modal-content {

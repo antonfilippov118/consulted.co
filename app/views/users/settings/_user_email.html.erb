@@ -1,8 +1,13 @@
 <div id="user_email">
+  <%= form_for @user, url: profile_settings_path, remote: true, html: { id: 'user_email_form' } do |f| -%>
   <div class="input-group">
-    <input type="text" readonly class="form-control <%= 'chk' if @user.confirmed? %>" value="<%= @user.notification_email %>">
+      <%= f.text_field :contact_email, value: f.object.notification_email, class: "form-control#{' chk' if @user.confirmed?}", readonly: true %>
     <span class="input-group-btn">
-      <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#email_modal">Change</a>
+      <a id="unlock_user_email" class="btn btn-primary" type="button">Change</a>
+    </span>
+    <span class="input-group-btn">
+      <%= f.submit "Save", id: 'save_user_email', style: 'display:none', class: 'btn btn-primary' %>
     </span>
   </div>
+  <% end %>
 </div>

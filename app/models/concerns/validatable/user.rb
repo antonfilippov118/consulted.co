@@ -23,6 +23,7 @@ module Validatable
       validates_uniqueness_of :slug
       validates_presence_of :name
       validates_with SlugValidator
+      validates_uniqueness_of :contact_email
     end
   end
 end

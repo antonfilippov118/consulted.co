@@ -23,8 +23,33 @@ $ ->
     el.data 'text', old
 
     # toggle the class
-    console.log  $(el.attr('href'))
     $(el.attr('href')).toggleClass 'disabled'
+
+  $('#user_email_form').validate
+    rules:
+      'user[contact_email]':
+        required: yes
+        email: yes
+    errorPlacement: (label, element) ->
+      el = $(element)
+      el.removeClass 'chk'
+      el.addClass 'crs'
+    success: (label, element) ->
+      el = $(element)
+      el.addClass 'chk'
+      el.removeClass 'crs'
+    submitHandler: (form) ->
+      $('#save_user_email').hide()
+      $('#unlock_user_email').show()
+      $('#user_contact_email').attr 'readonly', yes
+      $.rails.handleRemote( $(form) );
+
+  $('#unlock_user_email').click () ->
+    $('#user_contact_email').removeAttr 'readonly'
+    $(this).hide()
+    $('#save_user_email').show()
+
+
 
 
 

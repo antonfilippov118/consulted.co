@@ -3,6 +3,9 @@ attributes :description, :rate, :experience, :url
 node :id do |offer|
   offer.id.to_s
 end
+node :likes do |offer|
+  0
+end
 child :expert => :expert do
   attributes :name, :slug
   node :image do |user|

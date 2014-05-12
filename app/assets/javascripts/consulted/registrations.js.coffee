@@ -1,12 +1,4 @@
 $ ->
-  handle = (map, errors) ->
-    for error in errors
-      el = $(error.element)
-      crossed = el.siblings('span.crossed')
-      checked = el.siblings('span.checked')
-      crossed.show()
-      checked.hide()
-
   $('#new_user').validate
     errorPlacement: (label, element) ->
       el = $(element)
