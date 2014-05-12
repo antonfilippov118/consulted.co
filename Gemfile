@@ -40,6 +40,7 @@ end
 group :authentication do
   gem 'omniauth'
   gem 'omniauth-linkedin'
+  gem 'omniauth-twitter'
 end
 
 group :db do
