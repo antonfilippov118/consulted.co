@@ -13,6 +13,7 @@ class Group
   field :expert_background, type: String
   field :length_gain, type: String
   field :tag_array, type: Array
+  field :prioritized, type: Boolean, default: false
 
   validates_associated :parent, :children
 

@@ -93,6 +93,11 @@ RailsAdmin.config do |config|
       field :parent
       field :children
       field :tags
+      field :prioritized do
+        visible do
+          bindings[:group].leaf?
+        end
+      end
     end
 
     show do

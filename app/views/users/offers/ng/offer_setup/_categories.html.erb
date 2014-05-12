@@ -18,7 +18,7 @@
     <div class="row pool clr" ng-show="selectedGroup()">
       <div class="col-md-4">
         <div class="clr selectoffer-subcats">
-          <div class="selectoffer-subcat" ng-repeat="group in selectedGroup().children | orderBy:'name'" ng-class="{'sel':inPath(group)}" ng-click="use(group)">{{group.name}}</div>
+          <div class="selectoffer-subcat" ng-repeat="group in selectedGroup().children | orderBy:'name' | orderBy: 'prioritized'" ng-class="{'sel':inPath(group)}" ng-click="use(group)">{{group.name}}</div>
         </div>
       </div>
       <div class="col-md-8">
