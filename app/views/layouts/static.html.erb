@@ -13,9 +13,9 @@
     <%= csrf_meta_tags %>
   </head>
   <body class="landing">
-    <%# Main navigation %>
-    <%= render partial: 'layouts/static/navigation' %>
     <div class="wrapper">
+      <%# Main navigation %>
+      <%= render partial: 'layouts/static/navigation' %>
       <section id="main">
         <%= yield %>
       </section>

@@ -12,52 +12,47 @@
     <![endif]-->
     <%= csrf_meta_tags %>
   </head>
-  <body ng-app="consulted.finder" data-group="<%= @group.slug %>">
-    <div class="wrapper" class="offerfull-form">
-      <div id="navbar">
-        <%= render partial: 'layouts/application/header' %>
+  <body class="<%= 'landing' unless user_signed_in? %>">
+    <div ng-app="consulted.finder" data-group="<%= @group.slug %>">
+      <div class="wrapper" class="offerfull-form">
         <% if user_signed_in? %>
-          <%= render partial: 'layouts/application/navigation' %>
+          <%= render partial: 'layouts/application/navbar_loggedin' %>
+        <% else %>
+          <%= render partial: 'layouts/application/navbar_loggedout' %>
+        <% end %>
+        <div filter></div>
+        <section id="main" ng-controller="ResultCtrl">
+          <div class="container">
+            <% unless user_signed_in? %>
+              <p class="back-home text-left clr"><span class="flaticon flaticon-arrowleft"></span><%= link_to 'back to homepage', root_url %></p>
+            <% end %>
+
+            <%= render partial: 'layouts/breadcrumbs', locals: { group: @group, with_group: true} %>
+            <div class="text-center" ng-show="searching">
+              <i class="fa fa-spin fa-refresh fa-2x"></i>
+            </div>
+            <div class="text-center" ng-show="!searching && offers.length == 0">
+              <h3>No results.</h3>
+            </div>
+            <div ng-show="!searching && offers.length > 0">
+              <div class="expert clr" offer="offer" ng-repeat="offer in offers"></div>
+            </div>
+          </div>
+        </section>
+        <%= render partial: 'layouts/signup' %>
+        <div class="push"></div>
+        <div class="footer">
+          <%= render partial: 'layouts/footer', locals: { inverted: user_signed_in? } %>
+          <%= render partial: 'layouts/copy' %>
+        </div>
+        <% %w(filter offer).each do |partial| %>
+        <script type="text/ng-template" id="<%= partial %>">
+          <%= render partial: "groups/ng/#{partial}"  %>
+        </script>
         <% end %>
       </div>
-      <div filter></div>
-      <section id="main" ng-controller="ResultCtrl">
-        <div class="container">
-          <%= render partial: 'layouts/breadcrumbs', locals: { group: @group, with_group: true} %>
-          <div class="text-center" ng-show="searching">
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-          </div>
-          <div class="text-center" ng-show="!searching && offers.length == 0">
-            <h3>No results.</h3>
-          </div>
-          <div ng-show="!searching && offers.length > 0">
-            <div class="expert clr" offer="offer" ng-repeat="offer in offers"></div>
-          </div>
-        </div>
-      </section>
-      <%= render partial: 'layouts/signup' %>
-      <div class="push"></div>
-    </div>
-    <div class="footer">
-      <%= render partial: 'layouts/footer', locals: { inverted: true } %>
-      <%= render partial: 'layouts/copy' %>
     </div>
     <%= javascript_include_tag "application" %>
-    <% if analytics_key %>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', '<%= analytics_key %>', 'consulted.co');
-      ga('send', 'pageview');
-    </script>
-    <% end %>
-    <% %w(filter offer).each do |partial| %>
-    <script type="text/ng-template" id="<%= partial %>">
-      <%= render partial: "groups/ng/#{partial}"  %>
-    </script>
-    <% end %>
     <%= render partial: 'layouts/zopim' %>
   </body>
 </html>
