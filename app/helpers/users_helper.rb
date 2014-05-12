@@ -23,6 +23,10 @@ module UsersHelper
     false
   end
 
+  def twitter?
+    @user.twitter_handle.present?
+  end
+
   def hours_left
     distance_of_time_in_words(user.confirmation_sent_at + 48.hours - Time.now)
   end

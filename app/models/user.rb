@@ -23,7 +23,7 @@ class User
   field :languages, type: Array, default: ['english']
   field :timezone, type: String, default: 'Europe/Berlin'
   field :contact_email, type: String
-
+  field :twitter_handle, type: String
   field :providers, type: Array
 
   # determines wheter or not the user wants to be an expert

@@ -41,14 +41,6 @@ class Users::SettingsController < Users::BaseController
     end
   end
 
-  def linkedin_disconnect
-    respond_to do |format|
-      format.js do
-        @user.disconnect_from_linkedin!
-      end
-    end
-  end
-
   def linkedin_connect
     session[:omniauth_return] = settings_path
     redirect_to user_omniauth_authorize_path provider: 'linkedin'
@@ -57,7 +49,7 @@ class Users::SettingsController < Users::BaseController
   private
 
   def user_profile_params
-    params.require(:user).permit :name, :slug, :contact_email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, :shares_career, :shares_education, :shares_summary, :max_meetings_per_day, :start_delay, languages: []
+    params.require(:user).permit :name, :slug, :contact_email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, :shares_career, :shares_education, :shares_summary, :max_meetings_per_day, :start_delay, :twitter_handle, languages: []
   end
 
   def timezone_params

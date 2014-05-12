@@ -23,32 +23,27 @@
         <div class="input-group input-wicon input-linkedin flaticon flaticon-linkedin">
           <input readonly type="text" class="form-control <%= 'chk' if @user.confirmed? %>" value="<%= @user.linkedin_email %>">
         </div>
-        <div class="modal fade" id="linkedin_disco_modal" tabindex="-1" role="dialog" aria-labelledby="Disconnect Linkedin" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="Timezone change">Disconnect your Linkedin profile</h4>
-              </div>
-              <%= form_for @user, url: disconnect_linkedin_settings_path, remote: true, method: :put do |f| -%>
-                <div class="modal-body">
-                  <p>This will disconnect your linkedin profile.</p>
-                  <p>Are you sure you want to disconnect your profile?</p>
-                </div>
-                <div class="modal-footer">
-                  <p>
-                    <%= f.submit "Yes", class: 'btn btn-success' %>
-                    <button type="button" class="btn btn-danger" data-dismiss='modal'>No</button>
-                  </p>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
       <% end %>
     </div>
     <div class="col-md-5">
       <span class="info flaticon flaticon-info">We use LinkedIn profile from experts as social proof. We require more than <%= Settings.required_network %> contacts. Also we will share a link to your profile with advice seekers in order for them to get a better idea about you.</span>
+    </div>
+  </div>
+
+  <div class="row divider">
+    <div class="col-md-7">
+      <label class="input-label">Twitter</label>
+      <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+        <div class="input-group input-wicon input-twitter flaticon flaticon-twitter">
+          <%= f.text_field :twitter_handle, class: 'form-control' %>
+          <span class="input-group-btn">
+            <%= f.submit "Change", class: 'btn btn-primary' %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-5">
+      <span class="info flaticon flaticon-info">We share this information with advice seekers in order for them to get a better idea about you.</span>
     </div>
   </div>
 
