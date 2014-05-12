@@ -23,6 +23,7 @@
     width:65%;
     @media(max-width:991px) {
       float:none;
+      border-left: none;
       width:auto;
     }
     & .col-md-4 {
