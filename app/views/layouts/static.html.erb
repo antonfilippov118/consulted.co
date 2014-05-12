@@ -22,7 +22,7 @@
       <div class="push"></div>
     </div>
     <div class="footer">
-      <%= render partial: 'layouts/footer', locals: { inverted: !user_signed_in? } %>
+      <%= render partial: 'layouts/footer', locals: { inverted: user_signed_in? } %>
       <%= render partial: 'layouts/copy' %>
     </div>
     <%= javascript_include_tag 'application' %>
