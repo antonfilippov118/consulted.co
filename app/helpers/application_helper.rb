@@ -20,4 +20,8 @@ module ApplicationHelper
   def default_title
     'Consulted - On-Demand Expert Marketplace'
   end
+
+  def zopim?
+    !Settings.platform_live? && Rails.env.production?
+  end
 end
