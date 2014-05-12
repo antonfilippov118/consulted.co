@@ -20,4 +20,10 @@ child :expert => :expert do
   child({ past_companies: :companies }, if: :shares_career?) do
     attribute :name, :position, :from, :to
   end
+  node :bookmarked do |user|
+    bookmarked? user
+  end
+  node :id do |user|
+    user.id.to_s
+  end
 end

@@ -7,7 +7,17 @@
         </div>
         <a ng-href="{{offer.expert.profile_url}}" target="_blank">Full Profile</a>
       </div>
-      <div class="expert-name heading2">{{offer.expert.name}}</div>
+      <div class="expert-name heading2">
+        {{offer.expert.name}}
+        <span id="bookmark">
+          <span ng-show="offer.expert.bookmarked">
+            <span class="fa fa-star" ng-click="bookmark(offer.expert)"></span>
+          </span>
+          <span ng-hide="offer.expert.bookmarked">
+            <span class="fa fa-star-o" ng-click="bookmark(offer.expert)"></span>
+          </span>
+        </span>
+      </div>
       <div>{{offer.expert.current_position}} {{offer.expert.current_year | careerYear}}</div>
       <div class="expert-exp">
         <strong>Category Experience:</strong> {{offer.experience}} years</div>

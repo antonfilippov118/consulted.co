@@ -109,7 +109,8 @@ app.directive 'result', [
 ]
 
 app.directive 'offer', [
-  () ->
+  'Bookmark'
+  BookmarkDirective = (Bookmark) ->
     replace: yes
     templateUrl: 'offer'
     scope:
@@ -130,5 +131,9 @@ app.directive 'offer', [
 
       scope.toggleCareer = () ->
         allCareer = !allCareer
+
+      scope.bookmark = (expert) ->
+        expert.bookmarked = !expert.bookmarked
+        Bookmark.send expert
 
 ]

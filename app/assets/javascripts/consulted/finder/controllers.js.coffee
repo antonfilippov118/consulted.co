@@ -33,5 +33,4 @@ app.controller 'ResultCtrl', [
 
     scope.$on 'result', (_, result) ->
       scope.offers = result
-
 ]
