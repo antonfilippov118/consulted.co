@@ -17,10 +17,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing 'localhost:8080' will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 3000, host: 3000 # rails
   config.vm.network :forwarded_port, guest: 27_017, host: 27_018 # mongodb
+  config.vm.network :forwarded_port, guest: 1080, host: 1080 # mailcatcher
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network :private_network, ip: '192.168.33.10'
 
   config.ssh.forward_agent = true
 

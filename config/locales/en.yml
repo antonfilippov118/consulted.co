@@ -27,4 +27,10 @@ en:
         slug: 'Expert URL'
   devise:
     sessions:
+      user:
         signed_out: ''
+      investor:
+        signed_in: ''
+    registrations:
+      user:
+        signed_up: 'You are signed up! Please confirm your email address by clicking on the confirmation link in the welcome email.'
