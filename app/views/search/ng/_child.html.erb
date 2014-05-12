@@ -1,0 +1,19 @@
+<div class="result">
+  <h3>{{child.name}}</h3>
+  <hr class="no-margin">
+  <div ng-show="open()">
+    <p class="no-border" ng-if="child.description">{{child.description}}</p>
+    <p class="no-border" ng-if="child.seeker_gain">{{child.seeker_gain}}</p>
+  </div>
+  <div class="result-bottom">
+    <a class="result-info" ng-click="toggle()" ng-show="child.description || child.seeker_gain">
+      <span ng-hide="open()">
+        <span class="flaticon flaticon-info"></span>Learn more
+      </span>
+      <span ng-show="open()">
+        Close
+      </span>
+    </a>
+    <a ng-href="/groups/{{child.slug}}" class="btn btn-primary">Browse experts</a>
+  </div>
+</div>

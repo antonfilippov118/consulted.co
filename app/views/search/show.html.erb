@@ -1,5 +1,5 @@
 <div ng-app="consulted.browser" class="consulted-app browser" id="groups">
-  <% %w(bread lookup browse group categories learn popular).each do |partial| %>
+  <% %w(bread lookup browse group categories learn popular child).each do |partial| %>
   <script type="text/ng-template" id="<%= partial %>">
     <%= render partial: "search/ng/#{partial}" %>
   </script>

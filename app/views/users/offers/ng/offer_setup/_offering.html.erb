@@ -1,9 +1,16 @@
 <div class="result">
   <h3>{{group.name}}</h3>
-  <p>{{group.description}}</p>
+  <hr class="no-margin">
+  <div ng-show="open">
+    <p class="no-border" ng-if="group.description">{{group.description}}</p>
+    <p class="no-border" ng-if="group.seeker_gain">{{group.seeker_gain}}</p>
+  </div>
   <div class="result-bottom">
-    <a class="result-info" ng-click="learn(group)">
-      <span class="flaticon flaticon-info"></span>Learn more
+    <a class="result-info" ng-click="open = !open" ng-show="group.description || group.seeker_gain">
+      <span ng-hide="open">
+        <span class="flaticon flaticon-info"></span>Learn more
+      </span>
+      <span ng-show="open">Close</span>
     </a>
     <i class="fa fa-refresh fa-spin" ng-show="selecting"></i>
     <button ng-hide="selected(group)" type="button" class="btn btn-primary" ng-click="select(group)">Select</button>

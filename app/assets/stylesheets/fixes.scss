@@ -157,5 +157,13 @@
   }
 }
 
+.no-margin {
+  margin-top:0;
+}
+
+.no-border {
+  border-top: none !important;
+}
+
 @import 'filters';
 @import 'typeahead';

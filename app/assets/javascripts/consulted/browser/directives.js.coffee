@@ -53,3 +53,15 @@ app.directive 'bread', [
           scope.error = yes
 
 ]
+
+app.directive 'child', [
+  () ->
+    replace: yes
+    scope:
+      child: '='
+    templateUrl: 'child'
+    link: (scope) ->
+      open = no
+      scope.open = -> open
+      scope.toggle = -> open = !open
+]
