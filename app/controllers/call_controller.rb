@@ -26,6 +26,6 @@ class CallController < ApplicationController
   private
 
   def message
-    params[:message] != "false"
+    params[:message] != 'false'
   end
 end

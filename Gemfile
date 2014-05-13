@@ -28,6 +28,7 @@ gem 'country_select'
 gem 'rails_admin'
 gem 'twilio-ruby'
 gem 'liquid'
+gem 'ckeditor'
 
 group :production do
   gem 'unicorn'

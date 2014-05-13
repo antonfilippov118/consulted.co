@@ -78,24 +78,18 @@ RailsAdmin.config do |config|
       field :parent
       field :description
       field :seeker_gain
-      field :seeker_expectation
-      field :expert_background
-      field :length_gain
     end
 
     edit do
       field :name
-      field :description
-      field :seeker_gain
-      field :seeker_expectation
-      field :expert_background
-      field :length_gain
+      field :description, :ck_editor
+      field :seeker_gain, :ck_editor
       field :parent
       field :children
       field :tags
       field :prioritized do
         visible do
-          bindings[:group].leaf?
+          bindings[:object].leaf?
         end
       end
     end
