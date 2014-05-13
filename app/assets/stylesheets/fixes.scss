@@ -168,5 +168,11 @@
   border-top: none !important;
 }
 
+.info-learn {
+  @media (max-width: 400px) {
+    display: none;
+  }
+}
+
 @import 'filters';
 @import 'typeahead';
