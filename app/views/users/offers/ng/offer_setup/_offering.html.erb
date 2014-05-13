@@ -2,8 +2,11 @@
   <h3>{{group.name}}</h3>
   <hr class="no-margin">
   <div ng-show="open">
-    <p class="no-border" ng-if="group.description">{{group.description}}</p>
-    <p class="no-border" ng-if="group.seeker_gain">{{group.seeker_gain}}</p>
+    <div class="no-border" ng-if="group.description" ng-bind-html="group.description"></div>
+    <div class="no-border" ng-if="group.seeker_gain">
+      <h5><em>Typical questions asked</em></h5>
+      <div ng-bind-html="group.seeker_gain"></div>
+    </div>
   </div>
   <div class="result-bottom">
     <a class="result-info" ng-click="open = !open" ng-show="group.description || group.seeker_gain">

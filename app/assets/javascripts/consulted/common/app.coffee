@@ -1,4 +1,6 @@
-app = angular.module 'consulted.common', []
+app = angular.module 'consulted.common', [
+  'ngSanitize'
+]
 
 app.service 'GroupData', [
   '$http'

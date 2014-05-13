@@ -2,8 +2,11 @@
   <h3>{{child.name}}</h3>
   <hr class="no-margin">
   <div ng-show="open()">
-    <p class="no-border" ng-if="child.description">{{child.description}}</p>
-    <p class="no-border" ng-if="child.seeker_gain">{{child.seeker_gain}}</p>
+    <div class="no-border" ng-if="child.description" ng-bind-html="child.description"></div>
+    <div class="no-border" ng-if="child.seeker_gain">
+      <h5><em>Typical questions asked</em></h5>
+      <div ng-bind-html="child.seeker_gain"></div>
+    </div>
   </div>
   <div class="result-bottom">
     <a class="result-info" ng-click="toggle()" ng-show="child.description || child.seeker_gain">

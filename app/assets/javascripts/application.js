@@ -8,6 +8,7 @@
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
 //= require angular-route/angular-route
+//= require angular-sanitize/angular-sanitize
 //= require angular-bootstrap/ui-bootstrap
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-typeahead/angular-typeahead
