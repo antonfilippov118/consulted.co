@@ -215,12 +215,6 @@ RailsAdmin.config do |config|
       except %w(PlatformSettings EmailTemplate)
     end
 
-    show_in_app do
-      show do
-        bindings[:object].is_a?(Group) && bindings[:object].leaf?
-      end
-    end
-
     ## With an audit adapter, you can add:
     # history_index
     # history_show
