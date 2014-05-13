@@ -86,6 +86,7 @@ app.controller 'EditorCtrl', [
         windowClass: 'modal-learn'
         resolve:
           group: -> group.slug
+          browse: -> no
 
     scope.$on 'offers:update', fetch
     fetch()

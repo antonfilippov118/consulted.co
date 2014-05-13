@@ -41,6 +41,7 @@ app.controller "LookupCtrl", [
         windowClass: 'modal-learn'
         resolve:
           group: -> group.slug
+          browse: -> yes
 
     scope.options =
       highlight: yes
@@ -145,11 +146,13 @@ app.controller "WindowCtrl", [
   'GroupData'
   '$timeout'
   'group'
-  LearnWindowCtrl = (scope, modalInstance, GroupData, $timeout, group) ->
+  'browse'
+  LearnWindowCtrl = (scope, modalInstance, GroupData, $timeout, group, browse) ->
     $timeout ->
       $('.modal-dialog').addClass 'modal-lg'
     , 50
     scope.loading = yes
+    scope.browse  = browse
     GroupData.showGroup(group).then (groupData) ->
       scope.group = groupData
     , (err) ->

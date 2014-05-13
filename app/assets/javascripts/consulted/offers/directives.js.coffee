@@ -52,6 +52,7 @@ app.directive 'serviceOffering', [
           windowClass: 'modal-learn'
           resolve:
             group: -> group.slug
+            browse: -> no
       scope.selected = (offer) ->
         offer.slug in (scope.offers.map (o) -> o.slug)
 ]
