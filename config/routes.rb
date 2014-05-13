@@ -114,6 +114,8 @@ Consulted::Application.routes.draw do
     get page, controller: :static
   end
 
+  match '/assets/:ck_asset_name' => 'ck_assets#index', via: :get, ck_asset_name: /ckeditor\/.*/
+
   %w(404 422 500).each do |code|
     get "/#{code}", to: 'errors#show', code: code
   end

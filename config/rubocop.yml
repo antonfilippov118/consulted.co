@@ -5,6 +5,7 @@ AllCops:
   Excludes:
     - '**/vendor/**'
     - '**/benchmarks/**'
+    - '**/ckeditor/**'
     - Vagrantfile
     - Cheffile
     - !ruby/regexp /tmp|cookbooks|bin/
