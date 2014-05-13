@@ -94,7 +94,8 @@ Consulted::Application.routes.draw do
   get :contact, controller: 'contacts', action: 'new'
 
   namespace :call do
-    post '/', action: :handle
+    post '/', action: :welcome
+    post :enter, action: :enter_pin
     post :find, action: :lookup
   end
 
