@@ -173,10 +173,8 @@ RailsAdmin.config do |config|
     end
 
     show_in_app do
-      hide do
-        bindings[:object].is_a?(PlatformSettings) ||
-        bindings[:object].is_a?(EmailTemplate) ||
-        (bindings[:object].is_a?(Group) && bindings[:object].children?)
+      show do
+        bindings[:object].is_a?(Group) && bindings[:object].leaf?
       end
     end
 
