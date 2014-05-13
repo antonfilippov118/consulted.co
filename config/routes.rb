@@ -1,5 +1,6 @@
 Consulted::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   admin_controllers = {
     sessions: 'admins/sessions'
   }

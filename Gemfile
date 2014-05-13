@@ -29,6 +29,7 @@ gem 'rails_admin'
 gem 'twilio-ruby'
 gem 'liquid'
 gem 'ckeditor'
+gem 'mongoid-paperclip', require: 'mongoid_paperclip'
 
 group :production do
   gem 'unicorn'

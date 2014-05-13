@@ -51,6 +51,7 @@ module Consulted
     end)
 
     config.autoload_paths += Dir["#{config.root}/lib/liquid/**/"]
+    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
 
     config.exceptions_app = routes
   end
