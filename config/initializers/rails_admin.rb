@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
-  config.included_models = %w[User Group Admin PlatformSettings EmailTemplate Investor]
+  config.included_models = %w[User Group Admin PlatformSettings EmailTemplate Investor Call Offer]
 
   config.model User do
     list do
@@ -114,6 +114,49 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Call do
+    list do
+      field :seeker
+      field :expert
+      field :status do
+        def value
+          %w(none requested declined active cancelled)[bindings[:object].status]
+        end
+      end
+      field :pin
+    end
+
+    show do
+      field :seeker
+      field :expert
+      field :pin
+      field :message
+    end
+  end
+
+  config.model Offer do
+    list do
+      field :user
+      field :name do
+        label 'Service offering'
+      end
+      field :rate
+      field :experience
+      field :times do
+        def value
+          bindings[:object].lengths.join ', '
+        end
+      end
+    end
+
+    edit do
+      field :rate
+      field :description
+      field :experience
+      field :enabled
+    end
+
+  end
   config.model Admin do
     visible do
       bindings[:controller].current_admin.super_admin?
@@ -158,11 +201,11 @@ RailsAdmin.config do |config|
     index
 
     new do
-      except %w(PlatformSettings EmailTemplate)
+      except %w(PlatformSettings EmailTemplate Offer Call)
     end
 
     bulk_delete do
-      except %w(PlatformSettings EmailTemplate)
+      except %w(PlatformSettings EmailTemplate Offer Call)
     end
 
     show
