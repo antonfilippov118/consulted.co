@@ -5,7 +5,8 @@ module ConsultedTwilio
 
       name = "#{call.seeker.slug}_with_#{call.expert.slug}"
       ConsultedTwilio.response.new do |r|
-        r.Say 'Thanks'
+        r.Say 'Thanks', voice: ConsultedTwilio::VOICE
+        r.Pause length: 2
         r.Dial do
           r.Conference name, waitUrl: 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.soft-rock'
         end
