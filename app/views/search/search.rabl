@@ -7,7 +7,7 @@ node :likes do |offer|
   0
 end
 child :expert => :expert do
-  attributes :name, :slug
+  attributes :name, :slug, :next_possible_call
   node :image do |user|
     user.profile_image.url
   end
@@ -15,10 +15,12 @@ child :expert => :expert do
     "#{root_url}#{user.slug}"
   end
   node :current_position do |user|
-    user.companies.current.position
+    return user.companies.current.position if user.companies.current
+    ""
   end
   node :current_year do |user|
-    user.companies.current.from
+    return user.companies.current.from if user.companies.current
+    ""
   end
   child({ past_companies: :companies }, if: :shares_career?) do
     attribute :name, :position, :from, :to

@@ -8,6 +8,7 @@ class User
   include Indexable::User
   include Liquidatable::User
   include Geo::Continent
+  include Available
 
   extend Dragonfly::Model
 

@@ -13,9 +13,9 @@ class MatchExpertAvailabilities
     executed do |context|
       days = context.fetch :days
       if days.any?
-        availabilities = Availability.with_date days
+        availabilities = Availability.future.with_date days
       else
-        availabilities = Availability.next_days(14)
+        availabilities = Availability.future.next_days(14)
       end
       context[:expert_availabilities] = availabilities.group_by(&:user)
     end
@@ -26,11 +26,13 @@ class MatchExpertAvailabilities
 
     executed do |context|
       mapping = context.fetch :expert_availabilities
+      experts = context.fetch :experts
       mapping.reject do |expert, availabilities|
-        rest = availabilities.keep(&:blocks_available?)
-        rest.any?
+        availabilities.keep_if(&:call_possible?).any?
       end
-      # assign expert ids with availabilities left
+
+      ids = mapping.map { |expert, availabilities| expert.id }
+      context[:experts] = experts.where id: { :$in => ids }
     end
   end
 end

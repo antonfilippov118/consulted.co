@@ -51,6 +51,9 @@
     <div class="expert-end">
       <div class="expert-act">
         <% if user_signed_in? %>
+          {{offer.expert.next_possible_call | moment:'MMMM DD, YYYY'}}
+          <br>
+          {{offer.expert.next_possible_call | moment:'HH:mm'}}
           <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
         <% else %>
           <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>

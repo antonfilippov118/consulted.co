@@ -20,11 +20,13 @@ class TimeBlock
   end
 
   def block!
-    update_attribute :status, TimeBlock::Status::BLOCKED
+    self.status = TimeBlock::Status::BLOCKED
+    save
   end
 
   def book!
-    update_attribute :status, TimeBlock::Status::BOOKED
+    self.status = TimeBlock::Status::BOOKED
+    save
   end
 
   class Status
@@ -37,6 +39,7 @@ class TimeBlock
   scope :blocked, -> { where status: TimeBlock::Status::BLOCKED }
   scope :booked, -> { where status: TimeBlock::Status::BOOKED }
   scope :with_start, -> start { where start: start }
+  scope :with_starts, -> starts { where start: { :$in => starts } }
 
   private
 

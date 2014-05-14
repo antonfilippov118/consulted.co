@@ -35,7 +35,7 @@ describe RequestsAnExpert do
     user = User.create valid_params
     user.confirm!
     expert = User.create valid_params.merge email: 'florian1@consulted.co', linkedin_network: 10_000
-    expert.availabilities.create starts: Time.now, ends: Time.now + 5.hours
+    expert.availabilities.create start: Time.now, end: Time.now + 5.hours
     expert.confirm!
     expert.offers.create group: group, rate: 20, experience: 5
   end

@@ -75,7 +75,8 @@ class FindsOffers
     executed do |context|
       params  = context.fetch :params
       experts = context.fetch :experts
-      result  = ::MatchExpertAvailabilities.for(experts, params[:days])
+      days    = params[:days] || []
+      result  = ::MatchExpertAvailabilities.for(experts, days)
       context[:experts] = result.fetch :experts
     end
   end

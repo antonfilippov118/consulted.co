@@ -12,8 +12,10 @@ class Availability
   field :date
 
   validates_presence_of :user, :starting, :ending
+  scope :future, -> { where ending: { :$gte => Time.now } }
   scope :with_date, -> dates { where date: { :$in => dates } }
   scope :next_days, -> days { where ending: { :$lte => days.days.from_now } }
+  scope :within, -> starting, ending { where starting: { :$lte => starting }, ending: { :$gte => ending } }
 
   def start=(time)
     self.starting = Time.at(time.to_i - (time.to_i % BLOCK))
@@ -36,9 +38,17 @@ class Availability
   def next_possible_time
     return false unless call_possible?
     intervals = blocks.map { |b| [b.status == TimeBlock::Status::FREE, b.start] }
-    candidates = intervals.chunk { |b| b[0] == true }.map { |b, c| { viable: b && c.length > 5, time: c.map(&:last).sort.min } }
-    viable = candidates.reject { |c| c[:viable] == false }.map { |c| c[:time] }.min
-    Time.at viable
+    candidates = intervals.chunk { |b| b[0] == true }.map { |b, c| { viable: b && c.length > 5, time: c.map(&:last).reject { |time|  time < Time.now.to_i }.sort.min } }
+    viables = candidates.reject { |c| c[:viable] == false }.map { |c| c[:time] }
+    Time.at viables.sort.min
+  end
+
+  def book!(start, length)
+    set_status! start, length, :book
+  end
+
+  def block!(start, length)
+    set_status! start, length, :block
   end
 
   private
@@ -51,6 +61,18 @@ class Availability
         blocks.create starting: start
       end
       start += TimeBlock::LENGTH
+    end
+  end
+
+  def set_status!(start, length, state)
+    interval = length / (BLOCK / 60)
+    fail 'cannot use length!' unless interval.is_a? Integer
+    starts = interval.times.map { |n| start + (n * 5).minutes }.map(&:to_i)
+    blocks.with_starts(starts).to_a.each do |block|
+      case state
+      when :book then block.book!
+      when :block then block.block!
+      end
     end
   end
 

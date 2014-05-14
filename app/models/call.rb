@@ -17,9 +17,9 @@ class Call
   belongs_to :offer
 
   field :pin, type: Integer, default: -> { Call.generate_unique_pin }
+  field :length, type: Integer
   field :active_from, type: DateTime
   field :active_to, type: DateTime
-  field :length, type: Integer
   field :status, type: Integer, default: Call::Status::REQUESTED
   field :message, type: String
 
@@ -33,13 +33,17 @@ class Call
 
   alias_method :topic, :name
 
+  def confirm!
+    self.status = Call::Status::ACTIVE
+    save
+  end
+
   def active?
     status == Call::Status::ACTIVE
   end
 
   scope :future, -> { where active_to: { :$gte => Time.now } }
   scope :past, -> { where active_to: { :$lte => Time.now } }
-  scope :between, -> starting, ending { where active_from: { :$lte => starting }, active_to: { :$gte => ending } }
   scope :by_pin, -> pin { where pin: pin }
   scope :by, -> user { where seeker: user }
   scope :to, -> user { where expert: user }
@@ -51,14 +55,21 @@ class Call
 
   private
 
-  after_save :set_blocks!
+  before_save :ending!
+  after_save :book!
 
   def self.generate_unique_pin
     SecureRandom.random_number(999_999)
   end
 
-  def set_blocks!
-
+  def ending!
+    self.active_to = active_from + length.minutes
   end
 
+  def book!
+    if active?
+      availability = expert.availabilities.within(active_from, active_to).first
+      availability.book! active_from, length
+    end
+  end
 end
