@@ -28,47 +28,16 @@
             </div>
           <% end %>
           <h1>Choose your options</h1>
-          <div class="fexp-block">
+          <div class="fexp-block" dates>
             <div class="fexp-head">
               Availability Day
-              <a href="#" class="btn btn-default btn-xs">All</a>
-              <a href="#" class="btn btn-primary btn-xs">Specific Date</a>
+              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':fortnight(),'btn-default':!fortnight()}">Fortnight</a>
+              <a ng-click="specific()" class="btn btn-xs" ng-class="{'btn-primary':!fortnight(),'btn-default':fortnight()}">Specific Date</a>
             </div>
             <div class="fexp-body fexp-body-7 clr">
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group1[]" value="value1">
-                <div class="round"></div>Sunday
-                <small>20 mar</small>
-              </label>
-              <label class="check round-check in">
-                <input type="checkbox" name="chk_group1[]" value="value2" checked="">
-                <div class="round"></div>Monday
-                <small>21 mar</small>
-              </label>
-              <label class="check round-check in">
-                <input type="checkbox" name="chk_group1[]" value="value3" checked="">
-                <div class="round"></div>Tuesday
-                <small>22 mar</small>
-              </label>
-              <label class="check round-check in">
-                <input type="checkbox" name="chk_group1[]" value="value4" checked="">
-                <div class="round"></div>Wednesday
-                <small>23 mar</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group1[]" value="value5">
-                <div class="round"></div>Thursday
-                <small>24 mar</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group1[]" value="value6">
-                <div class="round"></div>Friday
-                <small>25 mar</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group1[]" value="value7">
-                <div class="round"></div>Saturday
-                <small>26 mar</small>
+              <label ng-click="toggle(day)" class="check round-check" ng-class="{'in':selected(day)}" ng-repeat="day in days">
+                <div class="round"></div>{{day | moment:'ddd'}}
+                <small>{{day | moment:'MMM DD'}}</small>
               </label>
             </div>
           </div>
@@ -186,10 +155,12 @@
           </div>
         </div>
         <div class="col-md-5 text-center" bookmark>
-          <label id="onlybook" class="check" ng-class="{'in':isActive()}">
-            <input type="checkbox" ng-click="toggle()">
-            Search only my bookmarks
-          </label>
+          <% if user_signed_in? %>
+            <label id="onlybook" class="check" ng-class="{'in':isActive()}">
+              <input type="checkbox" ng-click="toggle()">
+              Search only my bookmarks
+            </label>
+          <% end %>
         </div>
       </div>
     </div>

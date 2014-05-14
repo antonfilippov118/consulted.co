@@ -34,12 +34,12 @@ class Call
   alias_method :topic, :name
 
   def active?
-    active_from <= Time.now && Time.now <= active_to
+    status == Call::Status::ACTIVE
   end
 
-  # scope :active, -> { where active_from: { :$lte => Time.now }, active_to: { :$gte => Time.now } }
-  scope :future, -> { where active_from: { :$gte => Time.now } }
+  scope :future, -> { where active_to: { :$gte => Time.now } }
   scope :past, -> { where active_to: { :$lte => Time.now } }
+  scope :between, -> starting, ending { where active_from: { :$lte => starting }, active_to: { :$gte => ending } }
   scope :by_pin, -> pin { where pin: pin }
   scope :by, -> user { where seeker: user }
   scope :to, -> user { where expert: user }
@@ -51,7 +51,14 @@ class Call
 
   private
 
+  after_save :set_blocks!
+
   def self.generate_unique_pin
     SecureRandom.random_number(999_999)
   end
+
+  def set_blocks!
+
+  end
+
 end

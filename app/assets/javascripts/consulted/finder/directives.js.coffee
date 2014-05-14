@@ -72,6 +72,20 @@ app.directive 'experience', [
 
 ]
 
+app.directive 'dates', [
+  'Date'
+  (Date) ->
+    replace: no
+    scope: yes
+    link: (scope) ->
+      scope.days      = Date.availableDays()
+      scope.fortnight = -> Date.isFortnight()
+      scope.all       = -> Date.fortnight yes
+      scope.specific  = -> Date.fortnight no
+      scope.toggle    = Date.toggle
+      scope.selected  = Date.selected
+]
+
 app.directive 'bookmark', [
   'Bookmark'
   (Bookmark) ->

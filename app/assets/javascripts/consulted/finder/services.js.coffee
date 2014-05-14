@@ -110,6 +110,51 @@ app.service 'Continent', [
       trigger()
 ]
 
+app.service 'Date', [
+  'Search'
+  Date = (Search) ->
+    fortnight = yes
+
+    days = []
+
+    selected = (day) ->
+      return no if fortnight is yes
+      for _day in days
+        if day.isSame _day, 'date'
+          return yes
+      no
+
+    trigger = () ->
+      if fortnight
+        data = { days: [] }
+      else
+        data = { days: days.map (day) -> day.format 'YYYY-MM-DD' }
+      Search.trigger(data)
+
+    availableDays: () ->
+      [0..6].map (days) ->
+        moment().add days, 'day'
+
+    fortnight: (bool) ->
+      fortnight = bool
+      trigger()
+
+    isFortnight: -> fortnight
+
+    toggle: (day) ->
+      fortnight = no
+      idx = days.indexOf day
+      if idx > -1
+        days.splice idx, 1
+      else
+        days.push day
+      fortnight = days.length is 0
+      trigger()
+
+    selected: selected
+
+]
+
 app.service 'Bookmark', [
   'Search'
   '$http'
@@ -201,7 +246,7 @@ app.service 'Search', [
 
     trigger: (options, timeoutValue = 1000) ->
       timeout.cancel timer if timer?
-      timeout ->
+      timer = timeout ->
         save options
       , timeoutValue
 ]
