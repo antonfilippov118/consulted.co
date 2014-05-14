@@ -5,7 +5,7 @@ class PlatformSettings
   field :platform_fee, type: Integer, default: 15
   field :cancellation_fee, type: Integer, default: 50
   field :cancellation_period, type: Integer, default: 12
-  field :call_dispute_period, type: Integer, default: 0
+  field :call_dispute_period, type: Integer, default: 24
   field :block_time, type: Integer, default: 10
   field :session_timeout, type: Integer, default: 0
   field :required_network, type: Integer, default: 10

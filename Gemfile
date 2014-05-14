@@ -30,7 +30,7 @@ gem 'twilio-ruby'
 gem 'liquid'
 gem 'ckeditor'
 gem 'mongoid-paperclip', require: 'mongoid_paperclip'
-gem "non-stupid-digest-assets"
+gem 'non-stupid-digest-assets'
 
 group :production do
   gem 'unicorn'
