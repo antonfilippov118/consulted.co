@@ -3,6 +3,7 @@ SITE
   specs:
     apt (2.3.8)
     build-essential (1.4.4)
+    cmake (0.2.0)
     python (1.4.6)
       build-essential (>= 0.0.0)
       yum-epel (>= 0.0.0)
@@ -53,6 +54,14 @@ GIT
       yum-epel (>= 0.0.0)
 
 GIT
+  remote: https://github.com/phlipper/chef-libqt4
+  ref: master
+  sha: 3bec9de4a0693ed4281a186063268dd3fe6f00c4
+  specs:
+    libqt4 (0.1.0)
+      cmake (>= 0.0.0)
+
+GIT
   remote: https://github.com/someara/imagemagick
   ref: master
   sha: 891a842ad71a8dadc5ec6ed4fa564493e71e2bce
@@ -63,6 +72,7 @@ DEPENDENCIES
   apt (>= 0)
   build-essential (>= 0)
   imagemagick (>= 0)
+  libqt4 (>= 0)
   mongodb (>= 0)
   nodejs (>= 0)
   npm (>= 0)

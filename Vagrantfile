@@ -47,6 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'mongodb::default'
 
     chef.add_recipe 'imagemagick'
+    chef.add_recipe 'libqt4::dev'
 
     chef.json = {
       rbenv: {
