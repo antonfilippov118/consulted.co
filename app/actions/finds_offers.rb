@@ -7,6 +7,7 @@ class FindsOffers
       FindExperts,
       FilterExpertsByLanguages,
       FilterExpertsByContinents,
+      MatchTimes,
       FindOffers,
       FilterOffersByRate,
       FilterOffersByExperience
@@ -30,7 +31,16 @@ class FindsOffers
   class FindExperts
     include LightService::Action
     executed do |context|
-      experts = User.experts
+      params     = context.fetch :params
+      bookmarked = params.fetch  :bookmark
+      user       = context.fetch :user
+      experts    = User.experts.available
+
+      if bookmarked && !user.nil?
+        bookmarks = user.favorites.map &:favorite_id
+        experts = experts.any_in id: bookmarks
+      end
+
       context[:experts] = experts
     end
   end
@@ -56,6 +66,14 @@ class FindsOffers
       experts    = context.fetch :experts
       continents = params.fetch :continents
       context[:experts] = experts.with_continent continents
+    end
+  end
+
+  class MatchTimes
+    include LightService::Action
+
+    executed do |context|
+
     end
   end
 
