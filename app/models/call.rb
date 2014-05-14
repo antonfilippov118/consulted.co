@@ -8,6 +8,8 @@ class Call
     DECLINED  = 2
     ACTIVE    = 3
     CANCELLED = 4
+    COMPLETED = 5
+    DISPUTED  = 6
   end
 
   belongs_to :expert, class_name: 'User', foreign_key: 'expert_id', inverse_of: :experts
