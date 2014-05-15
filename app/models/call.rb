@@ -2,6 +2,7 @@ class Call
   include Mongoid::Document
   include Mongoid::Timestamps
   include Liquidatable::Call
+  include Scopable::Call
 
   class Status
     REQUESTED = 1
@@ -42,17 +43,6 @@ class Call
     status == Call::Status::ACTIVE
   end
 
-  scope :future, -> { where active_to: { :$gte => Time.now } }
-  scope :past, -> { where active_to: { :$lte => Time.now } }
-  scope :by_pin, -> pin { where pin: pin }
-  scope :by, -> user { where seeker: user }
-  scope :to, -> user { where expert: user }
-  scope :for, -> user { any_of({ seeker: user }, { expert: user }) }
-  scope :active, -> { where status: Call::Status::ACTIVE }
-  scope :requested, -> { where status: Call::Status::REQUESTED }
-  scope :declined, -> { where status: Call::Status::DECLINED }
-  scope :cancelled, -> { where status: Call::Status::CANCELLED }
-
   private
 
   before_save :ending!
@@ -68,8 +58,8 @@ class Call
 
   def book!
     if active?
-      availability = expert.availabilities.within(active_from, active_to).first
-      availability.book! active_from, length
+      availability = expert.availabilities.within(active_from.utc, active_to.utc).first
+      availability.book! active_from.utc, length
     end
   end
 end

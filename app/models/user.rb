@@ -124,10 +124,6 @@ class User
     providers.include? 'linkedin'
   end
 
-  def remind_confirmation?
-    !confirmed? && confirmation_sent_at + 48.hours - Time.now <= 24.hours
-  end
-
   def notification_email
     contact_email || email
   end

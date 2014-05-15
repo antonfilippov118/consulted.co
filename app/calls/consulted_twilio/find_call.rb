@@ -22,7 +22,7 @@ module ConsultedTwilio
         end
 
         begin
-          call = Call.active.by_pin(pin).first
+          call = Call.active.callable.by_pin(pin).first
           context[:call] = call
           fail if call.nil?
         rescue => e

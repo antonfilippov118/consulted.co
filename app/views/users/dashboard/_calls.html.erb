@@ -3,35 +3,7 @@
   <table class="overview-table table table-striped">
     <tbody>
       <% if @next_7_days.any? %>
-        <% @next_7_days.each do |call| %>
-          <tr class="<%= call_class(call) %>">
-            <td><%= call_status(call) %></td>
-            <td>
-              Call with <%= name_link(call) %>
-              <% if call.message.present? and expert?(call) %>
-                <span class="flaticon flaticon-info help" data-toggle="tooltip" data-placement="top" title="" data-original-title="<%= call.message %>">
-              <% end %>
-            </td>
-            <td><%= request_status(call) %></td>
-            <td>
-              <% if active? call %>
-                PIN: <%= call.pin %>
-              <% end %>
-            </td>
-            <td>
-              <% if expert?(call) and pending?(call) %>
-                <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>
-                <%= link_to 'decline', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
-              <% end %>
-              <% if seeker?(call) and pending?(call) %>
-                <%= link_to 'abandon', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
-              <% end %>
-              <% if cancellable?(call) and !pending?(call) %>
-                <%= link_to 'cancel', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
+      <%= render partial: 'row', collection: @next_7_days, as: :call %>
       <% else %>
         <tr>
           <td colspan="3">The are are no calls in the next 7 days.</td>
@@ -45,17 +17,10 @@
   <table class="overview-table table table-striped">
     <tbody>
       <% if @after_7_days.any? %>
-        <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Scheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-        </td>
-      </tr>
+      <%= render partial: 'row', collection: @after_7_days, as: :call %>
       <% else %>
         <tr>
-          <td colspan="3">The are are no calls in the next 7 days.</td>
+          <td colspan="3">The are are no calls in 7 days or more.</td>
           <td></td>
         </tr>
       <% end %>
