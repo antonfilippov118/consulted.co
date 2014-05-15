@@ -67,7 +67,7 @@ Consulted::Application.routes.draw do
       get :success
     end
 
-    resources :calls, only: [], controller: 'users/calls' do
+    resources :calls, only: [:index], controller: 'users/calls' do
       patch :confirm
       patch :cancel
     end

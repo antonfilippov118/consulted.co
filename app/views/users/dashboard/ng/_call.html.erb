@@ -1,0 +1,16 @@
+<tbody>
+  <tr class="{{call.class}}">
+    <td>{{call.status}}</td>
+    <td>
+      {{call.active_from}} with {{call.partner_name}}
+    </td>
+    <td>{{call.request_status}}</td>
+    <td></td>
+    <td>
+      <span ng-show="call.active">PIN: {{call.pin}}</span>
+    </td>
+    <td>
+      controls
+    </td>
+  </tr>
+</tbody>
