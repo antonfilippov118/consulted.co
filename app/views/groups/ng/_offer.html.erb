@@ -9,7 +9,7 @@
       </div>
       <div class="expert-name heading2">
         {{offer.expert.name}}
-        <span id="bookmark">
+        <span id="bookmark" ng-hide="offer.expert.slug === '<%= @user.slug %>'">
           <span ng-show="offer.expert.bookmarked">
             <span class="fa fa-star" ng-click="bookmark(offer.expert)"></span>
           </span>

@@ -39,6 +39,16 @@ describe Availability do
     expect(a.maximum_call_length(offer)).to eql 45
   end
 
+  it 'should deliver the maximum call length' do
+    user = User.create valid_params.merge start_delay: 0
+    a = Availability.new user: user, start: Time.now, end: Time.now + 150.minutes
+    a.save
+    group = Group.create name: 'foo'
+    offer = user.offers.create rate: 200, experience: 30, group: group, lengths: [30, 45, 90, 120]
+
+    expect(a.maximum_call_length(offer)).to eql 120
+  end
+
   it 'should include the start delay' do
     user = User.create valid_params.merge start_delay: 10
     a = Availability.new user: user, start: Time.now, end: Time.now + 60.minutes

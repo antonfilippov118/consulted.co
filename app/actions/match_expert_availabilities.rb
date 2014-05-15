@@ -13,10 +13,11 @@ class MatchExpertAvailabilities
     include LightService::Action
     executed do |context|
       days  = context.fetch :days
+      experts = context.fetch(:experts).map(&:id)
       if days.any?
-        availabilities = Availability.future.with_date days
+        availabilities = Availability.for(experts).future.with_date days
       else
-        availabilities = Availability.future.next_days(14)
+        availabilities = Availability.for(experts).future.next_days(14)
       end
 
       context[:expert_availabilities] = availabilities.group_by(&:user)
@@ -27,11 +28,11 @@ class MatchExpertAvailabilities
     include LightService::Action
 
     def self.fits(time, times, user = nil)
-      unless user.nil?
-        time = Time.at(time).in_time_zone(user.timezone)
-      end
+      time  = Time.at(time).in_time_zone(user.timezone) unless user.nil?
       value = time.hour.to_f + time.min.to_f / 60
-      times.map { |obj| obj[:from] <= value  && value <= obj[:to] }.include? true
+      times.map do |obj|
+        obj[:from] <= value && obj[:to] <= value
+      end.include? true
     end
 
     executed do |context|
@@ -58,7 +59,7 @@ class MatchExpertAvailabilities
           end
         end
         ids = mapping.map { |expert, availabilities| expert.id }
-      rescue => e
+      rescue
         ids = []
       end
 
