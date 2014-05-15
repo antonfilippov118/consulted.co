@@ -1,6 +1,7 @@
 class Availability
   include Mongoid::Document
   include Scopable::Availability
+  include Blockable
 
   BLOCK = 5.minutes
 
@@ -50,14 +51,6 @@ class Availability
     last
   end
 
-  def book!(start, length)
-    set_status! start, length, :book
-  end
-
-  def block!(start, length)
-    set_status! start, length, :block
-  end
-
   private
 
   def viable_params?(b, c, offer = nil)
@@ -81,44 +74,8 @@ class Availability
     candidates.map { |b, c| viable_params?(b, c, offer) }.reject { |c| c[:viable] == false || c[:blocks] == false }
   end
 
-  def update_blocks!
-    start = starting
-    while start < ending
-      block = blocks.with_start(start.to_i).exists?
-      unless block
-        blocks.create(starting: start)
-      end
-      start += TimeBlock::LENGTH
-    end
-  end
-
-  def minimum_blocks_for(offer = nil)
-    return 5 if offer.nil?
-    offer.lengths.min / 5 - 1
-  end
-
-  def enough_blocks?(times, offer = nil)
-    times.length >= minimum_blocks_for(offer)
-  end
-
-  def set_status!(start, length, state)
-    interval = length / (BLOCK / 60)
-    fail 'cannot use length!' unless interval.is_a? Integer
-    starts = interval.times.map { |n| start + (n * 5).minutes }.map(&:to_i)
-    blocks.with_starts(starts).to_a.each do |block|
-      case state
-      when :book then block.book!
-      when :block then block.block!
-      end
-    end
-  end
-
   before_save do
     self.date = starting.strftime '%Y-%m-%d'
-  end
-
-  after_save do
-    update_blocks!
   end
 
   index date: 1

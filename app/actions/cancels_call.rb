@@ -67,6 +67,8 @@ class CancelsCall
         else context.fail! 'Cannot cancel this call properly!'
         end
       rescue => e
+        binding.pry
+
         context.fail! e
       end
     end
@@ -83,18 +85,18 @@ class CancelsCall
     end
 
     def self.cancellation_emails(call, user)
-      return SendNotification.expert_cancelled if user == call.expert?
-      SendNotifications.seeker_cancelled
+      return SendNotification.expert_cancelled(call) if user == call.expert?
+      SendNotifications.seeker_cancelled(call)
     end
 
-    def self.expert_cancelled
+    def self.expert_cancelled(call)
       [
         CallMailer.call_cancelled_by_expert_to_seeker(call),
         CallMailer.call_cancelled_by_expert_to_expert(call)
       ]
     end
 
-    def self.seeker_cancelled
+    def self.seeker_cancelled(call)
       [
         CallMailer.call_cancelled_by_seeker_to_seeker(call),
         CallMailer.call_cancelled_by_seeker_to_expert(call)

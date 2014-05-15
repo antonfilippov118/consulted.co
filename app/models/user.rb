@@ -125,7 +125,7 @@ class User
   end
 
   def notification_email
-    contact_email || email
+    contact_email.presence || email
   end
 
   def password_match?

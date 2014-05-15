@@ -1,6 +1,6 @@
 <tbody>
   <tr class="{{call.class}}">
-    <td>{{call.status}}</td>
+    <td>{{call.status_name}}</td>
     <td>
       {{call.active_from}} with {{call.partner_name}}
     </td>
@@ -9,8 +9,11 @@
     <td>
       <span ng-show="call.active">PIN: {{call.pin}}</span>
     </td>
-    <td>
-      controls
+    <td ng-show="call.controllable">
+      <a ng-click="confirm(call)" class="link-confirm" ng-show="!call.active && call.expert">confirm</a>
+      <a ng-click="cancel(call)" class="link-cancel" ng-show="!call.active && call.seeker">abandon</a>
+      <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">deny</a>
+      <a ng-click="cancel(call)" class="link-cancel" ng-show="call.active">cancel</a>
     </td>
   </tr>
 </tbody>

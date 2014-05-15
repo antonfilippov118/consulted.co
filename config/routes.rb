@@ -55,7 +55,6 @@ Consulted::Application.routes.draw do
     resources :requests, controller: 'users/requests', except: [:new] do
       member do
         patch :cancel
-        patch :decline
         patch :accept
       end
       collection do
@@ -68,8 +67,8 @@ Consulted::Application.routes.draw do
     end
 
     resources :calls, only: [:index], controller: 'users/calls' do
-      patch :confirm
-      patch :cancel
+      put :confirm
+      delete :cancel
     end
 
     get :contact_email, controller: 'users/dashboard', action: :contact

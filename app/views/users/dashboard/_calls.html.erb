@@ -8,7 +8,7 @@
           <td></td>
         </tr>
       </tbody>
-      <tbody no-calls ng-show="new_calls.length == 0" text="There are no calls within the next 7 days.">
+      <tbody no-calls ng-show="!loading && new_calls.length === 0" text="There are no calls within the next 7 days.">
       </tbody>
       <tbody call="call" class="ng-cloak" ng-repeat="call in new_calls" ng-show="new_calls.length > 0">
       </tbody>
@@ -22,13 +22,13 @@
           <td></td>
         </tr>
       </tbody>
-      <tbody no-calls ng-show="new_calls.length == 0" text="There are no calls in seven days or more.">
+      <tbody no-calls ng-show="!loading && future_calls.length == 0" text="There are no calls in seven days or more.">
       </tbody>
       <tbody call="call" class="ng-cloak" ng-repeat="call in future_calls" ng-show="!loading && future_calls.length > 0">
       </tbody>
     </table>
   </div>
-  <% %w(call no_call).each do |partial| %>
+  <% %w(call no_call confirm cancel).each do |partial| %>
     <script type="text/ng-template" id="<%= partial %>">
       <%= render partial: "users/dashboard/ng/#{partial}" %>
     </script>

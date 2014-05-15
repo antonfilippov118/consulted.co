@@ -6,7 +6,7 @@ module Scopable
     included do
       scope :future, -> { where active_to: { :$gte => Time.now } }
       scope :past, -> { where active_to: { :$lte => Time.now } }
-      scope :callable, -> { where active_from: { :$lte => Time.now + 30.minutes }, active_to: { :$gte => Time.now } }
+      scope :callable, -> { where active_from: { :$lte => (Time.now + 30.minutes) }, active_to: { :$gte => Time.now } }
       scope :by_pin, -> pin { where pin: pin }
       scope :by, -> user { where seeker: user }
       scope :to, -> user { where expert: user }

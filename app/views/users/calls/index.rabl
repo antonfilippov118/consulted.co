@@ -1,9 +1,12 @@
 collection @calls
-attributes :message, :pin, :length, :active?
+attributes :message, :pin, :length, :status
+node :active do |c|
+  c.active?
+end
 node :id do |call|
   call.id.to_s
 end
-node :status do |call|
+node :status_name do |call|
   call_status(call)
 end
 node :request_status do |call|
@@ -26,4 +29,7 @@ node :class do |call|
 end
 node :partner_name do |call|
   partner_for(call).name
+end
+node :controllable do |call|
+  [Call::Status::REQUESTED, Call::Status::ACTIVE].include? call.status
 end

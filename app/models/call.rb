@@ -43,10 +43,15 @@ class Call
     status == Call::Status::ACTIVE
   end
 
+  def cancelled?
+    status == Call::Status::CANCELLED
+  end
+
   private
 
   before_save :ending!
   after_save :book!
+  after_destroy :free!
 
   def self.generate_unique_pin
     SecureRandom.random_number(999_999)
@@ -57,9 +62,17 @@ class Call
   end
 
   def book!
+    availability = expert.availabilities.within(active_from.utc, active_to.utc).first
     if active?
-      availability = expert.availabilities.within(active_from.utc, active_to.utc).first
       availability.book! active_from.utc, length
     end
+    if cancelled?
+      availability.free! active_from.utc, length
+    end
+  end
+
+  def free!
+    availability = expert.availabilities.within(active_from.utc, active_to.utc).first
+    availability.free!
   end
 end

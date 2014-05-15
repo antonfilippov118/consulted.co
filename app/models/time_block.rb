@@ -29,6 +29,11 @@ class TimeBlock
     save
   end
 
+  def free!
+    self.status = TimeBlock::Status::FREE
+    save
+  end
+
   class Status
     FREE    = 0
     BLOCKED = 1
