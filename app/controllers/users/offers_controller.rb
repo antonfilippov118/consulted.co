@@ -1,5 +1,7 @@
 class Users::OffersController < Users::BaseController
   before_filter :user_is_expert?, only: [:review]
+  before_filter :date?, only: [:review]
+  before_filter :blocks_available?, only: [:review]
   def show
     title! 'Offer your time'
   end
@@ -55,7 +57,7 @@ class Users::OffersController < Users::BaseController
   end
 
   def request_params
-    params.require(:call).permit :message, :offer, :expert, :length, :start
+    params.require(:call).permit :message, :offer, :expert, :length, :start, :active_from
   end
 
   def user_is_expert?
@@ -63,6 +65,20 @@ class Users::OffersController < Users::BaseController
     @expert  = @offer.expert
     if @expert == @user
       redirect_to group_path(@offer.group)
+    end
+  end
+
+  def date?
+    date = params[:date]
+    redirect_to root_path if date.nil?
+    @dates = [date]
+  end
+
+  def blocks_available?
+    time = @expert.next_possible_call @offer, @dates
+    if time == false
+      flash[:alert] = 'The expert is no longer available!'
+      redirect_to root_url
     end
   end
 end

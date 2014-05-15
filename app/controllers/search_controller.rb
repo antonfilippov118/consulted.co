@@ -6,7 +6,7 @@ class SearchController < ApplicationController
 
   def search
     result  = FindsOffers.for search_params, @user
-    @dates  = search_params.fetch :days
+    @dates  = search_params[:days] || []
     @offers = result.fetch :offers
   end
 end

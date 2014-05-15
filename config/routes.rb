@@ -35,7 +35,7 @@ Consulted::Application.routes.draw do
     end
 
     resources :offers, only: [:create], controller: 'users/offers' do
-      get :review
+      get '/review/:date', action: :review
     end
 
     get :history, controller: 'users/dashboard', action: :history, path: 'history'

@@ -9,7 +9,6 @@ module Available
     end
 
     def next_times(offer = nil, dates = [])
-
       avail(dates).future.map { |a| a.next_possible_time offer }.reject { |value| !!value == false }
     end
 

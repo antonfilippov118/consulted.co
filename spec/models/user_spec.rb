@@ -132,14 +132,4 @@ describe User do
       expect(User.first.region).to eql 'Western Europe'
     end
   end
-
-  describe 'available times' do
-    it 'should be able to tell when the next available call time is' do
-      user = User.create valid_params
-      user.confirm!
-      user.availabilities.create start: Time.now, end: Time.now + 120.minutes
-
-      expect(user.next_possible_call).to eql Time.at user.availabilities.first.starting
-    end
-  end
 end

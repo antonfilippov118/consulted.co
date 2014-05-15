@@ -80,4 +80,8 @@ class ApplicationMailer < ActionMailer::Base
       'privacy_url' => privacy_url
     }
   end
+
+  def format
+    '%A, %B %-d %Y, %I:%M%P'
+  end
 end

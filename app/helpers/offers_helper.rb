@@ -19,4 +19,8 @@ module OffersHelper
   def next_call(offer, dates = [])
     offer.expert.next_possible_call offer, dates
   end
+
+  def call_time
+    @offer.expert.next_possible_call @offer, @dates
+  end
 end

@@ -38,7 +38,9 @@
             <div class="greensemi right">
             <span id="howlong"></span> minutes</div>
           </div>
-          <!-- <p class="bigger">Tuesday, 25 March, 2014, 11:00am - 12:30pm</p> -->
+          <p class="bigger">
+            <span id="call_from" data-timestamp="<%= call_time.to_i %>"></span> - <span id="call_to"></span>
+          </p>
         </div>
       </div>
     </div>
@@ -121,5 +123,6 @@
     </div>
     <%= f.hidden_field :expert, value: @expert.id %>
     <%= f.hidden_field :offer, value: @offer.id %>
+    <%= f.hidden_field :active_from, value: call_time %>
   <% end %>
 </div>

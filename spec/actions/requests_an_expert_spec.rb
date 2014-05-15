@@ -12,7 +12,8 @@ describe RequestsAnExpert do
     user   = User.first
     expert = User.last
 
-    result = RequestsAnExpert.for seeker: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: ''
+    result = RequestsAnExpert.for seeker: user, expert: expert, start: Time.now, length: 30, offer: expert.offers.first, message: '', active_from: '2013-01-06 13:00'
+
     expect(result.success?).to be_true
 
     request = expert.calls.first
