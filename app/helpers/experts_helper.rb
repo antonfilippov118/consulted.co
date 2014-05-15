@@ -9,6 +9,7 @@ module ExpertsHelper
   end
 
   def current_company_name
+    return false if current_company.nil?
     current_company.name
   end
 
@@ -38,6 +39,7 @@ module ExpertsHelper
   end
 
   def current_position
+    return false if current_company.nil?
     current_company.position
   end
 

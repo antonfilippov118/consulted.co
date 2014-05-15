@@ -30,8 +30,12 @@ class Availability
 
   def next_possible_time(offer = nil)
     return false unless call_possible?
-    ts = viables(offer).map { |c| c[:time] }.sort.min
-    Time.at ts
+    timestamps = candidates(offer).reject { |a| a[0] == false }.map { |a| a[1].map { |b| b[1] } }
+    timestamps.reject! { |_timestamps| !enough_blocks?(_timestamps, offer) }
+    ts = timestamps.reduce(:+).uniq.reject { |timestamp| timestamp < (Time.now.to_i + user.start_delay.minutes) }
+
+    return false unless enough_blocks? ts, offer
+    Time.at ts.min
   end
 
   def maximum_call_length(offer)
@@ -65,7 +69,7 @@ class Availability
   end
 
   def blocks_available(offer)
-    blocks.map(&:status).chunk { |c| c == TimeBlock::Status::FREE }.map { |c, d| c == true && d.length > minimum_blocks_for(offer) }
+    blocks.map(&:status).chunk { |c| c == TimeBlock::Status::FREE }.map { |c, d| c == true && enough_blocks?(d, offer) }
   end
 
   def candidates(offer = nil)
@@ -94,11 +98,7 @@ class Availability
   end
 
   def enough_blocks?(times, offer = nil)
-    _times = times.reject do |time|
-      time[1] < (Time.now + user.start_delay).to_i
-    end
-
-    _times.length > minimum_blocks_for(offer)
+    times.length >= minimum_blocks_for(offer)
   end
 
   def set_status!(start, length, state)

@@ -28,9 +28,10 @@ class MatchExpertAvailabilities
       mapping = context.fetch :expert_availabilities
       experts = context.fetch :experts
       group   = context.fetch :group
-      mapping.reject do |expert, availabilities|
+      mapping.reject! do |expert, availabilities|
         offer = expert.offers.with_group(group).first
-        availabilities.keep_if { |a| a.call_possible?(offer) }.any?
+        time  = expert.next_possible_call offer
+        !(availabilities.keep_if { |a| a.call_possible?(offer) }.any? && !!time)
       end
 
       ids = mapping.map { |expert, availabilities| expert.id }

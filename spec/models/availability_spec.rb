@@ -39,6 +39,15 @@ describe Availability do
     expect(a.maximum_call_length(offer)).to eql 45
   end
 
+  it 'should include the start delay' do
+    user = User.create valid_params.merge start_delay: 10
+    a = Availability.new user: user, start: Time.now, end: Time.now + 60.minutes
+    a.save
+
+    expect(a.next_possible_time).to be_a Time
+    expect(a.next_possible_time).to eql Time.at(a.starting + 15.minutes)
+  end
+
   context 'when querying calls' do
     it 'should tell if a call fits into the availability' do
       user = User.create valid_params
@@ -76,7 +85,7 @@ describe Availability do
     end
 
     it 'should tell when the next call is possible with the current configuration' do
-      user = User.create valid_params.merge start_delay: 0
+      user = User.create valid_params.merge start_delay: 10
       a = Availability.new user: user, start: Time.now, end: Time.now + 120.minutes
       a.save
 
