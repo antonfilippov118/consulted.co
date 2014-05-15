@@ -7,10 +7,10 @@ node :likes do |offer|
   0
 end
 node :maximum_call do |offer|
-  maximum_call_time offer
+  maximum_call_time offer, @dates
 end
 node :next_call do |offer|
-  next_call offer
+  next_call offer, @dates
 end
 child :expert => :expert do
   attributes :name, :slug

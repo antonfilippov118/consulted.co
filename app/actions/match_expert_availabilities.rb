@@ -30,8 +30,9 @@ class MatchExpertAvailabilities
     def self.fits(time, times, user = nil)
       time  = Time.at(time).in_time_zone(user.timezone) unless user.nil?
       value = time.hour.to_f + time.min.to_f / 60
+
       times.map do |obj|
-        obj[:from] <= value && obj[:to] <= value
+        obj[:from] <= value && value <= obj[:to]
       end.include? true
     end
 
@@ -54,10 +55,11 @@ class MatchExpertAvailabilities
           mapping.reject! do |expert, availabilities|
             offer = expert.offers.with_group(group).first
             possible_times = expert.next_times offer
-            possible_times = possible_times.select { |time| ExcludeExperts.fits Time.at(time), times, user }
+            possible_times = possible_times.select { |time| ExcludeExperts.fits time, times, user }
             possible_times.empty?
           end
         end
+
         ids = mapping.map { |expert, availabilities| expert.id }
       rescue
         ids = []

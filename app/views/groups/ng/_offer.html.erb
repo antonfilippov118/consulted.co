@@ -56,7 +56,7 @@
           {{offer.next_call | moment:'h:mm a'}}
           <br>
           Up to {{offer.maximum_call}} minutes
-          <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>
+          <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review/" class="btn btn-primary">Contact</a>
         <% else %>
           <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
             Sign up to book
