@@ -1,5 +1,6 @@
 class Availability
   include Mongoid::Document
+  include Scopable::Availability
 
   BLOCK = 5.minutes
 
@@ -12,10 +13,6 @@ class Availability
   field :date
 
   validates_presence_of :user, :starting, :ending
-  scope :future, -> { where ending: { :$gte => Time.now } }
-  scope :with_date, -> dates { where date: { :$in => dates } }
-  scope :next_days, -> days { where ending: { :$lte => days.days.from_now } }
-  scope :within, -> starting, ending { where starting: { :$lte => starting }, ending: { :$gte => ending } }
 
   def start=(time)
     self.starting = Time.at(time.to_i - (time.to_i % BLOCK))
@@ -25,22 +22,28 @@ class Availability
     self.ending = Time.at(time.to_i - (time.to_i % BLOCK))
   end
 
-  def range
-    starting..ending
-  end
-
-  def call_possible?
+  def call_possible?(offer = nil)
     return false unless blocks.free.exists?
-    intervals = blocks.map(&:status).chunk { |c| c == TimeBlock::Status::FREE }.map { |c, d| c == true && d.length > 5 }
+    intervals = blocks_available offer
     intervals.include? true
   end
 
-  def next_possible_time
+  def next_possible_time(offer = nil)
     return false unless call_possible?
-    intervals = blocks.map { |b| [b.status == TimeBlock::Status::FREE, b.start] }
-    candidates = intervals.chunk { |b| b[0] == true }.map { |b, c| { viable: b && c.length > 5, time: c.map(&:last).reject { |time|  time < Time.now.to_i }.sort.min } }
-    viables = candidates.reject { |c| c[:viable] == false }.map { |c| c[:time] }
-    Time.at viables.sort.min
+    ts = viables(offer).map { |c| c[:time] }.sort.min
+    Time.at ts
+  end
+
+  def maximum_call_length(offer)
+    lengths = candidates(offer).map { |b, c| { viable: b, times: c.map { |a| a[1] } } }
+    lengths = lengths.reject { |l| l[:viable] == false }
+    maximum = lengths.map { |l| l[:times].count }.max * 5
+    last    = 0
+    offer.lengths.each do |length|
+      break if length > maximum
+      last = length
+    end
+    last
   end
 
   def book!(start, length)
@@ -53,15 +56,49 @@ class Availability
 
   private
 
+  def viable_params?(b, c, offer = nil)
+    {
+      viable: b && c.length > minimum_blocks_for(offer),
+      time: c.map(&:last).reject { |time| time < Time.now.to_i }.sort.min,
+      blocks: enough_blocks?(c, offer)
+    }
+  end
+
+  def blocks_available(offer)
+    blocks.map(&:status).chunk { |c| c == TimeBlock::Status::FREE }.map { |c, d| c == true && d.length > minimum_blocks_for(offer) }
+  end
+
+  def candidates(offer = nil)
+    intervals  = blocks.map { |b| [b.status == TimeBlock::Status::FREE, b.start] }
+    intervals.chunk { |b| b[0] == true }
+  end
+
+  def viables(offer = nil)
+    candidates.map { |b, c| viable_params?(b, c, offer) }.reject { |c| c[:viable] == false || c[:blocks] == false }
+  end
+
   def update_blocks!
     start = starting
     while start < ending
       block = blocks.with_start(start.to_i).exists?
       unless block
-        blocks.create starting: start
+        blocks.create(starting: start)
       end
       start += TimeBlock::LENGTH
     end
+  end
+
+  def minimum_blocks_for(offer = nil)
+    return 5 if offer.nil?
+    offer.lengths.min / 5 - 1
+  end
+
+  def enough_blocks?(times, offer = nil)
+    _times = times.reject do |time|
+      time[1] < (Time.now + user.start_delay).to_i
+    end
+
+    _times.length > minimum_blocks_for(offer)
   end
 
   def set_status!(start, length, state)

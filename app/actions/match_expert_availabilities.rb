@@ -1,8 +1,8 @@
 class MatchExpertAvailabilities
   include LightService::Organizer
 
-  def self.for(experts, days = [])
-    with(experts: experts, days: days).reduce [
+  def self.for(experts, group, days = [])
+    with(experts: experts, days: days, group: group).reduce [
       FindAvailabilities,
       ExcludeExperts
     ]
@@ -27,8 +27,10 @@ class MatchExpertAvailabilities
     executed do |context|
       mapping = context.fetch :expert_availabilities
       experts = context.fetch :experts
+      group   = context.fetch :group
       mapping.reject do |expert, availabilities|
-        availabilities.keep_if(&:call_possible?).any?
+        offer = expert.offers.with_group(group).first
+        availabilities.keep_if { |a| a.call_possible?(offer) }.any?
       end
 
       ids = mapping.map { |expert, availabilities| expert.id }

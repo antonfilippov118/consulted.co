@@ -29,6 +29,16 @@ describe Availability do
     expect(Availability.first.blocks.map(&:status)).to eql [1, 1, 1, 0, 0]
   end
 
+  it 'should be able to tell about the maximum possible call length' do
+    user = User.create valid_params
+    a = Availability.new user: user, start: Time.now, end: Time.now + 50.minutes
+    a.save
+    group = Group.create name: 'foo'
+    offer = user.offers.create rate: 200, experience: 30, group: group, lengths: [30, 45, 90, 120]
+
+    expect(a.maximum_call_length(offer)).to eql 45
+  end
+
   context 'when querying calls' do
     it 'should tell if a call fits into the availability' do
       user = User.create valid_params
@@ -57,7 +67,7 @@ describe Availability do
     end
 
     it 'should tell if a call is possible if multiple blocks are blocked' do
-      user = User.create valid_params
+      user = User.create valid_params.merge start_delay: 0
       a = Availability.new user: user, start: Time.now, end: Time.now + 35.minutes
       a.save
 
@@ -66,7 +76,7 @@ describe Availability do
     end
 
     it 'should tell when the next call is possible with the current configuration' do
-      user = User.create valid_params
+      user = User.create valid_params.merge start_delay: 0
       a = Availability.new user: user, start: Time.now, end: Time.now + 120.minutes
       a.save
 
@@ -77,7 +87,7 @@ describe Availability do
     end
 
     it 'should tell when no next call is possible' do
-      user = User.create valid_params
+      user = User.create valid_params.merge start_delay: 0
       a = Availability.new user: user, start: Time.now, end: Time.now + 60.minutes
       a.save
 

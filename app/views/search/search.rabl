@@ -6,8 +6,14 @@ end
 node :likes do |offer|
   0
 end
+node :maximum_call do |offer|
+  maximum_call_time offer
+end
+node :next_call do |offer|
+  next_call offer
+end
 child :expert => :expert do
-  attributes :name, :slug, :next_possible_call
+  attributes :name, :slug
   node :image do |user|
     user.profile_image.url
   end
