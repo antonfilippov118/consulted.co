@@ -86,6 +86,21 @@ app.directive 'dates', [
       scope.selected  = Date.selected
 ]
 
+app.directive 'times', [
+  'Time',
+  TimeDirective = (Time) ->
+    replace: no
+    scope: yes
+    link: (scope) ->
+      scope.times    = Time.availableTimes()
+      scope.allDay   = -> Time.isAllDay()
+      scope.all      = -> Time.allDay yes
+      scope.specific = -> Time.allDay no
+      scope.toggle   = Time.toggle
+      scope.selected = Time.selected
+
+]
+
 app.directive 'bookmark', [
   'Bookmark'
   (Bookmark) ->

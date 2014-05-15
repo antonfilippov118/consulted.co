@@ -137,6 +137,7 @@ app.service 'Date', [
 
     fortnight: (bool) ->
       fortnight = bool
+      days = [] if fortnight
       trigger()
 
     isFortnight: -> fortnight
@@ -152,6 +153,84 @@ app.service 'Date', [
       trigger()
 
     selected: selected
+
+]
+
+app.service 'Time', [
+  'Search'
+  Time = (Search) ->
+    allDay = yes
+    times = []
+
+    selected = (time) ->
+      return no if allDay
+      time in times
+
+    trigger = () ->
+      if allDay
+        data =
+          times: []
+      else
+        data =
+          times: times.map (obj) -> { from: obj.from, to: obj.to }
+      Search.trigger data
+
+
+    availableTimes: -> [
+      name: 'until 6am'
+      from: 0
+      to: 6
+    ,
+      name: '6am-8am'
+      from: 6
+      to: 8
+    ,
+      name: '8am-10am'
+      from: 8
+      to: 10
+    ,
+      name: '10am-12am'
+      from: 10
+      to: 12
+    ,
+      name: '12am-2pm'
+      from: 12
+      to: 14
+    ,
+      name: '2pm-4pm'
+      from: 14
+      to: 16
+    ,
+      name: '4pm-6pm'
+      from: 16
+      to: 18
+    ,
+      name: '6pm-8pm'
+      from: 18
+      to: 20
+    ,
+      name: 'after 8pm'
+      from: 20
+      to: 0
+    ]
+
+    isAllDay: -> allDay
+    allDay: (bool) ->
+      allDay = bool
+      times  = [] if allDay
+      trigger()
+
+    toggle: (time) ->
+      idx = times.indexOf time
+      if idx > -1
+        times.splice idx, 1
+      else
+        times.push time
+      allDay = times.length is 0
+      trigger()
+
+    selected: selected
+
 
 ]
 

@@ -41,57 +41,16 @@
               </label>
             </div>
           </div>
-          <div class="fexp-block">
+          <div class="fexp-block" times>
             <div class="fexp-head">
               Availability Time
-              <a href="#" class="btn btn-default btn-xs">All Day</a>
-              <a href="#" class="btn btn-primary btn-xs">Specific Time</a>
+              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':allDay(),'btn-default':!allDay()}">All Day</a>
+              <a ng-click="specific()" class="btn btn-xs" ng-class="{'btn-primary':!allDay(),'btn-default':allDay()}">Specific Time</a>
             </div>
             <div class="fexp-body fexp-body-9 clr">
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value1" checked="">
+              <label ng-click="toggle(time)" class="check round-check" ng-class="{'in':selected(time)}" ng-repeat="time in times">
                 <div class="round"></div>
-                <small>Until 6am</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value2" checked="">
-                <div class="round"></div>
-                <small>6am-8am</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value3">
-                <div class="round"></div>
-                <small>8am-10am</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value4">
-                <div class="round"></div>
-                <small>10am-12am</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value5">
-                <div class="round"></div>
-                <small>12am-2pm</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value6">
-                <div class="round"></div>
-                <small>2pm-4pm</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value7">
-                <div class="round"></div>
-                <small>4pm-6pm</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value8">
-                <div class="round"></div>
-                <small>6pm-8pm</small>
-              </label>
-              <label class="check round-check">
-                <input type="checkbox" name="chk_group2[]" value="value9">
-                <div class="round"></div>
-                <small>After 8pm</small>
+                <small>{{time.name}}</small>
               </label>
             </div>
           </div>
