@@ -53,7 +53,7 @@
         <% if user_signed_in? %>
           {{offer.next_call | moment:'MMMM DD, YYYY'}}
           <br>
-          {{offer.next_call | moment:'HH:mm'}}
+          {{offer.next_call | moment:'h:mm a'}}
           <br>
           Up to {{offer.maximum_call}} minutes
           <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review" class="btn btn-primary">Contact</a>

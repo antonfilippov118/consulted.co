@@ -169,12 +169,11 @@ app.service 'Time', [
     trigger = () ->
       if allDay
         data =
-          times: []
+          time_of_day: []
       else
         data =
-          times: times.map (obj) -> { from: obj.from, to: obj.to }
+          time_of_day: times.map (obj) -> { from: obj.from, to: obj.to }
       Search.trigger data
-
 
     availableTimes: -> [
       name: 'until 6am'
@@ -189,11 +188,11 @@ app.service 'Time', [
       from: 8
       to: 10
     ,
-      name: '10am-12am'
+      name: '10am-12pm'
       from: 10
       to: 12
     ,
-      name: '12am-2pm'
+      name: '12pm-2pm'
       from: 12
       to: 14
     ,

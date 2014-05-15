@@ -1,8 +1,9 @@
 class MatchExpertAvailabilities
   include LightService::Organizer
 
-  def self.for(experts, group, days = [])
-    with(experts: experts, days: days, group: group).reduce [
+  def self.for(options = {})
+    options = defaults.merge options
+    with(options).reduce [
       FindAvailabilities,
       ExcludeExperts
     ]
@@ -11,12 +12,13 @@ class MatchExpertAvailabilities
   class FindAvailabilities
     include LightService::Action
     executed do |context|
-      days = context.fetch :days
+      days  = context.fetch :days
       if days.any?
         availabilities = Availability.future.with_date days
       else
         availabilities = Availability.future.next_days(14)
       end
+
       context[:expert_availabilities] = availabilities.group_by(&:user)
     end
   end
@@ -24,18 +26,54 @@ class MatchExpertAvailabilities
   class ExcludeExperts
     include LightService::Action
 
+    def self.fits(time, times, user = nil)
+      unless user.nil?
+        time = Time.at(time).in_time_zone(user.timezone)
+      end
+      value = time.hour.to_f + time.min.to_f / 60
+      times.map { |obj| obj[:from] <= value  && value <= obj[:to] }.include? true
+    end
+
     executed do |context|
       mapping = context.fetch :expert_availabilities
-      experts = context.fetch :experts
-      group   = context.fetch :group
-      mapping.reject! do |expert, availabilities|
-        offer = expert.offers.with_group(group).first
-        time  = expert.next_possible_call offer
-        !(availabilities.keep_if { |a| a.call_possible?(offer) }.any? && !!time)
+      begin
+        experts = context.fetch :experts
+        group   = context.fetch :group
+        times   = context.fetch :times
+        user    = context.fetch :user
+        # reject everything not possible to call
+        mapping.reject! do |expert, availabilities|
+          offer = expert.offers.with_group(group).first
+          time  = expert.next_possible_call offer
+          !(availabilities.keep_if { |a| a.call_possible?(offer) }.any? && !!time)
+        end
+
+        # reject experts which do not fit the time filter
+        if times.any?
+          mapping.reject! do |expert, availabilities|
+            offer = expert.offers.with_group(group).first
+            possible_times = expert.next_times offer
+            possible_times = possible_times.select { |time| ExcludeExperts.fits Time.at(time), times, user }
+            possible_times.empty?
+          end
+        end
+        ids = mapping.map { |expert, availabilities| expert.id }
+      rescue => e
+        ids = []
       end
 
-      ids = mapping.map { |expert, availabilities| expert.id }
       context[:experts] = experts.where id: { :$in => ids }
     end
+
+  end
+
+  def self.defaults
+    {
+      experts: [],
+      times: [],
+      days: [],
+      group: Group.new(name: 'Default'),
+      user: nil
+    }
   end
 end
