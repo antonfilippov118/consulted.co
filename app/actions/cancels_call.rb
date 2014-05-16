@@ -67,8 +67,6 @@ class CancelsCall
         else context.fail! 'Cannot cancel this call properly!'
         end
       rescue => e
-        binding.pry
-
         context.fail! e
       end
     end
