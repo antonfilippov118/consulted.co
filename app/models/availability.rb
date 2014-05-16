@@ -45,7 +45,7 @@ class Availability
     maximum = lengths.map { |l| l[:times].count }.max * 5
     last    = 0
     offer.lengths.each do |length|
-      break if length > maximum
+      break if length.to_i > maximum
       last = length
     end
     last

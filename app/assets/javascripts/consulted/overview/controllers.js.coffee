@@ -10,8 +10,8 @@ app.controller 'TableCtrl', [
   '$timeout'
   '$filter'
   TableCtrl = (scope, Call, timeout, filter) ->
+    scope.loading = yes
     fetch = () ->
-      scope.loading = yes
       Call.getCalls().then (calls) ->
         scope.new_calls    = filter('younger')(calls, 7)
         scope.future_calls = filter('older')(calls, 7)

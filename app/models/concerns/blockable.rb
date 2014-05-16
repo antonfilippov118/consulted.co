@@ -14,7 +14,7 @@ module Blockable
 
   def minimum_blocks_for(offer = nil)
     return 5 if offer.nil?
-    offer.lengths.min / 5 - 1
+    offer.lengths.min.to_i / 5 - 1
   end
 
   def enough_blocks?(times, offer = nil)

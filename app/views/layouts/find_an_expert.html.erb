@@ -35,7 +35,7 @@
               <h3>No results.</h3>
             </div>
             <div ng-show="!searching && offers.length > 0">
-              <div class="expert clr" offer="offer" ng-repeat="offer in offers"></div>
+              <div class="expert clr" offer="offer" ng-repeat="offer in offers track by offer.id"></div>
             </div>
           </div>
         </section>

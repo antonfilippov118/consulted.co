@@ -21,12 +21,18 @@ child :expert => :expert do
     "#{root_url}#{user.slug}"
   end
   node :current_position do |user|
-    return user.companies.current.position if user.companies.current
-    ""
+    if user.companies.current
+      user.companies.current.position
+    else
+      ""
+    end
   end
   node :current_year do |user|
-    return user.companies.current.from if user.companies.current
-    ""
+    if user.companies.current
+      user.companies.current.from
+    else
+      ""
+    end
   end
   child({ past_companies: :companies }, if: :shares_career?) do
     attribute :name, :position, :from, :to

@@ -80,6 +80,7 @@ class FindsOffers
       days    = params[:days] || []
       times   = params[:time_of_day] || []
       result  = ::MatchExpertAvailabilities.for(experts: experts, days: days, times: times, group: group, user: user)
+
       context[:experts] = result.fetch :experts
     end
   end

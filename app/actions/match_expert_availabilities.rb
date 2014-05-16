@@ -61,7 +61,8 @@ class MatchExpertAvailabilities
         end
 
         ids = mapping.map { |expert, availabilities| expert.id }
-      rescue
+      rescue => e
+        context.fail! e.message
         ids = []
       end
 
