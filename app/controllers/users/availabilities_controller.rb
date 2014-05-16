@@ -3,20 +3,13 @@ class Users::AvailabilitiesController < Users::BaseController
   skip_before_filter :verify_authenticity_token
 
   def show
-    result = ShowsAvailabilities.for @user, params[:week]
-    if result.failure?
-      render json: { error: result.message }
-    else
-      render json: result[:availabilities]
-    end
+    @availabilities = Availability.future.for @user
   end
 
   def update
     result = UpdatesOrCreatesAvailability.for @user, availability_params
     if result.failure?
       render json: { error: result.message }, status: :unprocessable_entity
-    else
-      render json: result[:availability]
     end
   end
 
@@ -32,7 +25,7 @@ class Users::AvailabilitiesController < Users::BaseController
   private
 
   def availability_params
-    params.require(:availability).permit :starts, :ends, :new_event, :id, :recurring
+    params.require(:availability).permit :start, :end, :id, :recurring
   end
 
   def require_expert!

@@ -3,48 +3,66 @@ class UpdatesOrCreatesAvailability
 
   def self.for(user, params)
     with(user: user, params: params).reduce [
-      FindOrCreateAvailability,
+      ConvertTimes,
+      FindAvailability,
       SaveAvailability
     ]
   end
 
   private
 
-  class FindOrCreateAvailability
+  class ConvertTimes
+    include LightService::Action
+    executed do |context|
+      params = context.fetch :params
+      begin
+        start  = params[:start]
+        ending = params[:end]
+        fail 'need start and end for availability!' if start.nil? || ending.nil?
+        context[:start] = Time.at(start.to_i / 1000)
+        context[:end]   = Time.at(ending.to_i / 1000)
+      rescue => e
+        context.fail! e.message
+      end
+    end
+  end
+
+  class FindAvailability
     include LightService::Action
 
     executed do |context|
-      user = context.fetch :user
       params = context.fetch :params
+      id     = params[:id]
+      user   = context.fetch :user
 
-      begin
-        opts = {
-          starts: params[:starts],
-          ends: params[:ends],
-          recurring: params[:recurring]
-        }
-
-        if params[:new_event] == true
-          availability = user.availabilities.new opts
-        else
-          availability = user.availabilities.find params[:id]
-          availability.assign_attributes opts
+      if id.nil?
+        availability = user.availabilities.new
+      else
+        begin
+          availability = Availability.for(user).find id
+        rescue Mongoid::Errors::DocumentNotFound
+          availability = user.availabilities.new
         end
-      rescue
-        context.fail! 'Document could not be found!'
       end
       context[:availability] = availability
-      next context
     end
   end
 
   class SaveAvailability
     include LightService::Action
-    executed do |context|
-      availability = context.fetch :availability
 
-      unless availability.save
-        context.fail! 'Availability could not be saved!'
+    executed do |context|
+      start        = context.fetch :start
+      ending       = context.fetch :end
+      availability = context.fetch :availability
+      availability.start = start
+      availability.end   = ending
+
+      begin
+        availability.save!
+        context[:availability] = availability
+      rescue => e
+        context.fail! e.message
       end
     end
   end

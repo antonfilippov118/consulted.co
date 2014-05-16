@@ -48,7 +48,6 @@ module Blockable
     end
 
     after_save do
-
       update_blocks!
     end
   end
