@@ -59,7 +59,6 @@ class MatchExpertAvailabilities
             possible_times.empty?
           end
         end
-
         ids = mapping.map { |expert, availabilities| expert.id }
       rescue => e
         context.fail! e.message

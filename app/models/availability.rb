@@ -6,7 +6,7 @@ class Availability
   BLOCK = 5.minutes
 
   belongs_to :user
-  has_many :time_blocks
+  embeds_many :time_blocks, class_name: 'Availability::TimeBlock'
   alias_method :blocks, :time_blocks
 
   field :starting, type: DateTime

@@ -16,7 +16,7 @@ describe Availability do
 
     a.book! a.starting, 15
 
-    expect(Availability.first.blocks.map(&:status)).to eql 3.times.map { TimeBlock::Status::BOOKED }
+    expect(Availability.first.blocks.map(&:status)).to eql 3.times.map { Availability::TimeBlock::Status::BOOKED }
   end
 
   it 'should be able to set the blocked state for it\'s blocks' do

@@ -64,6 +64,7 @@ class Users::OffersController < Users::BaseController
     @offer   = Offer.find_by url: params[:offer_id]
     @expert  = @offer.expert
     if @expert == @user
+      flash[:alert] = 'You cannot request a meeting with yourself!'
       redirect_to group_path(@offer.group)
     end
   end

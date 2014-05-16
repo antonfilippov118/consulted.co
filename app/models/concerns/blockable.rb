@@ -6,9 +6,9 @@ module Blockable
     while start < ending
       block = blocks.with_start(start.to_i).exists?
       unless block
-        blocks.create(starting: start)
+        blocks.new(starting: start)
       end
-      start += TimeBlock::LENGTH
+      start += Availability::TimeBlock::LENGTH
     end
   end
 
@@ -25,13 +25,8 @@ module Blockable
     interval = length / 5
     fail 'cannot use length!' unless interval.is_a? Integer
     starts = interval.times.map { |n| start + (n * 5).minutes }.map(&:to_i)
-    blocks.with_starts(starts).to_a.each do |block|
-      case state
-      when :book then block.book!
-      when :block then block.block!
-      when :free then block.free!
-      end
-    end
+    blocks.with_starts(starts).to_a.each { |block| block.send "#{state}!" }
+    save
   end
 
   included do
@@ -47,7 +42,7 @@ module Blockable
       set_status! start, length, :block
     end
 
-    after_save do
+    before_save do
       update_blocks!
     end
   end
