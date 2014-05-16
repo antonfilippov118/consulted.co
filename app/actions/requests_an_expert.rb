@@ -18,6 +18,7 @@ class RequestsAnExpert
         params  = context.fetch :params
         expert  = params.fetch :expert
         seeker  = params.fetch :seeker
+        active  = params.fetch :active_from
         length  = params.fetch :length
         offer   = params.fetch :offer
         message = params.fetch :message
@@ -26,11 +27,12 @@ class RequestsAnExpert
           expert = User.experts.find expert
         end
 
-        context[:expert]  = expert
-        context[:offer]   = expert.offers.find(offer)
-        context[:length]  = length
-        context[:seeker]  = seeker
-        context[:message] = message
+        context[:expert]      = expert
+        context[:offer]       = expert.offers.find(offer)
+        context[:length]      = length
+        context[:seeker]      = seeker
+        context[:message]     = message
+        context[:active_from] = DateTime.parse active
       rescue => e
         context.fail! e
       end
@@ -41,7 +43,7 @@ class RequestsAnExpert
     include LightService::Action
 
     executed do |context|
-      context[:call] = Call.create context.slice(:seeker, :expert, :offer, :length, :message)
+      context[:call] = Call.create context.slice(:seeker, :expert, :offer, :length, :message, :active_from)
     end
   end
 

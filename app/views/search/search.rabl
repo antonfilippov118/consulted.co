@@ -6,6 +6,12 @@ end
 node :likes do |offer|
   0
 end
+node :maximum_call do |offer|
+  maximum_call_time offer, @dates
+end
+node :next_call do |offer|
+  next_call offer, @dates
+end
 child :expert => :expert do
   attributes :name, :slug
   node :image do |user|
@@ -15,10 +21,12 @@ child :expert => :expert do
     "#{root_url}#{user.slug}"
   end
   node :current_position do |user|
-    user.companies.current.position
+    return user.companies.current.position if user.companies.current
+    ""
   end
   node :current_year do |user|
-    user.companies.current.from
+    return user.companies.current.from if user.companies.current
+    ""
   end
   child({ past_companies: :companies }, if: :shares_career?) do
     attribute :name, :position, :from, :to

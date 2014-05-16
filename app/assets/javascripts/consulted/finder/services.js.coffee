@@ -110,6 +110,129 @@ app.service 'Continent', [
       trigger()
 ]
 
+app.service 'Date', [
+  'Search'
+  Date = (Search) ->
+    fortnight = yes
+
+    days = []
+
+    selected = (day) ->
+      return no if fortnight is yes
+      for _day in days
+        if day.isSame _day, 'date'
+          return yes
+      no
+
+    trigger = () ->
+      if fortnight
+        data = { days: [] }
+      else
+        data = { days: days.map (day) -> day.format 'YYYY-MM-DD' }
+      Search.trigger(data)
+
+    availableDays: () ->
+      [0..6].map (days) ->
+        moment().add days, 'day'
+
+    fortnight: (bool) ->
+      fortnight = bool
+      days = [] if fortnight
+      trigger()
+
+    isFortnight: -> fortnight
+
+    toggle: (day) ->
+      fortnight = no
+      idx = days.indexOf day
+      if idx > -1
+        days.splice idx, 1
+      else
+        days.push day
+      fortnight = days.length is 0
+      trigger()
+
+    selected: selected
+
+]
+
+app.service 'Time', [
+  'Search'
+  Time = (Search) ->
+    allDay = yes
+    times = []
+
+    selected = (time) ->
+      return no if allDay
+      time in times
+
+    trigger = () ->
+      if allDay
+        data =
+          time_of_day: []
+      else
+        data =
+          time_of_day: times.map (obj) -> { from: obj.from, to: obj.to }
+      Search.trigger data
+
+    availableTimes: -> [
+      name: 'until 6am'
+      from: 0
+      to: 6
+    ,
+      name: '6am-8am'
+      from: 6
+      to: 8
+    ,
+      name: '8am-10am'
+      from: 8
+      to: 10
+    ,
+      name: '10am-12pm'
+      from: 10
+      to: 12
+    ,
+      name: '12pm-2pm'
+      from: 12
+      to: 14
+    ,
+      name: '2pm-4pm'
+      from: 14
+      to: 16
+    ,
+      name: '4pm-6pm'
+      from: 16
+      to: 18
+    ,
+      name: '6pm-8pm'
+      from: 18
+      to: 20
+    ,
+      name: 'after 8pm'
+      from: 20
+      to: 0
+    ]
+
+    isAllDay: -> allDay
+    allDay: (bool) ->
+      allDay = bool
+      times  = [] if allDay
+      trigger()
+
+    toggle: (time) ->
+      idx = times.indexOf time
+      if idx > -1
+        times.splice idx, 1
+      else
+        times.push time
+      allDay = times.length is 0
+      trigger()
+
+    selected: selected
+
+
+]
+
 app.service 'Bookmark', [
   'Search'
   '$http'
@@ -201,7 +324,7 @@ app.service 'Search', [
 
     trigger: (options, timeoutValue = 1000) ->
       timeout.cancel timer if timer?
-      timeout ->
+      timer = timeout ->
         save options
       , timeoutValue
 ]

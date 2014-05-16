@@ -2,12 +2,15 @@ class Call
   include Mongoid::Document
   include Mongoid::Timestamps
   include Liquidatable::Call
+  include Scopable::Call
 
   class Status
     REQUESTED = 1
     DECLINED  = 2
     ACTIVE    = 3
     CANCELLED = 4
+    COMPLETED = 5
+    DISPUTED  = 6
   end
 
   belongs_to :expert, class_name: 'User', foreign_key: 'expert_id', inverse_of: :experts
@@ -15,9 +18,9 @@ class Call
   belongs_to :offer
 
   field :pin, type: Integer, default: -> { Call.generate_unique_pin }
+  field :length, type: Integer
   field :active_from, type: DateTime
   field :active_to, type: DateTime
-  field :length, type: Integer
   field :status, type: Integer, default: Call::Status::REQUESTED
   field :message, type: String
 
@@ -31,25 +34,45 @@ class Call
 
   alias_method :topic, :name
 
-  def active?
-    active_from <= Time.now && Time.now <= active_to
+  def confirm!
+    self.status = Call::Status::ACTIVE
+    save
   end
 
-  # scope :active, -> { where active_from: { :$lte => Time.now }, active_to: { :$gte => Time.now } }
-  scope :future, -> { where active_from: { :$gte => Time.now } }
-  scope :past, -> { where active_to: { :$lte => Time.now } }
-  scope :by_pin, -> pin { where pin: pin }
-  scope :by, -> user { where seeker: user }
-  scope :to, -> user { where expert: user }
-  scope :for, -> user { any_of({ seeker: user }, { expert: user }) }
-  scope :active, -> { where status: Call::Status::ACTIVE }
-  scope :requested, -> { where status: Call::Status::REQUESTED }
-  scope :declined, -> { where status: Call::Status::DECLINED }
-  scope :cancelled, -> { where status: Call::Status::CANCELLED }
+  def active?
+    status == Call::Status::ACTIVE
+  end
+
+  def cancelled?
+    status == Call::Status::CANCELLED
+  end
 
   private
 
+  before_save :ending!
+  after_save :book!
+  after_destroy :free!
+
   def self.generate_unique_pin
     SecureRandom.random_number(999_999)
+  end
+
+  def ending!
+    self.active_to = active_from + length.minutes
+  end
+
+  def book!
+    availability = expert.availabilities.within(active_from.utc, active_to.utc).first
+    if active?
+      availability.book! active_from.utc, length
+    end
+    if cancelled?
+      availability.free! active_from.utc, length
+    end
+  end
+
+  def free!
+    availability = expert.availabilities.within(active_from.utc, active_to.utc).first
+    availability.free!
   end
 end

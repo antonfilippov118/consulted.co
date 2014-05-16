@@ -16,10 +16,19 @@ $ ->
     value = time.data 'value'
     $('#howlong').text value
 
+  calc = (time) ->
+    value = time.data 'value'
+    ts = moment($('#call_from').data('timestamp') * 1000)
+    if ts.isValid()
+      $('#call_from').html ts.format('dddd, MMMM D YYYY h:mma')
+      ts.add value, 'minutes'
+      $('#call_to').html ts.format('h:mma')
+
   times.on 'click', () ->
     time = $(this)
     uncheck times
     check time
+    calc time
     show time
 
   times.on 'mouseover', () ->

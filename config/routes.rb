@@ -35,7 +35,7 @@ Consulted::Application.routes.draw do
     end
 
     resources :offers, only: [:create], controller: 'users/offers' do
-      get :review
+      get '/review/:date', action: :review
     end
 
     get :history, controller: 'users/dashboard', action: :history, path: 'history'
@@ -55,7 +55,6 @@ Consulted::Application.routes.draw do
     resources :requests, controller: 'users/requests', except: [:new] do
       member do
         patch :cancel
-        patch :decline
         patch :accept
       end
       collection do
@@ -67,9 +66,9 @@ Consulted::Application.routes.draw do
       get :success
     end
 
-    resources :calls, only: [], controller: 'users/calls' do
-      patch :confirm
-      patch :cancel
+    resources :calls, only: [:index], controller: 'users/calls' do
+      put :confirm
+      delete :cancel
     end
 
     get :contact_email, controller: 'users/dashboard', action: :contact

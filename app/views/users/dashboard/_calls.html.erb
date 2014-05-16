@@ -1,64 +1,36 @@
-<div id="calls">
-  <div class="overview-table-head">In the next 7 days</div>
-  <table class="overview-table table table-striped">
-    <tbody>
-      <% if @next_7_days.any? %>
-        <% @next_7_days.each do |call| %>
-          <tr class="<%= call_class(call) %>">
-            <td><%= call_status(call) %></td>
-            <td>
-              Call with <%= name_link(call) %>
-              <% if call.message.present? and expert?(call) %>
-                <span class="flaticon flaticon-info help" data-toggle="tooltip" data-placement="top" title="" data-original-title="<%= call.message %>">
-              <% end %>
-            </td>
-            <td><%= request_status(call) %></td>
-            <td>
-              <% if active? call %>
-                PIN: <%= call.pin %>
-              <% end %>
-            </td>
-            <td>
-              <% if expert?(call) and pending?(call) %>
-                <%= link_to 'confirm', call_confirm_path(call), class: 'link-confirm', remote: true, method: :patch %>
-                <%= link_to 'decline', call_cancel_path(call), class: 'link-deny', remote: true, method: :patch %>
-              <% end %>
-              <% if seeker?(call) and pending?(call) %>
-                <%= link_to 'abandon', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
-              <% end %>
-              <% if cancellable?(call) and !pending?(call) %>
-                <%= link_to 'cancel', call_cancel_path(call), class: 'link-cancel', remote: true, method: :patch  %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
+<div id="calls" ng-app="consulted.overview">
+  <div ng-controller="TableCtrl">
+    <div class="overview-table-head">In the next 7 days</div>
+    <table class="overview-table table table-striped">
+      <tbody ng-show="loading">
         <tr>
-          <td colspan="3">The are are no calls in the next 7 days.</td>
+          <td colspan="5">Loading...</td>
           <td></td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+      <tbody no-calls ng-show="!loading && new_calls.length === 0" text="There are no calls within the next 7 days.">
+      </tbody>
+      <tbody call="call" class="ng-cloak" ng-repeat="call in new_calls" ng-show="new_calls.length > 0">
+      </tbody>
+    </table>
 
-  <div class="overview-table-head">In 7 days or more</div>
-  <table class="overview-table table table-striped">
-    <tbody>
-      <% if @after_7_days.any? %>
+    <div class="overview-table-head">In 7 days or more</div>
+    <table class="overview-table table table-striped">
+      <tbody class="ng-cloak" ng-show="loading">
         <tr>
-          <td>Requested</td>
-          <td><a href="#">Tuesday, 25 Jun 2014, 11:15am - 1:00pm with John Doe</a>
-          </td>
-          <td>Scheduled</td>
-          <td><a class="link-cancel" href="#">cancel</a>
-        </td>
-      </tr>
-      <% else %>
-        <tr>
-          <td colspan="3">The are are no calls in the next 7 days.</td>
+          <td colspan="5">Loading...</td>
           <td></td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+      <tbody no-calls ng-show="!loading && future_calls.length == 0" text="There are no calls in seven days or more.">
+      </tbody>
+      <tbody call="call" class="ng-cloak" ng-repeat="call in future_calls" ng-show="!loading && future_calls.length > 0">
+      </tbody>
+    </table>
+  </div>
+  <% %w(call no_call confirm cancel).each do |partial| %>
+    <script type="text/ng-template" id="<%= partial %>">
+      <%= render partial: "users/dashboard/ng/#{partial}" %>
+    </script>
+  <% end %>
 </div>

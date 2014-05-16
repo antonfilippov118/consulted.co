@@ -1,0 +1,26 @@
+<div id="offerfull-availability" class="offerfull">
+  <div class="offerfull-head">
+    <p class="offerfull-heading">Your available times &amp; dates</p>
+  </div>
+  <div class="frame">
+    <div class="clr flat-well">
+      <ul class="check-list">
+        <li class="flaticon flaticon-check">Add dates &amp; times you are available - you can setup specific and/or recurring availability.</li>
+        <li class="flaticon flaticon-check">You will receive an email meeting reminder 20 minutes in advance.</li>
+        <li class="flaticon flaticon-check">We will inform you via email when you are booked.</li>
+        <li class="flaticon flaticon-check">You can come back here and change or delete if time is not yet booked.</li>
+      </ul>
+    </div>
+    <div class="clr bluestripe">
+      Time schedule is based on your timezone setting. Your current timezone is: <%= ActiveSupport::TimeZone.new(@user.timezone).to_s %>
+    </div>
+    <div class="clr" id="scheduler">
+      <div data-calendar></div>
+      <% %w(calendar calendar_back calendar_front element element_adding).each do |partial| %>
+        <script type="text/ng-template" id="<%= partial %>">
+          <%= render partial: "users/offers/ng/scheduler/#{partial}" %>
+        </script>
+      <% end %>
+    </div>
+  </div>
+</div>

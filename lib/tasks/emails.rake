@@ -141,7 +141,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Pending confirmation</li>
 <li>Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)</li>
@@ -160,7 +160,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Pending confirmation
 - Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)
@@ -183,7 +183,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Pending confirmation</li>
 <li>Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)</li>
@@ -205,7 +205,7 @@ Meeting request details
 
 - Meeting partner: {{call.seeker.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Pending confirmation
 - Meeting via: Call bridge (you will receive the dial-in number and access code in the final confirmation)
@@ -230,7 +230,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
@@ -251,7 +251,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Confirmed
 - US toll-free number: +##########
@@ -277,7 +277,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
@@ -298,7 +298,7 @@ Meeting request details
 
 - Meeting partner: {{call.seeker.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Confirmed
 - Meeting via: Call bridge
@@ -324,7 +324,7 @@ the expert did not respond.</p>
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
@@ -348,7 +348,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
@@ -371,7 +371,7 @@ CONSULTED)
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
@@ -391,7 +391,7 @@ Meeting request details
 
 - Meeting partner: {{call.seeker.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
@@ -415,7 +415,7 @@ CONSULTED)
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Declined</li>
 <li>Meeting via: Call bridge</li>
@@ -435,7 +435,7 @@ Meeting request details
 
 - Meeting partner: {{call.seeker.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Declined
 - Meeting via: Call bridge
@@ -459,7 +459,7 @@ CONSULTED)
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
@@ -480,7 +480,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Confirmed
 - Meeting via: Call bridge
@@ -504,7 +504,7 @@ CONSULTED)
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Confirmed</li>
 <li>Meeting via: Call bridge</li>
@@ -523,7 +523,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Confirmed
 - Meeting via: Call bridge
@@ -569,7 +569,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
@@ -586,7 +586,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
@@ -607,7 +607,7 @@ CONSULTED)
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
@@ -624,7 +624,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
@@ -646,7 +646,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.expert.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
@@ -663,7 +663,7 @@ Meeting request details
 
 - Meeting partner: {{call.expert.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge
@@ -685,7 +685,7 @@ CONSULTED
 <ul>
 <li>Meeting partner: {{call.seeker.name}}</li>
 <li>Service offering: {{call.name}}</li>
-<li>Date &amp; Time: {{ call.time }}</li>
+<li>Date &amp; Time: {{ date }}</li>
 <li>Duration: {{ call.duration }} minutes</li>
 <li>Status: Cancelled</li>
 <li>Meeting via: Call bridge</li>
@@ -702,7 +702,7 @@ Meeting request details
 
 - Meeting partner: {{call.seeker.name}}
 - Service offering: {{call.name}}
-- Date &amp; Time: {{ call.time }}
+- Date &amp; Time: {{ date }}
 - Duration: {{ call.duration }} minutes
 - Status: Cancelled
 - Meeting via: Call bridge

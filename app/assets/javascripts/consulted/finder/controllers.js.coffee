@@ -9,7 +9,8 @@ app.controller 'FilterCtrl', [
   'Continent'
   'Rate'
   'Experience'
-  FilterCtrl = (scope, Language, Continent, Rate, Experience) ->
+  'Date'
+  FilterCtrl = (scope, Language, Continent, Rate, Experience, Date) ->
     slice = (arr, elipsis = '...') ->
       display = arr.slice 0, 2
       display.push elipsis if display.length < arr.length

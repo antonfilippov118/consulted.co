@@ -1,0 +1,101 @@
+.calendar {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  tbody {
+    padding: 0;
+    margin: 0;
+    tr {
+      padding: 0;
+      margin: 0;
+      td {
+        padding: 0;
+        margin: 0;
+      }
+    }
+    td {
+      position: relative;
+    }
+  }
+  .calendar-back {
+    position: relative;
+    top: 0;
+    left: 0;
+    .hour {
+      min-height: 15px;
+      &:nth-child(even) {
+        background-color: #efefef;
+      }
+      &:nth-child(odd) {
+        background-color: #c8c8c8;
+      }
+    }
+  }
+  .calendar-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    &.adding-up {
+      cursor: n-resize;
+    }
+    &.adding-down {
+      cursor: s-resize;
+    }
+    .element {
+      position: absolute;
+      border-radius: 3px;
+      left: 0px;
+      width: 100%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      text-align: center;
+      &.adding {
+        min-height: 20px;
+        border: 2px dashed #2be413;
+        background-color: rgba(43, 228, 19, 0.4);
+      }
+      &.added {
+        border: 2px solid #1c1ed6;
+        background-color: rgba(28, 30, 214, 0.4);
+        min-height: 20px;
+        cursor: default;
+      }
+      span.delete {
+        cursor: pointer;
+        color: #ee5757;
+        &:hover {
+          color: #cb1414;
+        }
+      }
+      .resizer {
+        background-color: #ee5757;
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        &:hover {
+          background-color: #cb1414;
+        }
+      }
+      .resizer-top {
+        top: 0px;
+        cursor: n-resize;
+      }
+      .resizer-bottom {
+        bottom: 0px;
+        cursor: s-resize;
+      }
+    }
+  }
+}
+
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22.%2Fsrc%2Fless%2Fcalendar.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAiBA%3BEAXC%2C2BAAA%3BEACA%2CyBAAA%3BEACA%2CwBAAA%3BEACA%2CsBAAA%3BEACA%2CqBAAA%3BEACA%2CiBAAA%3B%3BAAMD%2CSAEC%3BEAlBA%2CUAAA%3BEACA%2CSAAA%3B%3BAAeD%2CSAEC%2CMAGC%3BEArBD%2CUAAA%3BEACA%2CSAAA%3B%3BAAeD%2CSAEC%2CMAGC%2CGAEC%3BEAvBF%2CUAAA%3BEACA%2CSAAA%3B%3BAAeD%2CSAYC%2CMAAM%3BEACL%2CkBAAA%3B%3BAAbF%2CSAeC%3BEACC%2CkBAAA%3BEACA%2CMAAA%3BEACA%2COAAA%3B%3BAAlBF%2CSAeC%2CeAIC%3BEACC%2CgBAAA%3B%3BAACA%2CSANF%2CeAIC%2CMAEE%2CUAAU%3BEACV%2CyBAAA%3B%3BAAED%2CSATF%2CeAIC%2CMAKE%2CUAAU%3BEACV%2CyBAAA%3B%3BAAzBJ%2CSA6BC%3BEACC%2CkBAAA%3BEACA%2CMAAA%3BEACA%2COAAA%3BEACA%2CYAAA%3BEACA%2CWAAA%3BEACA%2CeAAA%3B%3BAAEA%2CSARD%2CgBAQE%3BEACA%2CgBAAA%3B%3BAAGD%2CSAZD%2CgBAYE%3BEACA%2CgBAAA%3B%3BAA1CH%2CSA6BC%2CgBAgBC%3BEACC%2CkBAAA%3BEACA%2CkBAAA%3BEACA%2CSAAA%3BEACA%2CWAAA%3BEA5DF%2C2BAAA%3BEACA%2CyBAAA%3BEACA%2CwBAAA%3BEACA%2CsBAAA%3BEACA%2CqBAAA%3BEACA%2CiBAAA%3BEAyDE%2CkBAAA%3B%3BAAIA%2CSA1BF%2CgBAgBC%2CSAUE%3BEACA%2CgBAAA%3BEACA%2C0BAAA%3BEACA%2CwCAAA%3B%3BAAED%2CSA%2FBF%2CgBAgBC%2CSAeE%3BEACA%2CyBAAA%3BEACA%2CwCAAA%3BEACA%2CgBAAA%3BEACA%2CeAAA%3B%3BAAhEJ%2CSA6BC%2CgBAgBC%2CSAqBC%2CKAAI%3BEACH%2CeAAA%3BEACA%2CcAAA%3B%3BAACA%2CSAxCH%2CgBAgBC%2CSAqBC%2CKAAI%2COAGF%3BEACA%2CcAAA%3B%3BAAtEL%2CSA6BC%2CgBAgBC%2CSA4BC%3BEACC%2CyBAAA%3BEACA%2CWAAA%3BEACA%2CWAAA%3BEACA%2CkBAAA%3B%3BAACA%2CSAjDH%2CgBAgBC%2CSA4BC%2CSAKE%3BEACA%2CyBAAA%3B%3BAA%2FEL%2CSA6BC%2CgBAgBC%2CSAqCC%3BEACC%2CQAAA%3BEACA%2CgBAAA%3B%3BAApFJ%2CSA6BC%2CgBAgBC%2CSAyCC%3BEACC%2CWAAA%3BEACA%2CgBAAA%22%7D */

@@ -8,6 +8,7 @@ class User
   include Indexable::User
   include Liquidatable::User
   include Geo::Continent
+  include Available
 
   extend Dragonfly::Model
 
@@ -83,8 +84,8 @@ class User
   embeds_one :user_linkedin_connection, class_name: 'User::LinkedinConnection'
   embeds_many :companies, class_name: 'User::LinkedinCompany'
   embeds_many :educations, class_name: 'User::LinkedinEducation'
-  embeds_many :availabilities, class_name: 'User::Availability'
 
+  has_many :availabilities, dependent: :destroy
   has_many :offers, dependent: :destroy
   has_many :requests, inverse_of: :seeker, class_name: 'Call', dependent: :destroy
   has_many :calls, inverse_of: :expert, dependent: :destroy
@@ -123,12 +124,8 @@ class User
     providers.include? 'linkedin'
   end
 
-  def remind_confirmation?
-    !confirmed? && confirmation_sent_at + 48.hours - Time.now <= 24.hours
-  end
-
   def notification_email
-    contact_email || email
+    contact_email.presence || email
   end
 
   def password_match?

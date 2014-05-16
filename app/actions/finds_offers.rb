@@ -2,15 +2,7 @@ class FindsOffers
   include LightService::Organizer
 
   def self.for(params, user = nil)
-    with(params: params, user: user).reduce [
-      FindGroup,
-      FindExperts,
-      FilterExpertsByLanguages,
-      FilterExpertsByContinents,
-      FindOffers,
-      FilterOffersByRate,
-      FilterOffersByExperience
-    ]
+    with(params: params, user: user).reduce self::ACTIONS
   end
 
   class FindGroup
@@ -30,7 +22,16 @@ class FindsOffers
   class FindExperts
     include LightService::Action
     executed do |context|
-      experts = User.experts
+      params     = context.fetch :params
+      bookmarked = params[:bookmark] || false
+      user       = context.fetch :user
+      experts    = User.experts.available
+
+      if bookmarked && !user.nil?
+        bookmarks = user.favorites.map(&:favorite_id)
+        experts = experts.any_in id: bookmarks
+      end
+
       context[:experts] = experts
     end
   end
@@ -56,6 +57,30 @@ class FindsOffers
       experts    = context.fetch :experts
       continents = params.fetch :continents
       context[:experts] = experts.with_continent continents
+    end
+  end
+
+  class FilterExpertsByKeywords
+    include LightService::Action
+
+    executed do |context|
+      params = context.fetch :params
+      next context if params[:tags].nil?
+    end
+  end
+
+  class MatchTimes
+    include LightService::Action
+
+    executed do |context|
+      params  = context.fetch :params
+      experts = context.fetch :experts
+      group   = context.fetch :group
+      user    = context.fetch :user
+      days    = params[:days] || []
+      times   = params[:time_of_day] || []
+      result  = ::MatchExpertAvailabilities.for(experts: experts, days: days, times: times, group: group, user: user)
+      context[:experts] = result.fetch :experts
     end
   end
 
@@ -96,4 +121,16 @@ class FindsOffers
       context[:offers] = offers.with_rate lower, upper
     end
   end
+
+  ACTIONS = [
+    FindGroup,
+    FindExperts,
+    FilterExpertsByLanguages,
+    FilterExpertsByContinents,
+    FilterExpertsByKeywords,
+    MatchTimes,
+    FindOffers,
+    FilterOffersByRate,
+    FilterOffersByExperience
+  ]
 end

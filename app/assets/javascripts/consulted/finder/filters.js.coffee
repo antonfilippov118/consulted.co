@@ -31,3 +31,10 @@ app.filter 'careerYear', [
       return change year if year is yearTo
       "#{change(year)}-#{change(yearTo)}"
 ]
+
+app.filter 'moment', [
+  () ->
+    (input, format = 'YYYY-MM-DD') ->
+      return input.format(format) if moment.isMoment input
+      moment(input).format format
+]

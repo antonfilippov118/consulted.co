@@ -72,6 +72,35 @@ app.directive 'experience', [
 
 ]
 
+app.directive 'dates', [
+  'Date'
+  (Date) ->
+    replace: no
+    scope: yes
+    link: (scope) ->
+      scope.days      = Date.availableDays()
+      scope.fortnight = -> Date.isFortnight()
+      scope.all       = -> Date.fortnight yes
+      scope.specific  = -> Date.fortnight no
+      scope.toggle    = Date.toggle
+      scope.selected  = Date.selected
+]
+
+app.directive 'times', [
+  'Time',
+  TimeDirective = (Time) ->
+    replace: no
+    scope: yes
+    link: (scope) ->
+      scope.times    = Time.availableTimes()
+      scope.allDay   = -> Time.isAllDay()
+      scope.all      = -> Time.allDay yes
+      scope.specific = -> Time.allDay no
+      scope.toggle   = Time.toggle
+      scope.selected = Time.selected
+
+]
+
 app.directive 'bookmark', [
   'Bookmark'
   (Bookmark) ->

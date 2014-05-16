@@ -9,8 +9,13 @@ class Users::CallsController < Users::BaseController
     end
   end
 
+  def index
+    @calls = Call.future.for @user
+  end
+
   def cancel
     result = CancelsCall.for call_params[:call_id], @user
+
     if result.failure?
       render json: { error: result.message }, status: :bad_request
     else
