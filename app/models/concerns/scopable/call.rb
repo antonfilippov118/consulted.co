@@ -14,6 +14,7 @@ module Scopable
       scope :requested, -> { where status: ::Call::Status::REQUESTED }
       scope :active, -> { where status: ::Call::Status::ACTIVE }
       scope :declined, -> { where status: ::Call::Status::DECLINED }
+      scope :completed, -> { where status: ::Call::Status::COMPLETED }
       scope :cancelled, -> { where status: ::Call::Status::CANCELLED }
       scope :younger, -> number { where active_from: { :$lte => Time.at(Time.now + number.days) } }
       scope :older, -> number { where active_from: { :$gte => Time.at(Time.now + number.days) } }

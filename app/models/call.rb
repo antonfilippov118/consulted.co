@@ -27,11 +27,13 @@ class Call
   field :seeker_reminder_sent, type: Boolean, default: false
   field :expert_reminder_sent_at, type: DateTime
   field :seeker_reminder_sent_at, type: DateTime
+  field :rating_reminder_sent, type: Boolean, default: false
+  field :rating_reminder_sent_at, type: DateTime
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
 
-  index pin: 1
+  index pin: 1, status: 1
 
   delegate :name, to: :offer
   delegate :group, to: :offer
@@ -53,6 +55,11 @@ class Call
     save!
   end
 
+  def complete!
+    self.status = Call::Status::COMPLETED
+    save
+  end
+
   def active?
     status == Call::Status::ACTIVE
   end
@@ -63,6 +70,10 @@ class Call
 
   def declined?
     status == Call::Status::DECLINED
+  end
+
+  def complete?
+    status == Call::Status::COMPLETED
   end
 
   private
