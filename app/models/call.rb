@@ -23,6 +23,10 @@ class Call
   field :active_to, type: DateTime
   field :status, type: Integer, default: Call::Status::REQUESTED
   field :message, type: String
+  field :expert_reminder_sent, type: Boolean, default: false
+  field :seeker_reminder_sent, type: Boolean, default: false
+  field :expert_reminder_sent_at, type: DateTime
+  field :seeker_reminder_sent_at, type: DateTime
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
