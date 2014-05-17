@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe CancelsPendingCalls do
-  let(:action) { CancelsPendingCalls }
+describe DeclinePendingCalls do
+  let(:action) { DeclinePendingCalls }
 
   it 'should decline calls which are pending and have not been responded to' do
     expert = User.create! valid_params.merge timezone: 'Europe/Berlin'

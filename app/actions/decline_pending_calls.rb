@@ -1,4 +1,4 @@
-class CancelsPendingCalls
+class DeclinePendingCalls
   include LightService::Organizer
 
   def self.older_than(time)
