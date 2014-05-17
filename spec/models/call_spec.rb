@@ -14,6 +14,20 @@ describe Call do
     expect(blocks[0..8]).to eql 9.times.map { 2 }
   end
 
+  it 'should free the blocks for the expert after destruction' do
+    availability = expert.availabilities.first
+    call = Call.new seeker: seeker,
+                    expert: expert,
+                    active_from: availability.starting,
+                    length: 45
+    call.save
+    call.confirm!
+    call.destroy
+    blocks = User.last.availabilities.first.blocks.map(&:status)
+
+    expect(blocks[0..8]).to eql 9.times.map { 0 }
+  end
+
   def seeker
     user = User.create valid_params
     user.confirm!
