@@ -2,39 +2,785 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-scheduler.config.occurrence_timestamp_in_utc=!1;
-scheduler.form_blocks.recurring={render:function(){return scheduler.__recurring_template},_ds:{},_init_set_value:function(a,b,c){function d(a){for(var b=0;b<a.length;b++){var c=a[b];c.type=="checkbox"||c.type=="radio"?(g[c.name]||(g[c.name]=[]),g[c.name].push(c)):g[c.name]=c}}function f(a){for(var b=g[a],c=0;c<b.length;c++)if(b[c].checked)return b[c].value}function e(){m("dhx_repeat_day").style.display="none";m("dhx_repeat_week").style.display="none";m("dhx_repeat_month").style.display="none";m("dhx_repeat_year").style.display=
-"none";m("dhx_repeat_"+this.value).style.display="block"}function h(a){var b=[f("repeat")];for(q[b[0]](b,a);b.length<5;)b.push("");var c="";if(g.end[0].checked)a.end=new Date(9999,1,1),c="no";else if(g.end[2].checked)a.end=j(g.date_of_end.value);else{scheduler.transpose_type(b.join("_"));var c=Math.max(1,g.occurences_count.value),e=b[0]=="week"&&b[4]&&b[4].toString().indexOf(scheduler.config.start_on_monday?1:0)==-1?1:0;a.end=scheduler.date.add(new Date(a.start),c+e,b.join("_"))}return b.join("_")+
-"#"+c}function i(a,b){var c=a.split("#"),a=c[0].split("_");r[a[0]](a,b);var e=g.repeat[{day:0,week:1,month:2,year:3}[a[0]]];switch(c[1]){case "no":g.end[0].checked=!0;break;case "":g.end[2].checked=!0;g.date_of_end.value=l(b.end);break;default:g.end[1].checked=!0,g.occurences_count.value=c[1]}e.checked=!0;e.onclick()}scheduler.form_blocks.recurring._ds={start:c.start_date,end:c._end_date};var k=scheduler.date.str_to_date(scheduler.config.repeat_date),j=function(a){var b=k(a);scheduler.config.include_end_by&&
-(b=scheduler.date.add(b,1,"day"));return b},l=scheduler.date.date_to_str(scheduler.config.repeat_date),n=a.getElementsByTagName("FORM")[0],g=[];d(n.getElementsByTagName("INPUT"));d(n.getElementsByTagName("SELECT"));if(!scheduler.config.repeat_date_of_end){var s=scheduler.date.date_to_str(scheduler.config.repeat_date);scheduler.config.repeat_date_of_end=s(scheduler.date.add(scheduler._currentDate(),30,"day"))}g.date_of_end.value=scheduler.config.repeat_date_of_end;var m=function(a){return document.getElementById(a)};
-scheduler.form_blocks.recurring._get_repeat_code=h;var q={month:function(a,b){f("month_type")=="d"?(a.push(Math.max(1,g.month_count.value)),b.start.setDate(g.month_day.value)):(a.push(Math.max(1,g.month_count2.value)),a.push(g.month_day2.value),a.push(Math.max(1,g.month_week2.value)),b.start.setDate(1));b._start=!0},week:function(a,b){a.push(Math.max(1,g.week_count.value));a.push("");a.push("");for(var c=[],e=g.week_day,d=0;d<e.length;d++)e[d].checked&&c.push(e[d].value);c.length||c.push(b.start.getDay());
-b.start=scheduler.date.week_start(b.start);b._start=!0;a.push(c.sort().join(","))},day:function(a){f("day_type")=="d"?a.push(Math.max(1,g.day_count.value)):(a.push("week"),a.push(1),a.push(""),a.push(""),a.push("1,2,3,4,5"),a.splice(0,1))},year:function(a,b){f("year_type")=="d"?(a.push("1"),b.start.setMonth(0),b.start.setDate(g.year_day.value),b.start.setMonth(g.year_month.value)):(a.push("1"),a.push(g.year_day2.value),a.push(g.year_week2.value),b.start.setDate(1),b.start.setMonth(g.year_month2.value));
-b._start=!0}},r={week:function(a){g.week_count.value=a[1];for(var b=g.week_day,c=a[4].split(","),e={},d=0;d<c.length;d++)e[c[d]]=!0;for(d=0;d<b.length;d++)b[d].checked=!!e[b[d].value]},month:function(a,b){a[2]==""?(g.month_type[0].checked=!0,g.month_count.value=a[1],g.month_day.value=b.start.getDate()):(g.month_type[1].checked=!0,g.month_count2.value=a[1],g.month_week2.value=a[3],g.month_day2.value=a[2])},day:function(a){g.day_type[0].checked=!0;g.day_count.value=a[1]},year:function(a,b){a[2]==""?
-(g.year_type[0].checked=!0,g.year_day.value=b.start.getDate(),g.year_month.value=b.start.getMonth()):(g.year_type[1].checked=!0,g.year_week2.value=a[3],g.year_day2.value=a[2],g.year_month2.value=b.start.getMonth())}};scheduler.form_blocks.recurring._set_repeat_code=i;for(var o=0;o<n.elements.length;o++){var p=n.elements[o];switch(p.name){case "repeat":p.onclick=e}}scheduler._lightbox._rec_init_done=!0},set_value:function(a,b,c){var d=scheduler.form_blocks.recurring;scheduler._lightbox._rec_init_done||
-d._init_set_value(a,b,c);a.open=!c.rec_type;a.blocked=c.event_pid&&c.event_pid!="0"?!0:!1;var f=d._ds;f.start=c.start_date;f.end=c._end_date;d.button_click(0,a.previousSibling.firstChild.firstChild,a,a);b&&d._set_repeat_code(b,f)},get_value:function(a,b){if(a.open){var c=scheduler.form_blocks.recurring._ds,d={};this.formSection("time").getValue(d);c.start=d.start_date;b.rec_type=scheduler.form_blocks.recurring._get_repeat_code(c);c._start?(b.start_date=new Date(c.start),b._start_date=new Date(c.start),
-c._start=!1):b._start_date=null;b._end_date=c.end;b.rec_pattern=b.rec_type.split("#")[0]}else b.rec_type=b.rec_pattern="",b._end_date=b.end_date;return b.rec_type},focus:function(){},button_click:function(a,b,c,d){!d.open&&!d.blocked?(d.style.height="115px",b.style.backgroundPosition="-5px 0px",b.nextSibling.innerHTML=scheduler.locale.labels.button_recurring_open):(d.style.height="0px",b.style.backgroundPosition="-5px 20px",b.nextSibling.innerHTML=scheduler.locale.labels.button_recurring);d.open=
-!d.open;scheduler.setLightboxSize()}};scheduler._rec_markers={};scheduler._rec_markers_pull={};scheduler._add_rec_marker=function(a,b){a._pid_time=b;this._rec_markers[a.id]=a;this._rec_markers_pull[a.event_pid]||(this._rec_markers_pull[a.event_pid]={});this._rec_markers_pull[a.event_pid][b]=a};scheduler._get_rec_marker=function(a,b){var c=this._rec_markers_pull[b];return c?c[a]:null};scheduler._get_rec_markers=function(a){return this._rec_markers_pull[a]||[]};scheduler._rec_temp=[];
-(function(){var a=scheduler.addEvent;scheduler.addEvent=function(b,c,d,f,e){var h=a.apply(this,arguments);if(h){var i=scheduler.getEvent(h);i.event_pid!=0&&scheduler._add_rec_marker(i,i.event_length*1E3);if(i.rec_type)i.rec_pattern=i.rec_type.split("#")[0]}}})();scheduler.attachEvent("onEventIdChange",function(a,b){if(!this._ignore_call){this._ignore_call=!0;for(var c=0;c<this._rec_temp.length;c++){var d=this._rec_temp[c];if(d.event_pid==a)d.event_pid=b,this.changeEventId(d.id,b+"#"+d.id.split("#")[1])}delete this._ignore_call}});
-scheduler.attachEvent("onBeforeEventDelete",function(a){var b=this.getEvent(a);if(a.toString().indexOf("#")!=-1||b.event_pid&&b.event_pid!="0"&&b.rec_type&&b.rec_type!="none"){var a=a.split("#"),c=this.uid(),d=a[1]?a[1]:b._pid_time/1E3,f=this._copy_event(b);f.id=c;f.event_pid=b.event_pid||a[0];var e=d;f.event_length=e;f.rec_type=f.rec_pattern="none";this.addEvent(f);this._add_rec_marker(f,e*1E3)}else{b.rec_type&&this._lightbox_id&&this._roll_back_dates(b);var h=this._get_rec_markers(a),i;for(i in h)if(h.hasOwnProperty(i))a=
-h[i].id,this.getEvent(a)&&this.deleteEvent(a,!0)}return!0});
-scheduler.attachEvent("onEventChanged",function(a){if(this._loading)return!0;var b=this.getEvent(a);if(a.toString().indexOf("#")!=-1){var a=a.split("#"),c=this.uid();this._not_render=!0;var d=this._copy_event(b);d.id=c;d.event_pid=a[0];var f=a[1];d.event_length=f;d.rec_type=d.rec_pattern="";this._add_rec_marker(d,f*1E3);this.addEvent(d);this._not_render=!1}else{b.rec_type&&this._lightbox_id&&this._roll_back_dates(b);var e=this._get_rec_markers(a),h;for(h in e)e.hasOwnProperty(h)&&(delete this._rec_markers[e[h].id],
-this.deleteEvent(e[h].id,!0));delete this._rec_markers_pull[a];for(var i=!1,k=0;k<this._rendered.length;k++)this._rendered[k].getAttribute("event_id")==a&&(i=!0);if(!i)this._select_id=null}return!0});scheduler.attachEvent("onEventAdded",function(a){if(!this._loading){var b=this.getEvent(a);b.rec_type&&!b.event_length&&this._roll_back_dates(b)}return!0});
-scheduler.attachEvent("onEventSave",function(a,b){var c=this.getEvent(a);if(!c.rec_type&&b.rec_type&&(a+"").indexOf("#")==-1)this._select_id=null;return!0});scheduler.attachEvent("onEventCreated",function(a){var b=this.getEvent(a);if(!b.rec_type)b.rec_type=b.rec_pattern=b.event_length=b.event_pid="";return!0});scheduler.attachEvent("onEventCancel",function(a){var b=this.getEvent(a);b.rec_type&&(this._roll_back_dates(b),this.render_view_data())});
-scheduler._roll_back_dates=function(a){a.event_length=(a.end_date.valueOf()-a.start_date.valueOf())/1E3;a.end_date=a._end_date;a._start_date&&(a.start_date.setMonth(0),a.start_date.setDate(a._start_date.getDate()),a.start_date.setMonth(a._start_date.getMonth()),a.start_date.setFullYear(a._start_date.getFullYear()))};scheduler.validId=function(a){return a.toString().indexOf("#")==-1};scheduler.showLightbox_rec=scheduler.showLightbox;
-scheduler.showLightbox=function(a){var b=this.locale,c=scheduler.config.lightbox_recurring,d=this.getEvent(a),f=d.event_pid,e=a.toString().indexOf("#")!=-1;e&&(f=a.split("#")[0]);var h=function(a){var b=scheduler.getEvent(a);b._end_date=b.end_date;b.end_date=new Date(b.start_date.valueOf()+b.event_length*1E3);return scheduler.showLightbox_rec(a)};if((f||f==0)&&d.rec_type)return h(a);if(!f||f==0||!b.labels.confirm_recurring||c=="instance"||c=="series"&&!e)return this.showLightbox_rec(a);if(c=="ask"){var i=
-this;dhtmlx.modalbox({text:b.labels.confirm_recurring,title:b.labels.title_confirm_recurring,width:"500px",position:"middle",buttons:[b.labels.button_edit_series,b.labels.button_edit_occurrence,b.labels.icon_cancel],callback:function(b){switch(+b){case 0:return h(f);case 1:return i.showLightbox_rec(a)}}})}else h(f)};scheduler.get_visible_events_rec=scheduler.get_visible_events;
-scheduler.get_visible_events=function(a){for(var b=0;b<this._rec_temp.length;b++)delete this._events[this._rec_temp[b].id];this._rec_temp=[];for(var c=this.get_visible_events_rec(a),d=[],b=0;b<c.length;b++)c[b].rec_type?c[b].rec_pattern!="none"&&this.repeat_date(c[b],d):d.push(c[b]);return d};
-(function(){var a=scheduler.is_one_day_event;scheduler.is_one_day_event=function(b){return b.rec_type?!0:a.call(this,b)};var b=scheduler.updateEvent;scheduler.updateEvent=function(a){var d=scheduler.getEvent(a);d&&d.rec_type&&a.toString().indexOf("#")===-1?scheduler.update_view():b.call(this,a)}})();scheduler.transponse_size={day:1,week:7,month:1,year:12};scheduler.date.day_week=function(a,b,c){a.setDate(1);var c=(c-1)*7,d=a.getDay(),f=b*1+c-d+1;a.setDate(f<=c?f+7:f)};
-scheduler.transpose_day_week=function(a,b,c,d,f){for(var e=(a.getDay()||(scheduler.config.start_on_monday?7:0))-c,h=0;h<b.length;h++)if(b[h]>e)return a.setDate(a.getDate()+b[h]*1-e-(d?c:f));this.transpose_day_week(a,b,c+d,null,c)};
-scheduler.transpose_type=function(a){var b="transpose_"+a;if(!this.date[b]){var c=a.split("_"),d=864E5,f="add_"+a,e=this.transponse_size[c[0]]*c[1];if(c[0]=="day"||c[0]=="week"){var h=null;if(c[4]&&(h=c[4].split(","),scheduler.config.start_on_monday)){for(var i=0;i<h.length;i++)h[i]=h[i]*1||7;h.sort()}this.date[b]=function(a,b){var c=Math.floor((b.valueOf()-a.valueOf())/(d*e));c>0&&a.setDate(a.getDate()+c*e);h&&scheduler.transpose_day_week(a,h,1,e)};this.date[f]=function(a,b){var c=new Date(a.valueOf());
-if(h)for(var d=0;d<b;d++)scheduler.transpose_day_week(c,h,0,e);else c.setDate(c.getDate()+b*e);return c}}else if(c[0]=="month"||c[0]=="year")this.date[b]=function(a,b){var d=Math.ceil((b.getFullYear()*12+b.getMonth()*1-(a.getFullYear()*12+a.getMonth()*1))/e);d>=0&&a.setMonth(a.getMonth()+d*e);c[3]&&scheduler.date.day_week(a,c[2],c[3])},this.date[f]=function(a,b){var d=new Date(a.valueOf());d.setMonth(d.getMonth()+b*e);c[3]&&scheduler.date.day_week(d,c[2],c[3]);return d}}};
-scheduler.repeat_date=function(a,b,c,d,f){var d=d||this._min_date,f=f||this._max_date,e=new Date(a.start_date.valueOf());if(!a.rec_pattern&&a.rec_type)a.rec_pattern=a.rec_type.split("#")[0];this.transpose_type(a.rec_pattern);for(scheduler.date["transpose_"+a.rec_pattern](e,d);e<a.start_date||scheduler._fix_daylight_saving_date(e,d,a,e,new Date(e.valueOf()+a.event_length*1E3)).valueOf()<=d.valueOf()||e.valueOf()+a.event_length*1E3<=d.valueOf();)e=this.date.add(e,1,a.rec_pattern);for(;e<f&&e<a.end_date;){var h=
-scheduler.config.occurrence_timestamp_in_utc?Date.UTC(e.getFullYear(),e.getMonth(),e.getDate(),e.getHours(),e.getMinutes(),e.getSeconds()):e.valueOf(),i=this._get_rec_marker(h,a.id);if(i)c&&b.push(i);else{var k=new Date(e.valueOf()+a.event_length*1E3),j=this._copy_event(a);j.text=a.text;j.start_date=e;j.event_pid=a.id;j.id=a.id+"#"+Math.ceil(h/1E3);j.end_date=k;j.end_date=scheduler._fix_daylight_saving_date(j.start_date,j.end_date,a,e,j.end_date);j._timed=this.is_one_day_event(j);if(!j._timed&&!this._table_view&&
-!this.config.multi_day)break;b.push(j);c||(this._events[j.id]=j,this._rec_temp.push(j))}e=this.date.add(e,1,a.rec_pattern)}};scheduler._fix_daylight_saving_date=function(a,b,c,d,f){var e=a.getTimezoneOffset()-b.getTimezoneOffset();return e?e>0?new Date(d.valueOf()+c.event_length*1E3-e*6E4):new Date(b.valueOf()-e*6E4):new Date(f.valueOf())};
-scheduler.getRecDates=function(a,b){var c=typeof a=="object"?a:scheduler.getEvent(a),d=0,f=[],b=b||100,e=new Date(c.start_date.valueOf()),h=new Date(e.valueOf());if(!c.rec_type)return[{start_date:c.start_date,end_date:c.end_date}];if(c.rec_type=="none")return[];this.transpose_type(c.rec_pattern);for(scheduler.date["transpose_"+c.rec_pattern](e,h);e<c.start_date||e.valueOf()+c.event_length*1E3<=h.valueOf();)e=this.date.add(e,1,c.rec_pattern);for(;e<c.end_date;){var i=this._get_rec_marker(e.valueOf(),
-c.id),k=!0;if(i)i.rec_type=="none"?k=!1:f.push({start_date:i.start_date,end_date:i.end_date});else{var j=new Date(e),l=new Date(e.valueOf()+c.event_length*1E3),l=scheduler._fix_daylight_saving_date(j,l,c,e,l);f.push({start_date:j,end_date:l})}e=this.date.add(e,1,c.rec_pattern);if(k&&(d++,d==b))break}return f};
-scheduler.getEvents=function(a,b){var c=[],d;for(d in this._events){var f=this._events[d];if(f&&f.start_date<b&&f.end_date>a)if(f.rec_pattern){if(f.rec_pattern!="none"){var e=[];this.repeat_date(f,e,!0,a,b);for(var h=0;h<e.length;h++)!e[h].rec_pattern&&e[h].start_date<b&&e[h].end_date>a&&!this._rec_markers[e[h].id]&&c.push(e[h])}}else f.id.toString().indexOf("#")==-1&&c.push(f)}return c};scheduler.config.repeat_date="%m.%d.%Y";
-scheduler.config.lightbox.sections=[{name:"description",height:130,map_to:"text",type:"textarea",focus:!0},{name:"recurring",type:"recurring",map_to:"rec_type",button:"recurring"},{name:"time",height:72,type:"time",map_to:"auto"}];scheduler._copy_dummy=function(){var a=new Date(this.start_date),b=new Date(this.end_date);this.start_date=a;this.end_date=b;this.event_length=this.event_pid=this.rec_pattern=this.rec_type=null};scheduler.config.include_end_by=!1;scheduler.config.lightbox_recurring="ask";
-scheduler.attachEvent("onClearAll",function(){scheduler._rec_markers={};scheduler._rec_markers_pull={};scheduler._rec_temp=[]});
-scheduler.__recurring_template='<div class="dhx_form_repeat"> <form> <div class="dhx_repeat_left"> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="day" />Daily</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="week"/>Weekly</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="month" checked />Monthly</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="year" />Yearly</label> </div> <div class="dhx_repeat_divider"></div> <div class="dhx_repeat_center"> <div style="display:none;" id="dhx_repeat_day"> <label><input class="dhx_repeat_radio" type="radio" name="day_type" value="d"/>Every</label><input class="dhx_repeat_text" type="text" name="day_count" value="1" />day<br /> <label><input class="dhx_repeat_radio" type="radio" name="day_type" checked value="w"/>Every workday</label> </div> <div style="display:none;" id="dhx_repeat_week"> Repeat every<input class="dhx_repeat_text" type="text" name="week_count" value="1" />week next days:<br /> <table class="dhx_repeat_days"> <tr> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="1" />Monday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="4" />Thursday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="2" />Tuesday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="5" />Friday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="3" />Wednesday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="6" />Saturday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="0" />Sunday</label><br /><br /> </td> </tr> </table> </div> <div id="dhx_repeat_month"> <label><input class="dhx_repeat_radio" type="radio" name="month_type" value="d"/>Repeat</label><input class="dhx_repeat_text" type="text" name="month_day" value="1" />day every<input class="dhx_repeat_text" type="text" name="month_count" value="1" />month<br /> <label><input class="dhx_repeat_radio" type="radio" name="month_type" checked value="w"/>On</label><input class="dhx_repeat_text" type="text" name="month_week2" value="1" /><select name="month_day2"><option value="1" selected >Monday<option value="2">Tuesday<option value="3">Wednesday<option value="4">Thursday<option value="5">Friday<option value="6">Saturday<option value="0">Sunday</select>every<input class="dhx_repeat_text" type="text" name="month_count2" value="1" />month<br /> </div> <div style="display:none;" id="dhx_repeat_year"> <label><input class="dhx_repeat_radio" type="radio" name="year_type" value="d"/>Every</label><input class="dhx_repeat_text" type="text" name="year_day" value="1" />day<select name="year_month"><option value="0" selected >January<option value="1">February<option value="2">March<option value="3">April<option value="4">May<option value="5">June<option value="6">July<option value="7">August<option value="8">September<option value="9">October<option value="10">November<option value="11">December</select>month<br /> <label><input class="dhx_repeat_radio" type="radio" name="year_type" checked value="w"/>On</label><input class="dhx_repeat_text" type="text" name="year_week2" value="1" /><select name="year_day2"><option value="1" selected >Monday<option value="2">Tuesday<option value="3">Wednesday<option value="4">Thursday<option value="5">Friday<option value="6">Saturday<option value="7">Sunday</select>of<select name="year_month2"><option value="0" selected >January<option value="1">February<option value="2">March<option value="3">April<option value="4">May<option value="5">June<option value="6">July<option value="7">August<option value="8">September<option value="9">October<option value="10">November<option value="11">December</select><br /> </div> </div> <div class="dhx_repeat_divider"></div> <div class="dhx_repeat_right"> <label><input class="dhx_repeat_radio" type="radio" name="end" checked/>No end date</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="end" />After</label><input class="dhx_repeat_text" type="text" name="occurences_count" value="1" />occurrences<br /> <label><input class="dhx_repeat_radio" type="radio" name="end" />End by</label><input class="dhx_repeat_date" type="text" name="date_of_end" value="'+scheduler.config.repeat_date_of_end+
-'" /><br /> </div> </form> </div> <div style="clear:both"> </div>';
+
+scheduler.config.occurrence_timestamp_in_utc = false;
+scheduler.form_blocks["recurring"] = {
+	render:function(sns) {
+		return scheduler.__recurring_template;
+	},
+	_ds: {},
+	_init_set_value:function(node, value, ev) {
+		scheduler.form_blocks["recurring"]._ds = {start:ev.start_date, end:ev._end_date};
+
+		var str_date_format = scheduler.date.str_to_date(scheduler.config.repeat_date);
+		var str_date = function(str_date) {
+			var date = str_date_format(str_date);
+			if (scheduler.config.include_end_by)
+				date = scheduler.date.add(date, 1, 'day');
+			return date;
+		};
+
+		var date_str = scheduler.date.date_to_str(scheduler.config.repeat_date);
+
+		var top = node.getElementsByTagName("FORM")[0];
+		var els = [];
+
+		function register_els(inps) {
+			for (var i = 0; i < inps.length; i++) {
+				var inp = inps[i];
+				if (inp.type == "checkbox" || inp.type == "radio") {
+					if (!els[inp.name])
+						els[inp.name] = [];
+					els[inp.name].push(inp);
+				} else
+					els[inp.name] = inp;
+			}
+		}
+
+		register_els(top.getElementsByTagName("INPUT"));
+		register_els(top.getElementsByTagName("SELECT"));
+
+		if (!scheduler.config.repeat_date_of_end) {
+			var formatter = scheduler.date.date_to_str(scheduler.config.repeat_date);
+			scheduler.config.repeat_date_of_end = formatter(scheduler.date.add(scheduler._currentDate(), 30, "day"));
+		}
+		els["date_of_end"].value = scheduler.config.repeat_date_of_end;
+
+		var $ = function(a) {
+			return document.getElementById(a);
+		};
+
+		function get_radio_value(name) {
+			var col = els[name];
+			for (var i = 0; i < col.length; i++)
+				if (col[i].checked) return col[i].value;
+		}
+
+		function change_current_view() {
+			$("dhx_repeat_day").style.display = "none";
+			$("dhx_repeat_week").style.display = "none";
+			$("dhx_repeat_month").style.display = "none";
+			$("dhx_repeat_year").style.display = "none";
+			$("dhx_repeat_" + this.value).style.display = "block";
+		}
+
+		function get_repeat_code(dates) {
+			var code = [get_radio_value("repeat")];
+			get_rcode[code[0]](code, dates);
+
+			while (code.length < 5) code.push("");
+			var repeat = "";
+			if (els["end"][0].checked) {
+				dates.end = new Date(9999, 1, 1);
+				repeat = "no";
+			}
+			else if (els["end"][2].checked) {
+				dates.end = str_date(els["date_of_end"].value);
+			}
+			else {
+				scheduler.transpose_type(code.join("_"));
+				repeat = Math.max(1, els["occurences_count"].value);
+				var transp = ((code[0] == "week" && code[4] && code[4].toString().indexOf(scheduler.config.start_on_monday ? 1 : 0) == -1) ? 1 : 0);
+				dates.end = scheduler.date.add(new Date(dates.start), repeat + transp, code.join("_"));
+			}
+
+			return code.join("_") + "#" + repeat;
+		}
+
+		scheduler.form_blocks["recurring"]._get_repeat_code = get_repeat_code;
+		var get_rcode = {
+			month:function(code, dates) {
+				if (get_radio_value("month_type") == "d") {
+					code.push(Math.max(1, els["month_count"].value));
+					dates.start.setDate(els["month_day"].value);
+				} else {
+					code.push(Math.max(1, els["month_count2"].value));
+					code.push(els["month_day2"].value);
+					code.push(Math.max(1, els["month_week2"].value));
+					dates.start.setDate(1);
+				}
+				dates._start = true;
+			},
+			week:function(code, dates) {
+				code.push(Math.max(1, els["week_count"].value));
+				code.push("");
+				code.push("");
+				var t = [];
+				var col = els["week_day"];
+				var day = dates.start.getDay();
+				var start_exists = false;
+
+				for (var i = 0; i < col.length; i++){
+					if (col[i].checked) {
+						t.push(col[i].value);
+						start_exists = start_exists || col[i].value == day;
+					}
+				}
+				if (!t.length){
+					t.push(day);
+					start_exists = true;
+				}
+				t.sort();
+
+
+				if (!scheduler.config.repeat_precise){
+					dates.start = scheduler.date.week_start(dates.start);
+					dates._start = true;
+				} else if (!start_exists){
+					scheduler.transpose_day_week(dates.start, t, 1, 7);
+					dates._start = true;
+				}
+
+				code.push(t.join(","));
+			},
+			day:function(code) {
+				if (get_radio_value("day_type") == "d") {
+					code.push(Math.max(1, els["day_count"].value));
+				}
+				else {
+					code.push("week");
+					code.push(1);
+					code.push("");
+					code.push("");
+					code.push("1,2,3,4,5");
+					code.splice(0, 1);
+				}
+			},
+			year:function(code, dates) {
+				if (get_radio_value("year_type") == "d") {
+					code.push("1");
+					dates.start.setMonth(0);
+					dates.start.setDate(els["year_day"].value);
+					dates.start.setMonth(els["year_month"].value);
+
+				} else {
+					code.push("1");
+					code.push(els["year_day2"].value);
+					code.push(els["year_week2"].value);
+					dates.start.setDate(1);
+					dates.start.setMonth(els["year_month2"].value);
+				}
+				dates._start = true;
+			}
+		};
+		var set_rcode = {
+			week:function(code, dates) {
+				els["week_count"].value = code[1];
+				var col = els["week_day"];
+				var t = code[4].split(",");
+				var d = {};
+				for (var i = 0; i < t.length; i++) d[t[i]] = true;
+				for (var i = 0; i < col.length; i++)
+					col[i].checked = (!!d[col[i].value]);
+			},
+			month:function(code, dates) {
+				if (code[2] == "") {
+					els["month_type"][0].checked = true;
+					els["month_count"].value = code[1];
+					els["month_day"].value = dates.start.getDate();
+				} else {
+					els["month_type"][1].checked = true;
+					els["month_count2"].value = code[1];
+					els["month_week2"].value = code[3];
+					els["month_day2"].value = code[2];
+				}
+			},
+			day:function(code, dates) {
+				els["day_type"][0].checked = true;
+				els["day_count"].value = code[1];
+			},
+			year:function(code, dates) {
+				if (code[2] == "") {
+					els["year_type"][0].checked = true;
+					els["year_day"].value = dates.start.getDate();
+					els["year_month"].value = dates.start.getMonth();
+				} else {
+					els["year_type"][1].checked = true;
+					els["year_week2"].value = code[3];
+					els["year_day2"].value = code[2];
+					els["year_month2"].value = dates.start.getMonth();
+				}
+			}
+		};
+
+		function set_repeat_code(code, dates) {
+			var data = code.split("#");
+			code = data[0].split("_");
+			set_rcode[code[0]](code, dates);
+			var e = els["repeat"][({day:0, week:1, month:2, year:3})[code[0]]];
+			switch (data[1]) {
+				case "no":
+					els["end"][0].checked = true;
+					break;
+				case "":
+					els["end"][2].checked = true;
+					els["date_of_end"].value = date_str(dates.end);
+					break;
+				default:
+					els["end"][1].checked = true;
+					els["occurences_count"].value = data[1];
+					break;
+			}
+
+			e.checked = true;
+			e.onclick();
+		}
+
+		scheduler.form_blocks["recurring"]._set_repeat_code = set_repeat_code;
+
+		for (var i = 0; i < top.elements.length; i++) {
+			var el = top.elements[i];
+			switch (el.name) {
+				case "repeat":
+					el.onclick = change_current_view;
+					break;
+			}
+		}
+		scheduler._lightbox._rec_init_done = true;
+	},
+	set_value:function(node, value, ev) {
+		var rf = scheduler.form_blocks["recurring"];
+		if (!scheduler._lightbox._rec_init_done)
+			rf._init_set_value(node, value, ev);
+		node.open = !ev.rec_type;
+		if (ev.event_pid && ev.event_pid != "0")
+			node.blocked = true;
+		else node.blocked = false;
+
+		var ds = rf._ds;
+		ds.start = ev.start_date;
+		ds.end = ev._end_date;
+
+		rf.button_click(0, node.previousSibling.firstChild.firstChild, node, node);
+		if (value)
+			rf._set_repeat_code(value, ds);
+	},
+	get_value:function(node, ev) {
+		if (node.open) {
+			var ds = scheduler.form_blocks["recurring"]._ds;
+			var actual_dates = {};
+			this.formSection('time').getValue(actual_dates);
+			ds.start = actual_dates.start_date;
+			ev.rec_type = scheduler.form_blocks["recurring"]._get_repeat_code(ds);
+			if (ds._start) {
+				ev.start_date = new Date(ds.start);
+				ev._start_date = new Date(ds.start);
+				ds._start = false;
+			} else
+				ev._start_date = null;
+
+			ev._end_date = ds.end;
+			ev.rec_pattern = ev.rec_type.split("#")[0];
+		} else {
+			ev.rec_type = ev.rec_pattern = "";
+			ev._end_date = ev.end_date;
+		}
+		return ev.rec_type;
+	},
+	focus:function(node) {
+	},
+	button_click:function(index, el, section, cont) {
+		if (!cont.open && !cont.blocked) {
+			cont.style.height = "115px";
+			el.style.backgroundPosition = "-5px 0px";
+			el.nextSibling.innerHTML = scheduler.locale.labels.button_recurring_open;
+		} else {
+			cont.style.height = "0px";
+			el.style.backgroundPosition = "-5px 20px";
+			el.nextSibling.innerHTML = scheduler.locale.labels.button_recurring;
+		}
+		cont.open = !cont.open;
+
+		scheduler.setLightboxSize();
+	}
+};
+
+
+//problem may occur if we will have two repeating events in the same moment of time
+scheduler._rec_markers = {};
+scheduler._rec_markers_pull = {};
+scheduler._add_rec_marker = function(ev, time) {
+	ev._pid_time = time;
+	this._rec_markers[ev.id] = ev;
+	if (!this._rec_markers_pull[ev.event_pid]) this._rec_markers_pull[ev.event_pid] = {};
+	this._rec_markers_pull[ev.event_pid][time] = ev;
+};
+scheduler._get_rec_marker = function(time, id) {
+	var ch = this._rec_markers_pull[id];
+	if (ch) return ch[time];
+	return null;
+};
+scheduler._get_rec_markers = function(id) {
+	return (this._rec_markers_pull[id] || []);
+};
+scheduler._rec_temp = [];
+(function() {
+	var old_add_event = scheduler.addEvent;
+	scheduler.addEvent = function(start_date, end_date, text, id, extra_data) {
+		var ev_id = old_add_event.apply(this, arguments);
+
+		if (ev_id) {
+			var ev = scheduler.getEvent(ev_id);
+			if (ev.event_pid != 0)
+				scheduler._add_rec_marker(ev, ev.event_length * 1000);
+			if (ev.rec_type)
+				ev.rec_pattern = ev.rec_type.split("#")[0];
+		}
+		return ev_id;
+	};
+})();
+scheduler.attachEvent("onEventIdChange", function(id, new_id) {
+	if (this._ignore_call) return;
+	this._ignore_call = true;
+
+	for (var i = 0; i < this._rec_temp.length; i++) {
+		var tev = this._rec_temp[i];
+		if (tev.event_pid == id) {
+			tev.event_pid = new_id;
+			this.changeEventId(tev.id, new_id + "#" + tev.id.split("#")[1]);
+		}
+	}
+
+	delete this._ignore_call;
+});
+scheduler.attachEvent("onConfirmedBeforeEventDelete", function(id) {
+	var ev = this.getEvent(id);
+	if (id.toString().indexOf("#") != -1 || (ev.event_pid && ev.event_pid != "0" && ev.rec_type && ev.rec_type != 'none')) {
+		id = id.split("#");
+		var nid = this.uid();
+		var tid = (id[1]) ? id[1] : (ev._pid_time / 1000);
+
+		var nev = this._copy_event(ev);
+		nev.id = nid;
+		nev.event_pid = ev.event_pid || id[0];
+		var timestamp = tid;
+		nev.event_length = timestamp;
+		nev.rec_type = nev.rec_pattern = "none";
+		this.addEvent(nev);
+
+		this._add_rec_marker(nev, timestamp * 1000);
+	} else {
+		if (ev.rec_type && this._lightbox_id)
+			this._roll_back_dates(ev);
+		var sub = this._get_rec_markers(id);
+		for (var i in sub) {
+			if (sub.hasOwnProperty(i)) {
+				id = sub[i].id;
+				if (this.getEvent(id))
+					this.deleteEvent(id, true);
+			}
+		}
+	}
+	return true;
+});
+
+scheduler.attachEvent("onEventChanged", function(id) {
+	if (this._loading) return true;
+
+	var ev = this.getEvent(id);
+
+	if (id.toString().indexOf("#") != -1) {
+		var id = id.split("#");
+		var nid = this.uid();
+		this._not_render = true;
+
+		var nev = this._copy_event(ev);
+		nev.id = nid;
+		nev.event_pid = id[0];
+		var timestamp = id[1];
+		nev.event_length = timestamp;
+		nev.rec_type = nev.rec_pattern = "";
+
+		this._add_rec_marker(nev, timestamp * 1000);
+		this.addEvent(nev);
+
+		this._not_render = false;
+
+	} else {
+		if (ev.rec_type && this._lightbox_id)
+			this._roll_back_dates(ev);
+		var sub = this._get_rec_markers(id);
+		for (var i in sub) {
+			if (sub.hasOwnProperty(i)) {
+				delete this._rec_markers[sub[i].id];
+				this.deleteEvent(sub[i].id, true);
+			}
+		}
+		delete this._rec_markers_pull[id];
+
+		// it's possible that after editing event is no longer exists, in such case we need to remove _select_id flag
+		var isEventFound = false;
+		for (var k = 0; k < this._rendered.length; k++) {
+			if (this._rendered[k].getAttribute('event_id') == id)
+				isEventFound = true;
+		}
+		if (!isEventFound)
+			this._select_id = null;
+	}
+	return true;
+});
+scheduler.attachEvent("onEventAdded", function(id) {
+	if (!this._loading) {
+		var ev = this.getEvent(id);
+		if (ev.rec_type && !ev.event_length)
+			this._roll_back_dates(ev);
+	}
+	return true;
+});
+scheduler.attachEvent("onEventSave", function(id, data, is_new_event) {
+	var ev = this.getEvent(id);
+	if (!ev.rec_type && data.rec_type && (id + '').indexOf('#') == -1)
+		this._select_id = null;
+	return true;
+});
+scheduler.attachEvent("onEventCreated", function(id) {
+	var ev = this.getEvent(id);
+	if (!ev.rec_type)
+		ev.rec_type = ev.rec_pattern = ev.event_length = ev.event_pid = "";
+	return true;
+});
+scheduler.attachEvent("onEventCancel", function(id) {
+	var ev = this.getEvent(id);
+	if (ev.rec_type) {
+		this._roll_back_dates(ev);
+		// a bit expensive, but we need to be sure that event re-rendered, because view can be corrupted by resize , during edit process
+		this.render_view_data();
+	}
+});
+scheduler._roll_back_dates = function(ev) {
+	ev.event_length = (ev.end_date.valueOf() - ev.start_date.valueOf()) / 1000;
+	ev.end_date = ev._end_date;
+	if (ev._start_date) {
+		ev.start_date.setMonth(0);
+		ev.start_date.setDate(ev._start_date.getDate());
+		ev.start_date.setMonth(ev._start_date.getMonth());
+		ev.start_date.setFullYear(ev._start_date.getFullYear());
+
+	}
+};
+
+scheduler._validId = function(id) {
+	return id.toString().indexOf("#") == -1;
+};
+
+scheduler.showLightbox_rec = scheduler.showLightbox;
+scheduler.showLightbox = function(id) {
+	var locale = this.locale;
+	var c = scheduler.config.lightbox_recurring;
+	var ev = this.getEvent(id);
+	var pid = ev.event_pid;
+	var isVirtual = (id.toString().indexOf("#") != -1);
+	if (isVirtual)
+		pid = id.split("#")[0];
+
+	// show series
+	var showSeries = function(id) {
+		var event = scheduler.getEvent(id);
+		event._end_date = event.end_date;
+		event.end_date = new Date(event.start_date.valueOf() + event.event_length * 1000);
+		return scheduler.showLightbox_rec(id); // editing series
+	};
+
+	if ( (pid || pid == 0) && ev.rec_type) {
+		// direct API call on series id
+		return showSeries(id);
+	}
+	if ( !pid || pid == 0 || ( (!locale.labels.confirm_recurring || c == 'instance') || (c == 'series' && !isVirtual)) ) {
+		// editing instance or non recurring event
+		return this.showLightbox_rec(id);
+	}
+	if (c == 'ask') {
+		var that = this;
+		dhtmlx.modalbox({
+			text: locale.labels.confirm_recurring,
+			title: locale.labels.title_confirm_recurring,
+			width: "500px",
+			position: "middle",
+			buttons:[locale.labels.button_edit_series, locale.labels.button_edit_occurrence, locale.labels.icon_cancel],
+			callback: function(index) {
+				switch(+index) {
+					case 0:
+						return showSeries(pid);
+					case 1:
+						return that.showLightbox_rec(id);
+					case 2:
+						return;
+				}
+			}
+		});
+	} else {
+		showSeries(pid);
+	}
+};
+
+
+scheduler.get_visible_events_rec = scheduler.get_visible_events;
+scheduler.get_visible_events = function(only_timed) {
+	for (var i = 0; i < this._rec_temp.length; i++)
+		delete this._events[this._rec_temp[i].id];
+	this._rec_temp = [];
+
+	var stack = this.get_visible_events_rec(only_timed);
+	var out = [];
+	for (var i = 0; i < stack.length; i++) {
+		if (stack[i].rec_type) {
+			//deleted element of serie
+			if (stack[i].rec_pattern != "none")
+				this.repeat_date(stack[i], out);
+		}
+		else out.push(stack[i]);
+	}
+	return out;
+};
+
+
+(function() {
+	var old = scheduler.isOneDayEvent;
+	scheduler.isOneDayEvent = function(ev) {
+		if (ev.rec_type) return true;
+		return old.call(this, ev);
+	};
+	var old_update_event = scheduler.updateEvent;
+	scheduler.updateEvent = function(id) {
+		var ev = scheduler.getEvent(id);
+		if(ev.rec_type){
+			//rec_type can be changed without the lightbox,
+			// make sure rec_pattern updated as well
+			ev.rec_pattern = (ev.rec_type || "").split("#")[0];
+		}
+		if (ev && ev.rec_type && id.toString().indexOf('#') === -1) {
+			scheduler.update_view();
+		} else {
+			old_update_event.call(this, id);
+		}
+	};
+})();
+
+scheduler.transponse_size = {
+	day:1, week:7, month:1, year:12
+};
+scheduler.date.day_week = function(sd, day, week) {
+	sd.setDate(1);
+	week = (week - 1) * 7;
+	var cday = sd.getDay();
+	var nday = day * 1 + week - cday + 1;
+	sd.setDate(nday <= week ? (nday + 7) : nday);
+};
+scheduler.transpose_day_week = function(sd, list, cor, size, cor2) {
+	var cday = (sd.getDay() || (scheduler.config.start_on_monday ? 7 : 0)) - cor;
+	for (var i = 0; i < list.length; i++) {
+		if (list[i] > cday)
+			return sd.setDate(sd.getDate() + list[i] * 1 - cday - (size ? cor : cor2));
+	}
+	this.transpose_day_week(sd, list, cor + size, null, cor);
+};
+scheduler.transpose_type = function(type) {
+	var f = "transpose_" + type;
+	if (!this.date[f]) {
+		var str = type.split("_");
+		var day = 60 * 60 * 24 * 1000;
+		var gf = "add_" + type;
+		var step = this.transponse_size[str[0]] * str[1];
+
+		if (str[0] == "day" || str[0] == "week") {
+			var days = null;
+			if (str[4]) {
+				days = str[4].split(",");
+				if (scheduler.config.start_on_monday) {
+					for (var i = 0; i < days.length; i++)
+						days[i] = (days[i] * 1) || 7;
+					days.sort();
+				}
+			}
+
+			this.date[f] = function(nd, td) { 
+				var delta = Math.floor((td.valueOf() - nd.valueOf()) / (day * step));
+				if (delta > 0)
+					nd.setDate(nd.getDate() + delta * step);
+				if (days)
+					scheduler.transpose_day_week(nd, days, 1, step);
+			};
+			this.date[gf] = function(sd, inc) {
+				var nd = new Date(sd.valueOf());
+				if (days) {
+					for (var count = 0; count < inc; count++)
+						scheduler.transpose_day_week(nd, days, 0, step);
+				} else
+					nd.setDate(nd.getDate() + inc * step);
+
+				return nd;
+			};
+		}
+		else if (str[0] == "month" || str[0] == "year") {
+			this.date[f] = function(nd, td) {
+				var delta = Math.ceil(((td.getFullYear() * 12 + td.getMonth() * 1) - (nd.getFullYear() * 12 + nd.getMonth() * 1)) / (step));
+				if (delta >= 0)
+					nd.setMonth(nd.getMonth() + delta * step);
+				if (str[3])
+					scheduler.date.day_week(nd, str[2], str[3]);
+			};
+			this.date[gf] = function(sd, inc) {
+				var nd = new Date(sd.valueOf());
+				nd.setMonth(nd.getMonth() + inc * step);
+				if (str[3])
+					scheduler.date.day_week(nd, str[2], str[3]);
+				return nd;
+			};
+		}
+	}
+};
+scheduler.repeat_date = function(ev, stack, non_render, from, to) {
+
+	from = from || this._min_date;
+	to = to || this._max_date;
+
+	var td = new Date(ev.start_date.valueOf());
+
+	if (!ev.rec_pattern && ev.rec_type)
+		ev.rec_pattern = ev.rec_type.split("#")[0];
+
+	this.transpose_type(ev.rec_pattern);
+	scheduler.date["transpose_" + ev.rec_pattern](td, from);
+	while (td < ev.start_date || scheduler._fix_daylight_saving_date(td,from,ev,td,new Date(td.valueOf() + ev.event_length * 1000)).valueOf() <= from.valueOf() || td.valueOf() + ev.event_length * 1000 <= from.valueOf())
+		td = this.date.add(td, 1, ev.rec_pattern);
+	while (td < to && td < ev.end_date) {
+		var timestamp = (scheduler.config.occurrence_timestamp_in_utc) ? Date.UTC(td.getFullYear(), td.getMonth(), td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds()) : td.valueOf();
+		var ch = this._get_rec_marker(timestamp, ev.id);
+		if (!ch) { // unmodified element of series
+			var ted = new Date(td.valueOf() + ev.event_length * 1000);
+			var copy = this._copy_event(ev);
+			//copy._timed = ev._timed;
+			copy.text = ev.text;
+			copy.start_date = td;
+			copy.event_pid = ev.id;
+			copy.id = ev.id + "#" + Math.ceil(timestamp / 1000);
+			copy.end_date = ted;
+
+			copy.end_date = scheduler._fix_daylight_saving_date(copy.start_date, copy.end_date, ev, td, copy.end_date);
+
+			copy._timed = this.isOneDayEvent(copy);
+
+			if (!copy._timed && !this._table_view && !this.config.multi_day) return;
+			stack.push(copy);
+
+			if (!non_render) {
+				this._events[copy.id] = copy;
+				this._rec_temp.push(copy);
+			}
+
+		} else
+		if (non_render) stack.push(ch);
+
+		td = this.date.add(td, 1, ev.rec_pattern);
+	}
+};
+scheduler._fix_daylight_saving_date = function(start_date, end_date, ev, counter, default_date) {
+	var shift = start_date.getTimezoneOffset() - end_date.getTimezoneOffset();
+	if (shift) {
+		if (shift > 0) {
+			// e.g. 24h -> 23h
+			return new Date(counter.valueOf() + ev.event_length * 1000 - shift * 60 * 1000);
+		}
+		else {
+			// e.g. 24h -> 25h
+			return new Date(end_date.valueOf() - shift * 60 * 1000);
+		}
+	}
+	return new Date(default_date.valueOf());
+};
+scheduler.getRecDates = function(id, max) {
+	var ev = typeof id == "object" ? id : scheduler.getEvent(id);
+	var count = 0;
+	var result = [];
+	max = max || 100;
+
+	var td = new Date(ev.start_date.valueOf());
+	var from = new Date(td.valueOf());
+
+	if (!ev.rec_type) {
+		return [
+			{ start_date: ev.start_date, end_date: ev.end_date }
+		];
+	}
+	if (ev.rec_type == "none") {
+		return [];
+	}
+	this.transpose_type(ev.rec_pattern);
+	scheduler.date["transpose_" + ev.rec_pattern](td, from);
+
+	while (td < ev.start_date || (td.valueOf() + ev.event_length * 1000) <= from.valueOf())
+		td = this.date.add(td, 1, ev.rec_pattern);
+	while (td < ev.end_date) {
+		var ch = this._get_rec_marker(td.valueOf(), ev.id);
+		var res = true;
+		if (!ch) { // unmodified element of series
+			var sed = new Date(td);
+			var ted = new Date(td.valueOf() + ev.event_length * 1000);
+
+			ted = scheduler._fix_daylight_saving_date(sed, ted, ev, td, ted);
+
+			result.push({start_date:sed, end_date:ted});
+		} else {
+			(ch.rec_type == "none") ?
+					(res = false) :
+					result.push({ start_date: ch.start_date, end_date: ch.end_date });
+		}
+		td = this.date.add(td, 1, ev.rec_pattern);
+		if (res) {
+			count++;
+			if (count == max)
+				break;
+		}
+	}
+	return result;
+};
+scheduler.getEvents = function(from, to) {
+	var result = [];
+	for (var a in this._events) {
+		var ev = this._events[a];
+		if (ev && ev.start_date < to && ev.end_date > from) {
+			if (ev.rec_pattern) {
+				if (ev.rec_pattern == "none") continue;
+				var sev = [];
+				this.repeat_date(ev, sev, true, from, to);
+				for (var i = 0; i < sev.length; i++) {
+					// if event is in rec_markers then it will be checked by himself, here need to skip it
+					if (!sev[i].rec_pattern && sev[i].start_date < to && sev[i].end_date > from && !this._rec_markers[sev[i].id]) {
+						result.push(sev[i]);
+					}
+				}
+			} else if (ev.id.toString().indexOf("#") == -1) { // if it's virtual event we can skip it
+				result.push(ev);
+			}
+		}
+	}
+	return result;
+};
+
+scheduler.config.repeat_date = "%m.%d.%Y";
+scheduler.config.lightbox.sections = [
+	{name:"description", height:130, map_to:"text", type:"textarea" , focus:true},
+	{name:"recurring", type:"recurring", map_to:"rec_type", button:"recurring"},
+	{name:"time", height:72, type:"time", map_to:"auto"}
+];
+
+
+//drop secondary attributes
+scheduler._copy_dummy = function(ev) {
+	var start_date = new Date(this.start_date);
+	var end_date = new Date(this.end_date);
+	this.start_date = start_date;
+	this.end_date = end_date;
+	this.event_length = this.event_pid = this.rec_pattern = this.rec_type = null;
+};
+
+scheduler.config.include_end_by = false;
+scheduler.config.lightbox_recurring = 'ask'; // series, instance
+
+scheduler.attachEvent("onClearAll", function(){
+	scheduler._rec_markers = {}; //clear recurring events data
+	scheduler._rec_markers_pull = {};
+	scheduler._rec_temp = [];
+});
+scheduler.__recurring_template='<div class="dhx_form_repeat"> <form> <div class="dhx_repeat_left"> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="day" />Daily</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="week"/>Weekly</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="month" checked />Monthly</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="repeat" value="year" />Yearly</label> </div> <div class="dhx_repeat_divider"></div> <div class="dhx_repeat_center"> <div style="display:none;" id="dhx_repeat_day"> <label><input class="dhx_repeat_radio" type="radio" name="day_type" value="d"/>Every</label><input class="dhx_repeat_text" type="text" name="day_count" value="1" />day<br /> <label><input class="dhx_repeat_radio" type="radio" name="day_type" checked value="w"/>Every workday</label> </div> <div style="display:none;" id="dhx_repeat_week"> Repeat every<input class="dhx_repeat_text" type="text" name="week_count" value="1" />week next days:<br /> <table class="dhx_repeat_days"> <tr> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="1" />Monday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="4" />Thursday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="2" />Tuesday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="5" />Friday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="3" />Wednesday</label><br /> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="6" />Saturday</label> </td> <td> <label><input class="dhx_repeat_checkbox" type="checkbox" name="week_day" value="0" />Sunday</label><br /><br /> </td> </tr> </table> </div> <div id="dhx_repeat_month"> <label><input class="dhx_repeat_radio" type="radio" name="month_type" value="d"/>Repeat</label><input class="dhx_repeat_text" type="text" name="month_day" value="1" />day every<input class="dhx_repeat_text" type="text" name="month_count" value="1" />month<br /> <label><input class="dhx_repeat_radio" type="radio" name="month_type" checked value="w"/>On</label><input class="dhx_repeat_text" type="text" name="month_week2" value="1" /><select name="month_day2"><option value="1" selected >Monday<option value="2">Tuesday<option value="3">Wednesday<option value="4">Thursday<option value="5">Friday<option value="6">Saturday<option value="0">Sunday</select>every<input class="dhx_repeat_text" type="text" name="month_count2" value="1" />month<br /> </div> <div style="display:none;" id="dhx_repeat_year"> <label><input class="dhx_repeat_radio" type="radio" name="year_type" value="d"/>Every</label><input class="dhx_repeat_text" type="text" name="year_day" value="1" />day<select name="year_month"><option value="0" selected >January<option value="1">February<option value="2">March<option value="3">April<option value="4">May<option value="5">June<option value="6">July<option value="7">August<option value="8">September<option value="9">October<option value="10">November<option value="11">December</select>month<br /> <label><input class="dhx_repeat_radio" type="radio" name="year_type" checked value="w"/>On</label><input class="dhx_repeat_text" type="text" name="year_week2" value="1" /><select name="year_day2"><option value="1" selected >Monday<option value="2">Tuesday<option value="3">Wednesday<option value="4">Thursday<option value="5">Friday<option value="6">Saturday<option value="7">Sunday</select>of<select name="year_month2"><option value="0" selected >January<option value="1">February<option value="2">March<option value="3">April<option value="4">May<option value="5">June<option value="6">July<option value="7">August<option value="8">September<option value="9">October<option value="10">November<option value="11">December</select><br /> </div> </div> <div class="dhx_repeat_divider"></div> <div class="dhx_repeat_right"> <label><input class="dhx_repeat_radio" type="radio" name="end" checked/>No end date</label><br /> <label><input class="dhx_repeat_radio" type="radio" name="end" />After</label><input class="dhx_repeat_text" type="text" name="occurences_count" value="1" />occurrences<br /> <label><input class="dhx_repeat_radio" type="radio" name="end" />End by</label><input class="dhx_repeat_date" type="text" name="date_of_end" value="'+scheduler.config.repeat_date_of_end+'" /><br /> </div> </form> </div> <div style="clear:both"> </div>';
+

@@ -2,6 +2,65 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-scheduler.form_blocks.multiselect={render:function(d){for(var a="<div class='dhx_multi_select_"+d.name+"' style='overflow: auto; height: "+d.height+"px; position: relative;' >",b=0;b<d.options.length;b++)a+="<label><input type='checkbox' value='"+d.options[b].key+"'/>"+d.options[b].label+"</label>",convertStringToBoolean(d.vertical)&&(a+="<br/>");a+="</div>";return a},set_value:function(d,a,b,c){function h(b){for(var c=d.getElementsByTagName("input"),a=0;a<c.length;a++)c[a].checked=!!b[c[a].value]}
-for(var f=d.getElementsByTagName("input"),e=0;e<f.length;e++)f[e].checked=!1;f=[];if(b[c.map_to]){for(var i=b[c.map_to].split(","),e=0;e<i.length;e++)f[i[e]]=!0;h(f)}else if(!scheduler._new_event&&c.script_url){var g=document.createElement("div");g.className="dhx_loading";g.style.cssText="position: absolute; top: 40%; left: 40%;";d.appendChild(g);dhtmlxAjax.get(c.script_url+"?dhx_crosslink_"+c.map_to+"="+b.id+"&uid="+scheduler.uid(),function(b){for(var a=b.doXPath("//data/item"),e=[],f=0;f<a.length;f++)e[a[f].getAttribute(c.map_to)]=
-!0;h(e);d.removeChild(g)})}},get_value:function(d){for(var a=[],b=d.getElementsByTagName("input"),c=0;c<b.length;c++)b[c].checked&&a.push(b[c].value);return a.join(",")},focus:function(){}};
+scheduler.form_blocks["multiselect"]={
+	render:function(sns) {
+		var _result = "<div class='dhx_multi_select_"+sns.name+"' style='overflow: auto; height: "+sns.height+"px; position: relative;' >";
+		for (var i=0; i<sns.options.length; i++) {
+			_result += "<label><input type='checkbox' value='"+sns.options[i].key+"'/>"+sns.options[i].label+"</label>";
+			if(convertStringToBoolean(sns.vertical)) _result += '<br/>';
+		}
+		_result += "</div>";
+		return _result;
+	},
+	set_value:function(node,value,ev,config){
+		
+		var _children = node.getElementsByTagName('input');
+		for(var i=0;i<_children.length;i++) {
+			_children[i].checked = false; //unchecking all inputs on the form
+		}
+		
+		function _mark_inputs(ids) { // ids = [ 0: undefined, 1: undefined, 2: true ... ]
+			var _children = node.getElementsByTagName('input');
+			for(var i=0;i<_children.length; i++) {
+				_children[i].checked = !! ids[_children[i].value];
+			}			
+		}
+
+		var _ids = [];
+		if (ev[config.map_to]) {
+			var results = ev[config.map_to].split(',');
+			for (var i = 0; i < results.length; i++) {
+				_ids[results[i]] = true;
+			}
+			_mark_inputs(_ids);
+		} else {
+			if (scheduler._new_event || !config.script_url)
+				return;
+			var divLoading = document.createElement('div');
+			divLoading.className = 'dhx_loading';
+			divLoading.style.cssText = "position: absolute; top: 40%; left: 40%;";
+			node.appendChild(divLoading);
+			dhtmlxAjax.get(config.script_url + '?dhx_crosslink_' + config.map_to + '=' + ev.id + '&uid=' + scheduler.uid(), function(loader) {
+				var _result = loader.doXPath("//data/item");
+				var _ids = [];
+				for (var i = 0; i < _result.length; i++) {
+					_ids[_result[i].getAttribute(config.map_to)] = true;
+				}
+				_mark_inputs(_ids);
+				node.removeChild(divLoading);
+			});
+		}
+	},
+	get_value:function(node,ev,config){
+		var _result = [];
+		var _children = node.getElementsByTagName("input");
+		for(var i=0;i<_children.length;i++) {
+			if(_children[i].checked)
+				_result.push(_children[i].value); 
+		}
+		return _result.join(','); 
+	},
+	
+	focus:function(node){
+	}
+};

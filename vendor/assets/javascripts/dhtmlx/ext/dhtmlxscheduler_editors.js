@@ -2,10 +2,157 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-scheduler.form_blocks.combo={render:function(b){if(!b.cached_options)b.cached_options={};var d="";d+="<div class='"+b.type+"' style='height:"+(b.height||20)+"px;' ></div>";return d},set_value:function(b,d,c,a){(function(){function a(){b._combo&&b._combo.DOMParent&&b._combo.destructor()}a();var c=scheduler.attachEvent("onAfterLightbox",function(){a();scheduler.detachEvent(c)})})();window.dhx_globalImgPath=a.image_path||"/";b._combo=new dhtmlXCombo(b,a.name,b.offsetWidth-8);a.options_height&&b._combo.setOptionHeight(a.options_height);
-var e=b._combo;e.enableFilteringMode(a.filtering,a.script_path||null,!!a.cache);if(a.script_path){var f=c[a.map_to];f?a.cached_options[f]?(e.addOption(f,a.cached_options[f]),e.disable(1),e.selectOption(0),e.disable(0)):dhtmlxAjax.get(a.script_path+"?id="+f+"&uid="+scheduler.uid(),function(b){var c=b.doXPath("//option")[0],d=c.childNodes[0].nodeValue;a.cached_options[f]=d;e.addOption(f,d);e.disable(1);e.selectOption(0);e.disable(0)}):e.setComboValue("")}else{for(var g=[],h=0;h<a.options.length;h++){var i=
-a.options[h],j=[i.key,i.label,i.css];g.push(j)}e.addOption(g);if(c[a.map_to]){var k=e.getIndexByValue(c[a.map_to]);e.selectOption(k)}}},get_value:function(b,d,c){var a=b._combo.getSelectedValue();c.script_path&&(c.cached_options[a]=b._combo.getSelectedText());return a},focus:function(){}};
-scheduler.form_blocks.radio={render:function(b){var d="";d+="<div class='dhx_cal_ltext dhx_cal_radio' style='height:"+b.height+"px;' >";for(var c=0;c<b.options.length;c++){var a=scheduler.uid();d+="<input id='"+a+"' type='radio' name='"+b.name+"' value='"+b.options[c].key+"'><label for='"+a+"'> "+b.options[c].label+"</label>";b.vertical&&(d+="<br/>")}d+="</div>";return d},set_value:function(b,d,c,a){for(var e=b.getElementsByTagName("input"),f=0;f<e.length;f++){e[f].checked=!1;var g=c[a.map_to]||d;
-if(e[f].value==g)e[f].checked=!0}},get_value:function(b){for(var d=b.getElementsByTagName("input"),c=0;c<d.length;c++)if(d[c].checked)return d[c].value},focus:function(){}};
-scheduler.form_blocks.checkbox={render:function(){return scheduler.config.wide_form?'<div class="dhx_cal_wide_checkbox"></div>':""},set_value:function(b,d,c,a){var b=document.getElementById(a.id),e=scheduler.uid(),f=typeof a.checked_value!="undefined"?c[a.map_to]==a.checked_value:!!d;b.className+=" dhx_cal_checkbox";var g="<input id='"+e+"' type='checkbox' value='true' name='"+a.name+"'"+(f?"checked='true'":"")+"'>",h="<label for='"+e+"'>"+(scheduler.locale.labels["section_"+a.name]||a.name)+"</label>";
-scheduler.config.wide_form?(b.innerHTML=h,b.nextSibling.innerHTML=g):b.innerHTML=g+h;if(a.handler){var i=b.getElementsByTagName("input")[0];i.onclick=a.handler}},get_value:function(b,d,c){var b=document.getElementById(c.id),a=b.getElementsByTagName("input")[0];a||(a=b.nextSibling.getElementsByTagName("input")[0]);return a.checked?c.checked_value||!0:c.unchecked_value||!1},focus:function(){}};
+scheduler.form_blocks['combo']={
+	render:function(sns) {
+		if (!sns.cached_options)
+			sns.cached_options = {};
+		var res = '';
+		res += "<div class='"+sns.type+"' style='height:"+(sns.height||20)+"px;' ></div>";
+		return res;
+	},
+	set_value:function(node,value,ev,config){
+		(function(){
+			resetCombo();
+			var id = scheduler.attachEvent("onAfterLightbox",function(){
+				// otherwise destructor will never be called after form reset(e.g. in readonly event mode)
+				resetCombo();
+				scheduler.detachEvent(id);
+			});
+			function resetCombo(){
+				if(node._combo && node._combo.DOMParent) {
+					node._combo.destructor();
+				}
+			}
+		})();
+		window.dhx_globalImgPath = config.image_path||'/';
+		node._combo = new dhtmlXCombo(node, config.name, node.offsetWidth-8);
+		if (config.onchange)
+			node._combo.attachEvent("onChange", config.onchange);
+
+		if (config.options_height)
+			node._combo.setOptionHeight(config.options_height);
+		var combo = node._combo;
+		combo.enableFilteringMode(config.filtering, config.script_path||null, !!config.cache);
+		
+		if (!config.script_path) { // script-side filtration is used
+			var all_options = [];
+			for (var i = 0; i < config.options.length; i++) {
+				var option = config.options[i];
+				var single_option = [
+					option.key,
+					option.label,
+					option.css
+				];
+				all_options.push(single_option);
+			}
+			combo.addOption(all_options);
+			if (ev[config.map_to]) {
+				var index = combo.getIndexByValue(ev[config.map_to]);
+				combo.selectOption(index);
+			}
+		} else { // server-side filtration is used
+			var selected_id = ev[config.map_to];
+			if (selected_id) {
+				if (config.cached_options[selected_id]) {
+					combo.addOption(selected_id, config.cached_options[selected_id]);
+					combo.disable(1);
+					combo.selectOption(0);
+					combo.disable(0);
+				} else {
+					dhtmlxAjax.get(config.script_path+"?id="+selected_id+"&uid="+scheduler.uid(), function(result){
+						var option = result.doXPath("//option")[0];
+						var label = option.childNodes[0].nodeValue;
+						config.cached_options[selected_id] = label;
+						combo.addOption(selected_id, label);
+						combo.disable(1);
+						combo.selectOption(0);
+						combo.disable(0);
+					});
+				}
+			} else {
+				combo.setComboValue("");
+			}
+		}
+	},
+	get_value:function(node,ev,config) {
+		var selected_id = node._combo.getSelectedValue(); // value = key
+		if (config.script_path) {
+			config.cached_options[selected_id] = node._combo.getSelectedText();
+		}
+		return selected_id;
+	},
+	focus:function(node){
+	}
+};
+
+scheduler.form_blocks['radio']={
+	render:function(sns) {
+		var res = '';
+		res += "<div class='dhx_cal_ltext dhx_cal_radio' style='height:"+sns.height+"px;' >";
+		for (var i=0; i<sns.options.length; i++) {
+			var id = scheduler.uid();
+			res += "<input id='"+id+"' type='radio' name='"+sns.name+"' value='"+sns.options[i].key+"'><label for='"+id+"'>"+" "+sns.options[i].label+"</label>";
+			if(sns.vertical)
+				res += "<br/>";
+		}
+		res += "</div>";
+		
+		return res;
+	},
+	set_value:function(node,value,ev,config){
+		var radiobuttons = node.getElementsByTagName('input');
+		for (var i = 0; i < radiobuttons.length; i++) {
+			radiobuttons[i].checked = false;
+			var checked_value = ev[config.map_to]||value;
+			if (radiobuttons[i].value == checked_value) {
+				radiobuttons[i].checked = true;
+			}
+		}
+	},
+	get_value:function(node,ev,config){
+		var radiobuttons = node.getElementsByTagName('input');
+		for(var i=0; i<radiobuttons.length; i++) {
+			if(radiobuttons[i].checked) {
+				return radiobuttons[i].value;
+			}
+		}
+	},
+	focus:function(node){
+	}
+};
+
+scheduler.form_blocks['checkbox']={
+	render:function(sns) {
+		if (scheduler.config.wide_form)
+			return '<div class="dhx_cal_wide_checkbox" '+(sns.height?("style='height:"+sns.height+"px;'"):"")+'></div>';
+		else
+			return '';
+	},
+	set_value:function(node,value,ev,config){
+		node=document.getElementById(config.id);
+		var id = scheduler.uid();
+		var isChecked = (typeof config.checked_value != "undefined") ? ev[config.map_to] == config.checked_value : !!value;
+		node.className += " dhx_cal_checkbox";
+		var check_html = "<input id='"+id+"' type='checkbox' value='true' name='"+config.name+"'"+((isChecked)?"checked='true'":'')+"'>"; 
+		var label_html = "<label for='"+id+"'>"+(scheduler.locale.labels["section_"+config.name]||config.name)+"</label>";
+		if (scheduler.config.wide_form){
+			node.innerHTML = label_html;
+			node.nextSibling.innerHTML=check_html;
+		} else 
+			node.innerHTML=check_html+label_html;
+
+		if (config.handler) {
+			var checkbox = node.getElementsByTagName('input')[0];
+			checkbox.onclick = config.handler;
+		}
+	},
+	get_value:function(node,ev,config){
+		node=document.getElementById(config.id);
+		var checkbox = node.getElementsByTagName('input')[0]; // moved to the header
+		if (!checkbox)
+			checkbox = node.nextSibling.getElementsByTagName('input')[0];
+		return (checkbox.checked)?(config.checked_value||true):(config.unchecked_value||false);
+	},
+	focus:function(node){
+	}
+};

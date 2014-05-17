@@ -2,17 +2,372 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-scheduler.config.year_x=4;scheduler.config.year_y=3;scheduler.config.year_mode_name="year";scheduler.xy.year_top=0;scheduler.templates.year_date=function(c){return scheduler.date.date_to_str(scheduler.locale.labels.year_tab+" %Y")(c)};scheduler.templates.year_month=scheduler.date.date_to_str("%F");scheduler.templates.year_scale_date=scheduler.date.date_to_str("%D");scheduler.templates.year_tooltip=function(c,q,n){return n.text};
-(function(){var c=function(){return scheduler._mode==scheduler.config.year_mode_name};scheduler.dblclick_dhx_month_head=function(b){if(c()){var a=b.target||b.srcElement;if(a.parentNode.className.indexOf("dhx_before")!=-1||a.parentNode.className.indexOf("dhx_after")!=-1)return!1;var j=this.templates.xml_date(a.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("date"));j.setDate(parseInt(a.innerHTML,10));var k=this.date.add(j,1,"day");!this.config.readonly&&this.config.dblclick_create&&
-this.addEventNow(j.valueOf(),k.valueOf(),b)}};var q=scheduler.changeEventId;scheduler.changeEventId=function(){q.apply(this,arguments);c()&&this.year_view(!0)};var n=scheduler.render_data,v=scheduler.date.date_to_str("%Y/%m/%d"),w=scheduler.date.str_to_date("%Y/%m/%d");scheduler.render_data=function(b){if(!c())return n.apply(this,arguments);for(var a=0;a<b.length;a++)this._year_render_event(b[a])};var x=scheduler.clear_view;scheduler.clear_view=function(){if(!c())return x.apply(this,arguments);for(var b in l)if(l.hasOwnProperty(b)){var a=
-l[b];a.className="dhx_month_head";a.setAttribute("date","")}l={}};scheduler.hideToolTip=function(){if(this._tooltip)this._tooltip.style.display="none",this._tooltip.date=new Date(9999,1,1)};scheduler.showToolTip=function(b,a,j,k){if(this._tooltip){if(this._tooltip.date.valueOf()==b.valueOf())return;this._tooltip.innerHTML=""}else{var g=this._tooltip=document.createElement("DIV");g.className="dhx_year_tooltip";document.body.appendChild(g);g.onclick=scheduler._click.dhx_cal_data}for(var h=this.getEvents(b,
-this.date.add(b,1,"day")),c="",e=0;e<h.length;e++){var m=h[e],d=m.color?"background:"+m.color+";":"",f=m.textColor?"color:"+m.textColor+";":"";c+="<div class='dhx_tooltip_line' style='"+d+""+f+"' event_id='"+h[e].id+"'>";c+="<div class='dhx_tooltip_date' style='"+d+""+f+"'>"+(h[e]._timed?this.templates.event_date(h[e].start_date):"")+"</div>";c+="<div class='dhx_event_icon icon_details'>&nbsp;</div>";c+=this.templates.year_tooltip(h[e].start_date,h[e].end_date,h[e])+"</div>"}this._tooltip.style.display=
-"";this._tooltip.style.top="0px";this._tooltip.style.left=document.body.offsetWidth-a.left-this._tooltip.offsetWidth<0?a.left-this._tooltip.offsetWidth+"px":a.left+k.offsetWidth+"px";this._tooltip.date=b;this._tooltip.innerHTML=c;this._tooltip.style.top=document.body.offsetHeight-a.top-this._tooltip.offsetHeight<0?a.top-this._tooltip.offsetHeight+k.offsetHeight+"px":a.top+"px"};scheduler._init_year_tooltip=function(){dhtmlxEvent(scheduler._els.dhx_cal_data[0],"mouseover",function(b){if(c()){var b=
-b||event,a=b.target||b.srcElement;if(a.tagName.toLowerCase()=="a")a=a.parentNode;(a.className||"").indexOf("dhx_year_event")!=-1?scheduler.showToolTip(w(a.getAttribute("date")),getOffset(a),b,a):scheduler.hideToolTip()}});this._init_year_tooltip=function(){}};scheduler.attachEvent("onSchedulerResize",function(){return c()?(this.year_view(!0),!1):!0});scheduler._get_year_cell=function(b){var a=b.getMonth()+12*(b.getFullYear()-this._min_date.getFullYear())-this.week_starts._month,j=this._els.dhx_cal_data[0].childNodes[a],
-b=this.week_starts[a]+b.getDate()-1;return j.childNodes[2].firstChild.rows[Math.floor(b/7)].cells[b%7].firstChild};var l={};scheduler._mark_year_date=function(b,a){var j=v(b),c=this._get_year_cell(b),g=this.templates.event_class(a.start_date,a.end_date,a);if(!l[j])c.className="dhx_month_head dhx_year_event",c.setAttribute("date",j),l[j]=c;c.className+=g?" "+g:""};scheduler._unmark_year_date=function(b){this._get_year_cell(b).className="dhx_month_head"};scheduler._year_render_event=function(b){for(var a=
-b.start_date,a=a.valueOf()<this._min_date.valueOf()?this._min_date:this.date.date_part(new Date(a));a<b.end_date;)if(this._mark_year_date(a,b),a=this.date.add(a,1,"day"),a.valueOf()>=this._max_date.valueOf())break};scheduler.year_view=function(b){if(b){var a=scheduler.xy.scale_height;scheduler.xy.scale_height=-1}scheduler._els.dhx_cal_header[0].style.display=b?"none":"";scheduler.set_sizes();if(b)scheduler.xy.scale_height=a;scheduler._table_view=b;if(!this._load_mode||!this._load())if(b){scheduler._init_year_tooltip();
-scheduler._reset_year_scale();if(scheduler._load_mode&&scheduler._load())return scheduler._render_wait=!0;scheduler.render_view_data()}else scheduler.hideToolTip()};scheduler._reset_year_scale=function(){this._cols=[];this._colsS={};var b=[],a=this._els.dhx_cal_data[0],c=this.config;a.scrollTop=0;a.innerHTML="";var k=Math.floor(parseInt(a.style.width)/c.year_x),g=Math.floor((parseInt(a.style.height)-scheduler.xy.year_top)/c.year_y);g<190&&(g=190,k=Math.floor((parseInt(a.style.width)-scheduler.xy.scroll_width)/
-c.year_x));for(var h=k-11,l=0,e=document.createElement("div"),m=this.date.week_start(scheduler._currentDate()),d=0;d<7;d++)this._cols[d]=Math.floor(h/(7-d)),this._render_x_header(d,l,m,e),m=this.date.add(m,1,"day"),h-=this._cols[d],l+=this._cols[d];e.lastChild.className+=" dhx_scale_bar_last";for(var f=this.date[this._mode+"_start"](this.date.copy(this._date)),n=f,d=0;d<c.year_y;d++)for(var r=0;r<c.year_x;r++){var i=document.createElement("DIV");i.style.cssText="position:absolute;";i.setAttribute("date",
-this.templates.xml_format(f));i.innerHTML="<div class='dhx_year_month'></div><div class='dhx_year_week'>"+e.innerHTML+"</div><div class='dhx_year_body'></div>";i.childNodes[0].innerHTML=this.templates.year_month(f);for(var q=this.date.week_start(f),t=this._reset_month_scale(i.childNodes[2],f,q),o=i.childNodes[2].firstChild.rows,p=o.length;p<6;p++){o[0].parentNode.appendChild(o[0].cloneNode(!0));for(var s=0;s<o[p].childNodes.length;s++)o[p].childNodes[s].className="dhx_after",o[p].childNodes[s].firstChild.innerHTML=
-scheduler.templates.month_day(t),t=scheduler.date.add(t,1,"day")}a.appendChild(i);i.childNodes[1].style.height=i.childNodes[1].childNodes[0].offsetHeight+"px";var u=Math.round((g-190)/2);i.style.marginTop=u+"px";this.set_xy(i,k-10,g-u-10,k*r+5,g*d+5+scheduler.xy.year_top);b[d*c.year_x+r]=(f.getDay()-(this.config.start_on_monday?1:0)+7)%7;f=this.date.add(f,1,"month")}this._els.dhx_cal_date[0].innerHTML=this.templates[this._mode+"_date"](n,f,this._mode);this.week_starts=b;b._month=n.getMonth();this._min_date=
-n;this._max_date=f}})();
+scheduler.config.year_x = 4;
+scheduler.config.year_y = 3;
+scheduler.xy.year_top = 0;
+
+scheduler.templates.year_date = function(date) {
+	return scheduler.date.date_to_str(scheduler.locale.labels.year_tab + " %Y")(date);
+};
+scheduler.templates.year_month = scheduler.date.date_to_str("%F");
+scheduler.templates.year_scale_date = scheduler.date.date_to_str("%D");
+scheduler.templates.year_tooltip = function(s, e, ev) {
+	return ev.text
+};
+
+(function() {
+	var is_year_mode = function() {
+		return scheduler._mode == "year";
+	};
+
+	scheduler.dblclick_dhx_month_head = function(e) {
+		if (is_year_mode()) {
+			var t = (e.target || e.srcElement);
+			if (t.parentNode.className.indexOf("dhx_before") != -1 || t.parentNode.className.indexOf("dhx_after") != -1) return false;
+			var start = this.templates.xml_date(t.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("date"));
+			start.setDate(parseInt(t.innerHTML, 10));
+			var end = this.date.add(start, 1, "day")
+			if (!this.config.readonly && this.config.dblclick_create)
+				this.addEventNow(start.valueOf(), end.valueOf(), e);
+		}
+	};
+
+	var chid = scheduler.changeEventId;
+	scheduler.changeEventId = function() {
+		chid.apply(this, arguments);
+		if (is_year_mode())
+			this.year_view(true);
+	};
+
+
+	var old = scheduler.render_data;
+	var to_attr = scheduler.date.date_to_str("%Y/%m/%d");
+	var from_attr = scheduler.date.str_to_date("%Y/%m/%d");
+	scheduler.render_data = function(evs) {
+		if (!is_year_mode()) return old.apply(this, arguments);
+		for (var i = 0; i < evs.length; i++)
+			this._year_render_event(evs[i]);
+	};
+
+	var clear = scheduler.clear_view;
+	scheduler.clear_view = function() {
+		if (!is_year_mode()) return clear.apply(this, arguments);
+		for (var date in marked) {
+			if (marked.hasOwnProperty(date)) {
+				var div = marked[date];
+				div.className = "dhx_month_head";
+				div.setAttribute("date", "")
+			}
+		}
+		marked = {};
+	};
+
+	scheduler._hideToolTip = function() {
+		if (this._tooltip) {
+			this._tooltip.style.display = "none";
+			this._tooltip.date = new Date(9999, 1, 1);
+		}
+	};
+
+	scheduler._showToolTip = function(date, pos, e, src) {
+		if (this._tooltip) {
+			if (this._tooltip.date.valueOf() == date.valueOf()) return;
+			this._tooltip.innerHTML = "";
+		} else {
+			var t = this._tooltip = document.createElement("DIV");
+			t.className = "dhx_year_tooltip";
+			document.body.appendChild(t);
+			t.onclick = scheduler._click.dhx_cal_data;
+		}
+		var evs = this.getEvents(date, this.date.add(date, 1, "day"));
+		var html = "";
+
+		for (var i = 0; i < evs.length; i++) {
+			var ev = evs[i];
+			var bg_color = (ev.color ? ("background:" + ev.color + ";") : "");
+			var color = (ev.textColor ? ("color:" + ev.textColor + ";") : "");
+
+			html += "<div class='dhx_tooltip_line' style='" + bg_color + "" + color + "' event_id='" + evs[i].id + "'>";
+			html += "<div class='dhx_tooltip_date' style='" + bg_color + "" + color + "'>" + (evs[i]._timed ? this.templates.event_date(evs[i].start_date) : "") + "</div>";
+			html += "<div class='dhx_event_icon icon_details'>&nbsp;</div>";
+			html += this.templates.year_tooltip(evs[i].start_date, evs[i].end_date, evs[i]) + "</div>";
+		}
+
+		this._tooltip.style.display = "";
+		this._tooltip.style.top = "0px";
+
+
+		if (document.body.offsetWidth - pos.left - this._tooltip.offsetWidth < 0)
+			this._tooltip.style.left = pos.left - this._tooltip.offsetWidth + "px";
+		else
+			this._tooltip.style.left = pos.left + src.offsetWidth + "px";
+
+		this._tooltip.date = date;
+		this._tooltip.innerHTML = html;
+
+		if (document.body.offsetHeight - pos.top - this._tooltip.offsetHeight < 0)
+			this._tooltip.style.top = pos.top - this._tooltip.offsetHeight + src.offsetHeight + "px";
+		else
+			this._tooltip.style.top = pos.top + "px";
+	};
+
+	scheduler._init_year_tooltip = function() {
+		dhtmlxEvent(scheduler._els["dhx_cal_data"][0], "mouseover", function(e) {
+			if (!is_year_mode()) return;
+
+			var e = e || event;
+			var src = e.target || e.srcElement;
+			if (src.tagName.toLowerCase() == 'a') // fix for active links extension (it adds links to the date in the cell)
+				src = src.parentNode;
+			if ((src.className || "").indexOf("dhx_year_event") != -1)
+				scheduler._showToolTip(from_attr(src.getAttribute("date")), getOffset(src), e, src);
+			else
+				scheduler._hideToolTip();
+		});
+		this._init_year_tooltip = function() {
+		};
+	};
+
+	scheduler.attachEvent("onSchedulerResize", function() {
+		if (is_year_mode()) {
+			this.year_view(true);
+			return false;
+		}
+		return true;
+	});
+	scheduler._get_year_cell = function(d) {
+		//there can be more than 1 year in view
+		//year can start not from January
+		var m = d.getMonth() + 12 * (d.getFullYear() - this._min_date.getFullYear()) - this.week_starts._month;
+		var t = this._els["dhx_cal_data"][0].childNodes[m];
+		var d = this.week_starts[m] + d.getDate() - 1;
+
+
+		return t.childNodes[2].firstChild.rows[Math.floor(d / 7)].cells[d % 7].firstChild;
+	};
+
+	var marked = {};
+	scheduler._mark_year_date = function(d, ev) {
+		var date = to_attr(d);
+		var c = this._get_year_cell(d);
+		var ev_class = this.templates.event_class(ev.start_date, ev.end_date, ev);
+		if (!marked[date]) {
+			c.className = "dhx_month_head dhx_year_event";
+			c.setAttribute("date", date);
+			marked[date] = c;
+		}
+		c.className += (ev_class) ? (" "+ev_class) : "";
+	};
+	scheduler._unmark_year_date = function(d) {
+		this._get_year_cell(d).className = "dhx_month_head";
+	};
+	scheduler._year_render_event = function(ev) {
+		var d = ev.start_date;
+		if (d.valueOf() < this._min_date.valueOf())
+			d = this._min_date;
+		else d = this.date.date_part(new Date(d));
+
+		while (d < ev.end_date) {
+			this._mark_year_date(d, ev);
+			d = this.date.add(d, 1, "day");
+			if (d.valueOf() >= this._max_date.valueOf())
+				return;
+		}
+	};
+
+	scheduler.year_view = function(mode) {
+		if (mode) {
+			var temp = scheduler.xy.scale_height;
+			scheduler.xy.scale_height = -1;
+		}
+
+		scheduler._els["dhx_cal_header"][0].style.display = mode ? "none" : "";
+		scheduler.set_sizes();
+
+		if (mode)
+			scheduler.xy.scale_height = temp;
+
+
+		scheduler._table_view = mode;
+		if (this._load_mode && this._load()) return;
+
+		if (mode) {
+			scheduler._init_year_tooltip();
+			scheduler._reset_year_scale();
+			if (scheduler._load_mode && scheduler._load()) return scheduler._render_wait = true;
+			scheduler.render_view_data();
+		} else {
+			scheduler._hideToolTip();
+		}
+	};
+	scheduler._reset_year_scale = function() {
+		this._cols = [];
+		this._colsS = {};
+		var week_starts = []; //start day of first week in each month
+		var b = this._els["dhx_cal_data"][0];
+
+		var c = this.config;
+		b.scrollTop = 0; //fix flickering in FF
+		b.innerHTML = "";
+
+		var dx = Math.floor(parseInt(b.style.width) / c.year_x);
+		var dy = Math.floor((parseInt(b.style.height) - scheduler.xy.year_top) / c.year_y);
+		if (dy < 190) {
+			dy = 190;
+			dx = Math.floor((parseInt(b.style.width) - scheduler.xy.scroll_width) / c.year_x);
+		}
+
+		var summ = dx - 11;
+		var left = 0;
+		var week_template = document.createElement("div");
+		var dummy_date = this.date.week_start(scheduler._currentDate());
+		for (var i = 0; i < 7; i++) {
+			this._cols[i] = Math.floor(summ / (7 - i));
+			this._render_x_header(i, left, dummy_date, week_template);
+			dummy_date = this.date.add(dummy_date, 1, "day");
+			summ -= this._cols[i];
+			left += this._cols[i];
+		}
+		week_template.lastChild.className += " dhx_scale_bar_last";
+
+		var sd = this.date[this._mode + "_start"](this.date.copy(this._date));
+		var ssd = sd;
+
+		for (var i = 0; i < c.year_y; i++)
+			for (var j = 0; j < c.year_x; j++) {
+				var d = document.createElement("DIV");
+				d.style.cssText = "position:absolute;";
+				d.setAttribute("date", this.templates.xml_format(sd));
+				d.innerHTML = "<div class='dhx_year_month'></div><div class='dhx_year_week'>" + week_template.innerHTML + "</div><div class='dhx_year_body'></div>";
+				d.childNodes[0].innerHTML = this.templates.year_month(sd);
+
+				var dd = this.date.week_start(sd);
+				var ed = this._reset_month_scale(d.childNodes[2], sd, dd);
+
+				var r = d.childNodes[2].firstChild.rows;
+				for (var k=r.length; k<6; k++) {
+					r[0].parentNode.appendChild(r[0].cloneNode(true));
+					for (var ri=0; ri < r[k].childNodes.length; ri++) {
+					   r[k].childNodes[ri].className = "dhx_after";
+					   r[k].childNodes[ri].firstChild.innerHTML = scheduler.templates.month_day(ed);
+					   ed = scheduler.date.add(ed,1,"day");
+					}
+				}
+				b.appendChild(d);
+
+				d.childNodes[1].style.height = d.childNodes[1].childNodes[0].offsetHeight + "px"; // dhx_year_week should have height property so that day dates would get correct position. dhx_year_week height = height of it's child (with the day name)
+				var dt = Math.round((dy - 190) / 2);
+				d.style.marginTop = dt + "px";
+				this.set_xy(d, dx - 10, dy - dt - 10, dx * j + 5, dy * i + 5 + scheduler.xy.year_top);
+
+				week_starts[i * c.year_x + j] = (sd.getDay() - (this.config.start_on_monday ? 1 : 0) + 7) % 7;
+				sd = this.date.add(sd, 1, "month");
+
+			}
+		this._els["dhx_cal_date"][0].innerHTML = this.templates[this._mode + "_date"](ssd, sd, this._mode);
+		this.week_starts = week_starts;
+		week_starts._month = ssd.getMonth();
+		this._min_date = ssd;
+		this._max_date = sd;
+	};
+
+	var getActionData = scheduler.getActionData;
+	scheduler.getActionData = function(n_ev) {
+		if(!is_year_mode())
+			return getActionData.apply(scheduler, arguments);
+
+		var trg = n_ev?n_ev.target:event.srcElement;
+		var date = getMonthDate(trg);
+
+		var day = getMonthCell(trg);
+		var pos = getDayIndexes(day);
+
+		if(pos && date){
+			date = scheduler.date.add(date, pos.week, "week");
+			date = scheduler.date.add(date, pos.day, "day");
+		}else{
+			date = null;
+		}
+
+		return {
+			date:date,
+			section:null
+		};
+
+
+
+
+		function getMonthDate(node){
+			var node = getMonthRoot(node);
+			if(!node)
+				return null;
+
+			var date = node.getAttribute("date");
+			if(!date)
+				return null;
+
+			return scheduler.date.week_start(scheduler.templates.xml_date(date));
+		}
+		function getDayIndexes(targetCell){
+			var month = getMonthTable(targetCell);
+			if(!month)
+				return null;
+
+			var week = 0, day = 0;
+			for(var week = 0, weeks = month.rows.length; week < weeks;week ++){
+				var w = month.rows[week].getElementsByTagName("td");
+				for(var day = 0, days = w.length; day < days; day++){
+					if(w[day] == targetCell)
+						break;
+				}
+				if(day < days)
+					break;
+			}
+
+			if(week < weeks)
+				return {day:day, week:week};
+			else
+				return null;
+		}
+
+	};
+
+	var locateEvent = scheduler._locate_event;
+	scheduler._locate_event = function(node) {
+		if(!is_year_mode())
+			return locateEvent.apply(scheduler, arguments);
+
+		var day = getNode(node, function(n){
+			return n.className && n.className.indexOf("dhx_year_event") != -1 && n.hasAttribute && n.hasAttribute("date")
+		});
+
+		if(!day || !day.hasAttribute("date")) return null;
+
+		var dat = scheduler.templates.xml_date(day.getAttribute("date"));
+		var evs = scheduler.getEvents(dat, scheduler.date.add(dat, 1, "day"));
+		if(!evs.length) return null;
+
+		//can be multiple events in the cell, return any single one
+		return evs[0].id;
+	};
+
+
+	function getMonthCell(node){
+		return getNode(node, function(n){ return n.nodeName.toLowerCase() == "td" });
+	}
+
+	function getMonthTable(node){
+		return getNode(node, function(n){ return n.nodeName.toLowerCase() == "table" });
+	}
+	function getMonthRoot(node){
+		var node = getMonthTable(node);
+		return getNode(node, function(n){ return n.hasAttribute && n.hasAttribute("date")});
+	}
+	function getNode(node, condition){
+		while(node && !condition(node)){
+			node = node.parentNode;
+		}
+		return node;
+	}
+
+})();

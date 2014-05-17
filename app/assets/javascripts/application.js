@@ -15,7 +15,6 @@
 //= require noty/js/noty/packaged/jquery.noty.packaged.min
 //= require ion-range-slider/js/ion.rangeSlider.js
 //= require dhtmlx/dhtmlxscheduler
-//= require dhtmlx/ext/dhtmlxscheduler_dhx_terrace
 //= require dhtmlx/ext/dhtmlxscheduler_collision
 //= require dhtmlx/ext/dhtmlxscheduler_limit
 //= require_tree ./consulted

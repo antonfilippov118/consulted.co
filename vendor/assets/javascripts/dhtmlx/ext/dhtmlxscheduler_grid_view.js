@@ -2,27 +2,465 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-(function(){scheduler.grid={sort_rules:{"int":function(b,d,a){return a(b)*1<a(d)*1?1:-1},str:function(b,d,a){return a(b)<a(d)?1:-1},date:function(b,d,a){return new Date(a(b))<new Date(a(d))?1:-1}},_getObjName:function(b){return"grid_"+b},_getViewName:function(b){return b.replace(/^grid_/,"")}}})();
-scheduler.createGridView=function(b){function d(a){return!(a!==void 0&&(a*1!=a||a<0))}var a=b.name||"grid",c=scheduler.grid._getObjName(a);scheduler.config[a+"_start"]=b.from||new Date(0);scheduler.config[a+"_end"]=b.to||new Date(9999,1,1);scheduler[c]=b;scheduler[c].defPadding=8;scheduler[c].columns=scheduler[c].fields;delete scheduler[c].fields;for(var e=scheduler[c].columns,f=0;f<e.length;f++){if(d(e[f].width))e[f].initialWidth=e[f].width;d(e[f].paddingLeft)||delete e[f].paddingLeft;d(e[f].paddingRight)||
-delete e[f].paddingRight}scheduler[c].select=b.select===void 0?!0:b.select;scheduler.locale.labels[a+"_tab"]===void 0&&(scheduler.locale.labels[a+"_tab"]=scheduler[c].label||scheduler.locale.labels.grid_tab);scheduler[c]._selected_divs=[];scheduler.date[a+"_start"]=function(a){return a};scheduler.date["add_"+a]=function(a,b){var c=new Date(a);c.setMonth(c.getMonth()+b);return c};scheduler.templates[a+"_date"]=function(a,b){return scheduler.templates.day_date(a)+" - "+scheduler.templates.day_date(b)};
-scheduler.attachEvent("onTemplatesReady",function(){scheduler.templates[a+"_full_date"]=function(a,b,c){return c._timed?this.day_date(c.start_date,c.end_date,c)+" "+this.event_date(a):scheduler.templates.day_date(a)+" &ndash; "+scheduler.templates.day_date(b)};scheduler.templates[a+"_single_date"]=function(a){return scheduler.templates.day_date(a)+" "+this.event_date(a)};scheduler.attachEvent("onDblClick",function(b){return this._mode==a?(scheduler._click.buttons.details(b),!1):!0});scheduler.attachEvent("onClick",
-function(b,d){return this._mode==a&&scheduler[c].select?(scheduler.grid.unselectEvent("",a),scheduler.grid.selectEvent(b,a,d),!1):!0});scheduler.templates[a+"_field"]=function(a,b){return b[a]};scheduler.attachEvent("onSchedulerResize",function(){return this._mode==a?(this[a+"_view"](!0),window.setTimeout(function(){scheduler.callEvent("onAfterSchedulerResize",[])},1),!1):!0});var b=scheduler.render_data;scheduler.render_data=function(d){if(this._mode==a)scheduler.grid._fill_grid_tab(c);else return b.apply(this,
-arguments)};var d=scheduler.render_view_data;scheduler.render_view_data=function(){if(this._mode==a)scheduler.grid._gridScrollTop=scheduler._els.dhx_cal_data[0].childNodes[0].scrollTop,scheduler._els.dhx_cal_data[0].childNodes[0].scrollTop=0;scheduler._els.dhx_cal_data[0].style.overflowY="auto";return d.apply(this,arguments)}});scheduler[a+"_view"]=function(b){b?(scheduler._min_date=scheduler[c].paging?scheduler.date[a+"_start"](new Date(scheduler._date)):scheduler.config[a+"_start"],scheduler._max_date=
-scheduler[c].paging?scheduler.date.add(scheduler._min_date,1,a):scheduler.config[a+"_end"],scheduler.grid.set_full_view(c),scheduler._els.dhx_cal_date[0].innerHTML=scheduler._min_date>new Date(0)&&scheduler._max_date<new Date(9999,1,1)?scheduler.templates[a+"_date"](scheduler._min_date,scheduler._max_date):"",scheduler.grid._fill_grid_tab(c),scheduler._gridView=c):(scheduler.grid._sort_marker=null,delete scheduler._gridView,scheduler._rendered=[],scheduler[c]._selected_divs=[])}};
-scheduler.dblclick_dhx_grid_area=function(){!this.config.readonly&&this.config.dblclick_create&&this.addEventNow()};if(scheduler._click.dhx_cal_header)scheduler._old_header_click=scheduler._click.dhx_cal_header;
-scheduler._click.dhx_cal_header=function(b){if(scheduler._gridView){var d=b||window.event,a=scheduler.grid.get_sort_params(d,scheduler._gridView);scheduler.grid.draw_sort_marker(d.originalTarget||d.srcElement,a.dir);scheduler.clear_view();scheduler.grid._fill_grid_tab(scheduler._gridView,a)}else if(scheduler._old_header_click)return scheduler._old_header_click.apply(this,arguments)};
-scheduler.grid.selectEvent=function(b,d,a){if(scheduler.callEvent("onBeforeRowSelect",[b,a])){var c=scheduler.grid._getObjName(d);scheduler.for_rendered(b,function(a){a.className+=" dhx_grid_event_selected";scheduler[c]._selected_divs.push(a)});scheduler._select_id=b}};scheduler.grid._unselectDiv=function(b){b.className=b.className.replace(/ dhx_grid_event_selected/,"")};
-scheduler.grid.unselectEvent=function(b,d){var a=scheduler.grid._getObjName(d);if(a&&scheduler[a]._selected_divs)if(b)for(c=0;c<scheduler[a]._selected_divs.length;c++){if(scheduler[a]._selected_divs[c].getAttribute("event_id")==b){scheduler.grid._unselectDiv(scheduler[a]._selected_divs[c]);scheduler[a]._selected_divs.slice(c,1);break}}else{for(var c=0;c<scheduler[a]._selected_divs.length;c++)scheduler.grid._unselectDiv(scheduler[a]._selected_divs[c]);scheduler[a]._selected_divs=[]}};
-scheduler.grid.get_sort_params=function(b,d){var a=b.originalTarget||b.srcElement;if(a.className=="dhx_grid_view_sort")a=a.parentNode;for(var c=!a.className||a.className.indexOf("dhx_grid_sort_asc")==-1?"asc":"desc",e=0,f=0;f<a.parentNode.childNodes.length;f++)if(a.parentNode.childNodes[f]==a){e=f;break}var i=null;if(scheduler[d].columns[e].template)var g=scheduler[d].columns[e].template,i=function(a){return g(a.start_date,a.end_date,a)};else{var k=scheduler[d].columns[e].id;k=="date"&&(k="start_date");
-i=function(a){return a[k]}}var h=scheduler[d].columns[e].sort;typeof h!="function"&&(h=scheduler.grid.sort_rules[h]||scheduler.grid.sort_rules.str);return{dir:c,value:i,rule:h}};
-scheduler.grid.draw_sort_marker=function(b,d){if(b.className=="dhx_grid_view_sort")b=b.parentNode;if(scheduler.grid._sort_marker)scheduler.grid._sort_marker.className=scheduler.grid._sort_marker.className.replace(/( )?dhx_grid_sort_(asc|desc)/,""),scheduler.grid._sort_marker.removeChild(scheduler.grid._sort_marker.lastChild);b.className+=" dhx_grid_sort_"+d;scheduler.grid._sort_marker=b;var a="<div class='dhx_grid_view_sort' style='left:"+(+b.style.width.replace("px","")-15+b.offsetLeft)+"px'>&nbsp;</div>";
-b.innerHTML+=a};scheduler.grid.sort_grid=function(b){var b=b||{dir:"desc",value:function(a){return a.start_date},rule:scheduler.grid.sort_rules.date},d=scheduler.get_visible_events();b.dir=="desc"?d.sort(function(a,c){return b.rule(a,c,b.value)}):d.sort(function(a,c){return-b.rule(a,c,b.value)});return d};scheduler.grid.set_full_view=function(b){if(b){var d=scheduler.locale.labels,a=scheduler.grid._print_grid_header(b);scheduler._els.dhx_cal_header[0].innerHTML=a;scheduler._table_view=!0;scheduler.set_sizes()}};
-scheduler.grid._calcPadding=function(b,d){var a=(b.paddingLeft!==void 0?1*b.paddingLeft:scheduler[d].defPadding)+(b.paddingRight!==void 0?1*b.paddingRight:scheduler[d].defPadding);return a};
-scheduler.grid._getStyles=function(b,d){for(var a=[],c="",e=0;d[e];e++)switch(c=d[e]+":",d[e]){case "text-align":b.align&&a.push(c+b.align);break;case "vertical-align":b.valign&&a.push(c+b.valign);break;case "padding-left":b.paddingLeft!=void 0&&a.push(c+(b.paddingLeft||"0")+"px");break;case "padding-left":b.paddingRight!=void 0&&a.push(c+(b.paddingRight||"0")+"px")}return a};
-scheduler.grid._fill_grid_tab=function(b,d){for(var a=scheduler._date,c=scheduler.grid.sort_grid(d),e=scheduler[b].columns,f="<div>",i=-2,g=0;g<e.length;g++){var k=scheduler.grid._calcPadding(e[g],b);i+=e[g].width+k;g<e.length-1&&(f+="<div class='dhx_grid_v_border' style='left:"+i+"px'></div>")}f+="</div>";f+="<div class='dhx_grid_area'><table>";for(g=0;g<c.length;g++)f+=scheduler.grid._print_event_row(c[g],b);f+="</table></div>";scheduler._els.dhx_cal_data[0].innerHTML=f;scheduler._els.dhx_cal_data[0].scrollTop=
-scheduler.grid._gridScrollTop||0;var h=scheduler._els.dhx_cal_data[0].getElementsByTagName("tr");scheduler._rendered=[];for(g=0;g<h.length;g++)scheduler._rendered[g]=h[g]};
-scheduler.grid._print_event_row=function(b,d){var a=[];b.color&&a.push("background:"+b.color);b.textColor&&a.push("color:"+b.textColor);b._text_style&&a.push(b._text_style);scheduler[d].rowHeight&&a.push("height:"+scheduler[d].rowHeight+"px");var c="";a.length&&(c="style='"+a.join(";")+"'");for(var e=scheduler[d].columns,f=scheduler.templates.event_class(b.start_date,b.end_date,b),i="<tr class='dhx_grid_event"+(f?" "+f:"")+"' event_id='"+b.id+"' "+c+">",g=scheduler.grid._getViewName(d),k=["text-align",
-"vertical-align","padding-left","padding-right"],h=0;h<e.length;h++){var j;j=e[h].template?e[h].template(b.start_date,b.end_date,b):e[h].id=="date"?scheduler.templates[g+"_full_date"](b.start_date,b.end_date,b):e[h].id=="start_date"||e[h].id=="end_date"?scheduler.templates[g+"_single_date"](b[e[h].id]):scheduler.templates[g+"_field"](e[h].id,b);var l=scheduler.grid._getStyles(e[h],k),m=e[h].css?' class="'+e[h].css+'"':"";i+="<td style='width:"+e[h].width+"px;"+l.join(";")+"' "+m+">"+j+"</td>"}i+=
-"<td class='dhx_grid_dummy'></td></tr>";return i};
-scheduler.grid._print_grid_header=function(b){for(var d="<div class='dhx_grid_line'>",a=scheduler[b].columns,c=[],e=a.length,f=scheduler._obj.clientWidth-2*a.length-20,i=0;i<a.length;i++){var g=a[i].initialWidth*1;!isNaN(g)&&a[i].initialWidth!=""&&a[i].initialWidth!=null&&typeof a[i].initialWidth!="boolean"?(e--,f-=g,c[i]=g):c[i]=null}for(var k=Math.floor(f/e),h=["text-align","padding-left","padding-right"],j=0;j<a.length;j++){var l=!c[j]?k:c[j];a[j].width=l-scheduler.grid._calcPadding(a[j],b);var m=
-scheduler.grid._getStyles(a[j],h);d+="<div style='width:"+(a[j].width-1)+"px;"+m.join(";")+"'>"+(a[j].label===void 0?a[j].id:a[j].label)+"</div>"}d+="</div>";return d};
+(function(){
+	scheduler._grid = {
+		sort_rules:{
+			"int":function(a,b, getVal){ return getVal(a)*1 < getVal(b)*1?1:-1},
+			"str":function(a,b, getVal){ return getVal(a) < getVal(b)?1:-1},
+			"date":function(a,b, getVal){ return new Date(getVal(a))< new Date(getVal(b))?1:-1}
+		},
+		_getObjName:function(name){
+			return "grid_"+name;
+		},
+		_getViewName:function(objName){
+			return objName.replace(/^grid_/,'');
+		}
+	};
+}
+)();
+/*
+obj={
+    name:'grid_name'
+	fields:[
+                  { id:"id", label:"Id", width:80, sort:"int/date/str", template:function(start_date, end_date, ev){ return ""}, align:"right/left/center" },
+                  { id:"text", label:"Text", width:'*', css:"class_name", sort:function(a,b){ return 1 or -1}, valign:'top/bottom/middle' }
+                  ...
+            ],
+	from:new Date(0),
+	to:Date:new Date(9999,1,1),
+	rowHeight:int,
+	paging:true/false,
+	select:true/false
+}
+*/
+
+
+scheduler.createGridView=function(obj){
+
+	var name = obj.name || 'grid';
+	var objName = scheduler._grid._getObjName(name);
+
+	scheduler.config[name + '_start'] = obj.from ||(new Date(0));
+	scheduler.config[name + '_end'] = obj.to || (new Date(9999,1,1));
+
+	scheduler[objName] = obj;
+	scheduler[objName].defPadding = 8;
+	scheduler[objName].columns = scheduler[objName].fields;
+	delete scheduler[objName].fields;
+	function isValidSize(size){
+		return !(size !== undefined && (size*1 != size || size < 0));
+	}
+
+	var cols = scheduler[objName].columns;
+	for(var i=0; i < cols.length; i++){
+		if(isValidSize(cols[i].width))
+			cols[i].initialWidth = cols[i].width;
+		if(!isValidSize(cols[i].paddingLeft))
+			delete cols[i].paddingLeft;
+		if(!isValidSize(cols[i].paddingRight))
+			delete cols[i].paddingRight;
+	}
+
+	scheduler[objName].select = obj.select === undefined ? true : obj.select;
+	if(scheduler.locale.labels[name +'_tab'] === undefined)
+		scheduler.locale.labels[name +'_tab'] = scheduler[objName].label || scheduler.locale.labels.grid_tab;
+
+	scheduler[objName]._selected_divs = [];
+
+	scheduler.date[name+'_start']=function(d){ return d; };
+	scheduler.date['add_' + name] = function(date, inc){
+		var ndate = new Date(date);
+		ndate.setMonth(ndate.getMonth()+inc);
+		return ndate;
+	};
+
+	scheduler.templates[name+"_date"] = function(start, end){
+		return scheduler.templates.day_date(start)+" - "+scheduler.templates.day_date(end)
+	};
+	scheduler.templates[name + '_full_date'] = function(start,end,ev){
+		if (scheduler.isOneDayEvent(ev))
+			return this[name + '_single_date'](start);
+		else
+			return scheduler.templates.day_date(start)+" &ndash; "+scheduler.templates.day_date(end);
+	};
+	scheduler.templates[name + '_single_date'] = function(date){
+		return scheduler.templates.day_date(date)+" "+this.event_date(date);
+	};
+	scheduler.templates[name + '_field'] = function(field_name, event){
+		return event[field_name];
+	};
+
+	scheduler.attachEvent("onTemplatesReady",function(){
+
+		scheduler.attachEvent("onDblClick",function(event_id, native_event_object){
+			if(this._mode == name){
+				scheduler._click.buttons['details'](event_id)
+				return false;
+			}
+			return true;
+		});
+
+		scheduler.attachEvent("onClick",function(event_id, native_event_object){
+			if(this._mode == name && scheduler[objName].select ){
+				scheduler._grid.unselectEvent('', name);
+				scheduler._grid.selectEvent(event_id, name, native_event_object);
+				return false;
+			}
+			return true;
+		});
+
+		scheduler.attachEvent("onSchedulerResize", function() {
+			if (this._mode == name) {
+				this[name + '_view'](true);
+				// timeout used to run code after all onSchedulerResize handlers are finished
+				window.setTimeout(function(){
+					// we need to call event manually because handler return false, and blocks default logic
+					scheduler.callEvent("onAfterSchedulerResize", []);
+				},1);
+				return false;
+			}
+			return true;
+		});
+
+
+		var old = scheduler.render_data;
+		scheduler.render_data=function(evs){
+			if (this._mode == name)
+				scheduler._grid._fill_grid_tab(objName);
+			else
+				return old.apply(this,arguments);
+		};
+
+		var old_render_view_data = scheduler.render_view_data;
+		scheduler.render_view_data=function(){
+			if(this._mode == name) {
+				scheduler._grid._gridScrollTop = scheduler._els["dhx_cal_data"][0].childNodes[0].scrollTop;
+				scheduler._els["dhx_cal_data"][0].childNodes[0].scrollTop = 0;
+				scheduler._els["dhx_cal_data"][0].style.overflowY = 'auto';
+			}
+			else {
+				scheduler._els["dhx_cal_data"][0].style.overflowY = 'auto';
+			}
+			return old_render_view_data.apply(this,arguments);
+		}
+});
+
+
+	scheduler[name+'_view']=function(mode){
+		if (mode){
+			scheduler._min_date = scheduler[objName].paging ? scheduler.date[name+'_start'](new Date(scheduler._date)) : scheduler.config[name + '_start'];
+			scheduler._max_date = scheduler[objName].paging ? scheduler.date.add(scheduler._min_date, 1, name) : scheduler.config[name + '_end'];
+
+			scheduler._grid.set_full_view(objName);
+			if(scheduler._min_date > new Date(0) && scheduler._max_date < (new Date(9999,1,1)))
+				scheduler._els["dhx_cal_date"][0].innerHTML=scheduler.templates[name+"_date"](scheduler._min_date,scheduler._max_date);
+			else
+				scheduler._els["dhx_cal_date"][0].innerHTML="";
+
+			//grid tab activated
+			scheduler._grid._fill_grid_tab(objName);
+			scheduler._gridView = objName;
+		} else {
+			scheduler._grid._sort_marker = null;
+			delete scheduler._gridView;
+			scheduler._rendered=[];
+			scheduler[objName]._selected_divs = [];
+			//grid tab de-activated
+		}
+	};
+
+
+}
+
+
+scheduler.dblclick_dhx_grid_area=function(){
+	if (!this.config.readonly && this.config.dblclick_create)
+		this.addEventNow();
+};
+
+if(scheduler._click.dhx_cal_header){
+ 	scheduler._old_header_click = scheduler._click.dhx_cal_header;
+}
+scheduler._click.dhx_cal_header=function(e){
+	if(scheduler._gridView){
+		var event = e||window.event;
+		var params = scheduler._grid.get_sort_params(event, scheduler._gridView);
+
+		scheduler._grid.draw_sort_marker(event.originalTarget || event.srcElement, params.dir);
+
+		scheduler.clear_view();
+		scheduler._grid._fill_grid_tab(scheduler._gridView, params);
+	}
+	else if(scheduler._old_header_click)
+		return scheduler._old_header_click.apply(this,arguments);
+};
+
+scheduler._grid.selectEvent = function(id, view_name, native_event_object){
+	if(scheduler.callEvent("onBeforeRowSelect",[id,native_event_object])){
+		var objName = scheduler._grid._getObjName(view_name);
+
+		scheduler.for_rendered(id, function(event_div){
+			event_div.className += " dhx_grid_event_selected";
+			scheduler[objName]._selected_divs.push(event_div);
+		});
+		scheduler._select_id = id;
+	}
+};
+
+scheduler._grid._unselectDiv= function(div){
+	div.className = div.className.replace(/ dhx_grid_event_selected/,'');
+}
+scheduler._grid.unselectEvent = function(id, view_name){
+	var objName = scheduler._grid._getObjName(view_name);
+	if(!objName || !scheduler[objName]._selected_divs)
+		return;
+
+	if(!id){
+		for(var i=0; i<scheduler[objName]._selected_divs.length; i++)
+			scheduler._grid._unselectDiv(scheduler[objName]._selected_divs[i]);
+
+		scheduler[objName]._selected_divs = [];
+
+	}else{
+		for(var i=0; i<scheduler[objName]._selected_divs.length; i++)
+			if(scheduler[objName]._selected_divs[i].getAttribute('event_id') == id){
+				scheduler._grid._unselectDiv(scheduler[objName]._selected_divs[i]);
+				scheduler[objName]._selected_divs.slice(i,1);
+				break;
+			}
+
+	}
+};
+
+scheduler._grid.get_sort_params = function(event, objName){
+	var targ = event.originalTarget || event.srcElement;
+	if(targ.className == 'dhx_grid_view_sort')
+		targ = targ.parentNode;
+	if(!targ.className || targ.className.indexOf("dhx_grid_sort_asc") == -1)
+		var direction = 'asc';
+	else
+		var direction = 'desc';
+
+	var index = 0;
+	for(var i =0; i < targ.parentNode.childNodes.length; i++){
+		if(targ.parentNode.childNodes[i] == targ){
+			index = i;
+			break;
+		}
+	}
+
+
+
+	var value = null;
+	if(scheduler[objName].columns[index].template){
+		var template = scheduler[objName].columns[index].template
+		value = function(ev){
+			return template(ev.start_date, ev.end_date, ev);
+		};
+	}else{
+		var field = scheduler[objName].columns[index].id;
+		if(field == "date")
+			field = "start_date";
+		value = function(ev){ return ev[field];}
+	}
+
+	var rule = scheduler[objName].columns[index].sort;
+
+	if(typeof rule != 'function'){
+		rule = scheduler._grid.sort_rules[rule] || scheduler._grid.sort_rules['str'];
+	}
+
+	return {dir:direction, value:value, rule:rule};
+};
+
+scheduler._grid.draw_sort_marker = function(node, direction){
+	if(node.className == 'dhx_grid_view_sort')
+		node = node.parentNode;
+
+	if(scheduler._grid._sort_marker){
+		scheduler._grid._sort_marker.className = scheduler._grid._sort_marker.className.replace(/( )?dhx_grid_sort_(asc|desc)/, '');
+		scheduler._grid._sort_marker.removeChild(scheduler._grid._sort_marker.lastChild);
+	}
+
+	node.className += " dhx_grid_sort_"+direction;
+	scheduler._grid._sort_marker = node;
+	var html = "<div class='dhx_grid_view_sort' style='left:"+(+node.style.width.replace('px','') -15+node.offsetLeft)+"px'>&nbsp;</div>";
+	node.innerHTML += html;
+
+};
+
+scheduler._grid.sort_grid=function(sort){
+
+	var sort = sort || {dir:'desc', value:function(ev){return ev.start_date;}, rule:scheduler._grid.sort_rules['date']};
+
+	var events = scheduler.get_visible_events();
+
+	if(sort.dir == 'desc')
+		events.sort(function(a,b){return sort.rule(a,b,sort.value)});
+	else
+		events.sort(function(a,b){return -sort.rule(a,b, sort.value)});
+	return events;
+};
+
+
+
+scheduler._grid.set_full_view = function(mode){
+	if (mode){
+		var l = scheduler.locale.labels;
+		var html =scheduler._grid._print_grid_header(mode);
+
+		scheduler._els["dhx_cal_header"][0].innerHTML= html;
+		scheduler._table_view=true;
+		scheduler.set_sizes();
+	}
+};
+scheduler._grid._calcPadding = function(column, parent){
+	var padding = (column.paddingLeft !== undefined ? 1*column.paddingLeft : scheduler[parent].defPadding)
+				+ (column.paddingRight !== undefined ? 1*column.paddingRight : scheduler[parent].defPadding);
+	return padding;
+};
+
+scheduler._grid._getStyles = function(column, items){
+	var cell_style = [], style = "";
+	for(var i=0; items[i]; i++ ){
+		style = items[i] + ":";
+	    switch (items[i]){
+			case "text-align":
+				if(column.align)
+					cell_style.push(style+column.align);
+				break;
+			case "vertical-align":
+				if(column.valign)
+					cell_style.push(style+column.valign);
+				break;
+			case "padding-left":
+				if(column.paddingLeft != undefined)
+					cell_style.push(style+(column.paddingLeft||'0') + "px");
+				break;
+			case "padding-right":
+				if(column.paddingRight != undefined)
+					cell_style.push(style+(column.paddingRight||'0') + "px");
+				break;
+		}
+	}
+	return cell_style;
+};
+
+scheduler._grid._fill_grid_tab = function(objName, sort){
+	//get current date
+	var date = scheduler._date;
+	//select events for which data need to be printed
+	var events = scheduler._grid.sort_grid(sort)
+
+	//generate html for the view
+	var columns = scheduler[objName].columns;
+
+	var html = "<div>";
+	var left = -2;//column borders at the same pos as header borders...
+	for(var i=0; i < columns.length; i++){
+		var padding = scheduler._grid._calcPadding(columns[i], objName);
+		left +=columns[i].width + padding ;//
+		if(i < columns.length - 1)
+			html += "<div class='dhx_grid_v_border' style='left:"+(left)+"px'></div>";
+	}
+	html += "</div>"
+	html +="<div class='dhx_grid_area'><table>";
+
+	for (var i=0; i<events.length; i++){
+		html += scheduler._grid._print_event_row(events[i], objName);
+	}
+
+	html +="</table></div>";
+	//render html
+	scheduler._els["dhx_cal_data"][0].innerHTML = html;
+	scheduler._els["dhx_cal_data"][0].scrollTop = scheduler._grid._gridScrollTop||0;
+
+	var t=scheduler._els["dhx_cal_data"][0].getElementsByTagName("tr");
+
+	scheduler._rendered=[];
+	for (var i=0; i < t.length; i++){
+		scheduler._rendered[i]=t[i]
+	}
+
+};
+scheduler._grid._print_event_row = function(ev, objName){
+
+	var styles = [];
+	if(ev.color)
+		styles.push("background:"+ev.color);
+	if(ev.textColor)
+		styles.push("color:"+ev.textColor);
+	if(ev._text_style)
+		styles.push(ev._text_style);
+	if(scheduler[objName]['rowHeight'])
+			styles.push('height:'+scheduler[objName]['rowHeight'] + 'px');
+
+	var style = "";
+	if(styles.length){
+		style = "style='"+styles.join(";")+"'";
+	}
+
+	var columns = scheduler[objName].columns;
+	var ev_class = scheduler.templates.event_class(ev.start_date, ev.end_date, ev);
+
+	var html ="<tr class='dhx_grid_event"+(ev_class? ' '+ev_class:'')+"' event_id='"+ev.id+"' " + style + ">";
+
+	var name = scheduler._grid._getViewName(objName);
+	var availStyles = ["text-align", "vertical-align", "padding-left","padding-right"];
+	for(var i =0; i < columns.length; i++){
+		var value;
+		if(columns[i].template){
+			value = columns[i].template(ev.start_date, ev.end_date, ev);
+		}else if(columns[i].id == 'date') {
+			value = scheduler.templates[name + '_full_date'](ev.start_date, ev.end_date, ev);
+		}else if(columns[i].id == 'start_date' || columns[i].id == 'end_date' ){
+	        value = scheduler.templates[name + '_single_date'](ev[columns[i].id]);
+		}else{
+			value = scheduler.templates[name + '_field'](columns[i].id, ev);
+		}
+
+		var cell_style = scheduler._grid._getStyles(columns[i], availStyles);
+
+		var className = columns[i].css ? (" class=\""+columns[i].css+"\"") : "";
+
+		html+= "<td style='width:"+ (columns[i].width )+"px;"+cell_style.join(";")+"' "+className+">"+value+"</td>";
+
+	}
+	html+="<td class='dhx_grid_dummy'></td></tr>";
+
+	return html;
+};
+
+scheduler._grid._print_grid_header = function(objName){
+	var head = "<div class='dhx_grid_line'>";
+
+	var columns = scheduler[objName].columns;
+	var widths = [];
+
+	var unsized_columns = columns.length;
+	var avail_width = scheduler._obj.clientWidth - 2*columns.length -20;//-20 for possible scrollbar, -length for borders
+	for(var ind=0; ind < columns.length; ind++){
+
+		var val = columns[ind].initialWidth*1;
+		if(!isNaN(val) && columns[ind].initialWidth != '' && columns[ind].initialWidth != null && typeof columns[ind].initialWidth != 'boolean'){
+
+			unsized_columns--;
+			avail_width -= val;
+			widths[ind] = val;
+		}else {
+			widths[ind] = null;
+		}
+	}
+
+	var unsized_width = Math.floor(avail_width / unsized_columns);
+	var availStyles = ["text-align",  "padding-left","padding-right"];
+	for(var i=0; i < columns.length; i++){
+		var column_width = !widths[i] ? unsized_width : widths[i];
+		columns[i].width = column_width - scheduler._grid._calcPadding(columns[i], objName);
+		var cell_style = scheduler._grid._getStyles(columns[i], availStyles);
+		head += "<div style='width:"+(columns[i].width -1)+"px;"+cell_style.join(";")+"'>" + (columns[i].label === undefined ? columns[i].id : columns[i].label) + "</div>";
+	}
+	head +="</div>";
+
+	return head;
+};
