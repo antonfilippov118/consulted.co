@@ -49,7 +49,8 @@ Consulted::Application.routes.draw do
       put :timezone, action: :timezone_update
     end
 
-    resource :availabilities, except: [:edit, :new], constraints: { format: /(js|json)/ }, controller: 'users/availabilities'
+    resource :availabilities, except: [:edit, :new], controller: 'users/availabilities'
+    resources :availabilities, only: [:destroy], controller: 'users/availabilities'
     resources :favorites, except: [:edit, :new], controller: 'users/favorites'
 
     resources :requests, controller: 'users/requests', except: [:new] do

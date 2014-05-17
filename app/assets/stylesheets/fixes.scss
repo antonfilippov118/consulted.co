@@ -177,5 +177,30 @@
   }
 }
 
+#scheduler {
+  *, *:before, *:after {
+    box-sizing:content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+  }
+
+  /*event in day or week view*/
+  .dhx_cal_event.availability div{
+    background-color: #7baadb !important;
+
+  }
+  .dhx_title {
+    line-height: normal;
+  }
+
+  .dhx_cal_editor {
+    display:none;
+  }
+}
+
+.dhx_cal_light {
+  font-family: Open Sans;
+}
+
 @import 'filters';
 @import 'typeahead';

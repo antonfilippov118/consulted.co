@@ -1555,6 +1555,7 @@ body .expert-name {
   }
 }
 .overview-table.table {
+  clear: both;
   border:1px solid $darkblue;
   border-width:1px 0;
   & td {

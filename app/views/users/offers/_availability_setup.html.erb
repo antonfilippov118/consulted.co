@@ -14,13 +14,15 @@
     <div class="clr bluestripe">
       Time schedule is based on your timezone setting. Your current timezone is: <%= ActiveSupport::TimeZone.new(@user.timezone).to_s %>
     </div>
-    <div class="clr" id="scheduler">
-      <div data-calendar></div>
-      <% %w(calendar calendar_back calendar_front element element_adding).each do |partial| %>
-        <script type="text/ng-template" id="<%= partial %>">
-          <%= render partial: "users/offers/ng/scheduler/#{partial}" %>
-        </script>
-      <% end %>
+    <div id="scheduler">
+      <div ng-controller="ScheduleCtrl">
+        <div dhx-scheduler style="height:550px;" events='events'>
+          <div class="dhx_cal_prev_button">&nbsp;</div>
+          <div class="dhx_cal_next_button">&nbsp;</div>
+          <div class="dhx_cal_today_button"></div>
+          <div class="dhx_cal_date"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -8,13 +8,14 @@ class Users::AvailabilitiesController < Users::BaseController
 
   def update
     result = UpdatesOrCreatesAvailability.for @user, availability_params
+    @availability = result.fetch :availability
     if result.failure?
       render json: { error: result.message }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @availability = Availability.for(user).find params[:id]
+    @availability = Availability.for(@user).find params[:id]
     unless @availability.destroy
       render json: { error: 'could not destroy availability' }, status: :unprocessable_entity
     end
