@@ -36,7 +36,17 @@ class Call
 
   def confirm!
     self.status = Call::Status::ACTIVE
-    save
+    save!
+  end
+
+  def decline!
+    self.status = Call::Status::DECLINED
+    save!
+  end
+
+  def cancel!
+    self.status = Call::Status::CANCELLED
+    save!
   end
 
   def active?
@@ -45,6 +55,10 @@ class Call
 
   def cancelled?
     status == Call::Status::CANCELLED
+  end
+
+  def declined?
+    status == Call::Status::DECLINED
   end
 
   private
