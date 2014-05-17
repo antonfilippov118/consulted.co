@@ -2,7 +2,7 @@
   <div id="filter" ng-hide="open">
     <div class="container">
       <span class="filter-prop" ng-show="currentDays().length > 0">
-        <strong>Days:</strong> Mon, Tue, Wed</span>
+        <strong>Days:</strong> {{currentDays().join(', ')}}</span>
       <span class="filter-prop" ng-show="currentLocations().length > 0">
         <strong>Locations:</strong> {{currentLocations().join(", ")}}</span>
       <span class="filter-prop" ng-show="currentLanguages().length > 0">
@@ -61,11 +61,11 @@
               <p class="fexp-head-sm">Expert location</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check" ng-class="{'in':allActive()}">
-                    <input type="checkbox" ng-click="toggleAll()"> All
+                  <label ng-click="toggleAll()" class="check line-check" ng-class="{'in':allActive()}">
+                   All
                   </label>
-                  <label class="check line-check" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents | order">
-                    <input type="checkbox" ng-click="toggle(continent)">{{continent}}
+                  <label class="check line-check" ng-click="toggle(continent)" ng-class="{'in':isActive(continent)}" ng-repeat="continent in continents | order">
+                    {{continent}}
                   </label>
                 </div>
               </div>
@@ -74,11 +74,11 @@
               <p class="fexp-head-sm">Language</p>
               <div class="fexp-body">
                 <div class="clr">
-                  <label class="check line-check" ng-class="{'in':allActive()}">
-                    <input type="checkbox" ng-click="toggleAll()"> All
+                  <label ng-click="toggleAll()" class="check line-check" ng-class="{'in':allActive()}">
+                    All
                   </label>
-                  <label class="check line-check" ng-class="{'in':isActive(language)}" ng-repeat="language in languages | order">
-                    <input type="checkbox" ng-click="toggle(language)" > {{language | capitalize}}
+                  <label ng-click="toggle(language)" class="check line-check" ng-class="{'in':isActive(language)}" ng-repeat="language in languages | order">
+                    {{language | capitalize}}
                   </label>
                 </div>
               </div>
@@ -88,13 +88,13 @@
             <div class="fexp-block" rate>
               <p class="fexp-head-sm">Hourly rate</p>
               <div class="clr">
-                <input type="text" class="ranger" data-min="<%= @rates.min %>" data-max="<%= @rates.max %>" data-from="<%= @rates.min %>" data-to="<%= @rates.max %>" />
+                <input type="text" ng-change="setRate()" ng-model="rate" ion-range-multi prefix="$" values="rates">
               </div>
             </div>
             <div class="fexp-block" experience>
               <p class="fexp-head-sm">Years of offering experience</p>
               <div class="clr">
-                <input type="text" class="ranger" data-min="<%= @experience.min %>" data-max="<%= @experience.max %>" data-from="<%= @experience.min %>" data-to="<%= @experience.max %>" />
+                <input type="text" ng-change="setExperience()" ng-model="experience" ion-range-multi values="experiences">
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@
   </div>
   <div id="filter-toggle-wrap">
     <div class="container">
-      <span id="filter-toggle" class="flaticon flaticon-points" ng-click="open = !open"></span>
+      <span id="filter-toggle" class="flaticon flaticon-points" ng-click="toggle()"></span>
     </div>
   </div>
 </div>

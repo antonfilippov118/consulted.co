@@ -139,6 +139,7 @@ module ExpertsHelper
   end
 
   def bookmarked?(expert)
+    return false unless @user
     @user.favorites.where(favorite_id: expert.id).exists?
   end
 end

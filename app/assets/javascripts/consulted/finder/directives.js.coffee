@@ -38,38 +38,29 @@ app.directive 'continents', [
 
 app.directive 'rate', [
   'Rate'
-  (Rate) ->
+  'Configuration'
+  (Rate, Configuration) ->
     replace: no
     scope: yes
     link: (scope, el) ->
-      select = (values) ->
-        {fromNumber, toNumber} = values
-        Rate.set fromNumber, toNumber
+      scope.rate    = Configuration.getRates()
+      scope.rates   = Configuration.getRates
+      scope.setRate = () ->
+        Rate.set scope.rate.from, scope.rate.to
 
-      slider = el.find '.ranger'
-      slider.ionRangeSlider
-        type: 'double'
-        prefix: '$'
-        hideMinMax: yes
-        onFinish: select
 ]
 
 app.directive 'experience', [
   'Experience'
-  (Experience) ->
+  'Configuration'
+  (Experience, Configuration) ->
     replace: no
     scope: yes
     link: (scope, el) ->
-      select = (values) ->
-        {fromNumber, toNumber} = values
-        Experience.set fromNumber, toNumber
-
-      slider = el.find '.ranger'
-      slider.ionRangeSlider
-        type: 'double'
-        hideMinMax: yes
-        onFinish: select
-
+      scope.experience    = Configuration.getExperiences()
+      scope.experiences   = Configuration.getExperiences
+      scope.setExperience = () ->
+        Experience.set scope.experience.from, scope.experience.to
 ]
 
 app.directive 'dates', [
@@ -164,5 +155,49 @@ app.directive 'offer', [
       scope.bookmark = (expert) ->
         expert.bookmarked = !expert.bookmarked
         Bookmark.send expert
+
+]
+
+app.directive 'ionRangeMulti', [
+  '$timeout'
+  'Configuration'
+  (timeout, Configuration) ->
+    scope:
+      values: "="
+    require: '?ngModel'
+    link: (scope, el, attrs, ngModel) ->
+      apply = (obj) ->
+        scope.$apply () ->
+          ngModel.$setViewValue from: obj.fromNumber, to: obj.toNumber
+
+      build = (value) ->
+        {from, to} = scope.values()
+        el.ionRangeSlider('remove').ionRangeSlider
+          type: 'double'
+          min: from
+          max: to
+          from: from
+          to: to
+          hideMinMax: yes
+          postfix: do -> if attrs.postfix then " #{attrs.postfix}" else undefined
+          prefix: do -> if attrs.prefix then " #{attrs.prefix}" else undefined
+          onFinish: apply
+
+      update = (value) ->
+        {from, to} = value
+        el.ionRangeSlider 'update', from: from, to: to
+
+      scope.$watch () ->
+        ngModel.$modelValue
+      , (newValue) ->
+        return unless newValue
+        update newValue
+
+      scope.$on 'open', (_, open) ->
+        timeout ->
+          build ngModel.$modelValue if open
+        , 50
+
+      el.ionRangeSlider()
 
 ]

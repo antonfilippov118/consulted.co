@@ -9,7 +9,7 @@
       </div>
       <div class="expert-name heading2">
         {{offer.expert.name}}
-        <span id="bookmark" ng-hide="offer.expert.slug === '<%= @user.slug %>'">
+        <span id="bookmark" ng-hide="offer.expert.slug === '<%= @user.slug rescue '' %>' || <%= @user.nil? %>" >
           <span ng-show="offer.expert.bookmarked">
             <span class="fa fa-star" ng-click="bookmark(offer.expert)"></span>
           </span>
@@ -56,7 +56,7 @@
           {{offer.next_call | moment:'h:mm a'}}
           <br>
           Up to {{offer.maximum_call}} minutes
-          <a ng-hide="offer.expert.slug === '<%= @user.slug %>'" ng-href="<%= offers_path %>/{{offer.url}}/review/{{offer.next_call | moment}}" class="btn btn-primary">Contact</a>
+          <a ng-hide="offer.expert.slug === '<%= @user.slug rescue '' %>'" ng-hide="<%= @user.nil? %>" ng-href="<%= offers_path %>/{{offer.url}}/review/{{offer.next_call | moment}}" class="btn btn-primary">Contact</a>
         <% else %>
           <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
             Sign up to book

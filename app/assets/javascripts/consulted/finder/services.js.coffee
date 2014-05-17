@@ -1,11 +1,18 @@
 app = angular.module 'consulted.finder.services', []
 
 app.service 'Configuration', [
-  () ->
+  '$rootElement'
+  (root) ->
     _group = false
     setGroup: (group) ->
       _group = group
     getGroup: -> _group
+    getRates: () ->
+      from: root.data 'rate-min'
+      to: root.data 'rate-max'
+    getExperiences: () ->
+      from: root.data 'experience-min'
+      to: root.data 'experience-max'
 ]
 
 app.service 'Language', [
@@ -154,6 +161,17 @@ app.service 'Date', [
 
     selected: selected
 
+    getCurrent: () ->
+      return ['Next 14 days'] if fortnight
+      days.sort (first, second) ->
+        return -1 if first.isBefore second
+        1
+      .map (obj) ->
+        obj.format 'ddd'
+
+
+
+
 ]
 
 app.service 'Time', [
@@ -250,15 +268,14 @@ app.service 'Bookmark', [
 
 app.service 'Rate', [
   'Search'
-  (Search) ->
+  'Configuration'
+  (Search, Configuration) ->
     current_rate = {}
 
     trigger = () ->
       Search.trigger rate_lower: current_rate.from, rate_upper: current_rate.to
 
-    defaults =
-      from: 0
-      to: 1000
+    defaults = Configuration.getRates()
 
     set: (from, to)->
       current_rate.from = from
@@ -272,15 +289,14 @@ app.service 'Rate', [
 ]
 app.service 'Experience', [
   'Search'
-  (Search) ->
+  'Configuration'
+  (Search, Configuration) ->
     current_exp = {}
 
     trigger = () ->
       Search.trigger experience_upper: current_exp.to, experience_lower: current_exp.from
 
-    defaults =
-      from: 0
-      to: 50
+    defaults = Configuration.getExperiences()
 
     set: (from, to)->
       current_exp.from = from

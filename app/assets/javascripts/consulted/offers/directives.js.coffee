@@ -84,9 +84,4 @@ app.directive 'ionRange', [
         return unless newValue
         build newValue
 
-
-
-
-
-
 ]

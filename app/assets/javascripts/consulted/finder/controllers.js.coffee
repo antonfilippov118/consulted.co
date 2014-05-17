@@ -11,6 +11,12 @@ app.controller 'FilterCtrl', [
   'Experience'
   'Date'
   FilterCtrl = (scope, Language, Continent, Rate, Experience, Date) ->
+    scope.open = no
+
+    scope.toggle = () ->
+      scope.open = !scope.open
+      scope.$broadcast 'open', scope.open
+
     slice = (arr, elipsis = '...') ->
       display = arr.slice 0, 2
       display.push elipsis if display.length < arr.length
@@ -20,7 +26,7 @@ app.controller 'FilterCtrl', [
     scope.currentLanguages  = -> slice Language.getCurrent()
     scope.currentRate       = -> Rate.getCurrent()
     scope.currentExperience = -> Experience.getCurrent()
-    scope.currentDays       = -> []
+    scope.currentDays       = -> slice Date.getCurrent()
 ]
 
 app.controller 'ResultCtrl', [
