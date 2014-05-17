@@ -83,6 +83,7 @@ class Call
   after_destroy :free!
 
   def self.generate_unique_pin
+    # TODO: this can potentially collide with other active calls
     SecureRandom.random_number(999_999)
   end
 

@@ -55,12 +55,12 @@
         </div>
         <div class="row setupoffr-row">
           <div class="col-md-6">
-            <p class="bigger prop">Your current awesome count
+            <p class="bigger prop" ng-show="offer.likes.length> 0">Your current awesome count
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Indicates praise for great advice. Measures how many times you received an “awesome” in this particular service offering"></span>
             </p>
           </div>
           <div class="col-md-6 text-center">
-            <div class="expert-rating">
+            <div class="expert-rating" ng-show="offer.likes.length > 0">
               <div class="rating-hand">0</div>
               at avg. $65
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="‘Awesome count’ shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate ‘awesomes’ were collected"></span>
