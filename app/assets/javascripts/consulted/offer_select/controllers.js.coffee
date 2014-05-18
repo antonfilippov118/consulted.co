@@ -25,9 +25,5 @@ app.controller 'OffersCtrl', [
         scope.loading = no
 
     fetch()
-
-    scope.select = ExpertOffers.select
-    scope.selected = ExpertOffers.selected
-
 ]
 

@@ -62,42 +62,10 @@
     <div ng-controller="OffersCtrl">
       <h2 class="heading">Expert's service offerings</h2>
       <div ng-show="loading">Loading...</div>
-      <div ng-show="!loading && offers.length > 0" class="clr profile-offering" ng-repeat="offer in offers">
-        <div class="clr">
-          <h3 class="left">{{offer.name}}</h3>
-          <% if user_signed_in? %>
-            <% unless user_expert_page? %>
-              <a ng-click="select(offer)" class="btn btn-select" ng-class="{'active':selected(offer)}">
-                <span ng-show="selected(offer)">Selected</span>
-                <span ng-hide="selected(offer)">Select</span>
-              </a>
-            <% end %>
-          <% else %>
-            <%= link_to 'Signup', new_registrations_path, class: 'btn btn-select' %>
-          <% end %>
-        </div>
-        <div class="row">
-          <div class="col-md-5">
-            <div class="profile-heading">Expert's note
-              <small class="right">Category Experience: {{offer.experience}} years</small>
-            </div>
-            <p>"{{offer.description}}"</p>
-          </div>
-          <div class="col-md-5">
-            <div class="profile-heading">Description</div>
-            <div ng-bind-html="offer.group.description"></div>
-          </div>
-          <div class="col-md-2">
-            <div class="expert-pph text-center">
-              <span class="price">${{offer.rate}}</span>/hour</div>
-            <div class="expert-rating" ng-show="offer.likes.length > 0">
-              <div class="rating-hand">5</div>
-              at avg. $65
-              <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
-            </div>
-          </div>
-        </div>
+      <div ng-show="!loading && offers.length === 0">
+        <h3 class="text-center">The expert does not provide any services yet.</h3>
       </div>
+      <div offer="offer" ng-show="!loading && offers.length > 0" class="clr profile-offering" ng-repeat="offer in offers"></div>
     </div>
 
     <h2 class="heading">Book a call with <%= name %></h2>
@@ -120,5 +88,10 @@
         </div>
       </div>
     </div>
+    <% %w(offer).each do |partial| %>
+      <script type="text/ng-template" id="<%= partial %>">
+        <%= render partial: "expert/ng/#{partial}" %>
+      </script>
+    <% end %>
   </div>
 </div>

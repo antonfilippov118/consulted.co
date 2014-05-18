@@ -26,6 +26,22 @@ app.directive 'dhxSchedulerReadonly', [
 
       Scheduler.init(el, attrs.readonly isnt undefined)
 
+]
+
+app.directive 'offer', [
+  'ExpertOffers'
+  (ExpertOffers) ->
+    replace: yes
+    templateUrl: 'offer'
+    scope:
+      offer: '='
+    link: (scope) ->
+      scope.select = ExpertOffers.select
+      scope.selected = ExpertOffers.selected
+
+
+
+
 
 ]
 
