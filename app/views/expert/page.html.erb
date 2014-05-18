@@ -67,10 +67,13 @@
           <h3 class="left">{{offer.name}}</h3>
           <% if user_signed_in? %>
             <% unless user_expert_page? %>
-              <a ng-click="select(offer)" class="btn btn-select">Select this offer</a>
+              <a ng-click="select(offer)" class="btn btn-select" ng-class="{'active':selected(offer)}">
+                <span ng-show="selected(offer)">Selected</span>
+                <span ng-hide="selected(offer)">Select</span>
+              </a>
             <% end %>
           <% else %>
-            <%= link_to 'Signup to book', new_registrations_path, class: 'btn btn-select'  %>
+            <%= link_to 'Signup', new_registrations_path, class: 'btn btn-select' %>
           <% end %>
         </div>
         <div class="row">
@@ -78,11 +81,11 @@
             <div class="profile-heading">Expert's note
               <small class="right">Category Experience: {{offer.experience}} years</small>
             </div>
-            <p>{{offer.description}}</p>
+            <p>"{{offer.description}}"</p>
           </div>
           <div class="col-md-5">
             <div class="profile-heading">Description</div>
-            <p>{{offer.group.description}}</p>
+            <div ng-bind-html="offer.group.description"></div>
           </div>
           <div class="col-md-2">
             <div class="expert-pph text-center">
@@ -106,15 +109,13 @@
         <div class="book-lang<%= ' active' if @expert.languages.include?('mandarin') %>">Mandarin</div>
         <div class="book-lang<%= ' active' if @expert.languages.include?('spanish') %>">Spanish</div>
       </div>
-      <div id="scheduler-read">
-        <div data-dhx-scheduler>
-          <div ng-controller="ScheduleCtrl">
-            <div dhx-scheduler style="height:550px;" events='events'>
-              <div class="dhx_cal_prev_button">&nbsp;</div>
-              <div class="dhx_cal_next_button">&nbsp;</div>
-              <div class="dhx_cal_today_button"></div>
-              <div class="dhx_cal_date"></div>
-            </div>
+      <div id="scheduler-read" class="scheduler">
+        <div ng-controller="AvailabilityCtrl">
+          <div data-dhx-scheduler-readonly events='events' style="height: 550px">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
           </div>
         </div>
       </div>

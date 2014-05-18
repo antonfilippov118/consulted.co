@@ -3,16 +3,20 @@ app = angular.module 'consulted.offer_select.controllers', [
 ]
 
 
-app.controller 'ScheduleCtrl', [
+app.controller 'AvailabilityCtrl', [
   '$scope'
-  (scope) ->
-    scope.events = []
+  'ExpertAvailabilities'
+  (scope, ExpertAvailabilities) ->
+    ExpertAvailabilities.get().then (events) ->
+      scope.events = events
 ]
 
 app.controller 'OffersCtrl', [
   '$scope'
   'ExpertOffers'
   (scope, ExpertOffers) ->
+    selected = null
+
     fetch = () ->
       scope.loading = yes
       ExpertOffers.get().then (data) ->
@@ -21,5 +25,9 @@ app.controller 'OffersCtrl', [
         scope.loading = no
 
     fetch()
+
+    scope.select = ExpertOffers.select
+    scope.selected = ExpertOffers.selected
+
 ]
 
