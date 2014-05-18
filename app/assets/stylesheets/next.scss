@@ -2373,6 +2373,10 @@ body .expert-name {
     width:auto;
   }
 }
+.book-lang.no-hover:hover {
+  background: inherit;
+  cursor: default;
+}
 .book-lang.active, .book-lang:hover {
   background:#90c534;
   color:$white;

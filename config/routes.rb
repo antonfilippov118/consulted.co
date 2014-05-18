@@ -82,7 +82,13 @@ Consulted::Application.routes.draw do
     post :search
   end
 
-  resource :offers, only: [:show]
+  resource :offers, only: [:show] do
+    get '/:expert', to: 'offers#index', constraints: { format: 'json' }
+  end
+
+  resource :availabilities, only: [] do
+    get '/:expert', to: 'availabilities#index', constraints: { format: 'json' }
+  end
 
   namespace :users do
     get :available, to: 'utilities#available'

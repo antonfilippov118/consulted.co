@@ -58,86 +58,40 @@
       <div class="block"></div>
     <% end %>
   </div>
-
-  <h2 class="heading">Expert's service offerings</h2>
-  <% @expert.offers.valid.each do |offer| %>
-    <div class="clr profile-offering">
-      <div class="clr">
-        <h3 class="left"><%= offer.name %></h3>
-        <% unless user_expert_page? %>
-          <%= link_to 'Select this offer', offers_path_for(offer), class: 'btn btn-select'  %>
-        <% end %>
+  <div ng-app="consulted.offer_select" data-expert="<%= @expert.slug %>" data-tz-offset="<%= expert_timezone.utc_offset %>">
+    <div ng-controller="OffersCtrl">
+      <h2 class="heading">Expert's service offerings</h2>
+      <div ng-show="loading">Loading...</div>
+      <div ng-show="!loading && offers.length === 0">
+        <h3 class="text-center">The expert does not provide any services yet.</h3>
       </div>
-      <%= render partial: 'layouts/breadcrumbs', locals: { group: offer.group, with_group: false } %>
-      <div class="row">
-        <div class="col-md-5">
-          <div class="profile-heading">Expert's note
-            <small class="right">Category Experience: <%= offer.experience %> years</small>
-          </div>
-          <p><%= offer.description %></p>
-        </div>
-        <div class="col-md-5">
-          <div class="profile-heading">Description</div>
-          <p><%= offer.group.description %></p>
-        </div>
-        <div class="col-md-2">
-          <div class="expert-pph text-center">
-            <span class="price">$<%= offer.rate %></span>/hour</div>
-          <div class="expert-rating">
-            <div class="rating-hand">5</div>
-            at avg. $65
-            <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+      <div offer="offer" ng-show="!loading && offers.length > 0" class="clr profile-offering" ng-repeat="offer in offers"></div>
+    </div>
+
+    <h2 class="heading">Book a call with <%= name %></h2>
+    <div class="book">
+      <div class="clr book-langs">
+        <div class="book-lang<%= ' active' if @expert.languages.include?('arabic') %>">Arabic</div>
+        <div class="book-lang<%= ' active' if @expert.languages.include?('english') %>">English</div>
+        <div class="book-lang<%= ' active' if @expert.languages.include?('german') %>">German</div>
+        <div class="book-lang<%= ' active' if @expert.languages.include?('mandarin') %>">Mandarin</div>
+        <div class="book-lang<%= ' active' if @expert.languages.include?('spanish') %>">Spanish</div>
+      </div>
+      <div id="scheduler-read" class="scheduler">
+        <div ng-controller="AvailabilityCtrl">
+          <div data-dhx-scheduler-readonly events='events' style="height: 550px">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
-
-  <h2 class="heading">Book a call with <%= name %></h2>
-  <div class="book">
-    <div class="clr book-langs">
-      <div class="book-lang <%= 'active' if @expert.languages.include?('arabic') %>">Arabic</div>
-      <div class="book-lang <%= 'active' if @expert.languages.include?('english') %>">English</div>
-      <div class="book-lang <%= 'active' if @expert.languages.include?('german') %>">German</div>
-      <div class="book-lang <%= 'active' if @expert.languages.include?('mandarin') %>">Mandarin</div>
-      <div class="book-lang <%= 'active' if @expert.languages.include?('spanish') %>">Spanish</div>
-    </div>
-    <div class="clr book-periods">
-      <div class="book-period-prev">&nbsp;</div>
-      <div class="book-period">Monday, 23 March 2014, 11:15 - 1:00pm</div>
-      <div class="book-period-next">&nbsp;</div>
-    </div>
-    <div class="clr book-weekdays">
-      <div class="book-weekday active">Monday</div>
-      <div class="book-weekday">Tuesday</div>
-      <div class="book-weekday">Wednesday</div>
-      <div class="book-weekday">Thursday</div>
-      <div class="book-weekday">Friday</div>
-      <div class="book-weekday">Saturday</div>
-      <div class="book-weekday">Sunday</div>
-    </div>
-    <div class="clr book-times">
-      <div class="book-time-row"></div>
-      <div class="book-time-row"></div>
-      <div class="book-time-row">
-        <div class="book-time" style="left:0">
-          11:15-1:00p
-          <span class="flaticon flaticon-refresh time-refresh"></span>
-          <span class="flaticon flaticon-close time-close"></span>
-          <span class="flaticon flaticon-sort time-sort"></span>
-        </div>
-        <div class="book-time" style="left:28.57%">
-          11:15-1:00p
-          <span class="flaticon flaticon-refresh time-refresh"></span>
-          <span class="flaticon flaticon-close time-close"></span>
-          <span class="flaticon flaticon-sort time-sort"></span>
-        </div>
-      </div>
-      <div class="book-time-row"></div>
-      <div class="book-time-row"></div>
-      <div class="book-time-row"></div>
-      <div class="book-time-row"></div>
-      <div class="book-time-row"></div>
-    </div>
+    <% %w(offer).each do |partial| %>
+      <script type="text/ng-template" id="<%= partial %>">
+        <%= render partial: "expert/ng/#{partial}" %>
+      </script>
+    <% end %>
   </div>
 </div>

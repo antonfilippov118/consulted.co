@@ -177,7 +177,7 @@
   }
 }
 
-#scheduler {
+.scheduler {
   *, *:before, *:after {
     box-sizing:content-box;
     -webkit-box-sizing: content-box;
@@ -185,10 +185,17 @@
   }
 
   /*event in day or week view*/
-  .dhx_cal_event.availability div{
+  .dhx_cal_event.availability div {
     background-color: #7baadb !important;
-
   }
+  .dhx_cal_event.past div {
+    background-color: #ccc !important;
+  }
+
+  .dhx_cal_event.clickable {
+    cursor: pointer;
+  }
+
   .dhx_title {
     line-height: normal;
   }

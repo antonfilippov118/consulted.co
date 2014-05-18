@@ -7,7 +7,9 @@ app.service 'Scheduler', [
     find = (id) -> scheduler.getEvent id
 
     update = (id, event) ->
-      scheduler.getEvent(id)._id = event.id
+      _event = find(id)
+      return unless _event
+      _event._id = event.id
       scheduler.updateEvent id
 
     attachEvents = ->
@@ -32,7 +34,7 @@ app.service 'Scheduler', [
     detachEvents = ->
       scheduler.detachAllEvents()
 
-    init: (el) ->
+    init: (el, readonly = no) ->
       scheduler.init el[0], moment().toDate(), 'week'
       scheduler.config.event_duration = 30
       scheduler.templates.event_class = -> "availability"
@@ -42,9 +44,9 @@ app.service 'Scheduler', [
       scheduler.templates.event_text = -> ''
       scheduler.config.icons_select = ["icon_delete"]
       scheduler.locale.labels.confirm_deleting = null
+      scheduler.config.readonly = readonly
 
-      attachEvents()
-
+      attachEvents() unless readonly
 
     clear: () ->
       scheduler.clearAll()
@@ -85,7 +87,7 @@ app.directive 'dhxScheduler', [
         Scheduler.addEvents collection
       , yes
 
-      Scheduler.init(el)
+      Scheduler.init(el, attrs.readonly isnt undefined)
 
 ]
 
