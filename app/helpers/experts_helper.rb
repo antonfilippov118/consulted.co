@@ -64,8 +64,8 @@ module ExpertsHelper
     @expert.languages.include? language
   end
 
-  def timezone
-    ActiveSupport::TimeZone.new(@user.timezone)
+  def expert_timezone
+    ActiveSupport::TimeZone.new(@expert.timezone)
   end
 
   def no_offers?

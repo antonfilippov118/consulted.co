@@ -58,7 +58,7 @@
       <div class="block"></div>
     <% end %>
   </div>
-  <div ng-app="consulted.offer_select" data-expert="<%= @expert.slug %>">
+  <div ng-app="consulted.offer_select" data-expert="<%= @expert.slug %>" data-tz-offset="<%= expert_timezone.utc_offset %>">
     <div ng-controller="OffersCtrl">
       <h2 class="heading">Expert's service offerings</h2>
       <div ng-show="loading">Loading...</div>

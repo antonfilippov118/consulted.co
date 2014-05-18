@@ -51,6 +51,10 @@ module UsersHelper
     user.companies.select { |c| c != own_current_company }.compact
   end
 
+  def timezone
+    ActiveSupport::TimeZone.new(user.timezone)
+  end
+
   def own_company_url
     return false if own_current_company.nil?
     return false if own_current_company.linkedin_id.nil?

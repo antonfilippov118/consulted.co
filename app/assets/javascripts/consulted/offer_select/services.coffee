@@ -5,6 +5,8 @@ app.service 'Configuration', [
   Configuration = (root) ->
     getSlug: () ->
       root.data 'expert'
+    getOffset: () ->
+      root.data 'tz-offset'
 ]
 
 app.service 'ExpertOffers', [
