@@ -7,7 +7,9 @@ app.service 'Scheduler', [
     find = (id) -> scheduler.getEvent id
 
     update = (id, event) ->
-      scheduler.getEvent(id)._id = event.id
+      _event = find(id)
+      return unless _event
+      _event._id = event.id
       scheduler.updateEvent id
 
     attachEvents = ->
@@ -44,7 +46,6 @@ app.service 'Scheduler', [
       scheduler.locale.labels.confirm_deleting = null
 
       attachEvents()
-
 
     clear: () ->
       scheduler.clearAll()
