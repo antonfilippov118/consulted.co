@@ -5,7 +5,7 @@
   </div>
   <div class="clr">
     <div class="clr reminder">
-      <p class="title">What happens if someone wants to shedule a call?</p>
+      <p class="title">What happens if someone wants to schedule a call?</p>
       <p>Once an advice seeker selected a date and time you are available at and goes ahead and books this time slot, you receive a Booking Request email asking you to confirm the meeting. Once you confirmed the request, the meeting is scheduled. At the meeting date &amp; time, you call in to our call bridge, enter the access code included in the booking confirmation and speak to the advice seeker.</p>
     </div>
     <div class="clr reminder">
@@ -14,11 +14,11 @@
     </div>
     <div class="clr reminder">
       <p class="title">What happens if I don't respond to a booking request?</p>
-      <p>Nothing, as well. If you decline a request forget to reply, we will auto-cancel a request after [PLATFORM VARIABLE] hours. If it happens to often you may not appear lower in search results or we may not allow you to put your availability up into the system.</p>
+      <p>Nothing, as well. If you decline a request forget to reply, we will auto-cancel a request after <%= Settings.meeting_timeout %> hours. If it happens to often you may not appear lower in search results or we may not allow you to put your availability up into the system.</p>
     </div>
     <div class="clr reminder">
       <p class="title">Can I cancel previously confirmed requests?</p>
-      <p>Yes, however there is a fee associated with it. See our <%= link_to 'cancellation policy', '#', target: '_blank'  %>.</p>
+      <p>Yes, however there is a fee associated with it. See our <%= link_to 'cancellation policy', '', target: '_blank'  %>.</p>
     </div>
   </div>
 </div>

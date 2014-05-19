@@ -209,5 +209,16 @@
   font-family: Open Sans;
 }
 
+.result p {
+  font-size: 14px;
+}
+
+.seeker_gain ul {
+  margin-left: -20px;
+}
+
+.browse-experts {
+  margin-right: 0px;
+}
 @import 'filters';
 @import 'typeahead';

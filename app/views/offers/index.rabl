@@ -4,6 +4,6 @@ node :likes do |offer|
   []
 end
 child :group do
-  attributes :description
+  attributes :description, :seeker_gain
 end
 

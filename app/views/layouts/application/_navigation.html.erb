@@ -11,7 +11,7 @@
       <% end %>
       <% if user_signed_in? %>
         <%= content_tag :li, class: active_class(offers_path) do %>
-          <%= link_to 'Offer your time', offers_path %>
+          <%= link_to 'Offer my time', offers_path %>
         <% end %>
       <% end %>
     </ul>

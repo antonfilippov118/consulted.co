@@ -6,7 +6,7 @@ $ ->
       text: "<strong>#{text}</strong>"
       layout: 'bottom'
       template: '<div class="noty_message"><span class="noty_text"></span></div>'
-      timeout: 1000
+      timeout: 3000
       type: 'success'
       maxVisible: 1
       killer: yes

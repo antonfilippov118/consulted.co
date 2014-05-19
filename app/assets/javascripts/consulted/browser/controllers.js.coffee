@@ -10,7 +10,8 @@ app.controller "LookupCtrl", [
   '$rootScope'
   '$modal'
   'GroupData'
-  (scope, Search, rootScope, modal, GroupData) ->
+  '$location'
+  (scope, Search, rootScope, modal, GroupData, location) ->
     scope.lookup = ->
       return unless scope.term
       return if scope.searching
@@ -20,7 +21,7 @@ app.controller "LookupCtrl", [
 
       scope.search_active = yes
       scope.searching = yes
-      rootScope.$emit 'search:enable'
+      rootScope.$broadcast 'search:enable'
       Search.do(term).then (groups) ->
         scope.result = groups.length > 0
         scope.groups = groups
@@ -31,7 +32,7 @@ app.controller "LookupCtrl", [
 
     scope.reset = () ->
       scope.term = ''
-      rootScope.$emit 'search:disable'
+      rootScope.$broadcast 'search:disable'
       scope.search_active = no
 
     scope.learn = (group) ->
@@ -79,6 +80,8 @@ app.controller "GroupCtrl", [
   '$location'
   (scope, GroupData, routeParams, modal, location) ->
     scope.loading = yes
+
+    scope.hide = routeParams.slug is 'search'
 
     GroupData.findGroup(routeParams.slug).then (group) ->
       if group is undefined
@@ -138,6 +141,13 @@ app.controller "GroupCtrl", [
         windowClass: 'modal-learn'
         resolve:
           group: -> group.slug
+
+    scope.$on 'search:enable', () ->
+      scope.hide = yes
+
+    scope.$on 'search:disable', () ->
+      scope.hide = no
+
 ]
 
 app.controller "WindowCtrl", [
@@ -170,8 +180,14 @@ app.controller "BrowseCtrl", [
   '$location'
   BrowseCtrl = (scope, GroupData, location) ->
     GroupData.getGroups()
+    scope.hide = location.path() is '/search'
     scope.select = (path) ->
       location.path path
 
+    scope.$on 'search:enable', () ->
+      scope.hide = yes
+
+    scope.$on 'search:disable', () ->
+      scope.hide = no
 
 ]

@@ -10,7 +10,7 @@
   <div class="clr flat-well setupoffr" ng-repeat="offer in offers | orderBy:'name'" ng-hide="offers.length == 0">
     <span class="flaticon flaticon-close setupoffr-close" ng-click="remove(offer)"></span>
     <p class="setupoffr-heading">{{offer.name}}
-      <a class="result-info right" ng-click="learn(offer)">
+      <a class="result-info right" ng-click="learn(offer)" ng-show="offer.group.description || offer.group.seeker_gain">
         <span class="flaticon flaticon-info"></span> <span class="info-learn">Learn more</span></a>
     </p>
     <div class="row">
@@ -55,7 +55,7 @@
         </div>
         <div class="row setupoffr-row">
           <div class="col-md-6">
-            <p class="bigger prop" ng-show="offer.likes.length> 0">Your current awesome count
+            <p class="bigger prop" ng-show="offer.likes.length > 0">Your current awesome count
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Indicates praise for great advice. Measures how many times you received an “awesome” in this particular service offering"></span>
             </p>
           </div>

@@ -35,6 +35,7 @@ class CancelsCall
     executed do |context|
       call = context.fetch :call
       user = context.fetch :user
+      context.fail! 'This call cannot be cancelled!' unless call.cancellable?
       context.fail! 'User cannot cancel this!' unless user == call.expert || user == call.seeker
     end
   end

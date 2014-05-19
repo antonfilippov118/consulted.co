@@ -5,7 +5,7 @@ class Users::CallsController < Users::BaseController
     if result.failure?
       render json: { error: result.message }, status: :bad_request
     else
-      upcoming_calls
+      render json: { success: true }
     end
   end
 
@@ -19,7 +19,7 @@ class Users::CallsController < Users::BaseController
     if result.failure?
       render json: { error: result.message }, status: :bad_request
     else
-      upcoming_calls
+      render json: { success: true }
     end
   end
 

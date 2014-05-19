@@ -130,7 +130,7 @@ app.service 'OfferData', [
       timeout.cancel timer if timer?
       timer = timeout ->
         save offer, 'Your changes were saved.', timeout: 700
-      , 1000
+      , 2500
 
     save: save
 ]

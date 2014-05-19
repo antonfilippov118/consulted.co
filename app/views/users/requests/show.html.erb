@@ -3,18 +3,18 @@
     <div class="content">
       <div class="header">
         <h4 class="title text-center" id="logo_bk">
-          Booking confirmed!
+          Booking scheduled
         </h4>
-        <p class="text-center">We just send you an email with all the details for your reference.</p>
+        <p class="text-center">We just send you an email with the booking details for your reference.</p>
         <hr>
         <%= render partial: 'layouts/messages' %>
         <br>
       </div>
       <div class="body">
-        <p>Also, you will receive an email call reminder <strong><%= @user.notification_time %> minutes</strong> in advance of the call. You can always change this <%= link_to 'here', settings_path %>.</p>
+        <p>Also, you will receive an email reminder <strong><%= @user.notification_time %> minutes</strong> in advance of the call. You can change this <%= link_to 'in your settings here', settings_path %>.</p>
         <hr>
         <div class="popup-row text-center">
-          <%= link_to 'Home', overview_path %>
+          <%= link_to 'Overview', overview_path %>
         </div>
         <div class="popup-row text-center">
           or

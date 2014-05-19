@@ -19,14 +19,24 @@
         <div id="quickaccess-text">
           <p>I want to...</p>
           <div class="clr">
-            <%= link_to '#' do %>
-              Manage calls I requested
+            <%= link_to find_an_expert_path do %>
+              Find an expert
             <% end %>
           </div>
           <div class="clr">
-          <%= link_to '#' do %>
-            Manage calls I offered
-          <% end %>
+            <%= link_to offers_path do %>
+              Offer my time
+            <% end %>
+          </div>
+          <div class="clr">
+            <%= link_to '#' do %>
+              Manage calls I offered
+            <% end %>
+          </div>
+          <div class="clr">
+            <%= link_to '#' do %>
+              Manage calls I offered
+            <% end %>
           </div>
         </div>
       </div>

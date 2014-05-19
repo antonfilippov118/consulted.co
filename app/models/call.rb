@@ -76,6 +76,10 @@ class Call
     status == Call::Status::COMPLETED
   end
 
+  def cancellable?
+    active_from < Time.now
+  end
+
   private
 
   before_save :ending!
