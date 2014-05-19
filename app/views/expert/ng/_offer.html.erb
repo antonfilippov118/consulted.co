@@ -9,7 +9,7 @@
         </a>
       <% end %>
     <% else %>
-      <%= link_to 'Signup', new_registrations_path, class: 'btn btn-select' %>
+      <%= link_to 'Signup', new_user_registration_path, class: 'btn btn-select' %>
     <% end %>
   </div>
   <div class="row">
@@ -17,7 +17,7 @@
       <div class="profile-heading">Expert's note
         <small class="right">Category Experience: {{offer.experience}} years</small>
       </div>
-      <p>"{{offer.description}}"</p>
+      <p ng-show="offer.description">"{{offer.description}}"</p>
     </div>
     <div class="col-md-5">
       <div class="profile-heading">Description</div>

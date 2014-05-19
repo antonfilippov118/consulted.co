@@ -142,4 +142,14 @@ module ExpertsHelper
     return false unless @user
     @user.favorites.where(favorite_id: expert.id).exists?
   end
+
+  def expert_twitter?
+    @expert.twitter_handle.present?
+  end
+
+  def expert_twitter_url
+    return '' unless twitter?
+    url = @expert.twitter_handle.gsub '@', ''
+    "https://twitter.com/#{url}"
+  end
 end

@@ -24,6 +24,7 @@ module UsersHelper
   end
 
   def twitter?
+    return false unless @user
     @user.twitter_handle.present?
   end
 
