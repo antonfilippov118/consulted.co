@@ -7,9 +7,9 @@ app = angular.module 'consulted.overview.controllers', [
 app.controller 'TableCtrl', [
   '$scope'
   'Call'
-  '$timeout'
+  '$interval'
   '$filter'
-  TableCtrl = (scope, Call, timeout, filter) ->
+  TableCtrl = (scope, Call, interval, filter) ->
     scope.loading = yes
     fetch = () ->
       Call.getCalls().then (calls) ->
@@ -18,9 +18,7 @@ app.controller 'TableCtrl', [
       .finally () ->
         scope.loading = no
 
-    timeout ->
-      fetch()
-    , 30000
+    interval fetch, 30000
 
     scope.$on 'reload:calls', fetch
 
