@@ -3,7 +3,6 @@ app = angular.module 'consulted.scheduler', []
 app.service 'Scheduler', [
   'Availabilities'
   (Availabilities) ->
-    eventsAttached = no
     find = (id) -> scheduler.getEvent id
 
     update = (id, event) ->
@@ -28,13 +27,11 @@ app.service 'Scheduler', [
         Availabilities.delete(find(id)).then () ->
           CONSULTED.trigger 'Availability removed.'
         yes
-      eventsAttached = yes
-
 
     detachEvents = ->
       scheduler.detachAllEvents()
 
-    init: (el, readonly = no) ->
+    init: (el) ->
       scheduler.init el[0], moment().toDate(), 'week'
       scheduler.config.event_duration = 30
       scheduler.templates.event_class = -> "availability"
@@ -44,9 +41,8 @@ app.service 'Scheduler', [
       scheduler.templates.event_text = -> ''
       scheduler.config.icons_select = ["icon_delete"]
       scheduler.locale.labels.confirm_deleting = null
-      scheduler.config.readonly = readonly
 
-      attachEvents() unless readonly
+      attachEvents()
 
     clear: () ->
       scheduler.clearAll()
@@ -87,7 +83,7 @@ app.directive 'dhxScheduler', [
         Scheduler.addEvents collection
       , yes
 
-      Scheduler.init(el, attrs.readonly isnt undefined)
+      Scheduler.init(el)
 
 ]
 

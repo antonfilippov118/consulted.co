@@ -14,9 +14,9 @@
     <div class="clr bluestripe">
       Time schedule is based on your timezone setting. Your current timezone is: <%= ActiveSupport::TimeZone.new(@user.timezone).to_s %>
     </div>
-    <div id="scheduler">
+    <div id="scheduler" class="scheduler">
       <div ng-controller="ScheduleCtrl">
-        <div data-dhx-scheduler class="scheduler" events='events' style="height: 550px;">
+        <div dhx-scheduler class="scheduler" events='events' style="height: 550px;">
           <div class="dhx_cal_prev_button">&nbsp;</div>
           <div class="dhx_cal_next_button">&nbsp;</div>
           <div class="dhx_cal_today_button"></div>
