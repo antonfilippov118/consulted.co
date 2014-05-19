@@ -35,6 +35,7 @@ app.service 'Scheduler', [
       scheduler.init el[0], moment().toDate(), 'week'
       scheduler.config.event_duration = 30
       scheduler.templates.event_class = -> "availability"
+      scheduler.config.touch = 'force'
       scheduler.config.limit_view = yes
       scheduler.config.limit_start = new Date()
       scheduler.config.limit_end = (moment().add 365, 'days').toDate()

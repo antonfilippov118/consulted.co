@@ -69,7 +69,6 @@ app.controller "LookupCtrl", [
       items = collect groups
       offerings.add item for item in items
 
-
 ]
 
 app.controller "GroupCtrl", [
