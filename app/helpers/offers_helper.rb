@@ -9,7 +9,7 @@ module OffersHelper
 
   def possible_lengths
     max = @offer.expert.maximum_call_length @offer
-    @offer.lengths.map(&:to_i).reject { |time| time > max }.sort
+    @offer.lengths.map(&:to_i).reject { |time| time > max.to_i }.sort
   end
 
   def maximum_call_time(offer, dates = [])
