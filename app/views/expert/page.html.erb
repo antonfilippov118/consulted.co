@@ -9,6 +9,9 @@
         <% if linkedin_profile? %>
           <%= link_to '', linkedin_profile_url, class: "flaticon flaticon-linkedin", target: '_blank' %>
         <% end %>
+        <% if expert_twitter? %>
+          <%= link_to '', expert_twitter_url, class: 'flaticon flaticon-twitter', target: '_blank'  %>
+        <% end %>
       </div>
       <h1>
         <%= name %>
