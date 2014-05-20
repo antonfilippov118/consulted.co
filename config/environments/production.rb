@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'rack/cors'
 
 Consulted::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -79,4 +80,11 @@ Consulted::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.middleware.use Rack::Cors do
+    allow do
+      origins '*'
+      resource '/assets/*', headers: :any, methods: :get
+    end
+  end
 end
