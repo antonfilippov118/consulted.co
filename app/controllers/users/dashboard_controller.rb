@@ -1,6 +1,7 @@
 class Users::DashboardController < Users::BaseController
   include CallsHelper
-  before_filter :needs_contact_email?, only: :contact
+  before_filter :needs_linkedin_synch?, only: :show
+  before_filter :needs_contact_email?, only: :show
 
   def show
     title! 'Overview'
@@ -29,6 +30,10 @@ class Users::DashboardController < Users::BaseController
     end
   end
 
+  def synchronisation
+
+  end
+
   private
 
   def contact_params
@@ -44,8 +49,14 @@ class Users::DashboardController < Users::BaseController
     needs_contact_email = @user.contact_email.nil?
     social              = !@user.providers.nil?
 
-    unless new_user && needs_contact_email && social
-      redirect_to overview_path
+    if new_user && needs_contact_email && social
+      redirect_to contact_path
+    end
+  end
+
+  def needs_linkedin_synch?
+    if @user.linkedin? && !@user.linkedin_synchronized?
+      redirect_to synchronisation_path
     end
   end
 end

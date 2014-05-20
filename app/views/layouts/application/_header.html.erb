@@ -5,7 +5,7 @@
         <%= image_tag 'logo.png', alt: 'CONSULTED.co' %>
       <% end %>
       </div>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !synchronizing? %>
       <div id="account" class="">
         <div id="account-img">
           <%= image_tag @user.profile_image.url, alt: @user.name, class: 'img-circle' %>

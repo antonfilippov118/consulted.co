@@ -73,6 +73,7 @@ Consulted::Application.routes.draw do
     end
 
     get :contact_email, controller: 'users/dashboard', action: :contact
+    get :synchronisation, controller: 'users/dashboard', action: :synchronisation
     patch :contact_email, controller: 'users/dashboard', action: :update_contact
     patch :timezone, controller: 'users/dashboard', action: :timezone
   end

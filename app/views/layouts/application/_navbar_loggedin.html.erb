@@ -1,4 +1,6 @@
 <div id="navbar">
   <%= render partial: 'layouts/application/header' %>
-  <%= render partial: 'layouts/application/navigation' %>
+  <% unless synchronizing? %>
+    <%= render partial: 'layouts/application/navigation' %>
+  <% end %>
 </div>

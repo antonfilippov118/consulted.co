@@ -27,7 +27,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = find_user
     if @user
       @user.connect_to_linkedin(request.env['omniauth.auth'])
-      @user.synchronize_linkedin
       sign_in_and_redirect @user, event: :authentication
     else
       redirect_to new_user_sessions_path, alert: 'Could not connect to Linkedin!'

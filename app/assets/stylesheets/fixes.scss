@@ -221,5 +221,19 @@
 .browse-experts {
   margin-right: 0px;
 }
+
+#loading_linkedin {
+  margin-top: 30px;
+  margin: 0 auto;
+  display: table;
+  min-height: 550px;
+
+  .wrap {
+    margin: auto 0;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
 @import 'filters';
 @import 'typeahead';

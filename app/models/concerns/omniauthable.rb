@@ -40,6 +40,10 @@ module Omniauthable
       save!
     end
 
+    def synchronize_linkedin
+      SynchronizeLinkedinProfile.for id
+    end
+
     def linkedin_email
       return false if user_linkedin_connection.nil?
       user_linkedin_connection.email
