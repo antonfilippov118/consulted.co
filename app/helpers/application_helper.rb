@@ -21,4 +21,8 @@ module ApplicationHelper
   def zopim?
     !Settings.platform_live? && Rails.env.production?
   end
+
+  def synchronizing?
+    current_page?(synchronisation_path)
+  end
 end

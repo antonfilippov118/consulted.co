@@ -45,6 +45,7 @@ class User
   field :start_delay, type: Integer, default: 30
 
   field :status, type: String, default: STATUS_LIST.first
+  field :signed_up_via, type: String, default: 'register'
 
   #
   # Favorites
