@@ -2,6 +2,7 @@ class Users::DashboardController < Users::BaseController
   include CallsHelper
   before_filter :needs_linkedin_synch?, only: :show
   before_filter :needs_contact_email?, only: :show
+  before_filter :ask_contact_email?, only: :show
 
   def show
     title! 'Overview'
@@ -31,7 +32,17 @@ class Users::DashboardController < Users::BaseController
   end
 
   def synchronisation
+  end
 
+  def linkedin
+    begin
+      result = SynchronizeLinkedinProfile.for @user
+      if result.failure?
+        render json: { error: true }
+      end
+    rescue => e
+      render json: { error: e.message }
+    end
   end
 
   private
@@ -47,16 +58,22 @@ class Users::DashboardController < Users::BaseController
   def needs_contact_email?
     new_user            = @user.sign_in_count == 1
     needs_contact_email = @user.contact_email.nil?
-    social              = !@user.providers.nil?
+    social              = @user.signed_up_via == 'linkedin'
 
     if new_user && needs_contact_email && social
-      redirect_to contact_path
+      redirect_to contact_email_path
     end
   end
 
   def needs_linkedin_synch?
     if @user.linkedin? && !@user.linkedin_synchronized?
       redirect_to synchronisation_path
+    end
+  end
+
+  def ask_contact_email?
+    if @user.signed_up_via == 'linkedin'
+      redirect_to contact_email_path
     end
   end
 end

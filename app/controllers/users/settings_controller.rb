@@ -1,7 +1,9 @@
 class Users::SettingsController < Users::BaseController
   before_filter -> { @errors = [] }
   skip_before_filter :verify_authenticity_token, only: :timezone_update
+
   def profile
+    session.delete :omniauth_return
   end
 
   def billing

@@ -7,6 +7,10 @@ module Omniauthable
         where(auth.slice(:providers, :uid)).first_or_initialize
       end
     end
+
+    included do
+      index providers: 1, uid: 1
+    end
   end
 
   module Linkedin

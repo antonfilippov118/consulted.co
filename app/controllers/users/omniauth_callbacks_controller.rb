@@ -16,17 +16,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def connect_via_linkedin
     if current_user.connect_to_linkedin request.env['omniauth.auth']
-      redirect_to(session[:omniauth_return] || overview_path)
+      redirect_to(overview_path)
     else
       redirect_to new_user_registration_path
     end
-    session.delete :omniauth_return
   end
 
   def sign_in_via_linkedin
     @user = find_user
     if @user
       @user.connect_to_linkedin(request.env['omniauth.auth'])
+      @user.update_attribute :signed_up_via, 'linkedin'
       sign_in_and_redirect @user, event: :authentication
     else
       redirect_to new_user_sessions_path, alert: 'Could not connect to Linkedin!'
