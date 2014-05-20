@@ -46,6 +46,7 @@ class User
 
   field :status, type: String, default: STATUS_LIST.first
   field :signed_up_via, type: String, default: 'register'
+  field :asked_contact_email, type: Boolean, default: false
 
   #
   # Favorites

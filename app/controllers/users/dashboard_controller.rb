@@ -24,7 +24,7 @@ class Users::DashboardController < Users::BaseController
   end
 
   def update_contact
-    if @user.update_attributes contact_params
+    if @user.update_attributes contact_params.merge asked_contact_email: true
       redirect_to overview_path
     else
       render :contact, alert: 'Could not save your contact email, please try again.'
@@ -59,8 +59,9 @@ class Users::DashboardController < Users::BaseController
     new_user            = @user.sign_in_count == 1
     needs_contact_email = @user.contact_email.nil?
     social              = @user.signed_up_via == 'linkedin'
+    asked               = @user.asked_contact_email?
 
-    if new_user && needs_contact_email && social
+    if new_user && needs_contact_email && social && !asked
       redirect_to contact_email_path
     end
   end
@@ -72,7 +73,7 @@ class Users::DashboardController < Users::BaseController
   end
 
   def ask_contact_email?
-    if @user.signed_up_via == 'linkedin'
+    if @user.signed_up_via == 'linkedin' && @user.asked_contact_email? == false
       redirect_to contact_email_path
     end
   end
