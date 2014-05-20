@@ -22,13 +22,7 @@ module Omniauthable
       end
 
       self.user_linkedin_connection = User::LinkedinConnection.new params(auth)
-      synch_save
-    end
-
-    def synch_save
-      return false unless save
-      synchronize_linkedin unless linkedin_synchronized?
-      true
+      save
     end
 
     def params(auth)
