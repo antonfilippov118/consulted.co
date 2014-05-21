@@ -6,11 +6,6 @@ class Users::DashboardController < Users::BaseController
 
   def show
     title! 'Overview'
-    upcoming_calls
-  end
-
-  def history
-    title! 'Your calls'
   end
 
   def contact

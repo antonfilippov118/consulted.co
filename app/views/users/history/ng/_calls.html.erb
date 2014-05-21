@@ -1,0 +1,34 @@
+<div id="settings-content" class="tab-content">
+  <div class="tab-pane active" id="calls-offered">
+
+    <div class="calltable-type" ng-click="setStatus(1)" ng-class="{'active':isStatus(1)}">Pending</div>
+    <div class="calltable-type" ng-click="setStatus(3)" ng-class="{'active':isStatus(3)}">Active</div>
+    <div class="calltable-type" ng-click="setStatus(2)" ng-class="{'active':isStatus(2)}">
+      <span ng-show="offered()">Declined</span>
+      <span ng-hide="offered()">Abandoned</span>
+    </div>
+    <div class="calltable-type" ng-click="setStatus(4)" ng-class="{'active':isStatus(4)}">Cancelled</div>
+    <div class="calltable-type" ng-click="setStatus(5)" ng-class="{'active':isStatus(5)}">Completed</div>
+    <div ng-hide="offered()" class="calltable-type" ng-click="setStatus(6)" ng-class="{'active':isStatus(6)}">Disputed</div>
+    <div class="text-center" ng-show="loading">
+      <p>
+        <i class="fa fa-refresh fa-2x fa-spin"></i>
+      </p>
+      <p>Loading...</p>
+    </div>
+    <div class="text-center" ng-show="!loading && error">
+      <p>
+        <i class="fa fa-warning fa-2x"></i>
+      </p>
+      <p>There was an error retrieving your calls</p>
+    </div>
+    <div class="text-center" ng-show="!loading && calls().length === 0">
+      <p>You have no calls matching these criteria</p>
+    </div>
+    <table class="table calltable" ng-show="!loading && calls().length > 0">
+      <tbody call="call" ng-repeat="call in calls()"></tbody>
+    </table>
+
+  </div>
+</div>
+

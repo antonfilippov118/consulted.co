@@ -1,0 +1,18 @@
+<div class="tabs">
+  <div ng-show="offered()">
+    <h2>Meetings you offered</h2>
+    <p>These are all meetings in which you act as the expert</p>
+  </div>
+  <div ng-hide="offered()">
+    <h2>Meetings you requested</h2>
+    <p>These are all meetings which you requested</p>
+  </div>
+  <ul id="settings-tabs" class="nav nav-tabs">
+    <li ng-class="{'active':offered()}">
+      <a ng-click="showOffered()">Offered</a>
+    </li>
+    <li ng-class="{'active':!offered()}">
+      <a ng-click="showRequested()">Requested</a>
+    </li>
+  </ul>
+</div>
