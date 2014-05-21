@@ -40,8 +40,8 @@ Consulted::Application.routes.draw do
 
     scope :'my-calls', controller: 'users/history' do
       get '/', action: :show
-      get :requested, path: 'requested', constraints: { format: 'json'}
-      get :offered, path: 'offered', constraints: { format: 'json'}
+      get :requested, path: 'requested', constraints: { format: 'json' }
+      get :offered, path: 'offered', constraints: { format: 'json' }
     end
 
     resource :settings, only: [], controller: 'users/settings' do

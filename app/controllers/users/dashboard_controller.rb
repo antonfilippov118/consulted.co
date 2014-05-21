@@ -30,12 +30,8 @@ class Users::DashboardController < Users::BaseController
   end
 
   def linkedin
-    begin
-      result = SynchronizeLinkedinProfile.for @user
-      if result.failure?
-        render json: { error: true }
-      end
-    rescue => e
+    result = SynchronizeLinkedinProfile.for @user
+    if result.failure?
       render json: { error: e.message }
     end
   end

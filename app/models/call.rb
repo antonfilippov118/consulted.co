@@ -117,6 +117,7 @@ class Call
   end
 
   def calc_rate!
+    return if offer.nil?
     self.rate = (offer.rate * length / 60) * 100
   end
 end
