@@ -11,7 +11,8 @@
     <![endif]-->
     <%= stylesheet_link_tag 'application' %>
     <%= csrf_meta_tags %>
-  </head>
+    <%= render partial: 'layouts/zopim' %>
+   </head>
   <body>
     <%# Main navigation %>
     <%= render partial: 'layouts/landing/navigation' %>
@@ -42,6 +43,5 @@
     <%= render partial: 'layouts/copy' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'landing' %>
-    <%= render partial: 'layouts/zopim' %>
   </body>
 </html>

@@ -11,6 +11,7 @@
       <%= javascript_include_tag 'compatibility' %>
     <![endif]-->
     <%= csrf_meta_tags %>
+    <%= render partial: 'layouts/zopim' %>
   </head>
   <body class="<%= 'landing' unless user_signed_in? %>">
     <div class="wrapper">
@@ -39,6 +40,5 @@
       <%= render partial: 'layouts/copy' %>
     </div>
     <%= javascript_include_tag "application" %>
-    <%= render partial: 'layouts/zopim' %>
   </body>
 </html>

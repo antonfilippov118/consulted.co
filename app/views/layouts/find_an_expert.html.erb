@@ -11,6 +11,7 @@
       <%= javascript_include_tag 'compatibility' %>
     <![endif]-->
     <%= csrf_meta_tags %>
+    <%= render partial: 'layouts/zopim' %>
   </head>
   <body class="<%= 'landing' unless user_signed_in? %>">
     <div ng-app="consulted.finder" data-group="<%= @group.slug %>" data-rate-min="<%= @rates.min %>" data-rate-max="<%= @rates.max %>" data-experience-min="<%= @experience.min %>" data-experience-max="<%= @experience.max %>">
@@ -53,6 +54,5 @@
       </div>
     </div>
     <%= javascript_include_tag "application" %>
-    <%= render partial: 'layouts/zopim' %>
   </body>
 </html>
