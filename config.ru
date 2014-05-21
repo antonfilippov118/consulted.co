@@ -6,6 +6,10 @@ use Rack::Cors do
     origins '*'
     resource '/assets/*', headers: :any, methods: :get
   end
+  allow do
+    origins '*'
+    resource '/fonts/*', headers: :any, methods: :get
+  end
 end
 
 require ::File.expand_path('../config/environment',  __FILE__)
