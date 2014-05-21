@@ -1,35 +1,53 @@
-<div class="container favorites">
-  <div class="row">
-    <div class="col-lg-12">
-      <br>
-      <% if @favorites.any? %>
-        <div class="col-lg-12 <% if @favorites.empty? %>hidden<% end %>">
-          <hr>
-          <h2>Your bookmarked experts</h2>
-          <% @favorites.each do |expert| %>
-            <div class="row">
-              <div class="col-lg-2">
-                <%= image_tag expert.profile_image.url, class: 'img-responsive', alt: expert.name %>
-              </div>
-              <div class="col-lg-6">
-                <h4><%= expert.name %></h4>
-                <%= link_to(favorite_path(expert), method: :put, remote: true, id: 'fav_link') do %>
-                <%#data: { confirm: 'Are you sure?' }%>
-                  <i class="fa fa-star<%= (@user.favorites.where(favorite_id: expert._id).exists?) ? '' : '-o'  %>"></i> Bookmark
-                <% end %>
-              </div>
-              <div class="col-lg-4">
-              </div>
+<div id="bookmarks">
+  <h2>My bookmarked experts</h2>
+  <% if @favorites.any? %>
+    <% @favorites.each do |expert| %>
+      <div id="<%= dom_id expert %>" class="expert bookmarked clr">
+        <div class="expert-left">
+          <div class="expert-images">
+            <div class="expert-img">
+              <%= image_tag expert.profile_image.url, alt: expert.name %>
             </div>
-          <% end %>
+            <%= link_to 'Full profile', expert_page(expert) %>
+          </div>
+          <div class="expert-name heading2">
+            <%= expert.name %>
+          </div>
+          <div class="expert-offs">
+            <% if expert.offers.enabled.any? %>
+              <ul id="offers">
+                <% expert.offers.enabled.each_with_index do |offer, idx| %>
+                  <li class="<%= 'hidden' if idx > 2 %>">
+                    <%= link_to offer.name, "#{groups_path}/#{offer.slug}" %>
+                  </li>
+                <% end %>
+              </ul>
+              <% if expert.offers.enabled.length > 3 %>
+                <div class="text-center"><a class="show_all" data-target="#offers" ng-click>show all</a></div>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      <% else %>
-        <div class="col-lg-12 text-center">
-          <hr>
-          <h3>You have no bookmarked experts</h3>
+        <div class="expert-right">
+          <div class="expert-history">
+            <% if expert.companies.any? %>
+              <ul id="companies">
+                <% expert.companies.each_with_index do |company, idx| %>
+                  <li class="<%= 'hidden' if idx > 2 %>"><%= company.name %>, <%= company.position %> <%= career_span(company) %></li>
+                <% end %>
+              </ul>
+              <% if expert.companies.length > 3 %>
+                <div class="text-center"><a class="show_all" data-target="#companies" ng-click>show all</a></div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="expert-end right">
+            <%= link_to 'Remove from my bookmarks', favorite_path(expert), class: 'btn btn-primary', remote: true, method: :put, data: { disable_width: 'Removing...'} %>
+          </div>
         </div>
-      <% end %>
-    </div>
-  </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="text-center" id="no_bookmarks">You have no experts bookmarked</div>
+  <% end %>
 </div>
-

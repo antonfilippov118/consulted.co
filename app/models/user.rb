@@ -20,6 +20,8 @@ class User
   end
 
   field :name, type: String, default: ''
+  field :first_name
+  field :last_name
   field :summary, type: String
   field :newsletter, type: Boolean
   field :languages, type: Array, default: ['english']
