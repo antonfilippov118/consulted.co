@@ -16,10 +16,13 @@
     <td>Meeting partner</td>
     <td>
       <img class="callpart-img" ng-src="{{call.partner.profile_image_url}}" alt="{{call.partner.name}}">
-      <p class="callpart-name">{{call.partner_name}}</p>
+      <p class="callpart-name">
+        <a ng-href="{{call.partner.page}}" ng-show="call.seeker">{{call.partner_name}}</a>
+        <span ng-hide="call.seeker">{{call.partner_name}}</span>
+      </p>
       <p class="callpart-links">
-        <a href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="{{call.partner.linkedin}}"></a>
-        <a href="{{call.partner.twitter}}" target="_blank" ng-show="{{call.partner.twitter}}" class="flaticon flaticon-twitter"></a>
+        <a ng-href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="{{call.partner.linkedin}}"></a>
+        <a ng-href="{{call.partner.twitter}}" target="_blank" ng-show="{{call.partner.twitter}}" class="flaticon flaticon-twitter"></a>
       </p>
     </td>
   </tr>

@@ -8,11 +8,11 @@
     <p>These are all meetings which you requested</p>
   </div>
   <ul id="settings-tabs" class="nav nav-tabs">
-    <li ng-class="{'active':offered()}">
-      <a ng-click="showOffered()">Offered</a>
-    </li>
     <li ng-class="{'active':!offered()}">
       <a ng-click="showRequested()">Requested</a>
+    </li>
+    <li ng-class="{'active':offered()}">
+      <a ng-click="showOffered()">Offered</a>
     </li>
   </ul>
 </div>

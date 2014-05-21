@@ -9,7 +9,7 @@ app.config [
   '$routeProvider'
   (routeProvider) ->
     routeProvider.when '/',
-      redirectTo: '/offered'
+      redirectTo: '/requested'
     .when '/offered',
       templateUrl: 'calls'
       controller: 'CallsCtrl'

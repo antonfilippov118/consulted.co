@@ -30,7 +30,8 @@ node :partner do |call|
   {
     profile_image_url: partner_for(call).profile_image.url,
     linkedin: partner_for(call).linkedin_url,
-    twitter: partner_for(call).twitter_url
+    twitter: partner_for(call).twitter_url,
+    page: expert_page(call.expert)
   }
 end
 child :group do

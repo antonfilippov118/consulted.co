@@ -30,6 +30,7 @@ class Call
   field :rating_reminder_sent, type: Boolean, default: false
   field :rating_reminder_sent_at, type: DateTime
   field :rate, type: Integer
+  field :fee, type: Integer
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
@@ -82,7 +83,7 @@ class Call
   end
 
   def payment
-    rate / 100
+    (rate / 100)
   end
 
   private
@@ -118,6 +119,8 @@ class Call
 
   def calc_rate!
     return if offer.nil?
-    self.rate = (offer.rate * length / 60) * 100
+    cost = ((offer.rate * length / 60))
+    self.fee  = (cost * Settings.platform_fee / 100) * 100
+    self.rate = (cost - fee) * 100
   end
 end
