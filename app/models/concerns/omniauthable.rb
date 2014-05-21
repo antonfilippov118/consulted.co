@@ -13,6 +13,17 @@ module Omniauthable
     end
   end
 
+  module Twitter
+    def twitter?
+      twitter_handle.present?
+    end
+
+    def twitter_url
+      return false unless twitter?
+      "https://twitter.com/#{twitter_handle.gsub('@', '')}"
+    end
+  end
+
   module Linkedin
     def connect_to_linkedin(auth)
       return true unless user_linkedin_connection.nil?
@@ -56,6 +67,17 @@ module Omniauthable
     def linkedin_synchronized?
       return false if user_linkedin_connection.nil?
       !user_linkedin_connection.last_synchronization.nil?
+    end
+
+    def linkedin?
+      return false if providers.nil?
+      providers.include? 'linkedin'
+    end
+
+    def linkedin_url
+      return false unless linkedin?
+      return false if user_linkedin_connection.nil?
+      user_linkedin_connection.public_profile_url
     end
   end
 end

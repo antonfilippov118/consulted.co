@@ -2,6 +2,7 @@ class User
   include Mongoid::Document
   include Omniauthable::Lookups
   include Omniauthable::Linkedin
+  include Omniauthable::Twitter
   include Validatable::User
   include Sluggable::User
   include Scopable::User
@@ -119,11 +120,6 @@ class User
   def can_be_a_seeker?
     # TODO: Paypal
     return false unless confirmed?
-  end
-
-  def linkedin?
-    return false if providers.nil?
-    providers.include? 'linkedin'
   end
 
   def notification_email

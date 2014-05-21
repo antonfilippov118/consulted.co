@@ -54,11 +54,6 @@ module CallsHelper
     end
   end
 
-  def upcoming_calls
-    @next_7_days = Call.for(@user).younger(7).order_by [:created_at, :desc]
-    @after_7_days = Call.for(@user).older(7).order_by [:created_at, :desc]
-  end
-
   def start_time_for(call)
     Time.at(call.active_from).in_time_zone(@user.timezone).strftime '%A, %B %-d %Y, %I:%M%P'
   end

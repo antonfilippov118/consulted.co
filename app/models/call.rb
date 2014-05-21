@@ -29,6 +29,7 @@ class Call
   field :seeker_reminder_sent_at, type: DateTime
   field :rating_reminder_sent, type: Boolean, default: false
   field :rating_reminder_sent_at, type: DateTime
+  field :rate, type: Integer
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
@@ -80,9 +81,14 @@ class Call
     active_from < Time.now
   end
 
+  def payment
+    rate / 100
+  end
+
   private
 
   before_save :ending!
+  before_save :calc_rate!
   after_save :book!
   after_destroy :free!
 
@@ -108,5 +114,9 @@ class Call
   def free!
     availability = expert.availabilities.within(active_from.utc, active_to.utc).first
     availability.free!(active_from.utc, length)
+  end
+
+  def calc_rate!
+    self.rate = (offer.rate * length / 60) * 100
   end
 end

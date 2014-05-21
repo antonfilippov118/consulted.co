@@ -6,12 +6,12 @@
     </div>
     <div class="modal-body text-center">
       <p class="callreq-prop">Date</p>
-      <p class="callreq-val">{{call.active_from}}</p>
+      <p class="callreq-val">{{call.active_from | moment:'ddd, MMM DD YYYY HH:mm'}}</p>
       <p class="callreq-prop">Call partner</p>
       <p class="callreq-val">{{call.partner_name}}</p>
       <p>
         <button type="button" ng-click="confirm()" class="btn btn-success">Confirm call</button>
-        <button type="button" ng-click="dismiss()" class="btn btn-danger">Decline call</button>
+        <button type="button" ng-click="decline()" class="btn btn-danger">Decline call</button>
       </p>
       <p><small>Once confirmed, we charge a fee to cancel <a href="https://consultedco.zendesk.com/hc/en-us/articles/201304784-Do-I-advice-seeker-need-to-pay-a-fee-if-I-cancel-the-meeting-" target="_blank">[?]</a></small></p>
     </div>

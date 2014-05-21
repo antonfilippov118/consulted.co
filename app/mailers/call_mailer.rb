@@ -13,7 +13,7 @@ class CallMailer < ApplicationMailer
   end
 
   def call_declined_by_expert_manually(call)
-    liquid_mail(:call_declined_by_expert_manually, { to: call.expert.notification_email }, user: call.expert, call: call, date: date(call, expert))
+    liquid_mail(:call_declined_by_expert_manually, { to: call.expert.notification_email }, user: call.expert, call: call, date: date(call, :expert))
   end
 
   def call_declined_by_expert_auto(call)

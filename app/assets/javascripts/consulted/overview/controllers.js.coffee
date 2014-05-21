@@ -44,9 +44,10 @@ app.controller 'CancelCtrl', [
 
     scope.cancel = () ->
       Call.cancel(call).then (result) ->
+        CONSULTED.trigger 'Call cancelled'
         modalInstance.close()
       , (err) ->
-        CONSULTED.trigger err, type: 'error', timeout: 3000
+        CONSULTED.trigger err, type: 'error'
 ]
 
 app.controller 'ConfirmCtrl', [
@@ -56,12 +57,19 @@ app.controller 'ConfirmCtrl', [
   '$modalInstance'
   ConfirmCtrl = (Call, call, scope, modalInstance) ->
     scope.call = call
-    scope.dismiss = () ->
-      modalInstance.dismiss()
-    scope.confirm = ->
-      Call.confirm(call).then (result) ->
+    scope.decline = () ->
+      Call.cancel(call).then (result) ->
+        CONSULTED.trigger 'Call declined'
         modalInstance.close()
       , (err) ->
-        CONSULTED.trigger err, type: 'error', timeout: 3000
+        modalInstance.dismiss()
+
+    scope.confirm = ->
+      Call.confirm(call).then (result) ->
+        CONSULTED.trigger 'Call confirmed'
+        modalInstance.close()
+      , (err) ->
+        CONSULTED.trigger err, type: 'error'
+
 
 ]

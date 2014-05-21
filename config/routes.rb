@@ -38,7 +38,11 @@ Consulted::Application.routes.draw do
       get '/review/:date', action: :review
     end
 
-    get :history, controller: 'users/dashboard', action: :history, path: 'history'
+    scope :'my-calls', controller: 'users/history' do
+      get '/', action: :show
+      get :requested, path: 'requested', constraints: { format: 'json'}
+      get :offered, path: 'offered', constraints: { format: 'json'}
+    end
 
     resource :settings, only: [], controller: 'users/settings' do
       get '/',  action: :profile

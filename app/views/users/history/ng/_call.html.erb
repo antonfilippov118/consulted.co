@@ -1,0 +1,48 @@
+<tbody>
+  <tr>
+    <td class="calltable-prop">Date &amp; Time</td>
+    <td class="calltable-value">{{call.active_from | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
+    <td class="calltable-notes" rowspan="5">Notes</td>
+    <td class="calltable-nvalue" rowspan="5">
+      <span ng-show="call.message">{{call.message}}</span>
+      <span ng-hide="call.message"><em>There is no message attached to this call.</em></span>
+    </td>
+  </tr>
+  <tr>
+    <td>Service offering</td>
+    <td><a ng-href="<%= groups_path %>/{{call.group.slug}}" target="_blank">{{call.name}}</a></td>
+  </tr>
+  <tr>
+    <td>Meeting partner</td>
+    <td>
+      <img class="callpart-img" ng-src="{{call.partner.profile_image_url}}" alt="{{call.partner.name}}">
+      <p class="callpart-name">{{call.partner_name}}</p>
+      <p class="callpart-links">
+        <a href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="{{call.partner.linkedin}}"></a>
+        <a href="{{call.partner.twitter}}" target="_blank" ng-show="{{call.partner.twitter}}" class="flaticon flaticon-twitter"></a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>Payment</td>
+    <td>
+      {{call.payment | currency}}
+      <span ng-show="offered()" class='flaticon flaticon-help help' tooltip="approx {{call.fee | currency}} fee"></span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span ng-show="call.controllable">
+        Action
+      </span>
+    </td>
+    <td>
+      <span ng-show="call.controllable">
+        <a ng-click="confirm(call)" class="link-confirm" ng-show="!call.active && call.expert">confirm</a>
+        <a ng-click="cancel(call)" class="link-cancel" ng-show="!call.active && call.seeker">abandon</a>
+        <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">deny</a>
+        <a ng-click="cancel(call)" class="link-cancel" ng-show="call.active">cancel</a>
+      </span>
+    </td>
+  </tr>
+</tbody>
