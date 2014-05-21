@@ -88,9 +88,9 @@ class User
   embeds_many :educations, class_name: 'User::LinkedinEducation'
 
   has_many :availabilities, dependent: :destroy
+  has_many :calls, inverse_of: :expert, dependent: :destroy
   has_many :offers, dependent: :destroy
   has_many :requests, inverse_of: :seeker, class_name: 'Call', dependent: :destroy
-  has_many :calls, inverse_of: :expert, dependent: :destroy
 
   accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities, :favorites
 
