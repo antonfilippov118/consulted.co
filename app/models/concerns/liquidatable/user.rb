@@ -4,8 +4,10 @@ module Liquidatable
 
     def to_liquid
       {
-        'name' => name,
-        'email' => email
+        'name'       => name,
+        'first_name' => first_name,
+        'last_name'  => last_name,
+        'email'      => email
       }
     end
   end

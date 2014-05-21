@@ -81,9 +81,11 @@ class SynchronizeLinkedinProfile
           User::LinkedinCompany.new params
         end
       end
-      context[:user].name      = name
-      context[:user].companies = companies
-      context[:user].summary   = summary
+      context[:user].name       = name
+      context[:user].first_name = user.first_name
+      context[:user].last_name  = user.last_name
+      context[:user].companies  = companies
+      context[:user].summary    = summary
     end
   end
 
