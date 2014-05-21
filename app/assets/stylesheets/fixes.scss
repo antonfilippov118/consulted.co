@@ -248,5 +248,8 @@ overflow: auto;
   }
 }
 
+#bookmarks {
+  min-height: 550px;
+}
 @import 'filters';
 @import 'typeahead';
