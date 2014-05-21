@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'rack/cors'
-
 Consulted::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
