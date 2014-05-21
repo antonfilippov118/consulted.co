@@ -36,7 +36,6 @@ module Consulted
     config.i18n.default_locale = :en
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
-    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     # We don't want the default of everything that isn't js or css, because it pulls too many things in
     config.assets.precompile.shift

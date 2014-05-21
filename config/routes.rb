@@ -122,6 +122,8 @@ Consulted::Application.routes.draw do
     get page, controller: :static
   end
 
+  get '/fonts/flaticon', controller: 'fonts/flaticon', action: :show
+
   %w(404 422 500).each do |code|
     get "/#{code}", to: 'errors#show', code: code
   end
