@@ -17,6 +17,9 @@ end
 node :partner_name do |call|
   partner_for(call).name
 end
+node :timestamp do |call|
+  call.active_from.to_i
+end
 node :id do |call|
   call.id.to_s
 end
