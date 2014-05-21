@@ -78,7 +78,7 @@ class Call
   end
 
   def cancellable?
-    active_from < Time.now
+    active_from > Time.now
   end
 
   def payment
