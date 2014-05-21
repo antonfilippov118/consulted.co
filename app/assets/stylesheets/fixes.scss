@@ -1,5 +1,18 @@
 @import 'helpers';
 
+body {
+  overflow-y: scroll;
+}
+
+body.modal-open {
+  overflow-y: scroll;
+  margin: 0;
+}
+
+.modal {
+overflow: auto;
+}
+
 [ng-click] {
   cursor: pointer;
 }
