@@ -23,4 +23,8 @@ class Offer
   scope :with_rate, -> lower, upper { where rate: { :$lte => upper, :$gte => lower } }
 
   alias_method :expert, :user
+
+  def minimum_length
+    lengths.map(&:to_i).min
+  end
 end
