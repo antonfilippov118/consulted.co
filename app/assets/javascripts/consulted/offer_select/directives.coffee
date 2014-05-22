@@ -39,6 +39,25 @@ app.directive 'offer', [
       scope.select = ExpertOffers.select
       scope.selected = ExpertOffers.selected
 
+]
+
+app.directive 'offerLengths', [
+  () ->
+    replace: yes
+    template: '<div ng-hide="no_offer">You can schedule a call for <strong>{{lengths}} <span ng-show="last">or {{last}}</span> minutes.</strong></div>'
+    scope: yes
+    link: (scope) ->
+      scope.no_offer = yes
+      scope.$on 'offer:change', (_, offer) ->
+        lengths = offer.lengths.map((string) -> +string).sort (a, b) -> a - b
+        console.log lengths
+        if lengths.length > 1
+          scope.lengths = lengths.slice(0, -1).join ', '
+          scope.last    = lengths[lengths.length - 1]
+        else
+          scope.lengths = lengths[0]
+          scope.last = no
+        scope.no_offer = no
 
 
 

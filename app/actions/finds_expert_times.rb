@@ -43,7 +43,7 @@ class FindsExpertTimes
         block.chunk { |b| b.status == Availability::TimeBlock::Status::FREE }.map { |b, c| { usable: b && c.length >= required_blocks, blocks: c } }
       end
       times = intervals.map { |i| i.reject { |obj| obj[:usable] == false } }
-      times = times.map { |t| t.map { |obj| { start: obj[:blocks].first, end: obj[:blocks].last } } }
+      times = times.map { |t| t.map { |obj| { start: obj[:blocks].first.start, end: obj[:blocks].last.end } } }
       context[:times] = times.flatten
     end
   end

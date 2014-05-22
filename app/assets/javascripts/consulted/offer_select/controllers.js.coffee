@@ -7,14 +7,19 @@ app.controller 'AvailabilityCtrl', [
   '$scope'
   'ExpertAvailabilities'
   (scope, ExpertAvailabilities) ->
-    ExpertAvailabilities.get().then (events) ->
-      scope.events = events
+
+    fetch = (_, offer) ->
+      ExpertAvailabilities.get(offer).then (events) ->
+        scope.events = events
+      .finally -> scope.show_cal = yes
+
+    scope.$on 'offer:change', fetch
 ]
 
 app.controller 'OffersCtrl', [
   '$scope'
   'ExpertOffers'
-  (scope, ExpertOffers) ->
+  OffersCtrl = (scope, ExpertOffers) ->
     selected = null
 
     fetch = () ->

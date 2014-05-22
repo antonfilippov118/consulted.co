@@ -96,6 +96,10 @@ Consulted::Application.routes.draw do
     get '/:expert', to: 'availabilities#index', constraints: { format: 'json' }
   end
 
+  resource :times, only: [] do
+    get '/:expert/:group', to: 'times#index', constraints: { format: 'json' }
+  end
+
   namespace :users do
     get :available, to: 'utilities#available'
     get :regions, to: 'utilities#region'

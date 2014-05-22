@@ -77,6 +77,7 @@
     </div>
 
     <h2 class="heading">Book a call with <%= name %></h2>
+    <div offer-lengths></div>
     <div class="book">
       <div class="clr book-langs">
         <div class="book-lang<%= ' active' if @expert.languages.include?('arabic') %>">Arabic</div>
@@ -87,11 +88,17 @@
       </div>
       <div id="scheduler-read" class="scheduler">
         <div ng-controller="AvailabilityCtrl">
-          <div data-dhx-scheduler-readonly events='events' style="height: 550px">
+          <div data-dhx-scheduler-readonly ng-show="show_cal && events.length > 0" events='events' style="height: 550px">
             <div class="dhx_cal_prev_button">&nbsp;</div>
             <div class="dhx_cal_next_button">&nbsp;</div>
             <div class="dhx_cal_today_button"></div>
             <div class="dhx_cal_date"></div>
+          </div>
+          <div class="text-center" ng-show="show_cal && events.length === 0">
+            <h3>The expert is not available for the selected offering.</h3>
+          </div>
+          <div class="text-center" ng-hide="show_cal">
+            <h3>Please select one of the service offerings above.</h3>
           </div>
         </div>
       </div>

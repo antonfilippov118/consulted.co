@@ -10,6 +10,7 @@ module Blockable
       end
       start += Availability::TimeBlock::LENGTH
     end
+    blocks.where(end: { :$gt => ending }).delete_all
   end
 
   def minimum_blocks_for(offer = nil)

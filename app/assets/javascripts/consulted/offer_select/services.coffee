@@ -13,12 +13,14 @@ app.service 'ExpertOffers', [
   'Configuration'
   '$http'
   '$q'
-  ExpertOffers = (Configuration, http, q) ->
+  '$rootScope'
+  ExpertOffers = (Configuration, http, q, root) ->
     slug = Configuration.getSlug()
     selected = null
 
     select: (offer) ->
       selected = offer
+      root.$broadcast 'offer:change', offer
 
     selected: (offer) ->
       return no unless selected?
@@ -37,16 +39,17 @@ app.service 'ExpertAvailabilities', [
   '$http'
   '$q'
   'Configuration'
+  'ExpertOffers'
   ExpertAvailabilities = (http, q, Configuration) ->
     slug = Configuration.getSlug()
     transformed = (data) ->
       data.map (obj) ->
-        start_date: moment(obj.start).toDate()
-        end_date: moment(obj.end).toDate()
+        start_date: moment(obj.start * 1000).toDate()
+        end_date: moment(obj.end * 1000).toDate()
 
-    get: () ->
+    get: (offer) ->
       result = q.defer()
-      http.get("/availabilities/#{slug}.json").then (response) ->
+      http.get("/times/#{slug}/#{offer.slug}.json").then (response) ->
         result.resolve transformed response.data
       result.promise
 

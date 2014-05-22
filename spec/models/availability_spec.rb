@@ -9,6 +9,30 @@ describe Availability do
     expect(a.blocks.length).to eql 12
   end
 
+  it 'should create more timeblocks when changed' do
+    user = User.create valid_params
+    a = Availability.new user: user, start: Time.now, end: Time.now + 60.minutes
+    a.save
+
+    expect(a.blocks.length).to eql 12
+
+    a.ending = a.ending + 20.minutes
+    a.save
+    expect(a.blocks.count).to eql 16
+  end
+
+  it 'should decrease the count of time blocks when edited, if necessary' do
+    user = User.create valid_params
+    a = Availability.new user: user, start: Time.now, end: Time.now + 60.minutes
+    a.save
+
+    expect(a.blocks.length).to eql 12
+
+    a.ending = a.ending - 20.minutes
+    a.save
+    expect(a.blocks.count).to eql 8
+  end
+
   it 'should be able to set the booked state for it\'s blocks' do
     user = User.create valid_params
     a = Availability.new user: user, start: Time.now, end: Time.now + 15.minutes
