@@ -17,6 +17,7 @@ class Call
   belongs_to :expert, class_name: 'User', foreign_key: 'expert_id', inverse_of: :experts
   belongs_to :seeker, class_name: 'User', foreign_key: 'seeker_id', inverse_of: :requests
   belongs_to :offer
+  belongs_to :availability
 
   field :pin, type: Integer, default: -> { Call.generate_unique_pin }
   field :length, type: Integer
@@ -30,7 +31,6 @@ class Call
   field :seeker_reminder_sent_at, type: DateTime
   field :rating_reminder_sent, type: Boolean, default: false
   field :rating_reminder_sent_at, type: DateTime
-
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
 
@@ -87,26 +87,37 @@ class Call
 
   private
 
-  before_save :ending!
+  before_save :ending!, :availability!, :check_pin!
   after_save :book!
   after_destroy :free!
 
+  def length_with_break
+    length + expert.start_delay
+  end
+
   def self.generate_unique_pin
     # TODO: this can potentially collide with other active calls
-    SecureRandom.random_number(999_999)
+    100_000 + Random.rand(1_000_000 - 100_000)
   end
 
   def ending!
     self.active_to = active_from + length.minutes
   end
 
+  def availability!
+    self.availability = expert.availabilities.within(active_from.utc, active_to.utc).first
+  end
+
+  def check_pin!
+    self.pin = Call.generate_unique_pin while Call.callable.by_pin(pin).exists?
+  end
+
   def book!
-    availability = expert.availabilities.within(active_from.utc, active_to.utc).first
-    if active?
-      availability.book! active_from.utc, length
-    end
+    return if availability.nil?
     if cancelled?
-      availability.free! active_from.utc, length
+      availability.free! active_from.utc, length_with_break
+    else
+      availability.book! active_from.utc, length_with_break
     end
   end
 
