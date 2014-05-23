@@ -194,40 +194,32 @@ app.service 'Time', [
       Search.trigger data
 
     availableTimes: -> [
-      name: 'until 6am'
+      name: 'until 06:00'
       from: 0
       to: 6
     ,
-      name: '6am-8am'
+      name: '06:00-09:00'
       from: 6
-      to: 8
+      to: 9
     ,
-      name: '8am-10am'
-      from: 8
-      to: 10
-    ,
-      name: '10am-12pm'
-      from: 10
+      name: '09:00-12:00'
+      from: 9
       to: 12
     ,
-      name: '12pm-2pm'
+      name: '12:00-15:00'
       from: 12
-      to: 14
+      to: 15
     ,
-      name: '2pm-4pm'
-      from: 14
-      to: 16
-    ,
-      name: '4pm-6pm'
-      from: 16
+      name: '15:00-18:00'
+      from: 15
       to: 18
     ,
-      name: '6pm-8pm'
+      name: '18:00-21:00'
       from: 18
-      to: 20
+      to: 21
     ,
-      name: 'after 8pm'
-      from: 20
+      name: 'After 21:00'
+      from: 21
       to: 0
     ]
 

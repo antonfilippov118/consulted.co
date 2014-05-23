@@ -11,6 +11,7 @@ module Blockable
       start += Availability::TimeBlock::LENGTH
     end
     blocks.where(end: { :$gt => ending }).delete_all
+    blocks.where(start: { :$lt => starting }).delete_all
   end
 
   def minimum_blocks_for(offer = nil)

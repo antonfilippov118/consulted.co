@@ -40,10 +40,10 @@ class FindsExpertTimes
       required_blocks =  context.fetch(:length) / 300
 
       intervals = blocks.map do |block|
-        block.chunk { |b| b.status == Availability::TimeBlock::Status::FREE }.map { |b, c| { usable: b && c.length >= required_blocks, blocks: c } }
+        block.chunk { |b| b.status == Availability::TimeBlock::Status::FREE }.map { |b, c| { usable: b && c.length >= required_blocks, blocks: c, max_length: c.length * 5 } }
       end
       times = intervals.map { |i| i.reject { |obj| obj[:usable] == false } }
-      times = times.map { |t| t.map { |obj| { start: obj[:blocks].first.start, end: obj[:blocks].last.end } } }
+      times = times.map { |t| t.map { |obj| { start: obj[:blocks].first.start, end: obj[:blocks].last.end, max_length: [120, obj[:max_length]].min } } }
       context[:times] = times.flatten
     end
   end

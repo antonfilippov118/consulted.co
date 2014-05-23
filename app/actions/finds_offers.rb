@@ -119,6 +119,7 @@ class FindsOffers
       offers = context.fetch :offers
       upper = params.fetch :rate_upper
       lower = params.fetch :rate_lower
+
       context[:offers] = offers.with_rate lower, upper
     end
   end

@@ -33,6 +33,9 @@ class User
   # determines wheter or not the user wants to be an expert
   field :wants_to_be_an_expert, type: Boolean, default: false
 
+  # temp field for sotring possible call times
+  attr_accessor :possible_times
+
   ## Linkedin
   field :uid
   field :linkedin_network, type: Integer, default: 0
