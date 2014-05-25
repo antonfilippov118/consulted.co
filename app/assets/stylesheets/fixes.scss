@@ -251,5 +251,9 @@ overflow: auto;
 #bookmarks {
   min-height: 550px;
 }
+
+.expert ul li {
+  text-indent: 0px;
+}
 @import 'filters';
 @import 'typeahead';

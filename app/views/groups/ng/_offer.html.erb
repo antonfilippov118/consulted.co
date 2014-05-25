@@ -35,7 +35,7 @@
   <div class="expert-right">
     <div class="expert-history">
       <ul>
-        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()">{{company.name}}, {{company.position}}, {{company.from | careerYear:company.to}}</li>
+        <li ng-repeat="company in offer.expert.companies | limitTo:careerLimit()"><strong>{{company.name}}</strong>, {{company.position}}, {{company.from | careerYear:company.to}}</li>
       </ul>
       <div class="text-center" ng-show="showToggle">
         <a ng-hide="allActive()" ng-click="toggleCareer()">show all</a>
