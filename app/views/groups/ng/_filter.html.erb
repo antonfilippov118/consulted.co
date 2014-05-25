@@ -3,6 +3,9 @@
     <div class="container">
       <span class="filter-prop" ng-show="currentDays().length > 0">
         <strong>Days:</strong> {{currentDays().join(', ')}}</span>
+      <span class="filter-prop" ng-show="currentTimes().length > 0">
+        <strong>Time:</strong> {{currentTimes().join(', ')}}</span>
+      </span>
       <span class="filter-prop" ng-show="currentLocations().length > 0">
         <strong>Locations:</strong> {{currentLocations().join(", ")}}</span>
       <span class="filter-prop" ng-show="currentLanguages().length > 0">

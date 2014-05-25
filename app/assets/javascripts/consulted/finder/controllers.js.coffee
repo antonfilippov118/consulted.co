@@ -10,7 +10,8 @@ app.controller 'FilterCtrl', [
   'Rate'
   'Experience'
   'Date'
-  FilterCtrl = (scope, Language, Continent, Rate, Experience, Date) ->
+  'Time'
+  FilterCtrl = (scope, Language, Continent, Rate, Experience, Date, Time) ->
     scope.open = no
 
     scope.toggle = () ->
@@ -27,6 +28,11 @@ app.controller 'FilterCtrl', [
     scope.currentRate       = -> Rate.getCurrent()
     scope.currentExperience = -> Experience.getCurrent()
     scope.currentDays       = -> slice Date.getCurrent()
+    scope.currentTimes      = ->
+      slice do ->
+        Time.getCurrent().sort((a, b) ->
+          a.from - b.from
+        ).map (obj) -> obj.name
 ]
 
 app.controller 'ResultCtrl', [
