@@ -77,7 +77,11 @@ class ApplicationMailer < ActionMailer::Base
       'root_url' => root_url,
       'settings_url' => settings_url,
       'terms_url' => terms_url,
-      'privacy_url' => privacy_url
+      'privacy_url' => privacy_url,
+      'dialinnumbers_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304524',
+      'calldeclining_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304974',
+      'compensationfors_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304794',
+      'compensationfore_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304994'
     }
   end
 
