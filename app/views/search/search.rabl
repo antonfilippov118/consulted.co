@@ -27,6 +27,16 @@ child :expert => :expert do
       ""
     end
   end
+  node :current_company do |user|
+    if user.companies.current
+      {
+        name: user.companies.current.name,
+        url: user.companies.current.url
+      }
+    else
+      false
+    end
+  end
   node :current_year do |user|
     if user.companies.current
       user.companies.current.from
