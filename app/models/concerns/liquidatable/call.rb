@@ -4,13 +4,26 @@ module Liquidatable
 
     def to_liquid
       {
-        'time' => 'now',
         'message' => message,
         'seeker' => seeker,
         'expert' => expert,
         'duration' => length,
-        'pin' => pin,
+        'code' => pin
+      }.merge(languages).merge rates
+    end
+
+    def languages
+      {
         'languages' => expert.languages.map(&:capitalize).join(', ')
+      }
+    end
+
+    def rates
+      {
+        'price_incl_fee' => (rate + fee).to_f / 100,
+        'price_excl_fee' => payment,
+        'rate_incl_fee' => initial_rate,
+        'rate_excl_fee' => initial_rate_excl
       }
     end
   end
