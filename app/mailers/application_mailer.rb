@@ -14,7 +14,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def send_liquid_mail(mail_opts, liquid_variables, template)
-    mail_opts[:subject] = template.subject
+    mail_opts[:subject] = Liquid::Template.parse(template.subject).render liquid_variables
     mail_opts[:from] = determine_email_from(template)
 
     variables = liquid_variables.stringify_keys.merge(urls).merge created_attachments
@@ -72,16 +72,27 @@ class ApplicationMailer < ActionMailer::Base
     %w(consulted twitter linkedin facebook google)
   end
 
+  def format
+    '%A, %B %-d %Y, %I:%M%P'
+  end
+
   def urls
     {
       'root_url' => root_url,
       'settings_url' => settings_url,
       'terms_url' => terms_url,
       'privacy_url' => privacy_url
-    }
+    }.merge static_urls
   end
 
-  def format
-    '%A, %B %-d %Y, %I:%M%P'
+  def static_urls
+    {
+      'dialin_numbers_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304524',
+      'call_declining_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304974',
+      'compensation_for_seeker_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304794',
+      'compensation_for_expert_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304994',
+      'cancellation_by_seeker_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201304784',
+      'cancellation_by_expert_url' => 'https://consultedco.zendesk.com/hc/en-us/articles/201322580'
+    }
   end
 end

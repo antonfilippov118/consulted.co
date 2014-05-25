@@ -7,7 +7,9 @@ module Liquidatable
         'name'       => name,
         'first_name' => first_name,
         'last_name'  => last_name,
-        'email'      => email
+        'email'      => email,
+        'linkedin'   => linkedin_url,
+        'twitter'    => twitter_url
       }
     end
   end

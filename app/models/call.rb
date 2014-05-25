@@ -3,6 +3,7 @@ class Call
   include Mongoid::Timestamps
   include Liquidatable::Call
   include Scopable::Call
+  include Pricable::Call
 
   class Status
     REQUESTED = 1
@@ -29,8 +30,6 @@ class Call
   field :seeker_reminder_sent_at, type: DateTime
   field :rating_reminder_sent, type: Boolean, default: false
   field :rating_reminder_sent_at, type: DateTime
-  field :rate, type: Integer
-  field :fee, type: Integer
 
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
@@ -83,13 +82,12 @@ class Call
   end
 
   def payment
-    (rate / 100)
+    (rate.to_f / 100)
   end
 
   private
 
   before_save :ending!
-  before_save :calc_rate!
   after_save :book!
   after_destroy :free!
 
@@ -117,10 +115,4 @@ class Call
     availability.free!(active_from.utc, length)
   end
 
-  def calc_rate!
-    return if offer.nil?
-    cost = ((offer.rate * length / 60))
-    self.fee  = (cost * Settings.platform_fee / 100) * 100
-    self.rate = (cost - fee) * 100
-  end
 end
