@@ -30,6 +30,12 @@ app.directive 'popular', [
       scope.selected = () ->
         location.path() isnt '/'
 
+      scope.$on 'search:enable', () ->
+        scope.hide = yes
+
+      scope.$on 'search:disable', () ->
+        scope.hide = no
+
 ]
 
 app.directive 'bread', [
