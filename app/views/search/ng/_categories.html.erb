@@ -18,7 +18,8 @@
       </div>
     </div>
     <div class="col-md-8">
-      <div child="child" ng-repeat="child in getSubGroup() | orderBy:'name' | orderBy:'prioritized':true"></div>
+      <div child="child" ng-repeat="child in getSubGroup() | prioritized | orderBy:'name'"></div>
+      <div child="child" ng-repeat="child in getSubGroup() | prioritized:false | orderBy:'name'"></div>
     </div>
   </div>
 </div>

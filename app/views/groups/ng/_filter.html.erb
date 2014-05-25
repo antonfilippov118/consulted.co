@@ -3,6 +3,9 @@
     <div class="container">
       <span class="filter-prop" ng-show="currentDays().length > 0">
         <strong>Days:</strong> {{currentDays().join(', ')}}</span>
+      <span class="filter-prop" ng-show="currentTimes().length > 0">
+        <strong>Time:</strong> {{currentTimes().join(', ')}}</span>
+      </span>
       <span class="filter-prop" ng-show="currentLocations().length > 0">
         <strong>Locations:</strong> {{currentLocations().join(", ")}}</span>
       <span class="filter-prop" ng-show="currentLanguages().length > 0">
@@ -31,20 +34,20 @@
           <div class="fexp-block" dates>
             <div class="fexp-head">
               Availability Day
-              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':fortnight(),'btn-default':!fortnight()}">Fortnight</a>
+              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':fortnight(),'btn-default':!fortnight()}">All day</a>
               <a ng-click="specific()" class="btn btn-xs" ng-class="{'btn-primary':!fortnight(),'btn-default':fortnight()}">Specific Date</a>
             </div>
             <div class="fexp-body fexp-body-7 clr">
               <label ng-click="toggle(day)" class="check round-check" ng-class="{'in':selected(day)}" ng-repeat="day in days">
-                <div class="round"></div>{{day | moment:'ddd'}}
-                <small>{{day | moment:'MMM DD'}}</small>
+                <div class="round"></div>
+                <small>{{day | moment:'ddd, MMM DD'}}</small>
               </label>
             </div>
           </div>
           <div class="fexp-block" times>
             <div class="fexp-head">
               Availability Time
-              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':allDay(),'btn-default':!allDay()}">All Day</a>
+              <a ng-click="all()" class="btn btn-xs" ng-class="{'btn-primary':allDay(),'btn-default':!allDay()}">Any time</a>
               <a ng-click="specific()" class="btn btn-xs" ng-class="{'btn-primary':!allDay(),'btn-default':allDay()}">Specific Time</a>
             </div>
             <div class="fexp-body fexp-body-9 clr">

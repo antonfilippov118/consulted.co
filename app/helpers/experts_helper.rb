@@ -9,8 +9,13 @@ module ExpertsHelper
   end
 
   def current_company_name
-    return false if current_company.nil?
+    return '' if current_company.nil?
     current_company.name
+  end
+
+  def current_company_city
+    return '' if current_company.nil?
+    current_company.city
   end
 
   def past_companies
@@ -27,8 +32,7 @@ module ExpertsHelper
 
   def company_url
     return false if current_company.nil?
-    return false unless current_company.linkedin_id
-    "https://www.linkedin.com/company/#{current_company.linkedin_id}"
+    current_company.url
   end
 
   def career_span(company)

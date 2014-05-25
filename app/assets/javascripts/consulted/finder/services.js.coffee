@@ -247,8 +247,8 @@ app.service 'Time', [
       trigger()
 
     selected: selected
-
-
+    getCurrent: ->
+      times
 ]
 
 app.service 'Bookmark', [
