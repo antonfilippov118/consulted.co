@@ -158,6 +158,28 @@ app.directive 'offer', [
 
 ]
 
+app.directive 'contactExpert', [
+  'Call'
+  (Call) ->
+    replace: yes
+    scope:
+      offer: '=for'
+    templateUrl: 'contact_expert'
+    link: (scope) ->
+      fetch = () ->
+        scope.loading = yes
+        Call.findNextTime(scope.offer).then (data) ->
+          console.log data
+          {date, length} = data
+          scope.date   = date
+          scope.length = length
+        .finally () ->
+          scope.loading = no
+
+      scope.$on 'result', fetch
+      fetch()
+]
+
 app.directive 'ionRangeMulti', [
   '$timeout'
   'Configuration'

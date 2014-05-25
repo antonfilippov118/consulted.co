@@ -28,4 +28,9 @@ class Offer
     return 0 if lengths.length == 0
     lengths.map(&:to_i).min
   end
+
+  def maximum_length
+    return 0 if lengths.length == 0
+    lengths.map(&:to_i).max
+  end
 end

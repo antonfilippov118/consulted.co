@@ -161,6 +161,8 @@ app.service 'Date', [
 
     selected: selected
 
+    getDates: -> days
+
     getCurrent: () ->
       return ['Next 14 days'] if fortnight
       days.sort (first, second) ->
@@ -169,14 +171,11 @@ app.service 'Date', [
       .map (obj) ->
         obj.format 'ddd'
 
-
-
-
 ]
 
 app.service 'Time', [
   'Search'
-  Time = (Search) ->
+  Time = (Search, http, q) ->
     allDay = yes
     times = []
 
@@ -335,4 +334,61 @@ app.service 'Search', [
       timer = timeout ->
         save options
       , timeoutValue
+]
+
+app.service 'Call', [
+  'Date'
+  'Time'
+  '$http'
+  '$q'
+  (Date, Time, http, q) ->
+    matchTimes = (date, times) ->
+      times = times.sort (a, b) -> a.from - b.from
+      for time in times
+        return yes if time.from <= date.hour() <= time.to
+      no
+    matchDate = (date, date2) ->
+      date.isSame(date2, 'day') || date.isAfter(date2)
+
+    matchDateTime = (checkDate, times, date) ->
+      matchDate(date, checkDate) && matchTimes(date, times)
+
+    findNextTime: (offer) ->
+      findTime = (available_times) ->
+        times = available_times.sort (a, b) -> a.start - b.start
+        dates = Date.getDates()
+        dateFiltered = dates.length > 0
+        fTimes = Time.getCurrent()
+        fTimesFiltered = fTimes.length > 0
+        for date in dates
+          for ts in times
+            mom = moment ts.start * 1000
+            if fTimesFiltered and dateFiltered
+              match = matchDateTime date, fTimes, mom
+            else if dateFiltered
+              match = matchDate(mom, date)
+            else
+              match = matchTimes date, fTimes
+            continue if match is no
+
+            data =
+              date: mom
+              length: do ->
+                if offer.maximum_length < ts.max_length
+                  offer.maximum_length
+                else
+                  ts.max_length
+            return data
+        data =
+          date: moment times[0].start * 1000
+          length: times[0].max_length
+      result = q.defer()
+      http.get("/times/#{offer.expert.slug}/#{offer.slug}").then (response) ->
+        result.resolve findTime response.data
+      , (err) ->
+        result.reject err
+
+      result.promise
+
+
 ]

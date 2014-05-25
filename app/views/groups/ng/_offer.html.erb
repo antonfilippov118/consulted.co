@@ -51,12 +51,7 @@
     <div class="expert-end">
       <div class="expert-act">
         <% if user_signed_in? %>
-          {{offer.next_call | moment:'MMMM DD, YYYY'}}
-          <br>
-          {{offer.next_call | moment:'h:mm a'}}
-          <br>
-          Up to {{offer.maximum_call}} minutes
-          <a ng-hide="offer.expert.slug === '<%= @user.slug rescue '' %>'" ng-hide="<%= @user.nil? %>" ng-href="<%= offers_path %>/{{offer.url}}/review/{{offer.next_call | moment}}" class="btn btn-primary">Contact</a>
+          <div contact-expert for="offer" offset="<%= timezone.utc_offset %>"></div>
         <% else %>
           <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
             Sign up to book

@@ -46,7 +46,7 @@
           <%= render partial: 'layouts/footer', locals: { inverted: user_signed_in? } %>
           <%= render partial: 'layouts/copy' %>
         </div>
-        <% %w(filter offer).each do |partial| %>
+        <% %w(filter offer contact_expert).each do |partial| %>
         <script type="text/ng-template" id="<%= partial %>">
           <%= render partial: "groups/ng/#{partial}"  %>
         </script>
