@@ -32,8 +32,7 @@ module ExpertsHelper
 
   def company_url
     return false if current_company.nil?
-    return false unless current_company.linkedin_id
-    "https://www.linkedin.com/company/#{current_company.linkedin_id}"
+    current_company.url
   end
 
   def career_span(company)

@@ -255,5 +255,11 @@ overflow: auto;
 .expert ul li {
   text-indent: 0px;
 }
+
+.expert-offs {
+  li {
+    font-size: 12px !important;
+  }
+}
 @import 'filters';
 @import 'typeahead';
