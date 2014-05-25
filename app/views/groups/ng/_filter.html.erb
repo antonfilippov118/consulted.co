@@ -39,8 +39,8 @@
             </div>
             <div class="fexp-body fexp-body-7 clr">
               <label ng-click="toggle(day)" class="check round-check" ng-class="{'in':selected(day)}" ng-repeat="day in days">
-                <div class="round"></div>{{day | moment:'ddd'}}
-                <small>{{day | moment:'MMM DD'}}</small>
+                <div class="round"></div>
+                <small>{{day | moment:'ddd, MMM DD'}}</small>
               </label>
             </div>
           </div>
