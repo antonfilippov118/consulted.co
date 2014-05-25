@@ -7,6 +7,7 @@ class SynchronizeLinkedinProfile
       SynchNetwork,
       SynchCountry,
       SynchCareer,
+      SynchCompanyInformation,
       SynchEducation,
       SynchImage,
       SynchUrl,
@@ -57,6 +58,8 @@ class SynchronizeLinkedinProfile
       name      = "#{user.first_name} #{user.last_name}"
       summary   = user.summary
 
+
+
       if user.positions.all.nil?
         companies = []
       else
@@ -77,7 +80,6 @@ class SynchronizeLinkedinProfile
           unless p.start_date.nil?
             params.merge! from: p.start_date.year
           end
-
           User::LinkedinCompany.new params
         end
       end
@@ -86,6 +88,61 @@ class SynchronizeLinkedinProfile
       context[:user].last_name  = user.last_name
       context[:user].companies  = companies
       context[:user].summary    = summary
+    end
+  end
+
+  class SynchCompanyInformation
+    include LightService::Action
+
+    @ids = {}
+
+    executed do |context|
+      user = context.fetch :user
+      next unless user.companies.any?
+
+      client = context.fetch :client
+
+      user.companies.each do |company|
+        if @ids.keys.include? company.linkedin_id
+          data = self.cached company: company
+        else
+          data = self.fetch! company: company, client: client
+        end
+        next if data == false
+        next if data.locations.total < 1
+        next if data.locations.all.empty?
+        company.url = data.fetch :website_url
+        self.update! company: company, addresses: data.locations
+      end
+    end
+
+    private
+
+    def self.fetch!(opts = {})
+      client, company = [:client, :company].map { |sym| opts.fetch sym }
+      begin
+        data = client.company id: company.linkedin_id, fields: %w(locations website-url)
+      rescue LinkedIn::Errors::GeneralError
+        data = false
+      end
+      @ids[company.linkedin_id] = data
+    end
+
+    def self.update!(opts = {})
+      addresses, company = [:addresses, :company].map { |sym| opts.fetch sym }
+      company.addresses = []
+
+      addresses.all.each do |entry|
+        address = User::LinkedinCompany::Address.new(entry.address.slice(:city, :postal_code, :street1, :street2).symbolize_keys)
+        address.fax = entry.contact_info[:fax]
+        address.phone = entry.contact_info[:fax]
+        company.addresses << address
+      end
+    end
+
+    def self.cached(opts = {})
+      company = opts.fetch :company
+      @ids[company.linkedin_id]
     end
   end
 
