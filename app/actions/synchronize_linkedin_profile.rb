@@ -2,17 +2,7 @@ class SynchronizeLinkedinProfile
   include LightService::Organizer
 
   def self.for(id)
-    with(id: id).reduce [
-      LoadUser,
-      SynchNetwork,
-      SynchCountry,
-      SynchCareer,
-      SynchCompanyInformation,
-      SynchEducation,
-      SynchImage,
-      SynchUrl,
-      SaveUser
-    ]
+    with(id: id).reduce ACTIONS
   end
 
   class LoadUser
@@ -58,8 +48,6 @@ class SynchronizeLinkedinProfile
       name      = "#{user.first_name} #{user.last_name}"
       summary   = user.summary
 
-
-
       if user.positions.all.nil?
         companies = []
       else
@@ -104,7 +92,7 @@ class SynchronizeLinkedinProfile
 
       user.companies.each do |company|
         if @ids.keys.include? company.linkedin_id
-          data = self.cached company: company
+          data = cached company: company
         else
           data = self.fetch! company: company, client: client
         end
@@ -229,4 +217,16 @@ class SynchronizeLinkedinProfile
   def self.retrieve(url)
     Dragonfly.app.fetch_url url
   end
+
+  ACTIONS = [
+    LoadUser,
+    SynchNetwork,
+    SynchCountry,
+    SynchCareer,
+    SynchCompanyInformation,
+    SynchEducation,
+    SynchImage,
+    SynchUrl,
+    SaveUser
+  ]
 end
