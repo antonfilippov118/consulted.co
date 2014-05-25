@@ -18,7 +18,7 @@
           </span>
         </span>
       </div>
-      <div ng-show="offer.expert.current_position">{{offer.expert.current_company.name}}, {{offer.expert.current_position}} {{offer.expert.current_year | careerYear}}</div>
+      <div ng-show="offer.expert.current_position">{{offer.expert.current_company.name}}, {{offer.expert.current_position}}, <span ng-show="offer.expert.current_company.city">{{offer.expert.current_company.city}}, </span>{{offer.expert.current_year | careerYear}}</div>
       <div class="expert-exp">
         <strong>Category Experience:</strong> {{offer.experience}} years</div>
       <div class="expert-pph">

@@ -31,7 +31,8 @@ child :expert => :expert do
     if user.companies.current
       {
         name: user.companies.current.name,
-        url: user.companies.current.url
+        url: user.companies.current.url,
+        city: user.companies.current.city
       }
     else
       false

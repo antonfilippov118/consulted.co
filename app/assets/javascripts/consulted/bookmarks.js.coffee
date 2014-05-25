@@ -1,7 +1,6 @@
 $ ->
   toggle = $('.show_all')
 
-
   toggle.on 'click', () ->
     el = $(this)
     list = $(el.data('target'))

@@ -18,12 +18,17 @@
         <%= render partial: 'users/favorites/bookmark' %>
       </h1>
       <% if current_position  && current_company %>
-        <p class="bigger"><%= current_position %> at
+        <p class="bigger">
         <% if company_url %>
-          <%= link_to current_company_name, company_url, target: '_blank' %>
+          <%= link_to current_company_name, company_url, target: '_blank' %>,
         <% else %>
-          <%= current_company_name %>
+          <%= current_company_name %>,
         <% end %>
+        <% if current_company_city.present? %>
+          <%= current_company_city %>,
+        <% end %>
+        <%= current_position %>,
+        <%= career_span(current_company) %>
         </p>
       <% end %>
       <% if summary? %>

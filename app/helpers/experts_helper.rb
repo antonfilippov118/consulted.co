@@ -9,8 +9,13 @@ module ExpertsHelper
   end
 
   def current_company_name
-    return false if current_company.nil?
+    return '' if current_company.nil?
     current_company.name
+  end
+
+  def current_company_city
+    return '' if current_company.nil?
+    current_company.city
   end
 
   def past_companies
