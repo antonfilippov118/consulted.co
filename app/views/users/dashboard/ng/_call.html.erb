@@ -2,12 +2,14 @@
   <tr class="{{call.class}}">
     <td>{{call.status_name}}</td>
     <td>
+      <a ng-href="/groups/{{call.group.slug}}" target="_blank">{{call.group.name}}</a>
+    </td>
+    <td>
       {{call.active_from}} with {{call.partner_name}} for {{call.length}} minutes
     </td>
-    <td>{{call.request_status}}</td>
-    <td></td>
-    <td>
-      <span ng-show="call.active">PIN: {{call.pin}}</span>
+    <td ng-hide="call.active">{{call.request_status}}</td>
+    <td ng-show="call.active">
+      <span>PIN: {{call.pin}}</span>
     </td>
     <td ng-show="call.controllable">
       <a ng-click="confirm(call)" class="link-confirm" ng-show="!call.active && call.expert">confirm</a>
