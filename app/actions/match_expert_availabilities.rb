@@ -73,7 +73,7 @@ class MatchExpertAvailabilities
         ids = experts_available.map { |expert| expert.id }
       rescue => e
         context.fail! e.message
-        logger.debug e.message
+        p e.message
         ids = []
       end
 
