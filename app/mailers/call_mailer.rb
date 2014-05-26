@@ -58,6 +58,6 @@ class CallMailer < ApplicationMailer
     else
       date = call.active_to.utc
     end
-    date.strftime '%A, %B %-d %Y, %I:%M%P'
+    date.strftime '%A, %B %-d %Y, %H:%M'
   end
 end
