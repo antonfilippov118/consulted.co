@@ -1,7 +1,7 @@
 class Users::FavoritesController < Users::BaseController
 
   def index
-    @favorites = User.find @user.favorites.map(&:favorite_id)
+    @favorites = User.where id: { :$in => @user.favorites.map(&:favorite_id) }
   end
 
   def update

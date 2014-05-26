@@ -81,7 +81,8 @@ class ApplicationMailer < ActionMailer::Base
       'root_url' => root_url,
       'settings_url' => settings_url,
       'terms_url' => terms_url,
-      'privacy_url' => privacy_url
+      'privacy_url' => privacy_url,
+      'login_url' => new_user_session_url
     }.merge static_urls
   end
 

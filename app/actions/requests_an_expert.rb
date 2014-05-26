@@ -4,6 +4,7 @@ class RequestsAnExpert
   def self.for(params)
     with(params: params).reduce [
       ClearParams,
+      CheckCallAvailability,
       CreateRequest,
       SendExpertNotification,
       SendSeekerNotification
@@ -36,6 +37,14 @@ class RequestsAnExpert
       rescue => e
         context.fail! e
       end
+    end
+  end
+
+  class CheckCallAvailability
+    include LightService::Action
+
+    executed do |context|
+
     end
   end
 

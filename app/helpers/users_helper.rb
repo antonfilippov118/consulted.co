@@ -56,6 +56,10 @@ module UsersHelper
     ActiveSupport::TimeZone.new(user.timezone)
   end
 
+  def current_tz_offset
+    timezone.now.formatted_offset
+  end
+
   def own_company_url
     return false if own_current_company.nil?
     return false if own_current_company.linkedin_id.nil?

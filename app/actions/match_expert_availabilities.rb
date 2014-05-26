@@ -21,7 +21,9 @@ class MatchExpertAvailabilities
   class ExcludeExperts
     include LightService::Action
 
-    def self.select_time(expert_times, times, days, user = nil)
+    def self.select_time(opts = {})
+      opts = { user: nil }.merge opts
+      expert_times, times, days, user = [:expert_times, :times, :days, :user].map { |sym| opts.fetch sym }
       expert_times.keep_if do |expert_time|
         starting, ending = [:start, :end].map { |sym| Time.at(expert_time.fetch(sym)) }
         unless user.nil?
@@ -64,7 +66,7 @@ class MatchExpertAvailabilities
           possible_times = result.fetch :times
           expert.possible_times = possible_times
           next true if possible_times.empty?
-          filtered_times = ExcludeExperts.select_time expert.possible_times, times, days, user
+          filtered_times = ExcludeExperts.select_time expert_times: expert.possible_times, times: times, days: days, user: user
           filtered_times.empty?
         end
 

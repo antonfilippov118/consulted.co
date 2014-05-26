@@ -1,10 +1,13 @@
 collection @calls
-attributes :name, :message, :status, :payment, :length, :active_from, :active
+attributes :name, :message, :status, :payment, :length, :active, :payment
 
-node :fee do |call|
-  call.payment * Settings.platform_fee / 100
+node :active_from do |call|
+  call.active_from.to_i * 1000
 end
 
+node :cost do |call|
+  (call.fee + call.rate).to_f / 100
+end
 node :seeker do |call|
   seeker?(call)
 end

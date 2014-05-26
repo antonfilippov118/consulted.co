@@ -14,7 +14,7 @@
     <%= render partial: 'layouts/zopim' %>
   </head>
   <body class="<%= 'landing' unless user_signed_in? %>">
-    <div ng-app="consulted.finder" data-group="<%= @group.slug %>" data-rate-min="<%= @rates.min %>" data-rate-max="<%= @rates.max %>" data-experience-min="<%= @experience.min %>" data-experience-max="<%= @experience.max %>">
+    <div ng-app="consulted.finder" data-group="<%= @group.slug %>" data-rate-min="<%= @rates.min %>" data-rate-max="<%= @rates.max %>" data-experience-min="<%= @experience.min %>" data-experience-max="<%= @experience.max %>" data-offset="<%= current_tz_offset unless @user.nil? %>">
       <div class="wrapper" class="offerfull-form">
         <% if user_signed_in? %>
           <%= render partial: 'layouts/application/navbar_loggedin' %>
@@ -46,7 +46,7 @@
           <%= render partial: 'layouts/footer', locals: { inverted: user_signed_in? } %>
           <%= render partial: 'layouts/copy' %>
         </div>
-        <% %w(filter offer).each do |partial| %>
+        <% %w(filter offer contact_expert).each do |partial| %>
         <script type="text/ng-template" id="<%= partial %>">
           <%= render partial: "groups/ng/#{partial}"  %>
         </script>

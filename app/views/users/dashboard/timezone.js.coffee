@@ -1,3 +1,4 @@
-$('#tz_modal').modal('hide')
-$('#user_timezone').replaceWith('<%= render partial: "timezone" %>')
-CONSULTED.trigger()
+CONSULTED.trigger('Update successful. Reloading...')
+setTimeout ->
+  window.location.reload()
+, 1000

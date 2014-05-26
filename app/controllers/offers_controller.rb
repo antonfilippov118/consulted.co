@@ -5,4 +5,8 @@ class OffersController < ApplicationController
       render json: []
     end
   end
+
+  def show
+    @offer = Offer.find params[:id]
+  end
 end

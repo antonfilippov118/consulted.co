@@ -8,7 +8,9 @@ module Liquidatable
         'seeker' => seeker,
         'expert' => expert,
         'duration' => length,
-        'code' => pin
+        'code' => pin,
+        'group' => name,
+        'name' => name
       }.merge(languages).merge rates
     end
 

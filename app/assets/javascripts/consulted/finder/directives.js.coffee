@@ -158,6 +158,32 @@ app.directive 'offer', [
 
 ]
 
+app.directive 'contactExpert', [
+  'Call'
+  '$window'
+  (Call, $window) ->
+    replace: yes
+    scope:
+      offer: '=for'
+    templateUrl: 'contact_expert'
+    link: (scope) ->
+      fetch = () ->
+        scope.loading = yes
+        Call.findNextTime(scope.offer).then (data) ->
+          {date, length} = data
+          scope.date   = date
+          scope.length = length
+        .finally () ->
+          scope.loading = no
+
+      scope.contact = (expert) ->
+        localStorage.setItem "#{expert.slug}:time", scope.date.format('YYYY-MM-DD HH:mm Z')
+        $window.location.assign "/offers/#{scope.offer.slug}-with-#{expert.slug}/review"
+
+      scope.$on 'result', fetch
+      fetch()
+]
+
 app.directive 'ionRangeMulti', [
   '$timeout'
   'Configuration'

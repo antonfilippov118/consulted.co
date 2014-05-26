@@ -161,6 +161,8 @@ app.service 'Date', [
 
     selected: selected
 
+    getDates: -> days
+
     getCurrent: () ->
       return ['Next 14 days'] if fortnight
       days.sort (first, second) ->
@@ -169,14 +171,11 @@ app.service 'Date', [
       .map (obj) ->
         obj.format 'ddd'
 
-
-
-
 ]
 
 app.service 'Time', [
   'Search'
-  Time = (Search) ->
+  Time = (Search, http, q) ->
     allDay = yes
     times = []
 
@@ -335,4 +334,90 @@ app.service 'Search', [
       timer = timeout ->
         save options
       , timeoutValue
+]
+
+app.service 'Call', [
+  'Date'
+  'Time'
+  '$http'
+  '$q'
+  '$rootElement'
+  Call = (Date, Time, http, q, root) ->
+    offset = root.data('offset') || 0
+
+    _intersect = (a, b) ->
+      retVal = []
+      hashMap = {}
+
+      for l in a
+        hashMap[l] = 1
+
+      for l in b
+        if hashMap[l] and ((hashMap[l] += 1) == 2)
+          retVal.push(l)
+      retVal
+
+    intersect = (a, b) ->
+      return _intersect(a, b) if a.length <= b.length
+      _intersect(b, a)
+
+
+    matchTimes = (times, start, end) ->
+      times = times.sort (a, b) -> a.from - b.from
+      for time in times
+        _start = moment.utc(start).add(offset, 'seconds').hour()
+        _end   = moment.utc(end).add(offset, 'seconds').hour()
+        if time.to is 0
+          return yes if _start >= time.from || _end >= time.from
+        else if time.from is 0
+          return yes if _end <= time.to
+        else
+          return yes if intersect([time.from..time.to], [_start.._end]).length > 0
+      no
+
+    matchDate = (date, date2) ->
+      date.isSame(date2, 'day') || date.isAfter(date2)
+
+    matchDateTime = (date, times, start, end) ->
+      matchDate(date, start) && matchTimes(times, start, end)
+
+    findNextTime: (offer) ->
+      findTime = (available_times) ->
+        times = available_times.sort (a, b) -> a.start - b.start
+        dates = Date.getDates()
+        dateFiltered = dates.length > 0
+        fTimes = Time.getCurrent()
+        fTimesFiltered = fTimes.length > 0
+        for date in dates
+          for ts in times
+            start = moment.utc ts.start * 1000
+            end   = moment.utc ts.end * 1000
+            if fTimesFiltered and dateFiltered
+              match = matchDateTime date, fTimes, start, end
+            else if dateFiltered
+              match = matchDate(start, date)
+            else
+              match = matchTimes fTimes, start, end
+            continue if match is no
+
+            data =
+              date: start
+              length: do ->
+                if offer.maximum_length < ts.max_length
+                  offer.maximum_length
+                else
+                  ts.max_length
+            return data
+        data =
+          date: moment.utc(times[0].start * 1000)
+          length: times[0].max_length
+      result = q.defer()
+      http.get("/times/#{offer.expert.slug}/#{offer.slug}").then (response) ->
+        result.resolve findTime response.data
+      , (err) ->
+        result.reject err
+
+      result.promise
+
+
 ]

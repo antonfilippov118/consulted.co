@@ -19,6 +19,9 @@ module Sluggable
       field :slug, type: String
       before_save do
         self.slug = default_slug if self.slug.nil?
+        if offers.any? && slug_changed?
+          offers.each(&:save)
+        end
       end
     end
   end
