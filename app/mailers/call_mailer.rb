@@ -53,11 +53,13 @@ class CallMailer < ApplicationMailer
   def date(call, partner)
     partner = call.send partner
     tz = partner.timezone
-    if tz.present?
-      Time.at(call.active_to).in_time_zone(tz)
-    else
-      call.active_to.utc
-    end
-  end
+    binding.pry
 
+    if tz.present?
+      date = Time.at(call.active_to).in_time_zone(tz)
+    else
+      date = call.active_to.utc
+    end
+    date.strftime '%A, %B %-d %Y, %I:%M%P'
+  end
 end

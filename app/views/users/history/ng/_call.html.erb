@@ -28,13 +28,13 @@
   </tr>
   <tr>
     <td>
-      <span ng-show="offered()">Payment</span>
-      <span ng-hide="offered()">Cost</span>
+      <span ng-show="call.expert">Payment</span>
+      <span ng-hide="call.expert">Cost</span>
     </td>
     <td>
-      <span ng-show="offered()">{{call.payment | currency}}</span>
-      <span ng-hide="offered()">{{call.cost | currency}}</span>
-      <span ng-show="offered()" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
+      <span ng-show="call.expert">{{call.payment | currency}}</span>
+      <span ng-hide="call.expert">{{call.cost | currency}}</span>
+      <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
     </td>
   </tr>
   <tr>

@@ -51,7 +51,7 @@
     <div class="expert-end">
       <div class="expert-act">
         <% if user_signed_in? %>
-          <div contact-expert for="offer" offset="<%= timezone.utc_offset %>"></div>
+          <div contact-expert for="offer" offset="<%= current_tz_offset %>"></div>
         <% else %>
           <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
             Sign up to book

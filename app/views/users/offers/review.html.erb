@@ -1,6 +1,6 @@
 <%= render partial: 'layouts/breadcrumbs', locals: { group: @offer.group, with_group: true, with_expert: true } %>
 <h2 class="heading">Your selection</h2>
-<div id="expert" ng-app="consulted.booking" data-offer="<%= @offer.id.to_s %>" data-offset="<%= timezone.utc_offset %>">
+<div id="expert" ng-app="consulted.booking" data-offer="<%= @offer.id.to_s %>" data-offset="<%= current_tz_offset %>">
   <div ng-controller="BookingCtrl">
     <div ng-show="error" class="alert">
       {{message}}

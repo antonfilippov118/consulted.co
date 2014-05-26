@@ -166,8 +166,8 @@ app.filter 'order', () ->
 app.filter 'moment', [
   '$rootElement'
   ($rootElement) ->
-    offset = $rootElement.data('offset') || 0
+    offset = $rootElement.data('offset') || '+00:00'
     console.log offset
     (input, format = 'YYYY-MM-DD') ->
-      moment.utc(input).add(offset, 'seconds').format(format)
+      moment.utc(input).zone(offset).format(format)
 ]

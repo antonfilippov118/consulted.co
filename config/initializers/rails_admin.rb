@@ -185,7 +185,7 @@ RailsAdmin.config do |config|
       end
       field :subject
       field :from, :string
-      field :html_version
+      field :html_version, :ck_editor
       field :text_version
     end
   end
