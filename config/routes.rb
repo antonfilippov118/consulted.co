@@ -131,6 +131,8 @@ Consulted::Application.routes.draw do
     get page, controller: :static
   end
 
+  get '/timezone', controller: 'users/utilities', action: 'timezone', constraints: { format: 'json' }
+
   get '/fonts/flaticon', controller: 'fonts/flaticon', action: :show
 
   %w(404 422 500).each do |code|
