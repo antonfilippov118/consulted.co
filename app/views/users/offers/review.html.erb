@@ -2,7 +2,7 @@
 <h2 class="heading">Your selection</h2>
 <div id="expert" ng-app="consulted.booking" data-offer="<%= @offer.id.to_s %>" data-offset="<%= current_tz_offset %>">
   <div ng-controller="BookingCtrl">
-    <div ng-show="error" class="alert">
+    <div ng-show="error" class="alert ng-cloak">
       {{message}}
     </div>
     <div class="expert-main row divider">
@@ -113,7 +113,7 @@
     <input type="hidden" id="expert_id" value="<%= @expert.id.to_s %>">
     <input type="hidden" id="expert_slug" value="<%= @expert.slug %>">
   </div>
-  <% %w(time_select).each do |partial| %>
+  <% %w(time_select confirm).each do |partial| %>
   <script type="text/ng-template" id="<%= partial %>">
   <%= render partial: "users/offers/ng/#{partial}" %>
   </script>
