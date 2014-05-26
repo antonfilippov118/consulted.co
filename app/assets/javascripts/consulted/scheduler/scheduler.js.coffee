@@ -61,32 +61,6 @@ app.controller 'ScheduleCtrl', [
       scope.events = events
 ]
 
-app.directive 'dhxScheduler', [
-  'Scheduler'
-  (Scheduler) ->
-    restrict: 'A'
-    scope:
-      events: '='
-    transclude: yes
-    template: '<div class="dhx_cal_navline" ng-transclude></div><div class="dhx_cal_header"></div><div class="dhx_cal_data"></div>'
-    link: (scope, el, attrs, ctrl) ->
-      scope.$watch () ->
-        "#{el[0].offsetWidth}.#{el[0].offsetHeight}"
-      , () ->
-        scheduler.setCurrentView()
-
-      el.addClass 'dhx_cal_container'
-
-      scope.$watch 'events', (collection) ->
-        return unless collection
-        return unless collection.length > 0
-        Scheduler.clear()
-        Scheduler.addEvents collection
-      , yes
-
-      Scheduler.init(el)
-
-]
 
 app.service 'Availabilities', [
   '$http'
