@@ -1,0 +1,16 @@
+
+<div class="modal-header">
+  <h3 class="modal-title">{{ title }}</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-6">
+      <timepicker data-ng-model="start" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
+    </div>
+    <div class="col-sm-6">
+      <timepicker data-ng-model="end" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
+    </div>
+  </div>
+  <p class="visible-md visible-lg"><small>Use your mouse-wheel to edit time</small></p>
+</div>
+<div class="modal-footer"><a href="#" data-ng-click="accept($event, start, end)" class="btn btn-primary"><i class="fa fa-check"></i>OK</a><a href="#" data-ng-click="dismiss($event)" class="btn btn-warning"><i class="fa fa-times"></i>Cancel</a></div>
