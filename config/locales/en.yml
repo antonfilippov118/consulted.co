@@ -29,6 +29,7 @@ en:
     sessions:
       user:
         signed_out: ''
+        signed_in: ''
       investor:
         signed_in: ''
     registrations:
