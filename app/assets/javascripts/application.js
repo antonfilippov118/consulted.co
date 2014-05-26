@@ -7,6 +7,7 @@
 //= require moment/moment
 //= require typeahead.js/dist/typeahead.bundle.js
 //= require angular/angular
+//= require angular-touch/angular-touch
 //= require angular-route/angular-route
 //= require angular-sanitize/angular-sanitize
 //= require angular-bootstrap/ui-bootstrap
