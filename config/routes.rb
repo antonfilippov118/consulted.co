@@ -89,7 +89,7 @@ Consulted::Application.routes.draw do
   end
 
   resource :offers, only: [:show] do
-    get '/:id', to: 'offers#show', constraints: { format: 'json' }
+    get '/:id/show', to: 'offers#show', constraints: { format: 'json' }
     get '/:expert', to: 'offers#index', constraints: { format: 'json' }
   end
 

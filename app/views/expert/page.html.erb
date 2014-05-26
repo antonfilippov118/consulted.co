@@ -66,7 +66,7 @@
       <div class="block"></div>
     <% end %>
   </div>
-  <div ng-app="consulted.offer_select" data-expert="<%= @expert.slug %>" data-tz-offset="<%= expert_current_tz_offset %>">
+  <div ng-app="consulted.offer_select" data-expert="<%= @expert.slug %>" data-offset="<%= current_tz_offset %>">
     <div ng-controller="OffersCtrl">
       <h2 class="heading">Expert's service offerings</h2>
       <div ng-show="loading">Loading...</div>
