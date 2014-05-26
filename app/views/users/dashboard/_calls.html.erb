@@ -10,7 +10,7 @@
       </tbody>
       <tbody no-calls ng-show="!loading && new_calls.length === 0" text="There are no calls within the next 7 days.">
       </tbody>
-      <tbody call="call" class="ng-cloak" ng-repeat="call in new_calls" ng-show="new_calls.length > 0">
+      <tbody call="call" class="ng-cloak" ng-repeat="call in new_calls | orderBy:'timestamp'" ng-show="new_calls.length > 0">
       </tbody>
     </table>
 
@@ -24,7 +24,7 @@
       </tbody>
       <tbody no-calls ng-show="!loading && future_calls.length == 0" text="There are no calls in eight days or later.">
       </tbody>
-      <tbody call="call" class="ng-cloak" ng-repeat="call in future_calls" ng-show="!loading && future_calls.length > 0">
+      <tbody call="call" class="ng-cloak" ng-repeat="call in future_calls | orderBy:'timestamp'" ng-show="!loading && future_calls.length > 0">
       </tbody>
     </table>
   </div>
