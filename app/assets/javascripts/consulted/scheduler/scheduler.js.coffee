@@ -1,5 +1,6 @@
-app = angular.module 'consulted.scheduler', []
+app = angular.module 'consulted.scheduler', ["scheduler"]
 
+###
 app.service 'Scheduler', [
   'Availabilities'
   (Availabilities) ->
@@ -52,13 +53,49 @@ app.service 'Scheduler', [
       scheduler.addEvent event for event in events
 
 ]
+###
 
 app.controller 'ScheduleCtrl', [
   '$scope'
   'Availabilities'
   (scope, Availabilities) ->
-    Availabilities.get().then (events) ->
-      scope.events = events
+    max = 24 * 60 
+    scope.events = for i in [0...7]
+      []
+
+    scope.log = []
+
+    scope.add = (event) ->
+      scope.addRandomEvent()
+      event.preventDefault()
+
+    scope.addRandomEvent = () ->
+      day = Math.floor Math.random() * 7
+      start = 5 * Math.floor Math.random() * (max / 5)
+      scope.events[day].push 
+        time: [start, start + 15]
+        data:
+          id: Math.round Math.random() * 1000
+
+    for i in [0...3]
+      scope.addRandomEvent()
+
+
+    scope.currentWeek = moment()
+
+    console.log scope.currentWeek
+    console.log scope.events
+
+    scope.$on "scheduler.remove", (event, data) ->
+      scope.log.push "remove #{data.id}"
+
+    scope.$on "scheduler.update", (event, data, time) ->
+      scope.log.push "update #{data.id}, #{time[0]} - #{time[1]}"
+
+    scope.$on "scheduler.add", (event, data, time) ->
+      scope.log.push "add #{data.id}, #{time[0]} - #{time[1]}"
+    #Availabilities.get().then (events) ->
+    #  scope.events = events
 ]
 
 
