@@ -8,7 +8,7 @@ app.service 'Offer', [
     offer_id = root.data 'offer'
     get: () ->
       result = q.defer()
-      http.get("/offers/#{offer_id}").then (response) ->
+      http.get("/offers/#{offer_id}/show").then (response) ->
         result.resolve response.data
       result.promise
 

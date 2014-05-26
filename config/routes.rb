@@ -89,7 +89,7 @@ Consulted::Application.routes.draw do
   end
 
   resource :offers, only: [:show] do
-    get '/:id', to: 'offers#show', constraints: { format: 'json' }
+    get '/:id/show', to: 'offers#show', constraints: { format: 'json' }
     get '/:expert', to: 'offers#index', constraints: { format: 'json' }
   end
 
@@ -130,6 +130,8 @@ Consulted::Application.routes.draw do
   ].each do |page|
     get page, controller: :static
   end
+
+  get '/timezone', controller: 'users/utilities', action: 'timezone', constraints: { format: 'json' }
 
   get '/fonts/flaticon', controller: 'fonts/flaticon', action: :show
 

@@ -5,6 +5,10 @@ class Users::UtilitiesController < ApplicationController
     render json: !exists
   end
 
+  def timezone
+
+  end
+
   private
 
   def email_params
