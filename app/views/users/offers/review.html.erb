@@ -102,7 +102,7 @@
             <p class="bigger">Your message</p>
           </div>
           <div class="clr">
-            <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short."></textarea>
+            <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short." ng-max-length="500"></textarea>
           </div>
           <div class="clr">
             <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending">Send binding request</button>
