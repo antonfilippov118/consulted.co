@@ -14,8 +14,14 @@
       </span>
       <span class="filter-prop">
         <strong>Hourly rate:</strong> ${{currentRate().from}} - ${{currentRate().to}}</span>
+      <span class="filter-prop" ng-show="currentTags().length > 0">
+        <strong>Keywords:</strong> {{currentTags().join(', ')}}
+      </span>
       <span class="filter-prop">
         <strong>Experience:</strong> {{currentExperience().from}} - {{currentExperience().to}} years</span>
+      <span class="filter-prop" ng-show="bookmarksOnly()">
+        <strong>Only bookmarks</strong>
+      </span>
     </div>
   </div>
   <div id="filter-expanded" ng-show="open" ng-class="{'in':open}">

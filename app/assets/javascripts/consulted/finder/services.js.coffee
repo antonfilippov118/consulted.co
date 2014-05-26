@@ -64,6 +64,10 @@ app.service 'Tag', [
       currentTags.push tag unless tag in currentTags
       trigger()
 
+    getCurrent: () ->
+      currentTags.map (tag) ->
+        "'#{tag}'"
+
     remove: (tag) ->
       idx = currentTags.indexOf tag
       if idx > -1

@@ -11,7 +11,9 @@ app.controller 'FilterCtrl', [
   'Experience'
   'Date'
   'Time'
-  FilterCtrl = (scope, Language, Continent, Rate, Experience, Date, Time) ->
+  'Bookmark'
+  'Tag'
+  FilterCtrl = (scope, Language, Continent, Rate, Experience, Date, Time, Bookmark, Tag) ->
     scope.open = no
 
     scope.toggle = () ->
@@ -28,6 +30,8 @@ app.controller 'FilterCtrl', [
     scope.currentRate       = -> Rate.getCurrent()
     scope.currentExperience = -> Experience.getCurrent()
     scope.currentDays       = -> slice Date.getCurrent()
+    scope.bookmarksOnly     = -> Bookmark.isActive()
+    scope.currentTags       = -> slice Tag.getCurrent()
     scope.currentTimes      = ->
       slice do ->
         Time.getCurrent().sort((a, b) ->
