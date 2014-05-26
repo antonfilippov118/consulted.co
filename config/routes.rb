@@ -35,7 +35,7 @@ Consulted::Application.routes.draw do
     end
 
     resources :offers, only: [:create], controller: 'users/offers' do
-      get '/review/:date', action: :review
+      get '/review', action: :review
     end
 
     scope :'my-calls', controller: 'users/history' do
@@ -89,6 +89,7 @@ Consulted::Application.routes.draw do
   end
 
   resource :offers, only: [:show] do
+    get '/:id', to: 'offers#show', constraints: { format: 'json' }
     get '/:expert', to: 'offers#index', constraints: { format: 'json' }
   end
 

@@ -21,15 +21,19 @@
         <span ng-hide="call.seeker">{{call.partner_name}}</span>
       </p>
       <p class="callpart-links">
-        <a ng-href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="{{call.partner.linkedin}}"></a>
-        <a ng-href="{{call.partner.twitter}}" target="_blank" ng-show="{{call.partner.twitter}}" class="flaticon flaticon-twitter"></a>
+        <a ng-href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="call.partner.linkedin"></a>
+        <a ng-href="{{call.partner.twitter}}" target="_blank" ng-show="call.partner.twitter" class="flaticon flaticon-twitter"></a>
       </p>
     </td>
   </tr>
   <tr>
-    <td>Payment</td>
     <td>
-      {{call.payment | currency}}
+      <span ng-show="offered()">Payment</span>
+      <span ng-hide="offered()">Cost</span>
+    </td>
+    <td>
+      <span ng-show="offered()">{{call.payment | currency}}</span>
+      <span ng-hide="offered()">{{call.cost | currency}}</span>
       <span ng-show="offered()" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
     </td>
   </tr>

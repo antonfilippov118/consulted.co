@@ -96,7 +96,6 @@ class Call
   end
 
   def self.generate_unique_pin
-    # TODO: this can potentially collide with other active calls
     100_000 + Random.rand(1_000_000 - 100_000)
   end
 
@@ -114,7 +113,7 @@ class Call
 
   def book!
     return if availability.nil?
-    if cancelled?
+    if cancelled? or declined?
       availability.free! active_from.utc, length_with_break
     else
       availability.book! active_from.utc, length_with_break

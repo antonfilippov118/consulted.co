@@ -55,7 +55,7 @@ module CallsHelper
   end
 
   def start_time_for(call)
-    Time.at(call.active_from).in_time_zone(@user.timezone).strftime '%A, %B %-d %Y, %I:%M%P'
+    call.active_from.to_i * 1000
   end
 
   def expert_request_status

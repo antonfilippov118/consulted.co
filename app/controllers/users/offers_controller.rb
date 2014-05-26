@@ -1,7 +1,5 @@
 class Users::OffersController < Users::BaseController
   before_filter :user_is_expert?, only: [:review]
-  before_filter :date?, only: [:review]
-  before_filter :blocks_available?, only: [:review]
   def show
     title! 'Offer your time'
   end
@@ -34,19 +32,17 @@ class Users::OffersController < Users::BaseController
   end
 
   def review
-    @request = Call.new
     title! "#{@offer.name} with #{@offer.expert.name}"
   end
 
   def create
+    binding.pry
+
     result = RequestsAnExpert.for request_params.merge seeker: @user
     if result.failure?
-      flash[:warning] = result.message
-      @offer = result.fetch :offer
-      @expert = result.fetch :expert
-      render :review
+      render json: { error: result.message }, status: :unprocessable_entity
     else
-      redirect_to success_requests_path
+      render json: { success: true }
     end
   end
 
@@ -61,18 +57,12 @@ class Users::OffersController < Users::BaseController
   end
 
   def user_is_expert?
-    @offer   = Offer.find_by url: params[:offer_id]
-    @expert  = @offer.expert
-    if @expert == @user
-      flash[:alert] = 'You cannot request a meeting with yourself!'
-      redirect_to group_path(@offer.group)
-    end
-  end
-
-  def date?
-    date = params[:date]
-    redirect_to root_path if date.nil?
-    @dates = [date]
+    @offer = Offer.find_by url: params[:offer_id]
+    @expert = @offer.expert
+    # if @expert == @user
+    #   flash[:alert] = 'You cannot request a meeting with yourself!'
+    #   redirect_to group_path(@offer.group)
+    # end
   end
 
   def blocks_available?

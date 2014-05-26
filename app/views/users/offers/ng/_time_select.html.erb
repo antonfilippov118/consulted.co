@@ -1,0 +1,44 @@
+<div>
+  <div class="text-center" ng-show="loading">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+  <div class="profile-talk" ng-hide="loading">
+    <div class="profile-heading2">Choose how long you want to talk</div>
+    <div class="profile-time clr">
+      <div class="time-select">
+        <div class="time-point" ng-mouseover="show(length)" ng-click="select(length)" ng-mouseleave="hide(length)" ng-class="{'sel':isSelected(length)}" ng-repeat='length in lengths'></div>
+      </div>
+      <div class="greensemi right">
+      <span id="howlong">{{selected()}}</span> minutes</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <p class="bigger label-select">Start</p>
+      </div>
+      <div class="col-md-10">
+        <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start * 1000 | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <p class="bigger label-select">From</p>
+      </div>
+      <div class="col-md-10">
+        <p class="bigger label-select">
+          {{request.active_from | moment:'ddd, MMM DD YYYY HH:mm'}}
+          <a ng-click="add(5)" ng-show="addable(5)">[+ 5 min]</a>
+          <a ng-click="add(-5)" ng-show="subtractable(5)">[- 5 min]</a>
+        </p>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <p class="bigger label-select">To</p>
+      </div>
+      <div class="col-md-10">
+        <p class="bigger label-select ">{{active_to() | moment:'ddd, MMM DD YYYY, HH:mm'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

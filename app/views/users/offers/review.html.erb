@@ -1,7 +1,10 @@
 <%= render partial: 'layouts/breadcrumbs', locals: { group: @offer.group, with_group: true, with_expert: true } %>
 <h2 class="heading">Your selection</h2>
-<div id="expert">
-  <%= form_for @request, url: offers_path do |f| -%>
+<div id="expert" ng-app="consulted.booking" data-offer="<%= @offer.id.to_s %>" data-offset="<%= timezone.utc_offset %>">
+  <div ng-controller="BookingCtrl">
+    <div ng-show="error" class="alert">
+      {{message}}
+    </div>
     <div class="expert-main row divider">
       <div class="profile-info col-md-6">
         <div class="profile-image">
@@ -17,7 +20,9 @@
             <% if linkedin_profile? %>
               <%= link_to '', linkedin_profile_url, class: 'flaticon flaticon-linkedin', target: '_blank'  %>
             <% end %>
-            <%# TODO: social %>
+            <% if expert_twitter? %>
+              <%= link_to '', expert_twitter_url, class: 'flaticon flaticon-twitter', target: '_blank'  %>
+            <% end %>
           </div>
         </h1>
         <div class="clr profile-price expert-pph">
@@ -25,23 +30,7 @@
           <small>(our fee included)</small>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="profile-talk">
-          <div class="profile-heading2">Choose how long you want to talk</div>
-          <div class="profile-time clr">
-            <div class="time-select">
-              <% possible_lengths.each do |time| %>
-                <div class="time-point" data-value="<%= time %>"></div>
-                <%= f.radio_button :length, time, id: "time_#{time}", class: 'hidden' %>
-              <% end %>
-            </div>
-            <div class="greensemi right">
-            <span id="howlong"></span> minutes</div>
-          </div>
-          <p class="bigger">
-            <span id="call_from" data-timestamp="<%= call_time.to_i %>"></span> - <span id="call_to"></span>
-          </p>
-        </div>
+      <div class="col-md-6" time-select request="request">
       </div>
     </div>
     <div class="expert-details row">
@@ -113,16 +102,20 @@
             <p class="bigger">Your message</p>
           </div>
           <div class="clr">
-            <%= f.text_area :message, class: 'form-control', rows: 10, placeholder: 'You can leave here a quick note about the topic. Keep it short.' %>
+            <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short."></textarea>
           </div>
           <div class="clr">
-            <%= f.submit "Send binding request", class: 'btn btn-primary',  data: { disable_with: 'Sending...' } %>
+            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending">Send binding request</button>
           </div>
         </div>
       </div>
     </div>
-    <%= f.hidden_field :expert, value: @expert.id %>
-    <%= f.hidden_field :offer, value: @offer.id %>
-    <%= f.hidden_field :active_from, value: call_time %>
+    <input type="hidden" id="expert_id" value="<%= @expert.id.to_s %>">
+    <input type="hidden" id="expert_slug" value="<%= @expert.slug %>">
+  </div>
+  <% %w(time_select).each do |partial| %>
+  <script type="text/ng-template" id="<%= partial %>">
+  <%= render partial: "users/offers/ng/#{partial}" %>
+  </script>
   <% end %>
 </div>

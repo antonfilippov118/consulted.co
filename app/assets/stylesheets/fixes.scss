@@ -266,5 +266,11 @@ overflow: auto;
   width: 14.28%;
 }
 
+.bigger {
+  &.label-select {
+    padding: 5px;
+  }
+}
+
 @import 'filters';
 @import 'typeahead';
