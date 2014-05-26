@@ -33,6 +33,7 @@ app.controller "LookupCtrl", [
     scope.reset = () ->
       scope.term = ''
       rootScope.$broadcast 'search:disable'
+      $('html, body').animate({scrollTop: 0}, 'slow')
       scope.search_active = no
 
     scope.learn = (group) ->
