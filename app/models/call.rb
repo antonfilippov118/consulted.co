@@ -113,7 +113,7 @@ class Call
 
   def book!
     return if availability.nil?
-    if cancelled? or declined?
+    if cancelled? || declined?
       availability.free! active_from.utc, length_with_break
     else
       availability.book! active_from.utc, length_with_break

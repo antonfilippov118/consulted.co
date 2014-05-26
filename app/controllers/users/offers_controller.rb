@@ -36,8 +36,6 @@ class Users::OffersController < Users::BaseController
   end
 
   def create
-    binding.pry
-
     result = RequestsAnExpert.for request_params.merge seeker: @user
     if result.failure?
       render json: { error: result.message }, status: :unprocessable_entity
@@ -59,10 +57,10 @@ class Users::OffersController < Users::BaseController
   def user_is_expert?
     @offer = Offer.find_by url: params[:offer_id]
     @expert = @offer.expert
-    # if @expert == @user
-    #   flash[:alert] = 'You cannot request a meeting with yourself!'
-    #   redirect_to group_path(@offer.group)
-    # end
+    if @expert == @user
+      flash[:alert] = 'You cannot request a meeting with yourself!'
+      redirect_to group_path(@offer.group)
+    end
   end
 
   def blocks_available?

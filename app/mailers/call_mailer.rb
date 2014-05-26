@@ -53,8 +53,6 @@ class CallMailer < ApplicationMailer
   def date(call, partner)
     partner = call.send partner
     tz = partner.timezone
-    binding.pry
-
     if tz.present?
       date = Time.at(call.active_to).in_time_zone(tz)
     else
