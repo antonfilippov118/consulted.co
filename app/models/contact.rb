@@ -5,12 +5,22 @@ class Contact
 
   attr_accessor :name, :email, :message, :subject
 
-  validates_presence_of :name, :email
-  validates_length_of :content, :maximum => 500
+  validates_presence_of :name, :email, :subject, :message
+  validates_length_of :message, maximum: 500
 
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
     end
+  end
+
+  def send!
+    return false unless valid?
+    begin
+      ContactMailer.send_contact_request(self).deliver!
+    rescue
+      return false
+    end
+    true
   end
 end

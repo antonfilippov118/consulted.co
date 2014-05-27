@@ -109,7 +109,10 @@ Consulted::Application.routes.draw do
   get :find_an_expert, controller: 'search', action: :show
 
   post :search, to: 'search#search'
-  get :contact, controller: 'contacts', action: 'new'
+
+  resource :contact, only: [:new, :create] do
+    get :success
+  end
 
   namespace :call do
     post '/', action: :welcome
