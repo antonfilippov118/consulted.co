@@ -12,6 +12,7 @@
     <![endif]-->
     <%= csrf_meta_tags %>
     <%= render partial: 'layouts/zopim' %>
+    <%= render partial: 'layouts/optimizely' %>
   </head>
   <body class="<%= 'landing' unless user_signed_in? %>">
     <div ng-app="consulted.finder" data-group="<%= @group.slug %>" data-rate-min="<%= @rates.min %>" data-rate-max="<%= @rates.max %>" data-experience-min="<%= @experience.min %>" data-experience-max="<%= @experience.max %>" data-offset="<%= current_tz_offset unless @user.nil? %>">

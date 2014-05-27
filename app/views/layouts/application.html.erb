@@ -12,6 +12,7 @@
     <![endif]-->
     <%= csrf_meta_tags %>
     <%= render partial: 'layouts/zopim' %>
+    <%= render partial: 'layouts/optimizely' %>
   </head>
   <body class="<%= 'landing' unless user_signed_in? %>">
     <div class="wrapper">

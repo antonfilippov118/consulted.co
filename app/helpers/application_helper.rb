@@ -22,6 +22,10 @@ module ApplicationHelper
     !Settings.platform_live? && Rails.env.production?
   end
 
+  def optimizely?
+    Rails.env.production?
+  end
+
   def synchronizing?
     current_page?(synchronisation_path)
   end
