@@ -53,7 +53,7 @@ $ ->
   ###
 
   send = (message, opts = {}) ->
-    return unless angular.isObject mixpanel
+    return if angular.isUndefined mixpanel
     mixpanel.track message, opts
 
   $('#login_via_email').on 'click', () -> send 'Signed in via Email'
