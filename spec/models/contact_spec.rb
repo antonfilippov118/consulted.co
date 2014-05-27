@@ -16,15 +16,23 @@ describe Contact do
   end
 
   it 'should send an email to support if valid' do
-    ActionMailer::Base.deliveries = []
+    contact.message = 'Foo'
+    contact.name = 'Florian'
+    contact.email = 'FlorianKraft@consulted.co'
+    contact.subject = 'Testsubject'
+    contact.send!
+
+    expect(mail).not_to be_nil
+  end
+
+  it 'should have the subject given by the user' do
     contact.message = 'Foo'
     contact.name = 'Florian'
     contact.email = 'FlorianKraft@consulted.co'
     contact.subject = 'Testsubject'
 
     contact.send!
-
-    expect(mail).not_to be_nil
+    expect(mail.subject).to eql contact.subject
   end
 
   def mail
