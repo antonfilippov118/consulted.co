@@ -11,7 +11,7 @@
       <%= javascript_include_tag 'compatibility' %>
     <![endif]-->
     <%= csrf_meta_tags %>
-    <%= javascript_include_tag 'jquery' %>
+    <%= render partial: 'layouts/jquery' %>
     <%= render partial: 'layouts/zopim' %>
     <%= render partial: 'layouts/optimizely' %>
     <%= render partial: 'layouts/go_squared' %>
