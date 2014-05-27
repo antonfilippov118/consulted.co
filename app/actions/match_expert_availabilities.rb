@@ -62,6 +62,7 @@ class MatchExpertAvailabilities
         # reject experts which do not have times available
         experts_available.reject! do |expert|
           offer = expert.offers.with_group(group).first
+          next true if offer.nil?
           result = FindsExpertTimes.for expert, offer.minimum_length.minutes
           possible_times = result.fetch :times
           expert.possible_times = possible_times
