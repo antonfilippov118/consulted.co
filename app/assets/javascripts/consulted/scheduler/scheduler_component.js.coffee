@@ -20,7 +20,6 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 			console.log "updated events"
 		, yes
 		scope.currentDay = 1
-
 		scope.backward = (event) ->
 			if scope.currentDay > 1
 				scope.currentDay--
@@ -33,7 +32,6 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 		scope.add = (event, index) ->
 			if "day" in event.target.className.split(" ")
 				target = $ event.target
-
 				start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
 				end = start + DEFAULT_DURATION
 				modalInstance = modal.open
@@ -137,7 +135,6 @@ app.controller "EditController", [
 	"mode"
 	"SMALLEST_MINUTE_STEP"
 	(scope, modalInstance, startMinutes, endMinutes, mode, SMALLEST_MINUTE_STEP) ->
-
 		scope.title = if mode is "edit" then "Edit event" else "Create Event"
 		scope.minuteStep = SMALLEST_MINUTE_STEP
 		{floor, max, min, round} = Math
@@ -163,7 +160,6 @@ app.controller "EditController", [
 			end += 5 if start is end
 			modalInstance.close [start, end]
 			event.preventDefault()
-
 		scope.dismiss = (event) ->
 			modalInstance.dismiss 'cancel'
 			event.preventDefault()
