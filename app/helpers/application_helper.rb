@@ -26,6 +26,10 @@ module ApplicationHelper
     Rails.env.production?
   end
 
+  def go_squared?
+    Rails.env.production?
+  end
+
   def synchronizing?
     current_page?(synchronisation_path)
   end
