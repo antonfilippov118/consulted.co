@@ -16,6 +16,18 @@ app.controller 'BookingCtrl', [
     Offer.get().then (data) ->
       scope.$broadcast 'data:ready', data
 
+    scope.$on 'data:ready', (_, data) -> scope.offer = data
+
+    optimize = () ->
+      return unless angular.isObject window.optimizely
+      return unless scope.offer
+      valueInCents = (scope.request.length / 60) * scope.offer.rate * 100
+      data =  [
+        'trackEvent'
+        'callRevenue'
+        revenue: valueInCents
+      ]
+      window.optimizely.push data
     scope.confirm = () ->
       scope.request.message ||= ''
       instance = $modal.open
@@ -28,6 +40,7 @@ app.controller 'BookingCtrl', [
         scope.sending = yes
         Book.confirm(scope.request).then (data) ->
           # successful, redirect
+          optimize(scope.request)
           $window.location.assign '/requests/success'
         , (err) ->
           scope.error = yes
