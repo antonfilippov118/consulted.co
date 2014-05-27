@@ -14,7 +14,7 @@
         <div class="body">
           <div id="sign_up_social" style="display:none">
             <div class="popup-row">
-              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
+              <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin', id: 'signup_via_linkedin' do %>
                 Connect with LinkedIn
               <% end %>
             </div>
@@ -59,7 +59,7 @@
                 </div>
               </div>
               <div class="popup-row">
-                <%= f.submit "Complete signup", class: 'btn btn-primary sub' %>
+                <%= f.submit "Complete signup", class: 'btn btn-primary sub', id: 'signup_via_email' %>
               </div>
               <div class="popup-row text-center">
                 <a class="toggle_login">I want to sign up with one of my social media profiles</a>

@@ -48,4 +48,23 @@ $ ->
 
   $("##{activeView}").show()
 
+  ###
+  Tracking
+  ###
+
+  send = (message, opts = {}) ->
+    return unless angular.isObject mixpanel
+    mixpanel.track message, opts
+
+  $('#login_via_email').on 'click', () -> send 'Signed in via Email'
+  $('#login-form').on 'submit', -> send 'Signed in via Email'
+  $('#login_via_linkedin').on 'click', () -> send 'Signed in via Linkedin'
+
+  $('#signup_via_email').on 'click', () -> send 'Signed up via Email'
+  $('#signup-form').on 'click', () -> send 'Signed up via Email'
+  $('#signup_via_linkedin').on 'click', () -> send 'Signed up via Linkedin'
+
+
+
+
 

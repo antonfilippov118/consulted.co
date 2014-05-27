@@ -30,6 +30,14 @@ module ApplicationHelper
     Rails.env.production?
   end
 
+  def mixpanel?
+    Rails.env.production?
+  end
+
+  def mixpanel_token
+    ENV['MIXPANEL_TOKEN'] || 'test'
+  end
+
   def synchronizing?
     current_page?(synchronisation_path)
   end

@@ -1,7 +1,7 @@
 <div class="signup login">
   <div class="well col-md-6 col-md-offset-3">
     <div class="content">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login-form' }) do |f| -%>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'signup-form' }) do |f| -%>
         <div class="header">
           <h4 class="title" id="logo_bk">
             <%= image_tag 'logo-black.png', alt: 'CONSULTED.co' %>
@@ -13,7 +13,7 @@
         </div>
         <div class="body">
           <div class="popup-row">
-            <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin' do %>
+            <%= link_to user_omniauth_authorize_path(provider:'linkedin'), class: 'btn btn-primary flaticon flaticon-linkedin', id: 'login_via_linkedin' do %>
               Connect with LinkedIn
             <% end %>
           </div>
@@ -32,7 +32,7 @@
           </div>
           <div class="popup-row control-cover" id="password_fields">
             <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
-            <%= f.submit "Log in", class: 'btn btn-primary' %>
+            <%= f.submit "Log in", class: 'btn btn-primary', id: 'login_via_email' %>
           </div>
 
           <div class="popup-row text-center">
