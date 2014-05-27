@@ -3,9 +3,6 @@
     <i class="fa fa-spinner fa-spin"></i>
   </span>
   <span ng-hide="loading">
-    {{date | moment:'ddd, MMM DD YYYY'}} <br>
-    {{date | moment:'HH:mm'}}<br>
-    Up to {{ length }} minutes
     <a ng-hide="offer.expert.slug === '<%= @user.slug rescue '' %>'" ng-hide="<%= @user.nil? %>" ng-click="contact(offer.expert)" class="btn btn-primary">Contact</a>
   </span>
 </div>
