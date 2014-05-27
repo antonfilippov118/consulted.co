@@ -28,4 +28,3 @@ cookbooks/
 .ruby-version
 vendor/assets/components/bootstrap
 *.swp
-vendor/assets/components/angular-touch/
