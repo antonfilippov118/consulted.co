@@ -52,20 +52,16 @@ $ ->
   Tracking
   ###
 
-  send = (message, opts = {}) ->
-    try
-      return if angular.isUndefined window.mixpanel
-      mixpanel.track message, opts
-    catch e
-      return
+  track = (message, opts = {}) ->
+    mixpanel?.track message, opts
 
-  $('#login_via_email').on 'click', () -> send 'Signed in via Email'
-  $('#login-form').on 'submit', -> send 'Signed in via Email'
-  $('#login_via_linkedin').on 'click', () -> send 'Signed in via Linkedin'
+  $('#login_via_email').on 'click', () -> track('Signed in via Email')
+  $('#login-form').on 'submit', -> track('Signed in via Email')
+  $('#login_via_linkedin').on 'click', () -> track('Signed in via Linkedin')
 
-  $('#signup_via_email').on 'click', () -> send 'Signed up via Email'
-  $('#signup-form').on 'click', () -> send 'Signed up via Email'
-  $('#signup_via_linkedin').on 'click', () -> send 'Signed up via Linkedin'
+  $('#signup_via_email').on 'click', () -> track('Signed up via Email')
+  $('#signup-form').on 'click', () -> track('Signed up via Email')
+  $('#signup_via_linkedin').on 'click', () -> track('Signed up via Linkedin')
 
 
 
