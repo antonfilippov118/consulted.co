@@ -52,6 +52,7 @@ class Call
   end
 
   def cancel!
+    self.cancelled_at = Time.now
     self.status = Call::Status::CANCELLED
     save!
   end
