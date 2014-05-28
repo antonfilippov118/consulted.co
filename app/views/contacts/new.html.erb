@@ -12,13 +12,13 @@
         <div class="form-group">
           <%= f.label :name, "Your name", class: 'col-sm-4 control-label' %>
           <div class="col-sm-8">
-            <%= f.text_field :name, class: 'form-control', value: "#{@user.name if user_signed_in?}" %>
+            <%= f.text_field :name, class: 'form-control', value: "#{@user.name if user_signed_in?}", readonly: user_signed_in? %>
           </div>
         </div>
         <div class="form-group">
           <%= f.label :email, "Your email", class: 'col-sm-4 control-label' %>
           <div class="col-sm-8">
-            <%= f.text_field :email, class: 'form-control', value: "#{@user.notification_email if user_signed_in?}" %>
+            <%= f.text_field :email, class: 'form-control', value: "#{@user.notification_email if user_signed_in?}", readonly: user_signed_in? %>
           </div>
         </div>
         <div class="form-group">
