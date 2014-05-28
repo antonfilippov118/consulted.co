@@ -19,8 +19,8 @@ class UpdatesOrCreatesAvailability
         start  = params[:start]
         ending = params[:end]
         fail 'need start and end for availability!' if start.nil? || ending.nil?
-        context[:start] = Time.at(start.to_i / 1000)
-        context[:end]   = Time.at(ending.to_i / 1000)
+        context[:start] = Time.at(start.to_i)
+        context[:end]   = Time.at(ending.to_i)
       rescue => e
         context.fail! e.message
       end
