@@ -1,60 +1,49 @@
-<div id="contact_form">
-  <h2>Contact us</h2>
-  <p>We are all about creating a fair and productive experience for all out members. How can we help?</p>
-  <% unless user_signed_in? %>
-    <p>Note: If you have an account with us, please <%= link_to 'log in first', new_user_session_path %> - so we can be sure it's you.</p>
-  <% end %>
-  <hr>
-  <%= form_for @contact, class: 'form-horizontal', html: { id: 'contact_us' } do |f| -%>
-    <div class="row">
-      <div class="form-group">
-        <%= f.label :name, "Your name", class: 'control-label col-xs-2' %>
-        <div class="col-xs-10">
-          <% if user_signed_in? %>
-            <%= f.hidden_field :name, value: @user.name %>
-            <%= @user.name %>
-          <% else %>
-            <%= f.text_field :name, class: 'form-control' %>
-          <% end %>
-        </div>
-      </div>
+<div id="contact">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Contact us</h1>
+      <p>We are all about creating fair and productive experience for all our members. How can we help?</p>
+      <% unless user_signed_in? %>
+        <p>Note: If you have an account with us, please <%= link_to 'log in first', new_user_session_path %> - so we can be sure it's you.</p>
+      <% end %>
     </div>
-    <div class="row">
-      <div class="form-group">
-        <%= f.label :email, "Your email", class: 'control-label col-xs-2' %>
-        <div class="col-xs-10">
-          <% if user_signed_in? %>
-            <%= f.hidden_field :email, value: @user.notification_email %>
-            <%= @user.notification_email %> [<%= link_to 'change', settings_path  %>]
-          <% else %>
-            <%= f.text_field :email, class: 'form-control' %>
-          <% end %>
+    <div class="col-md-8">
+      <%= form_for @contact, html: { class: 'form-horizontal', id: 'contact_us' } do |f| -%>
+        <div class="form-group">
+          <%= f.label :name, "Your name", class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= f.text_field :name, class: 'form-control', value: "#{@user.name if user_signed_in?}" %>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <%= f.label :subject, "Your subject", class: 'control-label col-xs-2' %>
-        <div class="col-xs-10">
-          <%= f.text_field :subject, class: 'form-control' %>
+        <div class="form-group">
+          <%= f.label :email, "Your email", class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= f.text_field :email, class: 'form-control', value: "#{@user.notification_email if user_signed_in?}" %>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <%= f.label :message, "Your message", class: 'control-label col-xs-2' %>
-        <div class="col-xs-10">
-          <%= f.text_area :message, class: 'form-control', rows: 12 %>
+        <div class="form-group">
+          <%= f.label :Subject, "Subject", class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= f.text_field :subject, class: 'form-control' %>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-10">
-          <%= f.submit "Send message", class: 'btn btn-primary', data: { disable_with: 'Sending...' } %>
+        <div class="form-group">
+          <%= f.label :message, "Message", class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= f.text_area :message, class: 'form-control', rows: 10 %>
+          </div>
         </div>
-      </div>
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-8">
+            <%= f.submit "Send message", class: 'btn btn-primary', data: { disable_with: 'Sending...' } %>
+            <span class="info flaticon flaticon-info">We will send you a copy for your reference</span>
+          </div>
+        </div>
+      <% end %>
+      </form>
     </div>
-  <% end %>
+    <div class="col-md-8">
+      <div class="well text-center">Or send us a email: <a href="mailto:support@consulted.co">support@consulted.co</a></div>
+    </div>
+  </div>
 </div>
