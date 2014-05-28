@@ -78,4 +78,7 @@ Consulted::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  ActionMailer::Base.default_url_options[:protocol] = :https
+  ActionMailer::Base.default_url_options[:host] = 'beta.consulted.co'
 end
