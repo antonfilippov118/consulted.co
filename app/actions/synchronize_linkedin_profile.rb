@@ -97,6 +97,7 @@ class SynchronizeLinkedinProfile
           data = self.fetch! company: company, client: client
         end
         next if data == false
+        next if data.locations.nil?
         next if data.locations.total < 1
         next if data.locations.all.empty?
         company.url = data.fetch :website_url
