@@ -50,7 +50,6 @@ app.directive 'offerLengths', [
       scope.no_offer = yes
       scope.$on 'offer:change', (_, offer) ->
         lengths = offer.lengths.map((string) -> +string).sort (a, b) -> a - b
-        console.log lengths
         if lengths.length > 1
           scope.lengths = lengths.slice(0, -1).join ', '
           scope.last    = lengths[lengths.length - 1]

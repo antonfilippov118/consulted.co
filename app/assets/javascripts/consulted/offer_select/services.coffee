@@ -67,7 +67,7 @@ app.service 'SchedulerReadonly', [
       return unless offer
 
       start  = moment(obj.start_date).format('YYYY-MM-DD')
-      $window.location.assign "/offers/#{offer.slug}-with-#{expert}/review/#{start}"
+      $window.location.assign "/offers/#{offer.slug}-with-#{expert}/review"
 
     init: (el) ->
       scheduler.config.readonly = yes
