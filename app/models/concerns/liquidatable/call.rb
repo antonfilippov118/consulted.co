@@ -22,11 +22,15 @@ module Liquidatable
 
     def rates
       {
-        'price_incl_fee' => (rate + fee).to_f / 100,
-        'price_excl_fee' => payment,
+        'price_incl_fee' => prices.fetch(:price_incl_fee),
+        'price_excl_fee' => prices.fetch(:price_excl_fee),
         'rate_incl_fee' => initial_rate,
         'rate_excl_fee' => initial_rate_excl
       }
+    end
+
+    def prices
+      CalculatesCallPrices.for self
     end
   end
 end
