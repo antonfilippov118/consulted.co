@@ -1,28 +1,66 @@
 <div class="container">
   <%= render partial: 'back' %>
-  <h2>
-    About Us
-  </h2>
-  <h3>CONSULTED enables on-demand access to high value expert advice for businesses</h3>
-  <p>
-    CONSULTED is a marketplace that connects advice seekers directly with business professionals who have a background in management consulting, finance and venture capital, as well as specialized industry expertise. CONSULTED enables on-demand access to high value expert advice for businesses without the corporate overhead and rigid engagement models you know from traditional providers.
-  </p>
-  <p>
-    Experts offer advice in their areas of expertise in form of meetings (telephone calls) with advice seekers. Advice seekers can book meeting time with an expert for a fee. The fee is set by the expert and paid by the advice seeker using our integrated payment system. You can learn more in our "<%= link_to 'How it works', how_it_works_path  %>" page.
-  </p>
-  <p>
-    Our marketplace covers a variety of topics ("service offerings") in areas such as methodological advice, functional advice, industry advice and career advancement. All areas are broken down to over 500 granular service offerings to ensure that the knowledge of all experts on CONSULTED is relevant to specific questions of advice seekers. Explore all service offerings <%= link_to 'here', search_path %>.
-  </p>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>
+        About Us
+      </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h3>CONSULTED enables businesses to access high value expert advice on-demand</h3>
+      <p>
+        CONSULTED is a marketplace that connects advice seekers directly with business professionals who have a background in management consulting, finance and venture capital, as well as specialized industry expertise. CONSULTED enables on-demand access to high value expert advice for businesses without the corporate overhead and rigid engagement models you know from traditional providers.
+      </p>
+      <p>
+        Experts offer advice in their areas of expertise in form of meetings (telephone calls) with advice seekers. Advice seekers can book meeting time with an expert for a fee. The fee is set by the expert and paid by the advice seeker using our integrated payment system. You can learn more in our "<%= link_to 'How it works', how_it_works_path  %>" page.
+      </p>
+      <p>
+        Our marketplace covers a variety of topics ("service offerings") in areas such as methodological advice, functional advice, industry advice and career advancement. All areas are broken down to over 500 granular service offerings to ensure that the knowledge of all experts on CONSULTED is relevant to specific questions of advice seekers. Explore all service offerings <%= link_to 'here', search_path %>.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h2>
+        <em>We are reshaping the professional service industry with a marketplace that matches advice seekers directly with experts</em>
+      </h2>
+    </div>
+  </div>
 </div>
 <div id="getpaid-grey">
   <div class="container">
-    <h3 class="heading">
-      Business professionals are at the core of the CONSULTED marketplace
-    </h3>
-    <p>Experts on consulted typically hold university degrees from prestigious universities and have solid work experience under their belt. In particular, our experts have a similar background you would usually expect when you contract advisors and consultants working for traditional professional services firms, such as management consultancies, banks and venture capital funds. In fact, experts oftentimes have firsthand work experience in those professional services firms. Besides experts with a background in traditional professional services, CONSULTED enables access to industry experts, who usually have many years of operational work experience and know their particular industry inside-out.</p>
-    <p>
-      Our advice seekers have similarly diverse professional backgrounds which vary by service offering – generally, experts to talk to business school students, startup founders, professionals from small & large companies and professional service industry workers.
-    </p>
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="heading">
+          Business professionals are at the core of the CONSULTED marketplace
+        </h3>
+        <p>Experts on consulted typically hold university degrees from prestigious universities and have solid work experience under their belt. In particular, our experts have a similar background you would usually expect when you contract advisors and consultants working for traditional professional services firms, such as management consultancies, banks and venture capital funds. In fact, experts oftentimes have firsthand work experience in those professional services firms. Besides experts with a background in traditional professional services, CONSULTED enables access to industry experts, who usually have many years of operational work experience and know their particular industry inside-out.</p>
+        <p>
+          Our advice seekers have similarly diverse professional backgrounds which vary by service offering – generally, experts to talk to business school students, startup founders, professionals from small & large companies and professional service industry workers.
+        </p>
+      </div>
+      <div class="col-md-4" style="font-style:italic">
+        <h2><em>Top current &amp; former employers</em></h2>
+        <ul>
+          <li>McKinsey</li>
+          <li>Goldman</li>
+          <li>Boing</li>
+          <li>Intel</li>
+          <li>Deloitte</li>
+          <li>Citi</li>
+          <li>Google</li>
+          <li>...</li>
+        </ul>
+        <h2><em>Premium universities</em></h2>
+        <ul>
+          <li>Harvard</li>
+          <li>Stanford</li>
+          <li>INSAED</li>
+          <li>LSE</li>
+          <li>...</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
