@@ -10,8 +10,15 @@ module Liquidatable
         'email'             => email,
         'linkedin'          => linkedin_url,
         'twitter'           => twitter_url,
-        'notification_time' => notification_time
+        'notification_time' => notification_time,
+        'expert_page'       => expert_page
       }
+    end
+
+    def expert_page
+      return false unless expert?
+      return false unless Rails.env.production?
+      "https://consulted.co/#{slug}"
     end
   end
 end
