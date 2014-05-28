@@ -53,8 +53,12 @@ $ ->
   ###
 
   send = (message, opts = {}) ->
-    return if angular.isUndefined mixpanel
-    mixpanel.track message, opts
+    console.log e
+    try
+      return if angular.isUndefined window.mixpanel
+      mixpanel.track message, opts
+    catch e
+      return
 
   $('#login_via_email').on 'click', () -> send 'Signed in via Email'
   $('#login-form').on 'submit', -> send 'Signed in via Email'
