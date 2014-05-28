@@ -87,7 +87,7 @@ describe Call do
     end
   end
 
-  describe 'when genrating access codes' do
+  describe 'when generating access codes' do
     it 'should create a unique 6-digit code' do
       call = Call.new
       expect(call.pin).to be_an Integer
