@@ -55,36 +55,31 @@ app.service 'Scheduler', [
 ]
 ###
 
+app.service 'Timezone', [
+  '$http'
+  '$q'
+  (http, q) ->
+    get: () ->
+      result = q.defer()
+      http.get('/timezone').success (data) ->
+        if data?.offset?
+          result.resolve data.offset
+        else
+          result.reject "error while getting timezone"
+      result.promise
+    
+]
+
 app.controller 'ScheduleCtrl', [
   '$scope'
   'Availabilities'
-  (scope, Availabilities) ->
-    max = 24 * 60 
-    scope.events = for i in [0...7]
-      []
+  'Timezone'
+  (scope, Availabilities, Timezone) ->
 
-    scope.log = []
-
-    scope.add = (event) ->
-      scope.addRandomEvent()
-      event.preventDefault()
-
-    scope.addRandomEvent = () ->
-      day = Math.floor Math.random() * 7
-      start = 5 * Math.floor Math.random() * (max / 5)
-      scope.events[day].push 
-        time: [start, start + 15]
-        data:
-          id: Math.round Math.random() * 1000
-
-    for i in [0...3]
-      scope.addRandomEvent()
-
+    Timezone.get().then (offset) ->
+      console.log offset
 
     scope.currentWeek = moment()
-
-    console.log scope.currentWeek
-    console.log scope.events
 
     scope.$on "scheduler.remove", (event, data) ->
       scope.log.push "remove #{data.id}"
@@ -98,7 +93,7 @@ app.controller 'ScheduleCtrl', [
     #  scope.events = events
 ]
 
-
+###
 app.service 'Availabilities', [
   '$http'
   '$q'
@@ -137,3 +132,4 @@ app.service 'Availabilities', [
       result.promise
 
 ]
+###
