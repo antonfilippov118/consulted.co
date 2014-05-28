@@ -11,6 +11,11 @@
     <![endif]-->
     <%= stylesheet_link_tag 'follow' %>
     <%= csrf_meta_tags %>
+    <%= render partial: 'layouts/jquery' %>
+    <%= render partial: 'layouts/zopim' %>
+    <%= render partial: 'layouts/optimizely' %>
+    <%= render partial: 'layouts/go_squared' %>
+    <%= render partial: 'layouts/mixpanel' %>
   </head>
   <body class="landing">
     <div class="wrapper">
@@ -27,6 +32,5 @@
     </div>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'static' %>
-    <%= render partial: 'layouts/zopim' %>
   </body>
 </html>
