@@ -53,7 +53,6 @@ $ ->
   ###
 
   send = (message, opts = {}) ->
-    console.log e
     try
       return if angular.isUndefined window.mixpanel
       mixpanel.track message, opts
