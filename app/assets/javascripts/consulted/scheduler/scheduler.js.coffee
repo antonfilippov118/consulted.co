@@ -28,6 +28,14 @@ app.service 'Availabilities', [
     q.all([TimezoneData.get(), AvailabilityData.get()]).then (data) ->
       [offset, availabilities] = data
 
+      updateData = () ->
+        updateResult = q.defer()
+        AvailabilityData.get().then (newAvailabilities) ->
+          availabilities = newAvailabilities
+          console.log "fetched new data"
+          updateResult.resolve newAvailabilities
+        updateResult.promise
+
       result.resolve
         getCurrent: (week) ->
           monday = week.clone().isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
@@ -50,26 +58,34 @@ app.service 'Availabilities', [
 
         
         update: (week, dayIndex, data, time) ->
-          result = q.defer()
+          updatingResult = q.defer()
           object =
             availability:
               id: data.id
               start: minutesToMoment(time[0], week, dayIndex, offset).unix()
               end: minutesToMoment(time[1], week, dayIndex, offset).unix()
           http.put('/availabilities', object).then (data) ->
-            result.resolve yes
-          result.promise
+            updatingResult.resolve yes
+          updatingResult.promise
 
         add: (week, dayIndex, data, time) ->
-          result = q.defer
+          addingResult = q.defer()
           object =
             availability:
               start: minutesToMoment(time[0], week, dayIndex, offset).unix()
               end: minutesToMoment(time[1], week, dayIndex, offset).unix()
           http.put("/availabilities", object).then (data) ->
-            console.log data
-            result.resolve yes
-          result.promise
+            console.log "put data up"
+            
+            updateData().then (availabilities) ->
+              console.log "done fetching", availabilities
+              #addingResult.resolve yes
+              addingResult.resolve yes
+              console.log "post resolve"
+              return
+            return
+          
+          addingResult.promise
 
         delete: (data) ->
           result = q.defer()
@@ -105,7 +121,7 @@ app.controller 'ScheduleCtrl', [
     scope.currentWeek = moment()
 
     Availabilities.getService().then (availabilityService) ->
-      scope.events = availabilityService.getCurrent(moment())
+      scope.events = availabilityService.getCurrent scope.currentWeek
 
 
       scope.$on "scheduler.remove", (event, data) ->
@@ -119,6 +135,9 @@ app.controller 'ScheduleCtrl', [
 
       scope.$on "scheduler.add", (event, data, time, bounds) ->
         availabilityService.add(scope.currentWeek, bounds[0], data, time).then () ->
+          console.log "added"
+          scope.events = availabilityService.getCurrent scope.currentWeek
+          console.log "updated"
           CONSULTED.trigger "Availability added"
 ]
 
