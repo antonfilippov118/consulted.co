@@ -44,7 +44,7 @@ app.service 'ExpertAvailabilities', [
     slug = Configuration.getSlug()
     get: (offer) ->
       result = q.defer()
-      http.get("/times/#{slug}/#{offer.slug}.json").then (response) ->
+      http.get("/times/#{slug}/#{offer.slug}.json", cache: yes).then (response) ->
         result.resolve response.data
       result.promise
 

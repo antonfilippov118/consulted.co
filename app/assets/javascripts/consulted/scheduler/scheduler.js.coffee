@@ -49,9 +49,6 @@ app.service 'Availabilities', [
             end = moment.unix(availability.end).zone(formatted_offset)
 
             if (start.isAfter(monday) and end.isBefore(sunday))
-              #console.log start.format(), end.format()
-              #console.log monday.format(), sunday.format()
-              #console.log start.isAfter(monday), end.isBefore(sunday)
               current[start.isoWeekday() - 1].push
                 time: [momentToMinutes(start), momentToMinutes(end)]
                 data:
