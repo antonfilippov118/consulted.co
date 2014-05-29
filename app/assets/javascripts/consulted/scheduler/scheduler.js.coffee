@@ -21,6 +21,9 @@ app.service 'Availabilities', [
 
     momentToMinutes = (moment) ->
       moment.hour() * 60 + moment.minute()
+    minutesToMoment = (minutes, week, day, offset) ->
+      monday = week.clone().isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
+      monday.add('d', day - 1).add('m', minutes).add('s', offset)
 
     q.all([TimezoneData.get(), AvailabilityData.get()]).then (data) ->
       [offset, availabilities] = data
@@ -36,12 +39,26 @@ app.service 'Availabilities', [
             end = moment.unix availability.end - offset
             
             if (start.isAfter(monday) and end.isBefore(sunday))
+              console.log start.format(), end.format()
+              console.log monday.format(), sunday.format()
+              console.log start.isAfter(monday), end.isBefore(sunday)
               current[start.isoWeekday()].push
                 time: [momentToMinutes(start), momentToMinutes(end)]
                 data:
                   availability
 
           current
+        update: (week, dayIndex, data, time) ->
+          result = q.defer()
+          object =
+            availability:
+              id: data.id
+              start: minutesToMoment(time[0], week, dayIndex, offset).unix()
+              end: minutesToMoment(time[1], week, dayIndex, offset).unix()
+          http.put('/availabilities', object).then (data) ->
+            result.resolve yes
+          result.promise
+
 
 
     getService: () ->
@@ -66,19 +83,22 @@ app.controller 'ScheduleCtrl', [
   '$scope'
   'Availabilities'
   (scope, Availabilities, Timezone) ->
+    
+    scope.currentWeek = moment()
 
     Availabilities.getService().then (availabilityService) ->
       scope.events = availabilityService.getCurrent(moment())
 
-    scope.currentWeek = moment()
 
-    scope.$on "scheduler.remove", (event, data) ->
-      scope.log.push "remove #{data.id}"
+      scope.$on "scheduler.remove", (event, data) ->
+        console.log "remove ", data
 
-    scope.$on "scheduler.update", (event, data, time) ->
-      scope.log.push "update #{data.id}, #{time[0]} - #{time[1]}"
+      scope.$on "scheduler.update", (event, data, time, bounds) ->
+        availabilityService.update(scope.currentWeek, bounds[0], data, time).then () ->
+          CONSULTED.trigger "Availability updated"
 
-    scope.$on "scheduler.add", (event, data, time) ->
-      scope.log.push "add #{data.id}, #{time[0]} - #{time[1]}"
+      scope.$on "scheduler.add", (event, data, time) ->
+
+        console.log "add ", data, time
 ]
 

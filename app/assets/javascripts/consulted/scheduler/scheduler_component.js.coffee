@@ -16,9 +16,9 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 	link: (scope, element, attr) ->
 		id = 1
 		scope.count = 0
-		scope.$watch "events", () ->
-			console.log "updated events"
-		, yes
+		#scope.$watch "events", (newEvents) ->
+		#	console.log "updated events"
+		#, yes
 		scope.currentDay = 1
 		scope.backward = (event) ->
 			if scope.currentDay > 1
@@ -62,7 +62,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 			scope.$emit "scheduler.remove", data
 
 		scope.$on "update", (event, bounds, data, time) ->
-			scope.$emit "scheduler.update", data, time
+			scope.$emit "scheduler.update", data, time, bounds
 
 ]
 
