@@ -1,4 +1,4 @@
-<div id="offerfull-availability" class="offerfull">
+<div id="offerfull-availability" class="offerfull" ng-controller="ScheduleCtrl">
   <div class="offerfull-head">
     <p class="offerfull-heading">Your available times &amp; dates</p>
   </div>
@@ -12,17 +12,23 @@
       </ul>
     </div>
     <div class="clr bluestripe">
-      Time schedule is based on your timezone setting. Your current timezone is: <%= ActiveSupport::TimeZone.new(@user.timezone).to_s %>
+      Time schedule is based on your timezone setting. Your current timezone is: <%= timezone.to_s %>
+    </div>
+    <div class="clr book-periods">
+      <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}" data-ng-click="prev($event)">&nbsp;</div>
+      <div class="book-period">{{ from }} - {{ to }}</div>
+      <div class="book-period-next" data-ng-click="next($event)">&nbsp;</div>
     </div>
     <div id="scheduler" class="scheduler">
-      <div ng-controller="ScheduleCtrl">
-        <div dhx-scheduler class="scheduler" events='events' style="height: 550px;">
-          <div class="dhx_cal_prev_button">&nbsp;</div>
-          <div class="dhx_cal_next_button">&nbsp;</div>
-          <div class="dhx_cal_today_button"></div>
-          <div class="dhx_cal_date"></div>
-        </div>
+      <div >
+        <div data-calendar data-events="events" data-week="currentWeek"></div>
       </div>
+
     </div>
   </div>
+  <% %w(edit event scheduler).each do |partial| %>
+  <script type="text/ng-template" id="foo_<%= partial %>">
+    <%= render partial: "users/offers/ng/scheduler/#{partial}"  %>
+  </script>
+  <% end %>
 </div>

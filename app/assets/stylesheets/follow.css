@@ -2,9 +2,9 @@
  *= require fonts
  *= require next
  *= require footer
- *= require dhtmlx/dhtmlxscheduler
  *= require fixes
  *= require login
  *= require sticky
  *= require bookmarks
+ *= require scheduler
  */

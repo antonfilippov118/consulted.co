@@ -2434,6 +2434,20 @@ body .expert-name {
   border-left:6px solid #466b92;
   right:0;
 }
+
+// this could be written in a more un-SASS-y way ;-)
+.book-period-prev.disabled:before {
+  cursor: default !important;
+  // TODO: pick a nice color
+  border-right:6px solid #C8C8C8;
+}
+
+.book-period-next.disabled:before {
+  cursor: default !important;
+  // TODO: pick a nice color
+  border-left:6px solid #C8C8C8;
+}
+
 .book-weekdays {
   margin:0 0 4px;
 }

@@ -1,0 +1,17 @@
+
+<div data-ng-swipe-right="backward($event)" data-ng-swipe-left="forward($event)" class="scheduler">
+  <div class="day-picker visible-xs">
+    <div class="backward"><a href="#" data-ng-class="{'disabled': currentDay == 1}" data-ng-click="backward($event)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i></a></div>
+    <div class="day-name">{{ week | dayHeader:currentDay }}</div>
+    <div class="forward"><a href="#" data-ng-class="{'disabled': currentDay == 7}" data-ng-click="forward($event)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-right"></i></a></div>
+  </div>
+  <div class="header-holder">
+    <div ng-repeat="day in events" class="day-header hidden-xs">{{ week | dayHeader: $index + 1 }}</div>
+  </div>
+  <div class="day-holder">
+    <div ng-repeat="day in events" data-ng-class="{'visible': currentDay -1 == $index }" data-ng-click="add($event, $index)" class="day">
+      <div ng-repeat="event in day" data-ng-event="data-ng-event" data-event="event" data-index="$index" data-parent-index="$parent.$index" data-read-only="readOnly"></div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

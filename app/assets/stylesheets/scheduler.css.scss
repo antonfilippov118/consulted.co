@@ -1,0 +1,193 @@
+@import 'helpers';
+$schedulerHeight: 430px;
+
+.clearfix:before,
+.clearfix:after,
+.scheduler .day-picker:before,
+.scheduler .day-picker:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+.scheduler .day-picker:after {
+  clear: both;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pull-right {
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
+.hide {
+  display: none !important;
+}
+.show {
+  display: block !important;
+}
+.invisible {
+  visibility: hidden;
+}
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+.affix {
+  position: fixed;
+}
+.scheduler {
+  margin: 0;
+}
+.scheduler {
+  .day-holder {
+    height: $schedulerHeight;
+    background: -webkit-linear-gradient(to bottom, #fff, #fff 50%, #eee 50%, #eee);
+    background: linear-gradient(to bottom, #fff, #fff 50%, #eee 50%, #eee);
+    background-size: 100% 33.33333333px;
+  }
+}
+.scheduler .day {
+  display: none;
+  height: $schedulerHeight;
+  position: relative;
+}
+.scheduler .day.visible {
+  display: block;
+}
+@media (min-width: 768px) {
+  .scheduler .day {
+    display: block;
+    width: percentage(1 / 7);
+    min-height: 1px;
+    float: left;
+  }
+}
+.header-holder {
+  background:#7baadb;
+}
+.scheduler .day-header {
+  display: inline-block;
+  width: percentage(1 / 7);
+  text-align: center;
+  background: #7baadb;
+  color: #fff;
+}
+.scheduler .day-header:last-child:before,
+.scheduler .day-header:last-child:after {
+  content: " ";
+  display: table;
+}
+.scheduler .day-header:last-child:after {
+  clear: both;
+}
+.scheduler .day-header:last-child:before,
+.scheduler .day-header:last-child:after {
+  content: " ";
+  display: table;
+}
+.scheduler .day-header:last-child:after {
+  clear: both;
+}
+.scheduler .event {
+  /** @include border-radius(3px); */
+  padding: 1px;
+  background: #7baadb;
+  margin: 1px;
+  position: absolute;
+  width: 100%;
+  min-height: 20px;
+  display: table;
+}
+.scheduler .event .time {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  color: #fff;
+  font-weight: bold;
+}
+.scheduler .event .time:hover {
+  cursor: pointer;
+}
+.scheduler .event .actions {
+  display: table-cell;
+  vertical-align: middle;
+}
+.scheduler:before,
+.scheduler:after {
+  content: " ";
+  display: table;
+}
+.scheduler:after {
+  clear: both;
+}
+.scheduler:before,
+.scheduler:after {
+  content: " ";
+  display: table;
+}
+.scheduler:after {
+  clear: both;
+}
+.scheduler .day-picker {
+  margin-left: 0px;
+  margin-right: 0px;
+  background: #7baadb;
+  color: #fff;
+}
+.scheduler .day-picker .forward,
+.scheduler .day-picker .backward {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.scheduler .day-picker .forward {
+  text-align: right;
+}
+.scheduler .day-picker .day-name {
+  position: relative;
+  float: left;
+  width: 66.66666667%;
+  min-height: 1px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+  vertical-align: middle;
+  height: 100%;
+}
+.scheduler .day-picker:before,
+.scheduler .day-picker:after {
+  content: " ";
+  display: table;
+}
+.scheduler .day-picker:after {
+  clear: both;
+}
+.scheduler .day-picker:before,
+.scheduler .day-picker:after {
+  content: " ";
+  display: table;
+}
+.scheduler .day-picker:after {
+  clear: both;
+}
+
+.time-picker {
+  table {
+    margin: auto
+    ;
+  }
+}

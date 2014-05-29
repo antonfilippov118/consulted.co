@@ -1,0 +1,5 @@
+
+<div class="event" ng-click="loadOffer($event, event)">
+  <div data-ng-click="edit($event)" class="time"><small>{{ start | minutesToTime }} - {{ end | minutesToTime}}</small></div>
+  <div class="actions" data-ng-hide="readOnly"><a href="#" data-ng-click="delete($event)" class="btn btn-xs btn-default delete"><i class="fa fa-trash-o"></i></a></div>
+</div>

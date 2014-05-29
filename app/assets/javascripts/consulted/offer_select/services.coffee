@@ -42,46 +42,10 @@ app.service 'ExpertAvailabilities', [
   'ExpertOffers'
   ExpertAvailabilities = (http, q, Configuration) ->
     slug = Configuration.getSlug()
-    transformed = (data) ->
-      data.map (obj) ->
-        start_date: moment(obj.start * 1000).toDate()
-        end_date: moment(obj.end * 1000).toDate()
-
     get: (offer) ->
       result = q.defer()
       http.get("/times/#{slug}/#{offer.slug}.json").then (response) ->
-        result.resolve transformed response.data
+        result.resolve response.data
       result.promise
-
-]
-
-app.service 'SchedulerReadonly', [
-  'Configuration'
-  'ExpertOffers'
-  '$window'
-  Scheduler = (Configuration, ExpertOffers, $window) ->
-    selectEvent = (id, event) ->
-      obj    = scheduler.getEvent id
-      expert = Configuration.getSlug()
-      offer  = ExpertOffers.getSelected()
-      return unless offer
-
-      start  = moment(obj.start_date).format('YYYY-MM-DD')
-      $window.location.assign "/offers/#{offer.slug}-with-#{expert}/review"
-
-    init: (el) ->
-      scheduler.config.readonly = yes
-      scheduler.init el[0], new Date, 'week'
-      scheduler.templates.event_class = (start, end) ->
-        if moment(end).isBefore(moment())
-          'past'
-        else
-          'availability clickable'
-
-      scheduler.attachEvent 'onClick', selectEvent
-
-    addEvents: (events) ->
-      scheduler.addEvent event for event in events
-
 
 ]

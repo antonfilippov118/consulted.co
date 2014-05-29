@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ title }}</h3>
+</div>
+<div class="modal-body time-picker">
+  <div class="row">
+    <div class="col-sm-4">
+      <timepicker data-ng-model="start" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
+    </div>
+    <div class="col-sm-4">
+      <timepicker data-ng-model="end" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <label class="control-label">
+        Recurrence
+        <input type="number" data-ng-model="recurrence" class="form-control">
+      </label>
+    </div>
+  </div>
+</div>
+<div class="modal-footer" id="callrequest">
+  <p class="text-center">
+    <button type="button" data-ng-click="accept($event, start, end, recurrence)" class="btn btn-success">{{button}}</button>
+    <button type="button" data-ng-click="dismiss($event)" class="btn btn-danger">Dismiss</button>
+  </p>
+</div>
