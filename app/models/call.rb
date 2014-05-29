@@ -122,6 +122,7 @@ class Call
   end
 
   def free!
+    return if availability.nil?
     availability = expert.availabilities.within(active_from.utc, active_to.utc).first
     availability.free!(active_from.utc, length)
   end
