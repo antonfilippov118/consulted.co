@@ -9,10 +9,10 @@
     <div class="col-sm-4">
       <timepicker data-ng-model="end" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" ng-hide="editMode()">
       <br>
       <label class="control-label">
-        Recurrence
+        Weekly recurrence (# of weeks)
         <input type="number" data-ng-model="recurrence" class="form-control">
       </label>
     </div>
