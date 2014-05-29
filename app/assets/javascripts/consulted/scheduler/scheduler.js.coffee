@@ -60,21 +60,23 @@ app.service 'Availabilities', [
         
         update: (week, dayIndex, data, time, recurrence) ->
           updatingResult = q.defer()
-
-          object =
-            availability:
-              id: data.id
-              start: minutesToMoment(time[0], week, dayIndex, offset).unix()
-              end: minutesToMoment(time[1], week, dayIndex, offset).unix()
-          http.put('/availabilities', object).then (data) ->
-            updatingResult.resolve yes
+          pending = []
+          for i in [0..recurrence]
+            object =
+              availability:
+                start: minutesToMoment(time[0], week, dayIndex, offset).add('d', 7 * i).unix()
+                end: minutesToMoment(time[1], week, dayIndex, offset).add('d', 7 * i).unix()
+            object.availability.id = data.id if i is 0
+            pending.push http.put('/availabilities', object)
+          q.all(pending).then () ->
+            updateData().then () ->
+              updatingResult.resolve yes
           updatingResult.promise
 
         add: (week, dayIndex, data, time, recurrence) ->
           addingResult = q.defer()
           pending = []
           for i in [0..recurrence]
-            console.log i
             object =
               availability:
                 start: minutesToMoment(time[0], week, dayIndex, offset).add('d', 7 * i).unix()
@@ -149,6 +151,7 @@ app.controller 'ScheduleCtrl', [
 
       scope.$on "scheduler.update", (event, data, time, bounds, recurrence) ->
         availabilityService.update(scope.currentWeek, bounds[0], data, time, recurrence).then () ->
+          scope.events = availabilityService.getCurrent scope.currentWeek
           CONSULTED.trigger "Availability updated"
 
       scope.$on "scheduler.add", (event, data, time, bounds, recurrence) ->
