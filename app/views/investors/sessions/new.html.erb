@@ -18,7 +18,7 @@
           <%= form_for @newsletter, url: '/investors/newsletter', remote: true, html: { class: 'form-inline', id: 'newsletter-form' } do |f| -%>
             <div id="register">
               <div id="error" class="alert alert-danger" style="display:none">There was an error with your request.</div>
-              <div id="success" class="alert alert-success" style="display:none">Thank you! We'll get back to you as soon as possible!</div>
+              <div id="success" class="alert alert-success" style="display:none">Thanks - we will keep you posted!</div>
               <div class="form-group">
                 <%= f.text_field :email, placeholder: 'Your email', class: 'form-control' %>
               </div>
