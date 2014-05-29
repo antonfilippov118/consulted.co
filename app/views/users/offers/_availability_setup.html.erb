@@ -1,4 +1,4 @@
-<div id="offerfull-availability" class="offerfull">
+<div id="offerfull-availability" class="offerfull" ng-controller="ScheduleCtrl">
   <div class="offerfull-head">
     <p class="offerfull-heading">Your available times &amp; dates</p>
   </div>
@@ -14,15 +14,21 @@
     <div class="clr bluestripe">
       Time schedule is based on your timezone setting. Your current timezone is: <%= timezone.to_s %>
     </div>
+    <div class="clr book-periods">
+      <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}">&nbsp;</div>
+      <div class="book-period">Monday, 23 March 2014, 11:15 - 1:00pm</div>
+      <div class="book-period-next">&nbsp;</div>
+    </div>
     <div id="scheduler" class="scheduler">
-      <div ng-controller="ScheduleCtrl">
+      <div >
         <div data-calendar data-events="events" data-week="currentWeek"></div>
       </div>
-      <% %w(edit event scheduler).each do |partial| %>
-      <script type="text/ng-template" id="<%= partial %>">
-        <%= render partial: "users/offers/ng/scheduler/#{partial}"  %>
-      </script>
-      <% end %>
+
     </div>
   </div>
+  <% %w(edit event scheduler).each do |partial| %>
+  <script type="text/ng-template" id="foo_<%= partial %>">
+    <%= render partial: "users/offers/ng/scheduler/#{partial}"  %>
+  </script>
+  <% end %>
 </div>

@@ -12,7 +12,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 	scope:
 		events: "="
 		week: "="
-	templateUrl: "scheduler"
+	templateUrl: "foo_scheduler"
 	link: (scope, element, attr) ->
 		id = 1
 		scope.count = 0
@@ -35,7 +35,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 				start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
 				end = start + DEFAULT_DURATION
 				modalInstance = modal.open
-					templateUrl: "edit"
+					templateUrl: "foo_edit"
 					controller: "EditController"
 					resolve:
 						startMinutes: () ->
@@ -91,7 +91,7 @@ app.directive "event", ["$modal", (modal) ->
 		event: "="
 		index: "="
 		parentIndex: "="
-	templateUrl: "event"
+	templateUrl: "foo_event"
 	link: (scope, element, attr) ->
 		mpd = 24 * 60
 		[scope.start, scope.end] = scope.event.time
@@ -108,7 +108,7 @@ app.directive "event", ["$modal", (modal) ->
 
 		scope.edit = (event) ->
 			modalInstance = modal.open
-				templateUrl: "edit"
+				templateUrl: "foo_edit"
 				controller: "EditController"
 				resolve:
 					startMinutes: () ->

@@ -32,7 +32,6 @@ app.service 'Availabilities', [
         updateResult = q.defer()
         AvailabilityData.get().then (newAvailabilities) ->
           availabilities = newAvailabilities
-          console.log "fetched new data"
           updateResult.resolve newAvailabilities
         updateResult.promise
 
@@ -47,9 +46,9 @@ app.service 'Availabilities', [
             end = moment.unix availability.end - offset
             
             if (start.isAfter(monday) and end.isBefore(sunday))
-              console.log start.format(), end.format()
-              console.log monday.format(), sunday.format()
-              console.log start.isAfter(monday), end.isBefore(sunday)
+              #console.log start.format(), end.format()
+              #console.log monday.format(), sunday.format()
+              #console.log start.isAfter(monday), end.isBefore(sunday)
               current[start.isoWeekday()].push
                 time: [momentToMinutes(start), momentToMinutes(end)]
                 data:
@@ -74,14 +73,9 @@ app.service 'Availabilities', [
             availability:
               start: minutesToMoment(time[0], week, dayIndex, offset).unix()
               end: minutesToMoment(time[1], week, dayIndex, offset).unix()
-          http.put("/availabilities", object).then (data) ->
-            console.log "put data up"
-            
+          http.put("/availabilities", object).then (data) ->      
             updateData().then (availabilities) ->
-              console.log "done fetching", availabilities
-              #addingResult.resolve yes
               addingResult.resolve yes
-              console.log "post resolve"
               return
             return
           
@@ -118,7 +112,15 @@ app.controller 'ScheduleCtrl', [
   'Availabilities'
   (scope, Availabilities, Timezone) ->
     
+    
+
+    scope.$watch 'currentWeek', () ->
+      
+      scope.firstWeek = moment().isoWeekday(1).isAfter(scope.currentWeek.clone().subtract('d',7))
+      console.log "currentWeek changed", scope.firstWeek
+
     scope.currentWeek = moment()
+    scope.firstWeek = no
 
     Availabilities.getService().then (availabilityService) ->
       scope.events = availabilityService.getCurrent scope.currentWeek
@@ -135,9 +137,7 @@ app.controller 'ScheduleCtrl', [
 
       scope.$on "scheduler.add", (event, data, time, bounds) ->
         availabilityService.add(scope.currentWeek, bounds[0], data, time).then () ->
-          console.log "added"
           scope.events = availabilityService.getCurrent scope.currentWeek
-          console.log "updated"
           CONSULTED.trigger "Availability added"
 ]
 
