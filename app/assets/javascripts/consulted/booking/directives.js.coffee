@@ -68,3 +68,12 @@ app.directive 'timeSelect', [
         .finally ->
           scope.loading = no
 ]
+
+app.directive 'message', [
+  () ->
+    template: '<div ng-show="message" class="alert alert-warning">{{message}}</div>'
+    replace: yes
+    scope:
+      message: '='
+
+]

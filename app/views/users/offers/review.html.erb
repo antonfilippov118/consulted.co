@@ -2,9 +2,7 @@
 <h2 class="heading">Your selection</h2>
 <div id="expert" ng-app="consulted.booking" data-offer="<%= @offer.id.to_s %>" data-offset="<%= current_tz_offset %>">
   <div ng-controller="BookingCtrl">
-    <div ng-show="error" class="alert ng-cloak">
-      {{message}}
-    </div>
+    <div message="message"></div>
     <div class="expert-main row divider">
       <div class="profile-info col-md-6">
         <div class="profile-image">
