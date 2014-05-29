@@ -135,7 +135,8 @@ app.controller "EditController", [
 	"mode"
 	"SMALLEST_MINUTE_STEP"
 	(scope, modalInstance, startMinutes, endMinutes, mode, SMALLEST_MINUTE_STEP) ->
-		scope.title = if mode is "edit" then "Edit event" else "Create Event"
+		scope.title = if mode is "edit" then "Edit availability" else "Create availability"
+		scope.button = if mode is "edit" then "Edit" else "Create"
 		scope.minuteStep = SMALLEST_MINUTE_STEP
 		{floor, max, min, round} = Math
 
