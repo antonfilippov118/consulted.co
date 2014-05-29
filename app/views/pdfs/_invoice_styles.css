@@ -1,0 +1,146 @@
+.logo {
+    display : block;
+    width   : 7cm;
+    height  : auto;
+}
+
+.row {
+    margin-bottom : 0.5cm;
+}
+
+.row:last-child {
+    margin-bottom : 0 !important;
+}
+
+.invoice_header {
+    width : 7cm;
+    float : right;
+}
+
+.invoice_header td {
+    padding-top    : 0.05cm;
+    padding-bottom : 0.05cm;
+}
+
+.invoice_header tbody tr:first-child td {
+    padding-top : 0.5cm !important;
+}
+
+.invoice_header tbody tr td:first-child {
+    #margin-left : 0.5cm;
+}
+
+.invoice_header tbody tr td:last-child {
+    #padding-right : 0.3cm;
+}
+
+.invoice_header td {
+    border-color : black;
+}
+
+th {
+    text-align       : center;
+    background-color : black;
+    padding-top      : 0.3cm;
+    padding-bottom   : 0.3cm;
+    color            : white;
+    font-weight      : normal;
+}
+
+thead {
+    margin-bottom : 0.3cm;
+}
+
+.top-align {
+    vertical-align : top;
+}
+
+.width-50 {
+    width : 50%;
+}
+
+.strong {
+    font-weight : bold;
+}
+
+.align-left {
+    text-align : left;
+}
+
+.align-right {
+    text-align : right;
+}
+
+.align-center {
+    text-align : center;
+}
+
+.pdf-header {
+    margin-bottom : 1cm;
+}
+
+.invoice-list tfoot td {
+    padding-top    : 0.5cm !important;
+    padding-bottom : 0.5cm !important;
+}
+
+.black-borders td, .black-borders th, table.black-borders {
+    border-color : black !important;
+}
+
+.no-borders td, .no-borders th, table.no-borders {
+    border : 0 !important;
+}
+
+table.address-box {
+    width : auto !important;
+}
+
+.address-box td {
+    vertical-align : top;
+}
+
+.address-box tr td:first-child {
+    font-weight  : bold;
+    padding-left : 0;
+}
+
+.address-box tr td:last-child {
+    padding-right : 0;
+}
+
+table.width-auto {
+    width : auto !important;
+}
+
+.inv-col-1 {
+    width : 50%;
+}
+
+.inv-col-2 {
+    width : 30%;
+}
+
+.inv-col-3 {
+    width : 20%;
+}
+
+.filler-row {
+    height : 9.5cm;
+}
+
+.large-sum {
+    font-size   : 1.2em;
+    font-weight : bold;
+}
+
+.hr-black {
+    border-color : black;
+}
+
+.paid {
+    width: 7cm;
+    position: absolute;
+    top: 4cm;
+    left: 6cm;
+}

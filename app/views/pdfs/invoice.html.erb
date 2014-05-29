@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <%= wicked_pdf_stylesheet_link_tag 'application' %>
+  <style>
+      <%= render partial: 'pdfs/invoice_styles' %>
+  </style>
+</head>
+<body>
+<div class="pdf-header">
+  <div class="row">
+    <div class="col-xs-6">
+      <%= wicked_pdf_image_tag 'logo_black.png', class: 'logo' %>
+      <p>
+        Consulted, Inc.<br>
+        San Francisco, CA 94104<br>
+        USA
+      </p>
+      <table class="table no-borders width-auto address-box">
+        <tr>
+          <td>Bill to:</td>
+          <td><%= invoice.seeker_id_for_invoice %>
+            <br>
+            Attn: <%= invoice.seeker_name %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-6">
+      <%= render partial: 'pdfs/invoice_right_header', locals: { invoice: invoice } %>
+    </div>
+  </div>
+</div>
+<div class="pdf-body">
+  <%= render partial: 'pdfs/invoice_body', locals: { invoice: invoice } %>
+</div>
+<%= render partial: 'pdfs/invoice_footer', locals: { invoice: invoice } %>
+</body>
+</html>
+

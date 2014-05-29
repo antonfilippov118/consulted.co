@@ -8,6 +8,7 @@ class User
   include Scopable::User
   include Indexable::User
   include Liquidatable::User
+  include Tokenable::User
   include Geo::Continent
   include Available
 
