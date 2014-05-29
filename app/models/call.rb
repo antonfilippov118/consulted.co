@@ -4,6 +4,7 @@ class Call
   include Liquidatable::Call
   include Scopable::Call
   include Pricable::Call
+  include Tokenable::Call
 
   class Status
     REQUESTED = 1
@@ -18,6 +19,8 @@ class Call
   belongs_to :seeker, class_name: 'User', foreign_key: 'seeker_id', inverse_of: :requests
   belongs_to :offer
   belongs_to :availability
+
+  belongs_to :invoice, dependent: :destroy
 
   field :pin, type: Integer, default: -> { Call.generate_unique_pin }
   field :length, type: Integer
@@ -41,6 +44,18 @@ class Call
   delegate :group, to: :offer
 
   alias_method :topic, :name
+
+  def create_invoice
+    inv = Invoice.create!
+    begin
+      inv.call = self # saves relation in call.invoice_id
+      inv.create_pdf
+    rescue
+      inv.call = nil # removes relation from call.invoice_id
+      inv.destroy
+      raise
+    end
+  end
 
   def confirm!
     self.status = Call::Status::ACTIVE
@@ -85,6 +100,10 @@ class Call
 
   def payment
     (rate.to_f / 100)
+  end
+
+  def cost
+    (fee + rate).to_f / 100
   end
 
   private

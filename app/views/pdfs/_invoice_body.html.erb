@@ -1,0 +1,22 @@
+<div style="position:relative">
+  <%= wicked_pdf_image_tag 'paid.png', class: 'img-responsive paid' %>
+</div>
+<table class="invoice-list black-borders table table-bordered">
+  <thead>
+  <tr>
+    <th colspan="2" class="align-left">DESCRIPTION / MEMO</th>
+    <th class="align-right">AMOUNT</th>
+  </tr>
+  </thead>
+  <tbody>
+  <td colspan="2" class="filler-row">(<%= invoice.call_id_for_invoice %>) <%= invoice.expert_name %> &mdash; consulting call on <%= invoice_call_date invoice %> for <%= invoice.call_length %> min (<%= invoice.seeker_timezone %>)</td>
+  <td class="align-right filler-row"><%= invoice_amount invoice %></td>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td class="inv-col-1"></td>
+    <td class="inv-col-2 align-center">TOTAL AMOUNT:</td>
+    <td class="inv-col-3 align-right"><%= invoice_amount invoice %></td>
+  </tr>
+  </tfoot>
+</table>

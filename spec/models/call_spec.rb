@@ -11,9 +11,9 @@ describe Call do
 
   describe 'blocking time' do
     it 'should block the availabilities of an expert when created' do
-      user         = expert
+      user = expert
       availability = user.availabilities.last
-      offer        = user.offers.last
+      offer = user.offers.last
       Call.create expert: user, seeker: seeker, length: 30, active_from: availability.starting, offer: offer
 
       blocks = User.find(user).availabilities.first.blocks.map(&:status)
@@ -25,7 +25,7 @@ describe Call do
       user.break = 15
       user.save
       availability = user.availabilities.last
-      offer        = user.offers.last
+      offer = user.offers.last
       Call.create expert: user, seeker: seeker, length: 30, active_from: availability.starting, offer: offer
 
       # reload
@@ -37,16 +37,16 @@ describe Call do
 
   describe 'calculating payment, rate and fee' do
     {
-      30 => 100,
-      45 => 150,
-      60 => 200,
-      90 => 300,
-      120 => 400
+        30 => 100,
+        45 => 150,
+        60 => 200,
+        90 => 300,
+        120 => 400
     }.each_pair do |min, cost|
       it "should calculate it's total cost correctly for a length of #{min} minutes" do
-        user         = expert
+        user = expert
         availability = user.availabilities.last
-        offer        = user.offers.last
+        offer = user.offers.last
         Call.create expert: user, seeker: seeker, length: min, active_from: availability.starting, offer: offer # rate 200
         call = Call.first
         expect(call.cost).to eql cost * 100 # cents
@@ -54,16 +54,16 @@ describe Call do
     end
 
     {
-      30 => 15,
-      45 => 22.5,
-      60 => 30,
-      90 => 45,
-      120 => 60
+        30 => 15,
+        45 => 22.5,
+        60 => 30,
+        90 => 45,
+        120 => 60
     }.each_pair do |min, fee|
       it "should calculate it's fee based on the current platform settings for a length of #{min} minutes" do
-        user         = expert
+        user = expert
         availability = user.availabilities.last
-        offer        = user.offers.last
+        offer = user.offers.last
         Call.create expert: user, seeker: seeker, length: min, active_from: availability.starting, offer: offer # rate 200
         call = Call.first
         expect(call.fee).to eql((fee * 100).to_i) # cents
@@ -71,16 +71,16 @@ describe Call do
     end
 
     {
-      30  => 85,
-      45  => 127.5,
-      60  => 170,
-      90  => 255,
-      120 => 340
+        30 => 85,
+        45 => 127.5,
+        60 => 170,
+        90 => 255,
+        120 => 340
     }.each_pair do |min, rate|
       it "should calculate the rate (the amount to be paid out) based on the platform settings for #{min} minutes" do
-        user         = expert
+        user = expert
         availability = user.availabilities.last
-        offer        = user.offers.last
+        offer = user.offers.last
         Call.create expert: user, seeker: seeker, length: min, active_from: availability.starting, offer: offer # rate 200
         call = Call.first
         expect(call.rate).to eql((rate * 100).to_i) # cents
@@ -96,14 +96,40 @@ describe Call do
     end
 
     it 'should prevent collisions with active pins' do
-      user         = expert
-      offer        = user.offers.last
+      user = expert
+      offer = user.offers.last
       Call.create expert: user, seeker: seeker, length: 120, active_from: Time.now, offer: offer # rate 200
       call = Call.last
       call.confirm!
       second_call = Call.create pin: call.pin, expert: user, seeker: seeker, length: 30, active_from: Time.now, offer: offer
       expect(second_call.pin).not_to eql call.pin
     end
+  end
+
+  describe 'creating invoice' do
+    before(:each) { Invoice::any_instance.stub(:create_pdf) }
+    let(:call) { Call.create expert: expert, seeker: seeker, length: 120, active_from: Time.now, offer: expert.offers.first }
+
+    it 'should create invoice' do
+      call.create_invoice
+      expect(call.invoice).not_to be_blank
+    end
+
+    it 'should generate pdf invoice' do
+      Invoice::any_instance.should_receive(:create_pdf).once
+      call.create_invoice
+    end
+
+    it 'should not create invoice when pdf creation failed' do
+      Invoice::any_instance.stub(:create_pdf).and_raise('Bad Error')
+      expect {
+        expect {
+          call.create_invoice
+        }.to raise_error 'Bad Error'
+      }.not_to change(Invoice, :count)
+      expect(call.invoice).to be_blank
+    end
+
   end
 
   def seeker

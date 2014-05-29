@@ -1,0 +1,66 @@
+<div class="pdf-footer">
+  <div class="row">
+    <div class="col-xs-5">
+      Consulted, Inc.<br>
+      San Francisco, CA 94104<br>
+      USA
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      Customer ID: <%= invoice.seeker_id_for_invoice %>
+    </div>
+    <div class="col-xs-5 col-xs-offset-2">
+      Total Due <span class="pull-right large-sum"><%= invoice_amount invoice %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      Invoice # <%= invoice.id_for_invoice %>
+    </div>
+    <div class="col-xs-5 col-xs-offset-2">
+      Status <span class="pull-right">Paid via PayPal</span>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-5">
+      <table class="table no-borders address-box">
+        <tr>
+          <td>Bill to:</td>
+          <td><%= invoice.seeker_id_for_invoice %>
+            <br>
+            Attn: <%= invoice.seeker_name %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-5 col-xs-offset-2">
+      <table class="table no-borders address-box">
+        <tr>
+          <td>Remit to:</td>
+          <td>Consulted, Inc.<br>
+            San Francisco, CA 94104<br>
+            USA
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="hr-black">
+
+  <div class="row">
+    <div class="col-xs-4">
+      DATE: <%= invoice_date invoice %>
+    </div>
+    <div class="col-xs-4 text-center">
+      DUE DATE: <%= invoice_due_date invoice %>
+    </div>
+    <div class="col-xs-4 text-right">
+      PAGE 1 of 1
+    </div>
+  </div>
+</div>

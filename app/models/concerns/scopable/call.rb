@@ -18,6 +18,7 @@ module Scopable
       scope :cancelled, -> { where status: ::Call::Status::CANCELLED }
       scope :younger, -> number { where active_from: { :$lte => Time.at(Time.now + number.days) } }
       scope :older, -> number { where active_from: { :$gte => Time.at(Time.now + number.days) } }
+      scope :without_invoice, -> { where invoice: nil }
     end
   end
 

@@ -1,13 +1,10 @@
 collection @calls
-attributes :name, :message, :status, :payment, :length, :active, :payment
+attributes :name, :message, :status, :payment, :length, :active, :payment, :cost
 
 node :active_from do |call|
   call.active_from.to_i * 1000
 end
 
-node :cost do |call|
-  (call.fee + call.rate).to_f / 100
-end
 node :seeker do |call|
   seeker?(call)
 end
@@ -39,4 +36,7 @@ node :partner do |call|
 end
 child :group do
   attributes :slug
+end
+node :invoice_pdf_url do |call|
+  call.invoice.blank? ? nil : call.invoice.pdf.url
 end

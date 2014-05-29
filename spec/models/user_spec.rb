@@ -132,4 +132,16 @@ describe User do
       expect(User.first.region).to eql 'Western Europe'
     end
   end
+
+  context 'token for invoice' do
+    let(:user) { User.create! valid_params }
+
+    it 'should present after user creation' do
+      expect(user.id_for_invoice).not_to be_blank
+    end
+
+    it 'should have format like AB1234567' do
+      expect(user.id_for_invoice).to match(/^[A-Z]{2}\d{7}$/)
+    end
+  end
 end
