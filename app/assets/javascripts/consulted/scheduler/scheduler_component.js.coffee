@@ -12,6 +12,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 		week: "="
 	templateUrl: "foo_scheduler"
 	link: (scope, element, attr) ->
+		scope.readOnly = attr.readOnly?
 		id = 1
 		scope.count = 0
 		#scope.$watch "events", (newEvents) ->
@@ -28,7 +29,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 			event.preventDefault()
 
 		scope.add = (event, index) ->
-			if "day" in event.target.className.split(" ")
+			if ("day" in event.target.className.split(" ")) and !scope.readOnly
 				target = $ event.target
 				start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
 				end = start + DEFAULT_DURATION
@@ -88,6 +89,7 @@ app.directive "event", ["$modal", (modal) ->
 		event: "="
 		index: "="
 		parentIndex: "="
+		readOnly: "="
 	templateUrl: "foo_event"
 	link: (scope, element, attr) ->
 		mpd = 24 * 60
@@ -104,22 +106,23 @@ app.directive "event", ["$modal", (modal) ->
 			event.preventDefault()
 
 		scope.edit = (event) ->
-			modalInstance = modal.open
-				templateUrl: "foo_edit"
-				controller: "EditController"
-				resolve:
-					startMinutes: () ->
-						scope.start
-					endMinutes: () ->
-						scope.end
-					mode: () ->
-						"edit"
-			modalInstance.result.then (bounds) ->
-				[scope.start, scope.end, recurrence] = bounds
-				scope.setPosition()
-				scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
-			, () ->
-				console.log "dismissed"
+			unless scope.readOnly
+				modalInstance = modal.open
+					templateUrl: "foo_edit"
+					controller: "EditController"
+					resolve:
+						startMinutes: () ->
+							scope.start
+						endMinutes: () ->
+							scope.end
+						mode: () ->
+							"edit"
+				modalInstance.result.then (bounds) ->
+					[scope.start, scope.end, recurrence] = bounds
+					scope.setPosition()
+					scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
+				, () ->
+					console.log "dismissed"
 			event.preventDefault()
 ]
 
