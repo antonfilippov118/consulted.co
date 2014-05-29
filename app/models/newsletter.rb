@@ -16,8 +16,6 @@ class Newsletter
   def send!
     return false unless valid?
     begin
-      binding.pry
-
       gibbon.lists.subscribe list.symbolize_keys.merge email: { 'email' => email }, double_optin: 'false', update_existing: 'true'
     rescue
       return false
