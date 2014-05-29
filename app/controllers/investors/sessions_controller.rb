@@ -3,6 +3,11 @@ class Investors::SessionsController < Devise::SessionsController
   before_filter :live?
   layout 'investors'
 
+  def new
+    @newsletter = Newsletter.new
+    super
+  end
+
   private
 
   def after_signin_path

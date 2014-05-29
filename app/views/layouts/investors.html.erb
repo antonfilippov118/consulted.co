@@ -9,6 +9,7 @@
     <!--[if lt IE 9]>
       <%= javascript_include_tag 'compatibility' %>
     <![endif]-->
+    <%= render partial: 'layouts/jquery' %>
     <%= stylesheet_link_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
@@ -28,7 +29,6 @@
     <div id="landing-main" class="slide-photo">
       <div class="heading">
         <h1>Business advice from world-class experts just a phone call away</h1>
-        <h3>Closed beta</h3>
         <%= yield %>
       </div>
       <div id="landing-main-bottom">
@@ -37,5 +37,6 @@
         </div>
       </div>
     </div>
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>
