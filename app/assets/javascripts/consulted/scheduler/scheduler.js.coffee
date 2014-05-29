@@ -25,10 +25,12 @@ app.service 'Availabilities', [
       moment.hour() * 60 + moment.minute()
     minutesToMoment = (minutes, week, day, offset) ->
       monday = week.clone().isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
-      monday.add('d', day - 1).add('m', minutes).add('s', offset)
+      monday.add('d', day - 1).add('m', minutes).zone(offset)
+      console.log monday.format()
+      monday
 
-    q.all([TimezoneData.get(), AvailabilityData.get()]).then (data) ->
-      [offset, availabilities] = data
+    q.all([TimezoneData.getFormattedOffset(), AvailabilityData.get()]).then (data) ->
+      [formatted_offset, availabilities] = data
 
       updateData = () ->
         updateResult = q.defer()
@@ -44,9 +46,9 @@ app.service 'Availabilities', [
           current = for i in [0...7]
             []
           for availability in availabilities
-            start = moment.unix availability.start - offset
-            end = moment.unix availability.end - offset
-            
+            start = moment.unix(availability.start).zone(formatted_offset)
+            end = moment.unix(availability.end).zone(formatted_offset)
+
             if (start.isAfter(monday) and end.isBefore(sunday))
               #console.log start.format(), end.format()
               #console.log monday.format(), sunday.format()
@@ -57,15 +59,14 @@ app.service 'Availabilities', [
                   availability
           current
 
-        
         update: (week, dayIndex, data, time, recurrence) ->
           updatingResult = q.defer()
           pending = []
           for i in [0..recurrence]
             object =
               availability:
-                start: minutesToMoment(time[0], week, dayIndex, offset).add('d', 7 * i).unix()
-                end: minutesToMoment(time[1], week, dayIndex, offset).add('d', 7 * i).unix()
+                start: minutesToMoment(time[0], week, dayIndex, formatted_offset).add('d', 7 * i).unix()
+                end: minutesToMoment(time[1], week, dayIndex, formatted_offset).add('d', 7 * i).unix()
             object.availability.id = data.id if i is 0
             pending.push http.put('/availabilities', object)
           q.all(pending).then () ->
@@ -79,14 +80,13 @@ app.service 'Availabilities', [
           for i in [0..recurrence]
             object =
               availability:
-                start: minutesToMoment(time[0], week, dayIndex, offset).add('d', 7 * i).unix()
-                end: minutesToMoment(time[1], week, dayIndex, offset).add('d', 7 * i).unix()
+                start: minutesToMoment(time[0], week, dayIndex, formatted_offset).add('d', 7 * i).unix()
+                end: minutesToMoment(time[1], week, dayIndex, formatted_offset).add('d', 7 * i).unix()
             pending.push http.put("/availabilities", object)
-          console.log pending
-          q.all(pending).then (data) ->      
+          q.all(pending).then (data) ->
             updateData().then (availabilities) ->
               addingResult.resolve yes
-          
+
           addingResult.promise
 
         delete: (data) ->
@@ -95,8 +95,6 @@ app.service 'Availabilities', [
             updateData().then () ->
               deleteResult.resolve yes
           deleteResult.promise
-
-
 
     getService: () ->
       result.promise
@@ -113,7 +111,16 @@ app.service 'TimezoneData', [
           result.resolve data.offset
         else
           result.reject "error while getting timezone"
-      result.promise   
+      result.promise
+    getFormattedOffset: () ->
+      result = q.defer()
+      http.get('/timezone').success (data) ->
+        if data?.formatted_offset?
+          result.resolve data.formatted_offset
+        else
+          result.reject "error while getting timezone"
+      result.promise
+
 ]
 
 app.controller 'ScheduleCtrl', [
@@ -135,12 +142,10 @@ app.controller 'ScheduleCtrl', [
       scope.events = availabilityService.getCurrent scope.currentWeek
 
       scope.$watch 'currentWeek', () ->
-        console.log "currentWeek changed"
         scope.firstWeek = moment().isoWeekday(1).isAfter(scope.currentWeek.clone().subtract('d',7))
         scope.from = scope.currentWeek.clone().isoWeekday(1).format('dddd, DD MMMM YYYY')
         scope.to = scope.currentWeek.clone().isoWeekday(7).format('dddd, DD MMMM YYYY')
         scope.events = availabilityService.getCurrent scope.currentWeek
-
 
 
       scope.$on "scheduler.remove", (event, data) ->
@@ -155,7 +160,6 @@ app.controller 'ScheduleCtrl', [
           CONSULTED.trigger "Availability updated"
 
       scope.$on "scheduler.add", (event, data, time, bounds, recurrence) ->
-        console.log recurrence
         availabilityService.add(scope.currentWeek, bounds[0], data, time, recurrence).then () ->
           scope.events = availabilityService.getCurrent scope.currentWeek
           CONSULTED.trigger "Availability added"
