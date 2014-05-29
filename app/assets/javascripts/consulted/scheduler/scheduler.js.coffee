@@ -58,6 +58,11 @@ app.service 'Availabilities', [
           http.put('/availabilities', object).then (data) ->
             result.resolve yes
           result.promise
+        delete: (data) ->
+          result = q.defer()
+          http.delete("/availabilities/#{data.id}").then () ->
+            result.resolve yes
+          result.promise
 
 
 
@@ -91,14 +96,15 @@ app.controller 'ScheduleCtrl', [
 
 
       scope.$on "scheduler.remove", (event, data) ->
-        console.log "remove ", data
+        if data.id?
+          availabilityService.delete(data).then () ->
+            CONSULTED.trigger "Deleted availability"
 
       scope.$on "scheduler.update", (event, data, time, bounds) ->
         availabilityService.update(scope.currentWeek, bounds[0], data, time).then () ->
           CONSULTED.trigger "Availability updated"
 
       scope.$on "scheduler.add", (event, data, time) ->
-
         console.log "add ", data, time
 ]
 
