@@ -98,7 +98,7 @@ module UsersHelper
   end
 
   def user
-    @user
+    @user || User.new
   end
 
   def break_settings

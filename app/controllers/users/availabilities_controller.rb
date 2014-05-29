@@ -3,7 +3,7 @@ class Users::AvailabilitiesController < Users::BaseController
   skip_before_filter :verify_authenticity_token
 
   def show
-    @availabilities = Availability.future.for @user
+    @availabilities = Availability.for(@user).where starting: { :$gte => last_monday }
   end
 
   def update
@@ -31,5 +31,9 @@ class Users::AvailabilitiesController < Users::BaseController
     unless @user.can_be_an_expert?
       render json: { message: 'Expert only route!' }, status: :unprocessable_entity
     end
+  end
+
+  def last_monday
+    Time.now.beginning_of_week - 1.day
   end
 end
