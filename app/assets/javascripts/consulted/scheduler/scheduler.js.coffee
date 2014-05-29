@@ -46,8 +46,9 @@ app.service 'Availabilities', [
                 time: [momentToMinutes(start), momentToMinutes(end)]
                 data:
                   availability
-
           current
+
+        
         update: (week, dayIndex, data, time) ->
           result = q.defer()
           object =
@@ -58,6 +59,18 @@ app.service 'Availabilities', [
           http.put('/availabilities', object).then (data) ->
             result.resolve yes
           result.promise
+
+        add: (week, dayIndex, data, time) ->
+          result = q.defer
+          object =
+            availability:
+              start: minutesToMoment(time[0], week, dayIndex, offset).unix()
+              end: minutesToMoment(time[1], week, dayIndex, offset).unix()
+          http.put("/availabilities", object).then (data) ->
+            console.log data
+            result.resolve yes
+          result.promise
+
         delete: (data) ->
           result = q.defer()
           http.delete("/availabilities/#{data.id}").then () ->
@@ -104,7 +117,8 @@ app.controller 'ScheduleCtrl', [
         availabilityService.update(scope.currentWeek, bounds[0], data, time).then () ->
           CONSULTED.trigger "Availability updated"
 
-      scope.$on "scheduler.add", (event, data, time) ->
-        console.log "add ", data, time
+      scope.$on "scheduler.add", (event, data, time, bounds) ->
+        availabilityService.add(scope.currentWeek, bounds[0], data, time).then () ->
+          CONSULTED.trigger "Availability added"
 ]
 
