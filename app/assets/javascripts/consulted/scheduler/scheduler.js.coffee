@@ -58,8 +58,9 @@ app.service 'Availabilities', [
           current
 
         
-        update: (week, dayIndex, data, time) ->
+        update: (week, dayIndex, data, time, recurrence) ->
           updatingResult = q.defer()
+
           object =
             availability:
               id: data.id
@@ -69,25 +70,29 @@ app.service 'Availabilities', [
             updatingResult.resolve yes
           updatingResult.promise
 
-        add: (week, dayIndex, data, time) ->
+        add: (week, dayIndex, data, time, recurrence) ->
           addingResult = q.defer()
-          object =
-            availability:
-              start: minutesToMoment(time[0], week, dayIndex, offset).unix()
-              end: minutesToMoment(time[1], week, dayIndex, offset).unix()
-          http.put("/availabilities", object).then (data) ->      
+          pending = []
+          for i in [0..recurrence]
+            console.log i
+            object =
+              availability:
+                start: minutesToMoment(time[0], week, dayIndex, offset).add('d', 7 * i).unix()
+                end: minutesToMoment(time[1], week, dayIndex, offset).add('d', 7 * i).unix()
+            pending.push http.put("/availabilities", object)
+          console.log pending
+          q.all(pending).then (data) ->      
             updateData().then (availabilities) ->
               addingResult.resolve yes
-              return
-            return
           
           addingResult.promise
 
         delete: (data) ->
-          result = q.defer()
+          deleteResult = q.defer()
           http.delete("/availabilities/#{data.id}").then () ->
-            result.resolve yes
-          result.promise
+            updateData().then () ->
+              deleteResult.resolve yes
+          deleteResult.promise
 
 
 
@@ -139,14 +144,16 @@ app.controller 'ScheduleCtrl', [
       scope.$on "scheduler.remove", (event, data) ->
         if data.id?
           availabilityService.delete(data).then () ->
+            scope.events = availabilityService.getCurrent scope.currentWeek
             CONSULTED.trigger "Deleted availability"
 
-      scope.$on "scheduler.update", (event, data, time, bounds) ->
-        availabilityService.update(scope.currentWeek, bounds[0], data, time).then () ->
+      scope.$on "scheduler.update", (event, data, time, bounds, recurrence) ->
+        availabilityService.update(scope.currentWeek, bounds[0], data, time, recurrence).then () ->
           CONSULTED.trigger "Availability updated"
 
-      scope.$on "scheduler.add", (event, data, time, bounds) ->
-        availabilityService.add(scope.currentWeek, bounds[0], data, time).then () ->
+      scope.$on "scheduler.add", (event, data, time, bounds, recurrence) ->
+        console.log recurrence
+        availabilityService.add(scope.currentWeek, bounds[0], data, time, recurrence).then () ->
           scope.events = availabilityService.getCurrent scope.currentWeek
           CONSULTED.trigger "Availability added"
 ]

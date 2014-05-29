@@ -43,14 +43,13 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 						mode: () ->
 							"add"
 				modalInstance.result.then (bounds) ->
-					console.log bounds
-					[start, end] = bounds
+					[start, end, recurrence] = bounds
 					event =
 						time: [start, end]
 						data:
 							id: "$$gen_id#{id++}"
 					scope.events[index].push event
-					scope.$emit "scheduler.add", event.data, [start, end], [index]
+					scope.$emit "scheduler.add", event.data, [start, end], [index], recurrence
 				, () ->
 					console.log "dismissed"
 
@@ -59,8 +58,8 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 			scope.events[dayIndex].splice eventIndex, 1
 			scope.$emit "scheduler.remove", data
 
-		scope.$on "update", (event, bounds, data, time) ->
-			scope.$emit "scheduler.update", data, time, bounds
+		scope.$on "update", (event, bounds, data, time, recurrence) ->
+			scope.$emit "scheduler.update", data, time, bounds, recurrence
 
 ]
 
@@ -116,10 +115,9 @@ app.directive "event", ["$modal", (modal) ->
 					mode: () ->
 						"edit"
 			modalInstance.result.then (bounds) ->
-				console.log bounds
-				[scope.start, scope.end] = bounds
+				[scope.start, scope.end, recurrence] = bounds
 				scope.setPosition()
-				scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end]
+				scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
 			, () ->
 				console.log "dismissed"
 			event.preventDefault()
@@ -152,12 +150,16 @@ app.controller "EditController", [
 
 		scope.start = scope.minutesToDate startMinutes
 		scope.end = scope.minutesToDate endMinutes
+		scope.recurrence = 0
 
-		scope.accept = (event, start, end) ->
+		scope.accept = (event, start, end, recurrence) ->
 			[time1, time2] = [scope.closest(scope.dateToMinutes(start)), scope.closest(scope.dateToMinutes(end))]
 			[start, end] = [min(time1, time2), max(time1, time2)]
+			recurrence = parseInt recurrence
+			recurrence = 52 if recurrence > 52
+			recurrence = 0 if recurrence < 0
 			end += 5 if start is end
-			modalInstance.close [start, end]
+			modalInstance.close [start, end, recurrence]
 			event.preventDefault()
 		scope.dismiss = (event) ->
 			modalInstance.dismiss 'cancel'
