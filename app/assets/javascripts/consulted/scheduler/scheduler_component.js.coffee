@@ -58,7 +58,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 
 		scope.$on "remove", (event, bounds, data) ->
 			[dayIndex, eventIndex] = bounds
-			scope.events[dayIndex].splice eventIndex
+			scope.events[dayIndex].splice eventIndex, 1
 			scope.$emit "scheduler.remove", data
 
 		scope.$on "update", (event, bounds, data, time) ->
