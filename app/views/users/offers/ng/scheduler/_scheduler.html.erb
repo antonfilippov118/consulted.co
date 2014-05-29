@@ -10,7 +10,7 @@
   </div>
   <div class="day-holder">
     <div ng-repeat="day in events" data-ng-class="{'visible': currentDay -1 == $index }" data-ng-click="add($event, $index)" class="day">
-      <div ng-repeat="event in day" data-ng-event="data-ng-event" data-event="event" data-index="$index" data-parent-index="$parent.$index"></div>
+      <div ng-repeat="event in day" data-ng-event="data-ng-event" data-event="event" data-index="$index" data-parent-index="$parent.$index" data-read-only="readOnly"></div>
     </div>
   </div>
   <div class="clearfix"></div>
