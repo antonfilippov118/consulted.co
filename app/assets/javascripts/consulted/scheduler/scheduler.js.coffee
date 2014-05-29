@@ -26,7 +26,6 @@ app.service 'Availabilities', [
     minutesToMoment = (minutes, week, day, offset) ->
       monday = week.clone().zone(offset).isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
       monday.add('d', day - 1).add('m', minutes)
-      console.log monday.format()
       monday
 
     q.all([TimezoneData.getFormattedOffset(), AvailabilityData.get()]).then (data) ->
@@ -114,7 +113,7 @@ app.service 'TimezoneData', [
       result.promise
     getFormattedOffset: () ->
       result = q.defer()
-      http.get('/timezone').success (data) ->
+      http.get('/timezone', cache: yes).success (data) ->
         if data?.formatted_offset?
           result.resolve data.formatted_offset
         else

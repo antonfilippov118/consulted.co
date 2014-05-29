@@ -3,15 +3,18 @@
 </div>
 <div class="modal-body time-picker">
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-4">
       <timepicker data-ng-model="start" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
       <timepicker data-ng-model="end" data-show-meridian="false" data-minute-step="minuteStep"></timepicker>
     </div>
-    <div class="col-sm-2">
-      <!-- TODO: ugly!! -->
-      <input type="number" data-ng-model="recurrence" class="form-control" style="margin-top: 34px;"/>
+    <div class="col-sm-4">
+      <br>
+      <label class="control-label">
+        Recurrence
+        <input type="number" data-ng-model="recurrence" class="form-control">
+      </label>
     </div>
   </div>
 </div>

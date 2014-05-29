@@ -105,6 +105,10 @@ app.directive "event", ["$modal", (modal) ->
 			scope.$emit "remove", [scope.parentIndex, scope.index], scope.event.data
 			event.preventDefault()
 
+		scope.loadOffer = (_, event) ->
+			return unless scope.readOnly
+			scope.$emit 'goto:offer', event
+
 		scope.edit = (event) ->
 			unless scope.readOnly
 				modalInstance = modal.open
@@ -122,7 +126,6 @@ app.directive "event", ["$modal", (modal) ->
 					scope.setPosition()
 					scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
 				, () ->
-					console.log "dismissed"
 			event.preventDefault()
 ]
 
