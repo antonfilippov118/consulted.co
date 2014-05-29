@@ -25,7 +25,7 @@ class Invoice
   end
 
   def amount
-    self.call.cost
+    (self.call.fee + self.call.rate).to_f / 100
   end
 
   def date
