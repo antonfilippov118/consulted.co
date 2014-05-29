@@ -52,7 +52,7 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 						data:
 							id: "$$gen_id#{id++}"
 					scope.events[index].push event
-					scope.$emit "scheduler.add", event.data, [start, end]
+					scope.$emit "scheduler.add", event.data, [start, end], [index]
 				, () ->
 					console.log "dismissed"
 
