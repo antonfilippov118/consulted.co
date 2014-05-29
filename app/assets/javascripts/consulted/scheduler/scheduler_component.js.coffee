@@ -142,7 +142,7 @@ app.controller "EditController", [
 		scope.minuteStep = SMALLEST_MINUTE_STEP
 		{floor, max, min, round} = Math
 
-		scope.editMode() = -> mode is 'edit'
+		scope.editMode = -> mode is 'edit'
 
 		scope.minutesToDate = (minutes) ->
 			d = new Date()
