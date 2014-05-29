@@ -25,7 +25,7 @@ app.service 'Availabilities', [
       moment.hour() * 60 + moment.minute()
     minutesToMoment = (minutes, week, day, offset) ->
       monday = week.clone().zone(offset).isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
-      monday.add('d', day - 1).add('m', minutes)
+      monday.add('d', day).add('m', minutes)
       monday
 
     q.all([TimezoneData.getFormattedOffset(), AvailabilityData.get()]).then (data) ->
@@ -52,7 +52,7 @@ app.service 'Availabilities', [
               #console.log start.format(), end.format()
               #console.log monday.format(), sunday.format()
               #console.log start.isAfter(monday), end.isBefore(sunday)
-              current[start.isoWeekday()].push
+              current[start.isoWeekday() - 1].push
                 time: [momentToMinutes(start), momentToMinutes(end)]
                 data:
                   availability

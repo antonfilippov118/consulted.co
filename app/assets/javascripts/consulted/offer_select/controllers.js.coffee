@@ -37,7 +37,7 @@ app.controller 'AvailabilityCtrl', [
           day = start.day()
           _start = Math.abs start.clone().hour(0).minute(0).diff(start, 'minutes')
           _end =   Math.abs end.clone().hour(0).minute(0).diff(end, 'minutes')
-          scope.events[day].push time: [_start, _end], data: { start: start }
+          scope.events[day - 1].push time: [_start, _end], data: { start: start }
 
     fetch = (_, offer) ->
       ExpertAvailabilities.get(offer).then (events) ->
