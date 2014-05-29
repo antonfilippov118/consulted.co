@@ -100,10 +100,6 @@ class Call
     (rate.to_f / 100)
   end
 
-  def cost
-    (fee + rate).to_f / 100
-  end
-
   private
 
   before_save :ending!, :availability!, :check_pin!
