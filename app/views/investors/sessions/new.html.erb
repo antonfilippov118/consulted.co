@@ -1,12 +1,25 @@
 <div id="investor-login">
   <%= render partial: 'layouts/messages' %>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal') do |f| -%>
-    <div class="col-lg-5"></div>
-    <div class="col-xs-12 col-lg-2">
-      <%= f.text_field :email, placeholder: 'Name', class: 'form-control' %> <br>
-      <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
-      <%= f.submit "Enter", data: { disable_with: 'Entering...' }, class: 'btn btn-default ' %>
+    <div class="col-lg-3"></div>
+    <div class="col-xs-12 col-lg-6">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal') do |f| -%>
+        <div class="col-md-5" style="border-right:1px solid white">
+          <h3>Closed beta</h3>
+          <%= f.text_field :email, placeholder: 'Name', class: 'form-control' %> <br>
+          <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+          <%= f.submit "Enter", data: { disable_with: 'Entering...' }, class: 'btn btn-default ' %>
+        </div>
+      <% end %>
+      <div class="col-md-7">
+        <div id="signup_news">
+          <p><strong>We enable businesses to access expert advice on-demand.</strong></p>
+          <p>We are currently in stealth mode and are collecting user feedback (beta phase). Once we are live and open to the public, we will be much more descriptive about what we do.</p>
+          <p>Signup here to be the first to know when we launch.</p>
+          <% form_for @newsletter do |f| -%>
+
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-5"></div>
-  <% end %>
+    <div class="col-lg-3"></div>
 </div>
