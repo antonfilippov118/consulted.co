@@ -15,9 +15,9 @@
       Time schedule is based on your timezone setting. Your current timezone is: <%= timezone.to_s %>
     </div>
     <div class="clr book-periods">
-      <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}">&nbsp;</div>
-      <div class="book-period">Monday, 23 March 2014, 11:15 - 1:00pm</div>
-      <div class="book-period-next">&nbsp;</div>
+      <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}" data-ng-click="prev($event)">&nbsp;</div>
+      <div class="book-period">{{ from }} - {{ to }}</div>
+      <div class="book-period-next" data-ng-click="next($event)">&nbsp;</div>
     </div>
     <div id="scheduler" class="scheduler">
       <div >

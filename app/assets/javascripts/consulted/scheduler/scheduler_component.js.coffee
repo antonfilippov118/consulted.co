@@ -1,7 +1,5 @@
 app = angular.module "scheduler", ['ngTouch', "ui.bootstrap"]
 
-console.log "scheduler_component"
-
 app.constant 'MOBILE_DAY_HEADER_FORMAT', 'dddd Do'
 app.constant 'SMALLEST_MINUTE_STEP', 5
 app.constant 'DEFAULT_DURATION', 30

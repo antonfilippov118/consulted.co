@@ -1,5 +1,7 @@
 app = angular.module 'consulted.scheduler', ["scheduler"]
 
+app.constant 'HEADER_DATE_FORMAT', 'dddd, DD MMMM YYYY'
+
 app.service 'AvailabilityData', [
   "$http"
   "$q"
@@ -110,14 +112,23 @@ app.service 'TimezoneData', [
 app.controller 'ScheduleCtrl', [
   '$scope'
   'Availabilities'
-  (scope, Availabilities, Timezone) ->
+  'HEADER_DATE_FORMAT'
+  (scope, Availabilities, Timezone, HEADER_DATE_FORMAT) ->
     
     
 
     scope.$watch 'currentWeek', () ->
-      
+      console.log "currentWeek changed"
       scope.firstWeek = moment().isoWeekday(1).isAfter(scope.currentWeek.clone().subtract('d',7))
-      console.log "currentWeek changed", scope.firstWeek
+      scope.from = scope.currentWeek.clone().isoWeekday(1).format('dddd, DD MMMM YYYY')
+      scope.to = scope.currentWeek.clone().isoWeekday(7).format('dddd, DD MMMM YYYY')
+
+
+    scope.next = (event) ->
+      scope.currentWeek = scope.currentWeek.clone().add('d', 7)
+
+    scope.prev = (event) ->
+      scope.currentWeek = scope.currentWeek.clone().subtract('d', 7) unless scope.firstWeek
 
     scope.currentWeek = moment()
     scope.firstWeek = no
