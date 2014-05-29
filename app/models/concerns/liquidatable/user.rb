@@ -18,7 +18,7 @@ module Liquidatable
     def expert_page
       return false unless expert?
       return false unless Rails.env.production?
-      "https://consulted.co/#{slug}"
+      "https://beta.consulted.co/#{slug}"
     end
   end
 end
