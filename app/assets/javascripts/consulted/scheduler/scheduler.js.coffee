@@ -114,15 +114,6 @@ app.controller 'ScheduleCtrl', [
   'Availabilities'
   'HEADER_DATE_FORMAT'
   (scope, Availabilities, Timezone, HEADER_DATE_FORMAT) ->
-    
-    
-
-    scope.$watch 'currentWeek', () ->
-      console.log "currentWeek changed"
-      scope.firstWeek = moment().isoWeekday(1).isAfter(scope.currentWeek.clone().subtract('d',7))
-      scope.from = scope.currentWeek.clone().isoWeekday(1).format('dddd, DD MMMM YYYY')
-      scope.to = scope.currentWeek.clone().isoWeekday(7).format('dddd, DD MMMM YYYY')
-
 
     scope.next = (event) ->
       scope.currentWeek = scope.currentWeek.clone().add('d', 7)
@@ -135,6 +126,14 @@ app.controller 'ScheduleCtrl', [
 
     Availabilities.getService().then (availabilityService) ->
       scope.events = availabilityService.getCurrent scope.currentWeek
+
+      scope.$watch 'currentWeek', () ->
+        console.log "currentWeek changed"
+        scope.firstWeek = moment().isoWeekday(1).isAfter(scope.currentWeek.clone().subtract('d',7))
+        scope.from = scope.currentWeek.clone().isoWeekday(1).format('dddd, DD MMMM YYYY')
+        scope.to = scope.currentWeek.clone().isoWeekday(7).format('dddd, DD MMMM YYYY')
+        scope.events = availabilityService.getCurrent scope.currentWeek
+
 
 
       scope.$on "scheduler.remove", (event, data) ->
