@@ -16,7 +16,7 @@ module Liquidatable
 
     def languages
       {
-        'languages' => expert.languages.map(&:capitalize).join(', ')
+        'languages' => languages.map(&:capitalize).join(', ')
       }
     end
 
