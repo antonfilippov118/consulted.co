@@ -41,7 +41,7 @@ app.controller 'BookingCtrl', [
         Book.confirm(scope.request).then (data) ->
           # successful, redirect
           optimize(scope.request)
-          $window.location.assign '/requests/success'
+          $window.location.href = '/requests/success'
         , (err) ->
           scope.error = yes
           scope.message = err.data.error

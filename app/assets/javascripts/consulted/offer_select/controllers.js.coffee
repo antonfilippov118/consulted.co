@@ -59,7 +59,7 @@ app.controller 'AvailabilityCtrl', [
         {data} = event
         sessionStorage.setItem "#{slug}:time", data.start?.format('YYYY-MM-DD HH:mm Z')
         offer = ExpertOffers.getSelected()
-        $window.location.assign "/offers/#{offer.slug}-with-#{slug}/review"
+        $window.location.href = "/offers/#{offer.slug}-with-#{slug}/review"
 
 ]
 
