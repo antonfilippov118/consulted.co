@@ -64,6 +64,9 @@ app.controller 'ConfirmCtrl', [
       , (err) ->
         modalInstance.dismiss()
 
+    scope.dismiss = ->
+      modalInstance.dismiss()
+
     scope.confirm = ->
       Call.confirm(call).then (result) ->
         CONSULTED.trigger 'Call confirmed'
