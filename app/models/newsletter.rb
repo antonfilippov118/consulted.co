@@ -23,14 +23,24 @@ class Newsletter
     true
   end
 
+  def remove!
+    return false unless valid?
+    begin
+      gibbon.lists.unsubscribe list.symbolize_keys.merge email: { 'email' => email }
+    rescue
+      return false
+    end
+    true
+  end
+
   private
 
-  def method_name
+  def name
     list_name || 'Consulted Beta information'
   end
 
   def list
-    data = Gibbon::API.lists.list(filters: { list_name: 'Consulted Beta information' }).fetch('data').first
+    data = Gibbon::API.lists.list(filters: { list_name: name }).fetch('data').first
     data.slice 'id', 'web_id'
   end
 
