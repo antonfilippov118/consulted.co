@@ -12,31 +12,31 @@
       <span id="howlong">{{selected()}}</span> minutes</div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-5">
         <p class="bigger label-select">Available Time Slots</p>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-7">
         <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start * 1000 | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-5">
         <p class="bigger label-select">Start</p>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-7">
         <p class="bigger label-select">
           {{request.active_from | moment:'ddd, MMM DD YYYY HH:mm'}}
           <a ng-click="add(5)" ng-show="addable(5)">[+ 5 min]</a>
-          <a ng-click="add(-5)" ng-show="subtractable(5)">[- 5 min]</a>
+          <a ng-click="add(-5)" ng-show="subtrapctable(5)">[- 5 min]</a>
         </p>
 
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-5">
         <p class="bigger label-select">End</p>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-7">
         <p class="bigger label-select ">{{active_to() | moment:'ddd, MMM DD YYYY, HH:mm'}}</p>
       </div>
     </div>

@@ -11,10 +11,10 @@ module Liquidatable
         'code' => pin,
         'group' => name,
         'name' => name
-      }.merge(languages).merge rates
+      }.merge(call_languages).merge rates
     end
 
-    def languages
+    def call_languages
       {
         'languages' => languages.map(&:capitalize).join(', ')
       }
