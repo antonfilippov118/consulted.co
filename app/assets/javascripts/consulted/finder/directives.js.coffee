@@ -177,7 +177,7 @@ app.directive 'contactExpert', [
           scope.loading = no
 
       scope.contact = (expert) ->
-        localStorage.setItem "#{expert.slug}:time", scope.date.format('YYYY-MM-DD HH:mm Z')
+        sessionStorage.setItem "#{expert.slug}:time", scope.date.format('YYYY-MM-DD HH:mm Z')
         $window.location.href = "/offers/#{scope.offer.slug}-with-#{expert.slug}/review"
 
       scope.$on 'result', fetch
