@@ -291,5 +291,11 @@ overflow: auto;
   }
 }
 
+span.lang {
+  &.inactive {
+    color: #ccc;
+  }
+}
+
 @import 'filters';
 @import 'typeahead';

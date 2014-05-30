@@ -57,8 +57,12 @@
               <span class="bigger semibold">Languages:</span>
             </div>
             <div class="col-md-8">
-              <div class="bigger"><%= expert_languages %></div>
-              <small>Based on your and call partner's preferences</small>
+              <div class="bigger">
+                <% @expert.languages.each_with_index do |language, index| %>
+                  <span language="<%= language %>" request="request" class="lang"></span><%= ', ' unless index + 1 == @expert.languages.length %>
+                <% end %>
+              </div>
+              <small>You can select the languages you are comfortable speaking during the call here</small>
             </div>
           </div>
           <div class="row">

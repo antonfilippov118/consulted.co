@@ -41,10 +41,10 @@ app.directive 'offer', [
 
 ]
 
-app.directive 'offerLengths', [
+app.directive 'offerInfo', [
   () ->
     replace: yes
-    template: '<div ng-hide="no_offer">You can schedule a call for <strong>{{lengths}} <span ng-show="last">or {{last}}</span> minutes.</strong></div>'
+    templateUrl: 'info'
     scope: yes
     link: (scope) ->
       scope.no_offer = yes

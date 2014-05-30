@@ -77,3 +77,31 @@ app.directive 'message', [
       message: '='
 
 ]
+
+app.directive 'language', [
+  () ->
+    replace: yes
+    restrict: 'EA'
+    template: '<span ng-class="{\'inactive\':!active()}" ng-click="toggle()">{{language | capitalize}}</span>'
+    scope:
+      request: '='
+      language: '@'
+    link: (scope, el) ->
+      {language} = scope
+      scope.request.languages = [] unless angular.isArray scope.request.languages
+      scope.request.languages.push language
+      scope.active = () -> language in scope.request.languages
+
+      scope.toggle = () ->
+        idx = scope.request.languages.indexOf language
+        if idx > -1
+          scope.request.languages.splice idx, 1
+        else
+          scope.request.languages.push language
+
+
+
+
+
+
+]
