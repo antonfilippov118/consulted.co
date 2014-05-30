@@ -93,9 +93,9 @@ app.directive 'language', [
       scope.active = () -> language in scope.request.languages
 
       scope.toggle = () ->
-        return if scope.request.languages.length is 1
         idx = scope.request.languages.indexOf language
         if idx > -1
+          return if scope.request.languages.length - 1 is 0
           scope.request.languages.splice idx, 1
         else
           scope.request.languages.push language
