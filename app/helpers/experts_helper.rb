@@ -152,7 +152,7 @@ module ExpertsHelper
   end
 
   def expert_twitter_url
-    return '' unless twitter?
+    return '' unless expert_twitter?
     url = @expert.twitter_handle.gsub '@', ''
     "https://twitter.com/#{url}"
   end
