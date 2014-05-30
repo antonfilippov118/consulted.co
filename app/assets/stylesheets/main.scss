@@ -331,7 +331,7 @@ body{
 
 /* Main Slide Part */
 
-#landing-main{
+#landing-main {
   background-image:image-url('photo01.jpg');
   display:table;
   height:100%;
@@ -339,7 +339,7 @@ body{
   position:relative;
   width:100%;
   @media (max-width:768px){
-  /*  background-image:image-url('photo01_768.jpg');*/
+    background-image:image-url('photo01_768.jpg');
     height:80%;
     padding-bottom:20%;
   }
@@ -349,6 +349,7 @@ body{
     min-height:540px;
   }
   @media (max-width:480px){
+    background-image:image-url('photo01_480.jpg');
     padding-top:26px;
   }
   @media (max-width:320px){
@@ -564,7 +565,15 @@ body{
 
 /* Photo #2 */
 
-#landing-photo-02{background-image:image-url('photo02.jpg');background-position:60% 85%;height:300px;width:100%}
+#landing-photo-02{
+  background-image:image-url('photo02.jpg');
+  background-position:60% 85%;
+  height:300px;
+  width:100%;
+  @media (max-width:480px) {
+    background-image: image-url('photo02_480.jpg')
+  }
+}
 
 /* Offerings Part */
 
@@ -630,7 +639,14 @@ body{
 
 /* Photo #3 */
 
-#landing-photo-03{background-image:image-url('photo03.jpg');height:300px;width:100%}
+#landing-photo-03{
+  background-image:image-url('photo03.jpg');
+  height:300px;
+  width:100%;
+  @media (max-width:480px) {
+    background-image: image-url('photo03_480.jpg')
+  }
+}
 
 /* How It Works Part */
 
@@ -669,7 +685,14 @@ body{
 
 /* Photo #3 */
 
-#landing-photo-04{background-image:image-url('photo04.jpg');height:300px;width:100%}
+#landing-photo-04 {
+  background-image:image-url('photo04.jpg');
+  height:300px;
+  width:100%;
+  @media (max-width:480px) {
+    background-image: image-url('photo04_480.jpg')
+  }
+}
 
 /* We Can Help You Part */
 
@@ -783,8 +806,8 @@ body{
   text-align:center;
 }
 
-/*== Media Queries ========================================================================================
-
+/*== Media Queries ========================================================================================*/
+/**
   @media only screen and (max-width:480px) and (-webkit-min-device-pixel-ratio: 2),
          only screen and (max-width:480px) and (-moz-min-device-pixel-ratio: 2),
          only screen and (max-width:480px) and (-o-min-device-pixel-ratio: 2/1),
