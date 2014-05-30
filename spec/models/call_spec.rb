@@ -31,6 +31,7 @@ describe Call do
       # reload
       blocks = User.find(user).availabilities.first.blocks.map(&:status)
       expect(blocks[0..8]).to eql 9.times.map { 2 }
+      expect(blocks[9]).to eql 0
     end
   end
 

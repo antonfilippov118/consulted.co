@@ -94,7 +94,7 @@ class Call
   after_destroy :free!
 
   def length_with_break
-    length + expert.start_delay
+    length + expert.break
   end
 
   def self.generate_unique_pin
