@@ -6,7 +6,6 @@ class Contact
   attr_accessor :name, :email, :message, :subject
 
   validates_presence_of :name, :email, :subject, :message
-  validates_length_of :message, maximum: 500
 
   def initialize(attributes = {})
     attributes.each do |name, value|
