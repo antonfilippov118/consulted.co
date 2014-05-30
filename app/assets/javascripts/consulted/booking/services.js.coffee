@@ -50,7 +50,7 @@ app.service 'Storage', [
   () ->
     expert = $('#expert_slug').val()
     getTime: () ->
-      time = localStorage.getItem "#{expert}:time"
+      time = sessionStorage.getItem "#{expert}:time"
       if time
         moment(time)
       else

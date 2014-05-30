@@ -57,7 +57,7 @@ app.controller 'AvailabilityCtrl', [
       {data} = event
       TimezoneData.getFormattedOffset().then (offset) ->
         {data} = event
-        localStorage.setItem "#{slug}:time", data.start?.format('YYYY-MM-DD HH:mm Z')
+        sessionStorage.setItem "#{slug}:time", data.start?.format('YYYY-MM-DD HH:mm Z')
         offer = ExpertOffers.getSelected()
         $window.location.assign "/offers/#{offer.slug}-with-#{slug}/review"
 

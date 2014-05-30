@@ -33,7 +33,7 @@ $ ->
         remote: jQuery.validator.format("{0} is already taken.")
 
   # toggle between social media and signup via email
-  activeView = localStorage.getItem('last_active_view') || 'sign_up_social'
+  activeView = sessionStorage.getItem('last_active_view') || 'sign_up_social'
 
   $('.toggle_login').on 'click', -> toggle yes
 
@@ -43,7 +43,7 @@ $ ->
       activeView = 'sign_up_email'
     else
       activeView = 'sign_up_social'
-    localStorage.setItem( 'last_active_view', activeView) if remember
+    sessionStorage.setItem( 'last_active_view', activeView) if remember
     $("##{activeView}").show()
 
   $("##{activeView}").show()
