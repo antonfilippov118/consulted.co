@@ -39,7 +39,7 @@ app.controller 'AvailabilityCtrl', [
           start = moment.unix(event.start).zone(offset)
           end  = moment.unix(event.end).zone(offset)
           if (start.isAfter(monday) and end.isBefore(sunday))
-            day = start.day()
+            day = start.isoWeekday()
             _start = Math.abs start.clone().hour(0).minute(0).diff(start, 'minutes')
             _end =   Math.abs end.clone().hour(0).minute(0).diff(end, 'minutes')
             scope.events[day - 1].push time: [_start, _end], data: { start: start }
