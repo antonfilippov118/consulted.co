@@ -14,7 +14,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body style="background:#333">
     <div id="nav" class="navbar navbar-default" role="navigation" style="top: 0px; opacity: 1;">
       <div class="container">
         <div class="container-fluid">
@@ -30,11 +30,6 @@
       <div class="heading">
         <h1>Business advice from world-class experts just a phone call away</h1>
         <%= yield %>
-      </div>
-      <div id="landing-main-bottom">
-        <div class="container">
-          <p>CONSULTED is a marketplace for on-demand expert advice that allows advice seekers to book telephone calls with professionals who have management consulting, finance and venture capital backgrounds, as well as specialized industry expertise</p>
-        </div>
       </div>
     </div>
     <%= javascript_include_tag 'application' %>
