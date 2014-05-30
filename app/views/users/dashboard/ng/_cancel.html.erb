@@ -10,8 +10,8 @@
       <p class="callreq-prop">Call partner</p>
       <p class="callreq-val">{{call.partner_name}}</p>
       <p>
-        <button type="button" ng-click="cancel()" class="btn btn-danger">{{verb()}} this call</button>
-        <button type="button" ng-click="dismiss()" class="btn btn-success">Keep this call</button>
+        <button type="button" ng-click="cancel()" class="btn btn-danger">{{verb()}}</button><br>
+        <a ng-click="dismiss()">go back</a>
       </p>
       <p ng-show="call.status == 3"><small>As this call is already scheduled, we charge a fee to cancel <a href="https://consultedco.zendesk.com/hc/en-us/articles/201304784-Do-I-advice-seeker-need-to-pay-a-fee-if-I-cancel-the-meeting-" target="_blank">[?]</a></small></p>
     </div>
