@@ -5,7 +5,7 @@ class Newsletter
 
   validates_presence_of :email
   validates_format_of :email, with: /.*\@.*/
-  attr_accessor :email
+  attr_accessor :email, :list_name
 
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -24,6 +24,10 @@ class Newsletter
   end
 
   private
+
+  def method_name
+    list_name || 'Consulted Beta information'
+  end
 
   def list
     data = Gibbon::API.lists.list(filters: { list_name: 'Consulted Beta information' }).fetch('data').first
