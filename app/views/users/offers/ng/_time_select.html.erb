@@ -13,7 +13,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <p class="bigger label-select">Start</p>
+        <p class="bigger label-select">Available Time Slots</p>
       </div>
       <div class="col-md-10">
         <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start * 1000 | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
@@ -21,7 +21,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <p class="bigger label-select">From</p>
+        <p class="bigger label-select">Start</p>
       </div>
       <div class="col-md-10">
         <p class="bigger label-select">
@@ -34,7 +34,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <p class="bigger label-select">To</p>
+        <p class="bigger label-select">End</p>
       </div>
       <div class="col-md-10">
         <p class="bigger label-select ">{{active_to() | moment:'ddd, MMM DD YYYY, HH:mm'}}</p>
