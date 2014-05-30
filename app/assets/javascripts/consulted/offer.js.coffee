@@ -11,7 +11,7 @@ $ ->
     if checkbox.is ':checked'
       $(id).removeAttr 'checked'
     else
-      checkbox.attr 'checked'
+      checkbox.attr 'checked', yes
     el.toggleClass 'active'
     submitForm el
   $('#meetings_per_day').ionRangeSlider
