@@ -1,10 +1,11 @@
 <div>
   <div class="clr selectoffer-cats" ng-repeat="level in crumbs" ng-hide="last(level)">
+    <div id="height_1"></div>
     <div
       class="selectoffer-cat"
       ng-repeat="child in level.children | orderBy:'name'"
       ng-class="{'sel':inPath(child.slug)}"
-      ng-click="select(child)"
+      ng-click="select(child, $event)"
     >
         {{child.name}}
     </div>
@@ -12,12 +13,13 @@
   <div class="row pool clr" ng-hide="group.depth === 0">
     <div class="col-md-4">
       <div class="clr selectoffer-subcats">
-        <div class="selectoffer-subcat" ng-click="select(sibling)" ng-repeat="sibling in getActiveGroup().children | orderBy:'name'" ng-class="{'sel':inPath(sibling.slug)}">
+        <div class="selectoffer-subcat" ng-click="select(sibling, $event)" ng-repeat="sibling in getActiveGroup().children | orderBy:'name'" ng-class="{'sel':inPath(sibling.slug)}">
           {{sibling.name}}
         </div>
       </div>
     </div>
     <div class="col-md-8">
+      <div id="height_2"></div>
       <div child="child" ng-repeat="child in getSubGroup() | prioritized | orderBy:'name'"></div>
       <div child="child" ng-repeat="child in getSubGroup() | prioritized:false | orderBy:'name'"></div>
     </div>

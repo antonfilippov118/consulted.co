@@ -78,7 +78,8 @@ app.controller "GroupCtrl", [
   '$routeParams'
   '$modal'
   '$location'
-  (scope, GroupData, routeParams, modal, location) ->
+  'Scroll'
+  (scope, GroupData, routeParams, modal, location, Scroll) ->
     scope.loading = yes
 
     scope.hide = routeParams.slug is 'search'
@@ -112,7 +113,8 @@ app.controller "GroupCtrl", [
       return no unless angular.isArray scope.slugs
       slug in scope.slugs
 
-    scope.select = (group) ->
+    scope.select = (group, event) ->
+      Scroll.scroll(group, event)
       location.path "#{group.slug}"
 
     scope.goto = (path) ->
