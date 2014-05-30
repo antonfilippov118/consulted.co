@@ -1,7 +1,11 @@
 <div>
-  <h3><%= @contact.subject %></h3>
+  <h3>Your message for your reference below:</h3>
   <div class="message">
-    <p><%= simple_format @contact.message %></p>
+    <p><%= @contact.subject  %><%= @contact.message %></p>
+  </div>
+  <div>
+    <p>Subject: <%= @contact.subject %></p>
+    <p><%= @contact.message %></p>
   </div>
   <p>Sent via the CONSULTED.co website contact form.</p>
 </div>
