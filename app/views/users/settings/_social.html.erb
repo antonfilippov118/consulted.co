@@ -71,4 +71,15 @@
       <span class="info flaticon flaticon-info">We share this information with advice seekers in order for them to get a better idea about you.</span>
     </div>
   </div>
+  <div class="row divider">
+    <div class="col-md-7">
+      <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+        <%= f.label :newsletter, "Newsletter", class: 'input-label' %>
+        <%= f.select :newsletter, {'Yes' => true, 'No' => false}, {}, class: 'form-control meeting-setting' %>
+      <% end %>
+    </div>
+    <div class="col-md-5">
+      <span class="info flaticon flaticon-info"> Do you want to receive our Newsletter?</span>
+    </div>
+  </div>
 </div>
