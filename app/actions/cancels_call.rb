@@ -47,6 +47,7 @@ class CancelsCall
       call = context.fetch :call
       begin
         call.status += 1
+        call.cancelled = Time.now
         context[:call] = call
       rescue => e
         context.fail! e.message
