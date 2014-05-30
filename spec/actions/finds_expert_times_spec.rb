@@ -38,16 +38,6 @@ describe FindsExpertTimes do
   end
 
   describe 'when finding time with a given user and calls present' do
-    it 'should acknowledge call requests present' do
-      user = expert
-      offer = user.offers.create group: group, lengths: %w(30 45 60), experience: 20, rate: 3000, description: 'foo'
-      start = user.availabilities.first.starting
-      Call.create! offer: offer, length: 30, seeker: seeker, expert: user, message: 'Test call', active_from: start + 35.minutes
-      result = action.for user, 30.minutes
-      expect(result.success?).to be_true
-      times = result.fetch :times
-      expect(times.length).to eql 0
-    end
 
     it 'should find free timeslots within the availability' do
       user = expert
