@@ -15,9 +15,6 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 		scope.readOnly = attr.readOnly?
 		id = 1
 		scope.count = 0
-		#scope.$watch "events", (newEvents) ->
-		#	console.log "updated events"
-		#, yes
 		scope.currentDay = 1
 		scope.backward = (event) ->
 			if scope.currentDay > 1
