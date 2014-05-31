@@ -4,7 +4,12 @@ app.constant 'MOBILE_DAY_HEADER_FORMAT', 'dddd Do'
 app.constant 'SMALLEST_MINUTE_STEP', 5
 app.constant 'DEFAULT_DURATION', 30
 
-app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION", (modal, SMALLEST_MINUTE_STEP, DEFAULT_DURATION) ->
+
+app.directive "calendar", [
+	"$modal"
+	"SMALLEST_MINUTE_STEP"
+	"DEFAULT_DURATION"
+	(modal, SMALLEST_MINUTE_STEP, DEFAULT_DURATION) ->
 	restrict: "A"
 	replace: yes
 	scope:
@@ -61,7 +66,9 @@ app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION",
 
 ]
 
-app.filter "dayHeader", ['MOBILE_DAY_HEADER_FORMAT', (mobileDayHeader) ->
+app.filter "dayHeader", [
+	'MOBILE_DAY_HEADER_FORMAT'
+	(mobileDayHeader) ->
 	(week, day) ->
 		day = week.clone().isoWeekday(day).format(mobileDayHeader)
 ]
@@ -71,7 +78,9 @@ app.filter "zeroPad", [() ->
 		"0#{input}".slice -2
 ]
 
-app.filter "minutesToTime", ["$filter", (filter) ->
+app.filter "minutesToTime", [
+	"$filter"
+	(filter) ->
 	{floor} = Math
 	zeroPad = filter "zeroPad"
 	(input) ->
@@ -79,7 +88,9 @@ app.filter "minutesToTime", ["$filter", (filter) ->
 		"#{zeroPad(floor minutes / 60)}:#{zeroPad(minutes % 60)}"
 ]
 
-app.directive "event", ["$modal", (modal) ->
+app.directive "event", [
+	"$modal"
+	(modal) ->
 	restrict: "A"
 	replace: yes
 	scope:
