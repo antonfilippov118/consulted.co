@@ -1,0 +1,103 @@
+FORMAT: 1A
+HOST: http://www.consulted.co
+
+# Consulted
+
+Private API for [consulted.co](http://www.consulted.co) website.
+
+> Work in progress!
+
+# Group Timezones
+
+Handeling time offsets
+
+## Timezones [/timezone.json]
+### Get users current timezone [GET]
++ Response 200 (application/json)
+
+        {
+            "offset": 7200,
+            "name": "Europe/Berlin +02:00"
+        }
+
+
+# Group Availabilities
+
+Setting user availabilities.
+
+An availabilities has the following fields:
+
+* `id`: MongoDB database id
+* `start`: Start time as unix time stamp in UTC
+* `end`: Time when availability ends as unix timestamp in UTC
+
+## Availabilities [/availabilities]
+### Get users availabilties [GET]
++ Response 200 (application/json)
+
+        [{
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        },{
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        },{
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        }]
+
+### Create a new availability [PUT]
++ Request (application/json)
+
+        {
+            "availability": {
+                "start": 1400059351336,
+                "end": 1400062988181
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        }
+
+### Update a availability [PATCH]
++ Request (application/json)
+
+        {
+            "availability": {
+                "id": "mongo_db_id_string"
+                "start": 1400059351336,
+                "end": 1400062988181
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        }
+
+
+## Deleting availabilities [/availabilities/{id}]
+### Delete a availability [DELETE]
++ Parameters
+    + id (string) ... MongoDB id string
+
++ Response 200 (application/json)
+
+        {
+            "id": "mongo_db_id_string"
+            "start": 1400059351336,
+            "end": 1400062988181
+        }
+
+
