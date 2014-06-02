@@ -75,27 +75,29 @@
       </div>
       <div offer="offer" ng-show="!loading && offers.length > 0" class="clr profile-offering" ng-repeat="offer in offers"></div>
     </div>
+    <% unless user_expert_page? %>
 
-    <h2 class="heading">Book a call with <%= name %></h2>
-    <div data-offer-info></div>
-    <div class="book">
-      <div id="scheduler-read" class="scheduler">
-        <div ng-controller="AvailabilityCtrl">
-          <div class="clr book-periods" ng-show="show_cal && events.length > 0">
-            <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}" data-ng-click="prev($event)">&nbsp;</div>
-            <div class="book-period">{{ from }} - {{ to }}</div>
-            <div class="book-period-next" data-ng-click="next($event)">&nbsp;</div>
-          </div>
-          <div data-calendar data-read-only data-events="events" data-week="currentWeek" ng-show="show_cal"></div>
-          <div class="text-center" ng-show="show_cal && events.length === 0">
-            <h3>The expert is not available for the selected offering.</h3>
-          </div>
-          <div class="text-center" ng-hide="show_cal">
-            <h3>Please select one of the service offerings above.</h3>
+      <h2 class="heading">Book a call with <%= name %></h2>
+      <div data-offer-info></div>
+      <div class="book">
+        <div id="scheduler-read" class="scheduler">
+          <div ng-controller="AvailabilityCtrl">
+            <div class="clr book-periods" ng-show="show_cal && events.length > 0">
+              <div class="book-period-prev" data-ng-class="{'disabled': firstWeek}" data-ng-click="prev($event)">&nbsp;</div>
+              <div class="book-period">{{ from }} - {{ to }}</div>
+              <div class="book-period-next" data-ng-click="next($event)">&nbsp;</div>
+            </div>
+            <div data-calendar data-read-only data-events="events" data-week="currentWeek" ng-show="show_cal"></div>
+            <div class="text-center" ng-show="show_cal && events.length === 0">
+              <h3>The expert is not available for the selected offering.</h3>
+            </div>
+            <div class="text-center" ng-hide="show_cal">
+              <h3>Please select one of the service offerings above.</h3>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <% %w(offer info).each do |partial| %>
       <script type="text/ng-template" id="<%= partial %>">
         <%= render partial: "expert/ng/#{partial}" %>
