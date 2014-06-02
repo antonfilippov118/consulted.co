@@ -28,6 +28,11 @@
         <%= content_tag :li, class: 'hidden-lg hidden-md hidden-sm' do %>
           <%= link_to 'Settings', settings_path %>
         <% end %>
+        <% if @user.expert? %>
+          <%= content_tag :li, class: 'hidden-lg hidden-md hidden-sm' do %>
+            <%= link_to 'My expert page', "#{root_url}/#{@user.slug}" %>
+          <% end %>
+        <% end %>
         <%= content_tag :li, class: 'hidden-lg hidden-md hidden-sm' do %>
           <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
         <% end %>

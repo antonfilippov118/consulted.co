@@ -15,6 +15,7 @@
           <%= link_to settings_path do %>
             Settings
           <% end %>
+          <%= link_to_if @user.expert?, 'My expert page', "#{root_url}/#{@user.slug}" %>
           <%= link_to destroy_user_session_path, method: :delete do %>
             Log out
           <% end %>
