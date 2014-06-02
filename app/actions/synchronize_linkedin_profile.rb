@@ -182,9 +182,9 @@ class SynchronizeLinkedinProfile
 
     executed do |context|
       client = context.fetch :client
-      url    = client.profile(fields: 'public-profile-url').fetch :public_profile_url
+      url    = client.profile(fields: 'public-profile-url')
       next context if url.nil?
-      context[:user].user_linkedin_connection.public_profile_url = url
+      context[:user].user_linkedin_connection.public_profile_url = url[:public_profile_url]
     end
   end
 
