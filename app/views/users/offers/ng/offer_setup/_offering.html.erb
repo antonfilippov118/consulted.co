@@ -1,4 +1,4 @@
-<div class="result">
+<div class="result" ng-class="{'selected':selected(group)}">
   <h3>{{group.name}}</h3>
   <hr class="no-margin">
   <div ng-show="open">
@@ -17,6 +17,6 @@
     </a>
     <i class="fa fa-refresh fa-spin" ng-show="selecting"></i>
     <button ng-hide="selected(group)" type="button" class="btn btn-primary" ng-click="select(group)">Select</button>
-    <span ng-show="selected(group)" class="flaticon flaticon-check result-selected">Selected</span>
+    <button ng-show="selected(group)" ng-click="select(group)" type="button" class="btn btn-primary btn-deselect"><span class="flaticon flaticon-check result-selected">Selected</span></button>
   </div>
 </div>

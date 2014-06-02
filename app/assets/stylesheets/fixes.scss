@@ -222,9 +222,22 @@ overflow: auto;
   font-family: Open Sans;
 }
 
-.result p {
-  font-size: 14px;
-  border: none !important;
+.result {
+  p {
+    font-size: 14px;
+    border: none !important;
+  }
+  .btn-deselect {
+    &:before {
+      content: '';
+      margin-right: 0;
+    }
+    span.flaticon {
+      &:before {
+        color: #fff;
+      }
+    }
+  }
 }
 
 .seeker_gain ul {
