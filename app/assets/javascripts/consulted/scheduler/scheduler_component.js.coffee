@@ -4,67 +4,84 @@ app.constant 'MOBILE_DAY_HEADER_FORMAT', 'dddd Do'
 app.constant 'SMALLEST_MINUTE_STEP', 5
 app.constant 'DEFAULT_DURATION', 30
 
-app.directive "calendar", ["$modal", "SMALLEST_MINUTE_STEP", "DEFAULT_DURATION", (modal, SMALLEST_MINUTE_STEP, DEFAULT_DURATION) ->
-	restrict: "A"
-	replace: yes
-	scope:
-		events: "="
-		week: "="
-	templateUrl: "foo_scheduler"
-	link: (scope, element, attr) ->
-		scope.readOnly = attr.readOnly?
-		id = 1
-		scope.count = 0
-		#scope.$watch "events", (newEvents) ->
-		#	console.log "updated events"
-		#, yes
-		scope.currentDay = 1
-		scope.backward = (event) ->
-			if scope.currentDay > 1
-				scope.currentDay--
-			event.preventDefault()
-		scope.forward = (event) ->
-			if scope.currentDay < 7
-				scope.currentDay++
-			event.preventDefault()
+app.service "editModal", [
+	"$modal"
+	"$q"
+	(modal, q) ->
+		open: (resolvedValues) ->
+			result = q.defer()
+			modalInstance = modal.open
+				templateUrl: "foo_edit"
+				controller: "EditController"
+				resolve: resolvedValues
+			modalInstance.result.then (bounds) ->
+				result.resolve bounds
+			, () ->
+				result.reject "dismissed"
+			q.promise
+]
 
-		scope.add = (event, index) ->
-			if ("day" in event.target.className.split(" ")) and !scope.readOnly
-				target = $ event.target
-				start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
-				end = start + DEFAULT_DURATION
-				modalInstance = modal.open
-					templateUrl: "foo_edit"
-					controller: "EditController"
-					resolve:
+app.directive "calendar", [
+	"editModal"
+	"SMALLEST_MINUTE_STEP"
+	"DEFAULT_DURATION"
+	(editModal, SMALLEST_MINUTE_STEP, DEFAULT_DURATION) ->
+		restrict: "A"
+		replace: yes
+		scope:
+			events: "="
+			week: "="
+		templateUrl: "foo_scheduler"
+		link: (scope, element, attr) ->
+			scope.readOnly = attr.readOnly?
+			id = 1
+			scope.count = 0
+			scope.currentDay = 1
+			scope.backward = (event) ->
+				if scope.currentDay > 1
+					scope.currentDay--
+				event.preventDefault()
+			scope.forward = (event) ->
+				if scope.currentDay < 7
+					scope.currentDay++
+				event.preventDefault()
+
+			scope.add = (event, index) ->
+				if ("day" in event.target.className.split(" ")) and !scope.readOnly
+					target = $ event.target
+					start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
+					end = start + DEFAULT_DURATION
+					editModal.open( 
 						startMinutes: () ->
-							start
+								start
 						endMinutes: () ->
 							end
 						mode: () ->
 							"add"
-				modalInstance.result.then (bounds) ->
-					[start, end, recurrence] = bounds
-					event =
-						time: [start, end]
-						data:
-							id: "$$gen_id#{id++}"
-					scope.events[index].push event
-					scope.$emit "scheduler.add", event.data, [start, end], [index], recurrence
-				, () ->
-					console.log "dismissed"
+					).then (bounds) ->
+						[start, end, recurrence] = bounds
+						event =
+							time: [start, end]
+							data:
+								id: "$$gen_id#{id++}"
+						scope.events[index].push event
+						scope.$emit "scheduler.add", event.data, [start, end], [index], recurrence
+					, () ->
+						console.log "dismissed"
 
-		scope.$on "remove", (event, bounds, data) ->
-			[dayIndex, eventIndex] = bounds
-			scope.events[dayIndex].splice eventIndex, 1
-			scope.$emit "scheduler.remove", data
+			scope.$on "remove", (event, bounds, data) ->
+				[dayIndex, eventIndex] = bounds
+				scope.events[dayIndex].splice eventIndex, 1
+				scope.$emit "scheduler.remove", data
 
-		scope.$on "update", (event, bounds, data, time, recurrence) ->
-			scope.$emit "scheduler.update", data, time, bounds, recurrence
+			scope.$on "update", (event, bounds, data, time, recurrence) ->
+				scope.$emit "scheduler.update", data, time, bounds, recurrence
 
 ]
 
-app.filter "dayHeader", ['MOBILE_DAY_HEADER_FORMAT', (mobileDayHeader) ->
+app.filter "dayHeader", [
+	'MOBILE_DAY_HEADER_FORMAT'
+	(mobileDayHeader) ->
 	(week, day) ->
 		day = week.clone().isoWeekday(day).format(mobileDayHeader)
 ]
@@ -74,7 +91,9 @@ app.filter "zeroPad", [() ->
 		"0#{input}".slice -2
 ]
 
-app.filter "minutesToTime", ["$filter", (filter) ->
+app.filter "minutesToTime", [
+	"$filter"
+	(filter) ->
 	{floor} = Math
 	zeroPad = filter "zeroPad"
 	(input) ->
@@ -82,51 +101,51 @@ app.filter "minutesToTime", ["$filter", (filter) ->
 		"#{zeroPad(floor minutes / 60)}:#{zeroPad(minutes % 60)}"
 ]
 
-app.directive "event", ["$modal", (modal) ->
-	restrict: "A"
-	replace: yes
-	scope:
-		event: "="
-		index: "="
-		parentIndex: "="
-		readOnly: "="
-	templateUrl: "foo_event"
-	link: (scope, element, attr) ->
-		mpd = 24 * 60
-		[scope.start, scope.end] = scope.event.time
-		scope.setPosition = () ->
-			element.css
-				top: "#{scope.start / mpd * 100}%"
-				height: "#{(scope.end - scope.start) / mpd * 100}%"
+app.directive "event", [
+	"editModal"
+	(editModal) ->
+		restrict: "A"
+		replace: yes
+		scope:
+			event: "="
+			index: "="
+			parentIndex: "="
+			readOnly: "="
+		templateUrl: "foo_event"
+		link: (scope, element, attr) ->
+			mpd = 24 * 60
+			[scope.start, scope.end] = scope.event.time
+			scope.setPosition = () ->
+				element.css
+					top: "#{scope.start / mpd * 100}%"
+					height: "#{(scope.end - scope.start) / mpd * 100}%"
 
-		scope.setPosition()
+			scope.setPosition()
 
-		scope.delete = (event) ->
-			scope.$emit "remove", [scope.parentIndex, scope.index], scope.event.data
-			event.preventDefault()
+			scope.delete = (event) ->
+				scope.$emit "remove", [scope.parentIndex, scope.index], scope.event.data
+				event.preventDefault()
 
-		scope.loadOffer = (_, event) ->
-			return unless scope.readOnly
-			scope.$emit 'goto:offer', event
+			scope.loadOffer = (_, event) ->
+				return unless scope.readOnly
+				scope.$emit 'goto:offer', event
 
-		scope.edit = (event) ->
-			unless scope.readOnly
-				modalInstance = modal.open
-					templateUrl: "foo_edit"
-					controller: "EditController"
-					resolve:
+			scope.edit = (event) ->
+				unless scope.readOnly
+					editModal.open(
 						startMinutes: () ->
 							scope.start
 						endMinutes: () ->
 							scope.end
 						mode: () ->
 							"edit"
-				modalInstance.result.then (bounds) ->
-					[scope.start, scope.end, recurrence] = bounds
-					scope.setPosition()
-					scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
-				, () ->
-			event.preventDefault()
+					).then (bounds) ->
+						[scope.start, scope.end, recurrence] = bounds
+						scope.setPosition()
+						scope.$emit "update", [scope.parentIndex, scope.index], scope.event.data, [scope.start, scope.end], recurrence
+					, () ->
+						console.log "dismissed"
+				event.preventDefault()
 ]
 
 app.controller "EditController", [
