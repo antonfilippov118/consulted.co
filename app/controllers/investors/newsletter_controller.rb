@@ -1,9 +1,13 @@
 class Investors::NewsletterController < ApplicationController
   skip_before_filter :authenticate!
   def register
-    @newsletter = Newsletter.new newsletter_params
-    unless @newsletter.send!
-      render 'error'
+    respond_to do |format|
+      format.js do
+        @newsletter = Newsletter.new newsletter_params
+        unless @newsletter.send!
+          render 'error'
+        end
+      end
     end
   end
 
