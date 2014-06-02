@@ -107,12 +107,7 @@
             <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short." ng-max-length="500"></textarea>
           </div>
           <div class="clr">
-            <label>
-              <input type="checkbox" ng-model="terms_accepted"> I understand and agree to the <%= link_to 'Platform Terms and Conditions', terms_path, target: '_blank' %>
-            </label>
-          </div>
-          <div class="clr">
-            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending || !terms_accepted">Send binding request</button>
+            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending">Send binding request</button>
           </div>
         </div>
       </div>

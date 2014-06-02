@@ -10,8 +10,14 @@
       <p class="callreq-val">{{call.length}} minutes</p>
       <p class="callreq-prop">Call partner</p>
       <p class="callreq-val">{{call.partner_name}}</p>
+      <div class="clr">
+        <label>
+          <input type="checkbox" ng-model="terms_accepted"> I understand and agree to <%= link_to 'Consulted\'s Terms of Service', terms_path, target: '_blank' %> and <%= link_to 'Privacy Policy', privacy_path, target: '_blank' %>
+        </label>
+      </div>
+      <hr>
       <p>
-        <button type="button" ng-click="confirm()" class="btn btn-success">Confirm call</button>
+        <button type="button" ng-click="confirm()" ng-disabled="!terms_accepted" class="btn btn-success">Confirm call</button>
         <button type="button" ng-click="decline()" class="btn btn-danger">Decline call</button>
       </p>
       <p><small>Once confirmed, we charge a fee to cancel <a href="https://consultedco.zendesk.com/hc/en-us/articles/201304784-Do-I-advice-seeker-need-to-pay-a-fee-if-I-cancel-the-meeting-" target="_blank">[?]</a></small></p>
