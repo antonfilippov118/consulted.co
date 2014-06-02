@@ -54,10 +54,6 @@ module CallsHelper
     end
   end
 
-  def start_time_for(call)
-    call.active_from.to_i * 1000
-  end
-
   def expert_request_status
     {
       Call::Status::REQUESTED => 'Pending your confirmation',

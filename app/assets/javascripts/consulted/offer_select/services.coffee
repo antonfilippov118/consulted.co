@@ -18,9 +18,20 @@ app.service 'ExpertOffers', [
     slug = Configuration.getSlug()
     selected = null
 
+    scroll = () ->
+      el = $("#booking")
+      return unless el.offset()
+
+      $('body').animate
+        scrollTop: el.offset().top
+      , 1000
+
+
+
     select: (offer) ->
       selected = offer
       root.$broadcast 'offer:change', offer
+      scroll()
 
     selected: (offer) ->
       return no unless selected?

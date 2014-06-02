@@ -15,9 +15,6 @@ end
 node :request_status do |call|
   request_status call
 end
-node :active_from do |call|
-  start_time_for(call)
-end
 node :timestamp do |call|
   call.active_from.to_i
 end
