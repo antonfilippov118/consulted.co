@@ -10,6 +10,6 @@ class Invoice::PDF
   end
 
   def generate
-    WickedPdf.new.pdf_from_string(self.html)
+    WickedPdf.new.pdf_from_string(html)
   end
 end

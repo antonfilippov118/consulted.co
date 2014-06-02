@@ -10,7 +10,7 @@ describe Invoice do
     end
 
     it 'should be larger than initial seed' do
-      expect(invoice.read_attribute(:id_for_invoice)).to be > 30565432
+      expect(invoice.read_attribute(:id_for_invoice)).to be > 30_565_432
     end
 
     it 'invoice tokens should increment' do
@@ -30,9 +30,9 @@ describe Invoice do
     end
 
     it 'should assign pdf field' do
-      expect{
+      expect do
         invoice.create_pdf
-      }.to change(invoice,:pdf)
+      end.to change(invoice, :pdf)
     end
 
     it 'should set pdf field to pdf contents' do

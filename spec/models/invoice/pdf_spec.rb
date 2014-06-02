@@ -8,7 +8,7 @@ describe Invoice::PDF do
     Invoice.any_instance.stub(:id_for_invoice).and_return('D45213214')
     Invoice.any_instance.stub(:amount).and_return(34.1)
     Invoice.any_instance.stub(:seeker_id_for_invoice).and_return('AD4628261')
-    Invoice.any_instance.stub(:call_id_for_invoice).and_return(1321864367)
+    Invoice.any_instance.stub(:call_id_for_invoice).and_return(1_321_864_367)
     Invoice.any_instance.stub(:expert_id_for_invoice).and_return('ZM4018321')
     Invoice.any_instance.stub(:seeker_name).and_return('Matthew Robins')
     Invoice.any_instance.stub(:expert_name).and_return('Anthony Hopkins')

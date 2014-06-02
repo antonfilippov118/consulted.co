@@ -20,16 +20,16 @@ class Invoice
   def create_pdf
     pdf_gen = Invoice::PDF.new(self)
     self.pdf = pdf_gen.generate
-    self.pdf.name = "Consulted_Invoice_#{self.id_for_invoice}.pdf"
+    pdf.name = "Consulted_Invoice_#{id_for_invoice}.pdf"
     self.save!
   end
 
   def amount
-    (self.call.fee + self.call.rate).to_f / 100
+    (call.fee + call.rate).to_f / 100
   end
 
   def date
-    self.created_at.to_time.getlocal(Time.find_zone(seeker_timezone).formatted_offset)
+    created_at.to_time.getlocal(Time.find_zone(seeker_timezone).formatted_offset)
   end
   alias_method :due_date, :date
 

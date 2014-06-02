@@ -6,13 +6,13 @@ describe CreatesInvoices do
   let(:user) { User.create! valid_params.merge timezone: 'Europe/Berlin', email: 'floriank@consulted.co' }
 
   let(:call_ready_for_invoice) do
-    call = Call.create active_from: Time.now - (Settings.call_dispute_period+24).hours - 30.minutes, expert: expert, length: 30, seeker: user
+    call = Call.create active_from: Time.now - (Settings.call_dispute_period + 24).hours - 30.minutes, expert: expert, length: 30, seeker: user
     call.complete!
     call
   end
 
   let(:call_not_ready_for_invoice) do
-    call = Call.create active_from: Time.now - 30.minutes - (Settings.call_dispute_period/2).to_i.hours, expert: expert, length: 30, seeker: user
+    call = Call.create active_from: Time.now - 30.minutes - (Settings.call_dispute_period / 2).to_i.hours, expert: expert, length: 30, seeker: user
     call.complete!
     call
   end
@@ -32,9 +32,9 @@ describe CreatesInvoices do
 
   it 'should decrease calls without invoice' do
     call_ready_for_invoice
-    expect{
+    expect do
       action.do
-    }.to change(Call.completed.without_invoice,:count).by(-1)
+    end.to change(Call.completed.without_invoice, :count).by(-1)
   end
 
   it 'should only create invoices for calls after dispute ends' do

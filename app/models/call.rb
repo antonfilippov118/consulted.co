@@ -3,6 +3,7 @@ class Call
   include Mongoid::Timestamps
   include Liquidatable::Call
   include Scopable::Call
+  include Changeable::Call
   include Pricable::Call
   include Tokenable::Call
 
@@ -55,43 +56,6 @@ class Call
       inv.destroy
       raise
     end
-  end
-
-  def confirm!
-    self.status = Call::Status::ACTIVE
-    save!
-  end
-
-  def decline!
-    self.status = Call::Status::DECLINED
-    save!
-  end
-
-  def cancel!
-    self.cancelled_at = Time.now
-    self.status = Call::Status::CANCELLED
-    save!
-  end
-
-  def complete!
-    self.status = Call::Status::COMPLETED
-    save
-  end
-
-  def active?
-    status == Call::Status::ACTIVE
-  end
-
-  def cancelled?
-    status == Call::Status::CANCELLED
-  end
-
-  def declined?
-    status == Call::Status::DECLINED
-  end
-
-  def complete?
-    status == Call::Status::COMPLETED
   end
 
   def cancellable?

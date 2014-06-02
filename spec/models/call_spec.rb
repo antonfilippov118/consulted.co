@@ -107,7 +107,7 @@ describe Call do
   end
 
   describe 'creating invoice' do
-    before(:each) { Invoice::any_instance.stub(:create_pdf) }
+    before(:each) { Invoice.any_instance.stub(:create_pdf) }
     let(:call) { Call.create expert: expert, seeker: seeker, length: 120, active_from: Time.now, offer: expert.offers.first }
 
     it 'should create invoice' do
@@ -116,17 +116,17 @@ describe Call do
     end
 
     it 'should generate pdf invoice' do
-      Invoice::any_instance.should_receive(:create_pdf).once
+      Invoice.any_instance.should_receive(:create_pdf).once
       call.create_invoice
     end
 
     it 'should not create invoice when pdf creation failed' do
-      Invoice::any_instance.stub(:create_pdf).and_raise('Bad Error')
-      expect {
-        expect {
+      Invoice.any_instance.stub(:create_pdf).and_raise('Bad Error')
+      expect do
+        expect do
           call.create_invoice
-        }.to raise_error 'Bad Error'
-      }.not_to change(Invoice, :count)
+        end.to raise_error 'Bad Error'
+      end.not_to change(Invoice, :count)
       expect(call.invoice).to be_blank
     end
 
