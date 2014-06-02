@@ -2,8 +2,8 @@
   <tr>
     <td class="calltable-prop">Date &amp; Time</td>
     <td class="calltable-value">{{call.active_from | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
-    <td class="calltable-notes" rowspan="5">Notes</td>
-    <td class="calltable-nvalue" rowspan="5">
+    <td class="calltable-notes" rowspan="6">Notes</td>
+    <td class="calltable-nvalue" rowspan="6">
       <span ng-show="call.message">{{call.message}}</span>
       <span ng-hide="call.message"><em>There is no message attached to this call.</em></span>
     </td>
@@ -35,6 +35,19 @@
       <span ng-show="call.expert">{{call.payment | currency}}</span>
       <span ng-hide="call.expert">{{call.cost | currency}}</span>
       <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span ng-show="!call.expert && call.status == 5">
+        Invoice
+      </span>
+    </td>
+    <td>
+      <span ng-show="!call.expert && call.status == 5">
+          <span ng-show="call.invoice_pdf_url == null"><em>Invoice will be available <%= Settings.call_dispute_period %> hours after the call.</em></span>
+          <span ng-hide="call.invoice_pdf_url == null"><a ng-href="{{call.invoice_pdf_url}}" class="btn btn-default">View Invoice</a></span>
+      </span>
     </td>
   </tr>
   <tr>

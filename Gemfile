@@ -33,6 +33,9 @@ gem 'mongoid-paperclip', require: 'mongoid_paperclip'
 gem 'non-stupid-digest-assets'
 gem 'gibbon'
 
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
+
 group :production do
   gem 'unicorn'
   gem 'rails_serve_static_assets'
@@ -50,6 +53,8 @@ end
 group :db do
   gem 'mongoid', '~> 4.0.0.beta1'
   gem 'bson'
+  gem 'mongoid_token', github: 'apai4/mongoid_token'
+  gem 'mongoid_auto_increment'
 end
 
 group :development do

@@ -3,7 +3,9 @@ class Call
   include Mongoid::Timestamps
   include Liquidatable::Call
   include Scopable::Call
+  include Changeable::Call
   include Pricable::Call
+  include Tokenable::Call
 
   class Status
     REQUESTED = 1
@@ -18,6 +20,8 @@ class Call
   belongs_to :seeker, class_name: 'User', foreign_key: 'seeker_id', inverse_of: :requests
   belongs_to :offer
   belongs_to :availability
+
+  belongs_to :invoice, dependent: :destroy
 
   field :pin, type: Integer, default: -> { Call.generate_unique_pin }
   field :length, type: Integer
@@ -42,41 +46,16 @@ class Call
 
   alias_method :topic, :name
 
-  def confirm!
-    self.status = Call::Status::ACTIVE
-    save!
-  end
-
-  def decline!
-    self.status = Call::Status::DECLINED
-    save!
-  end
-
-  def cancel!
-    self.cancelled_at = Time.now
-    self.status = Call::Status::CANCELLED
-    save!
-  end
-
-  def complete!
-    self.status = Call::Status::COMPLETED
-    save
-  end
-
-  def active?
-    status == Call::Status::ACTIVE
-  end
-
-  def cancelled?
-    status == Call::Status::CANCELLED
-  end
-
-  def declined?
-    status == Call::Status::DECLINED
-  end
-
-  def complete?
-    status == Call::Status::COMPLETED
+  def create_invoice
+    inv = Invoice.create!
+    begin
+      inv.call = self # saves relation in call.invoice_id
+      inv.create_pdf
+    rescue
+      inv.call = nil # removes relation from call.invoice_id
+      inv.destroy
+      raise
+    end
   end
 
   def cancellable?

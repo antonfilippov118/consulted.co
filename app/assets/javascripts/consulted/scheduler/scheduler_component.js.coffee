@@ -51,7 +51,7 @@ app.directive "calendar", [
 					target = $ event.target
 					start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
 					end = start + DEFAULT_DURATION
-					editModal.open( 
+					editModal.open(
 						startMinutes: () ->
 								start
 						endMinutes: () ->
@@ -81,24 +81,24 @@ app.directive "calendar", [
 
 app.filter "dayHeader", [
 	'MOBILE_DAY_HEADER_FORMAT'
-	(mobileDayHeader) ->
-	(week, day) ->
-		day = week.clone().isoWeekday(day).format(mobileDayHeader)
+	dayHeaderFilter = (mobileDayHeader) ->
+		(week, day) ->
+			day = week.clone().isoWeekday(day).format(mobileDayHeader)
 ]
 
 app.filter "zeroPad", [() ->
-	(input) ->
+	zeroPadFilter = (input) ->
 		"0#{input}".slice -2
 ]
 
 app.filter "minutesToTime", [
 	"$filter"
-	(filter) ->
-	{floor} = Math
-	zeroPad = filter "zeroPad"
-	(input) ->
-		minutes = parseInt input
-		"#{zeroPad(floor minutes / 60)}:#{zeroPad(minutes % 60)}"
+	minutesToTimeFilter = ($filter) ->
+		{floor} = Math
+		zeroPad = $filter "zeroPad"
+		(input) ->
+			minutes = parseInt input
+			"#{zeroPad(floor minutes / 60)}:#{zeroPad(minutes % 60)}"
 ]
 
 app.directive "event", [

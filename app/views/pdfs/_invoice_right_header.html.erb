@@ -1,0 +1,39 @@
+<div class="invoice_header">
+  <table border="0" width="100%">
+    <thead>
+    <tr>
+      <th colspan="2">INVOICE</th>
+    </tr>
+    </thead>
+  </table>
+  <div style="padding-left: 0.5cm; padding-right: 0.5cm">
+    <table border="0" width="100%">
+      <tbody>
+      <tr>
+        <td>INVOICE #</td>
+        <td class="align-right"><%= invoice.id_for_invoice %></td>
+      </tr>
+      <tr>
+        <td>DATE</td>
+        <td class="align-right"><%= invoice_date invoice %></td>
+      </tr>
+      <tr class="strong">
+        <td>DUE DATE</td>
+        <td class="align-right"><%= invoice_due_date invoice %></td>
+      </tr>
+      <tr>
+        <td>TOTAL AMOUNT</td>
+        <td class="align-right"><%= invoice_amount invoice %></td>
+      </tr>
+      <tr class="strong">
+        <td>TOTAL DUE</td>
+        <td class="align-right"><%= invoice_amount invoice %></td>
+      </tr>
+      <tr>
+        <td>STATUS</td>
+        <td class="align-right">PAID</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
