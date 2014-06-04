@@ -9,8 +9,7 @@
         <br>
         <i class="fa fa-refresh fa-2x fa-spin"></i>
       </div>
-      <div ng-show="!result && search_active && !searching" class="text-center">
-        <h1>No results</h1>
+      <div no-results groups="groups" term="term">
       </div>
       <div class="results" ng-show="search_active && !searching && result">
         <h2>{{groups.length}} service offering{{groups.length != 1 ? 's' : ''}} found</h2>

@@ -15,23 +15,6 @@ app.service 'Configuration', [
       to: root.data 'experience-max'
 ]
 
-
-app.service 'Contact', [
-  '$http'
-  '$q'
-  'Configuration'
-  Contact = (http, q, Configuration) ->
-    offer = Configuration.getGroup()
-    requestExpert: () ->
-      result =  q.defer()
-      http.post('/contact/find_expert', offer: { slug: offer }).then (response) ->
-        result.resolve yes
-      , (err) ->
-        result.reject no
-      result.promise
-]
-
-
 app.service 'Language', [
   'Search'
   (Search) ->

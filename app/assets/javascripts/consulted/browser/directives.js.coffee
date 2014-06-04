@@ -1,5 +1,6 @@
 app = angular.module "consulted.browser.directives", [
   "consulted.browser.controllers"
+  "consulted.common"
 ]
 
 app.directive "lookup", [
@@ -70,4 +71,27 @@ app.directive 'child', [
       open = no
       scope.open = -> open
       scope.toggle = -> open = !open
+]
+
+app.directive 'noResults', [
+  'Contact'
+  noResultsDirective = (Contact) ->
+    replace: yes
+    scope:
+      groups: '='
+      term: "="
+    templateUrl: 'no_results'
+    link: (scope) ->
+      scope.$watch 'groups', (groups) ->
+        scope.show = groups?.length is 0
+        scope.sent = no
+
+      scope.request = () ->
+        scope.sending = yes
+        Contact.requestServiceOffering(scope.term).then (bool) ->
+          scope.sent = bool
+        , (bool) ->
+          scope.sent = bool
+        .finally ->
+          scope.sending = no
 ]

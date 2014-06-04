@@ -116,6 +116,7 @@ Consulted::Application.routes.draw do
   resource :contact, only: [:new, :create] do
     get :success
     post :find_expert
+    post :find_offer
   end
 
   namespace :call do

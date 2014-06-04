@@ -25,6 +25,15 @@ class ContactsController < ApplicationController
     end
   end
 
+  def find_offer
+    result = FindsTheRightOffer.for term_params
+    if result.success?
+      render json: { success: true }
+    else
+      render json: { error: result.message }
+    end
+  end
+
   private
 
   def contact_params
@@ -34,5 +43,10 @@ class ContactsController < ApplicationController
   def find_params
     slug = params.require(:offer).permit(:slug).fetch :slug
     { offer: slug }.merge user: @user
+  end
+
+  def term_params
+    term = params.require(:search).permit(:term).fetch :term
+    { term: term }.merge user: @user
   end
 end

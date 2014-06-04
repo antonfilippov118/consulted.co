@@ -2,6 +2,7 @@ app = angular.module 'consulted.finder.directives', [
   'consulted.finder.controllers'
   'consulted.finder.services'
   'consulted.booking.services'
+  'consulted.common'
 ]
 
 app.directive 'filter', [
@@ -232,7 +233,8 @@ app.directive 'ionRangeMulti', [
 
 app.directive 'noResults', [
   'Contact'
-  (Contact) ->
+  '$rootElement'
+  noResultsDirective = (Contact, root) ->
     replace: yes
     templateUrl: 'no_results'
     scope:
@@ -244,7 +246,8 @@ app.directive 'noResults', [
 
       scope.request = () ->
         scope.sending = yes
-        Contact.requestExpert().then (bool) ->
+        offer = root.data 'group'
+        Contact.requestExpert(offer).then (bool) ->
           scope.sent = bool
         , (bool) ->
           scope.sent = bool
