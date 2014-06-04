@@ -1,6 +1,7 @@
 app = angular.module 'consulted.offer_select.controllers', [
   'consulted.offer_select.services'
   'consulted.scheduler'
+  'consulted.booking.services'
 ]
 
 
@@ -11,7 +12,8 @@ app.controller 'AvailabilityCtrl', [
   '$window'
   'ExpertOffers'
   'Configuration'
-  (scope, ExpertAvailabilities, TimezoneData, $window, ExpertOffers, Configuration) ->
+  'Storage'
+  (scope, ExpertAvailabilities, TimezoneData, $window, ExpertOffers, Configuration, Storage) ->
     slug = Configuration.getSlug()
     offer = null
     scope.next = (event) ->
@@ -57,7 +59,7 @@ app.controller 'AvailabilityCtrl', [
       {data} = event
       TimezoneData.getFormattedOffset().then (offset) ->
         {data} = event
-        sessionStorage.setItem "#{slug}:time", data.start?.format('YYYY-MM-DD HH:mm Z')
+        Storage.setTime slug, data.start
         offer = ExpertOffers.getSelected()
         $window.location.href = "/offers/#{offer.slug}-with-#{slug}/review"
 

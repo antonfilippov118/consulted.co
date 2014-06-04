@@ -31,6 +31,7 @@
     "html5shiv": "~3.7.1",
     "noty": "~2.2.2",
     "ion-range-slider": "~1.9.1",
-    "angular-touch": "~1.2.16"
+    "angular-touch": "~1.2.16",
+    "angular-cookies": "~1.2.16"
   }
 }

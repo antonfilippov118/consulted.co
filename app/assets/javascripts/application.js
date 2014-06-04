@@ -8,6 +8,7 @@
 //= require angular/angular
 //= require angular-touch/angular-touch
 //= require angular-route/angular-route
+//= require angular-cookies/angular-cookies
 //= require angular-sanitize/angular-sanitize
 //= require angular-bootstrap/ui-bootstrap
 //= require angular-bootstrap/ui-bootstrap-tpls

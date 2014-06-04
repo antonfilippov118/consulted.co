@@ -1,4 +1,6 @@
-app = angular.module 'consulted.booking.services', []
+app = angular.module 'consulted.booking.services', [
+  'ngCookies'
+]
 
 app.service 'Offer', [
   '$http'
@@ -47,12 +49,42 @@ app.service 'Book', [
 ]
 
 app.service 'Storage', [
-  () ->
+  '$window'
+  'cookieStorage'
+  Storage = ($window, cookieStorage) ->
     expert = $('#expert_slug').val()
+
+    try
+      {sessionStorage} = $window
+      sessionStorage.setItem 'test', 42
+      sessionStorage.clear()
+    catch e
+      sessionStorage = cookieStorage
+
     getTime: () ->
       time = sessionStorage.getItem "#{expert}:time"
       if time
         moment(time)
       else
         false
+
+    setTime: (slug, date) ->
+      date = moment(date) unless moment.isMoment date
+      sessionStorage.setItem "#{slug}:time", date.format('YYYY-MM-DD HH:mm Z')
+
+    clear: (slug) ->
+      sessionStorage.removeItem "#{slug}:time"
+
+]
+
+app.service 'cookieStorage', [
+  '$cookieStore'
+  cookieStorage = (cookieStore) ->
+    setItem: (key, value) ->
+      cookieStore.put key, value
+    getItem: (key, value) ->
+      cookieStore.get key, value
+    removeItem: (key) ->
+      cookieStore.remove key
+
 ]

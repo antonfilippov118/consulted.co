@@ -1,6 +1,7 @@
 app = angular.module 'consulted.finder.directives', [
   'consulted.finder.controllers'
   'consulted.finder.services'
+  'consulted.booking.services'
 ]
 
 app.directive 'filter', [
@@ -161,7 +162,8 @@ app.directive 'offer', [
 app.directive 'contactExpert', [
   'Call'
   '$window'
-  (Call, $window) ->
+  'Storage'
+  (Call, $window, Storage) ->
     replace: yes
     scope:
       offer: '=for'
@@ -177,7 +179,7 @@ app.directive 'contactExpert', [
           scope.loading = no
 
       scope.contact = (expert) ->
-        sessionStorage.setItem "#{expert.slug}:time", scope.date.format('YYYY-MM-DD HH:mm Z')
+        Storage.setTime expert.slug, scope.date
         $window.location.href = "/offers/#{scope.offer.slug}-with-#{expert.slug}/review"
 
       scope.$on 'result', fetch

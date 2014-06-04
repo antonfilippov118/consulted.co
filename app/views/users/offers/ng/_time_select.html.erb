@@ -16,7 +16,7 @@
         <p class="bigger label-select">Available Time Slots</p>
       </div>
       <div class="col-md-7">
-        <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start * 1000 | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
+        <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
       </div>
     </div>
     <div class="row">
