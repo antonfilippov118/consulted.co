@@ -18,7 +18,7 @@ app.service "editModal", [
 				result.resolve bounds
 			, () ->
 				result.reject "dismissed"
-			q.promise
+			result.promise
 ]
 
 app.directive "calendar", [
@@ -51,9 +51,9 @@ app.directive "calendar", [
 					target = $ event.target
 					start = SMALLEST_MINUTE_STEP * Math.round((event.pageY - target.offset().top) / target.height() * (60 * 24) / SMALLEST_MINUTE_STEP)
 					end = start + DEFAULT_DURATION
-					editModal.open(
+					modal = editModal.open(
 						startMinutes: () ->
-								start
+							start
 						endMinutes: () ->
 							end
 						mode: () ->
