@@ -32,6 +32,7 @@ class ContactsController < ApplicationController
   end
 
   def find_params
-    params.require(:offer).permit :slug
+    slug = params.require(:offer).permit(:slug).fetch :slug
+    { offer: slug }.merge user: @user
   end
 end
