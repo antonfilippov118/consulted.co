@@ -37,6 +37,10 @@
       <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
     </td>
   </tr>
+  <tr ng-show="call.active">
+    <td>PIN</td>
+    <td>{{call.pin}}</td>
+  </tr>
   <tr>
     <td>
       <span ng-show="!call.expert && call.status == 5">
