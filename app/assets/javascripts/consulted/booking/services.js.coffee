@@ -61,8 +61,8 @@ app.service 'Storage', [
     catch e
       sessionStorage = cookieStorage
 
-    getTime: () ->
-      time = sessionStorage.getItem "#{expert}:time"
+    getTime: (slug = expert) ->
+      time = sessionStorage.getItem "#{slug}:time"
       if time
         moment(time)
       else
