@@ -14,7 +14,7 @@ Consulted::Application.routes.draw do
     confirmations: 'users/confirmations',
     sessions: 'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks',
-    passwords: 'devise/passwords'
+    passwords: 'users/passwords'
   }
 
   devise_for :admins, controllers: admin_controllers, only: admin_controllers.keys
