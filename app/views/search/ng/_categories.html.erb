@@ -22,6 +22,7 @@
       <div id="height_2"></div>
       <div child="child" ng-repeat="child in getSubGroup() | prioritized | orderBy:'name'"></div>
       <div child="child" ng-repeat="child in getSubGroup() | prioritized:false | orderBy:'name'"></div>
+      <div child="child" ng-repeat="child in getSubGroup() | unprioritized | orderBy:'name'"></div>
     </div>
   </div>
 </div>

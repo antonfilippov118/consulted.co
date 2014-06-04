@@ -14,6 +14,7 @@ class Group
   field :length_gain, type: String
   field :tag_array, type: Array
   field :prioritized, type: Boolean, default: false
+  field :unprioritized, type: Boolean, default: false
 
   validates_associated :parent, :children
 
