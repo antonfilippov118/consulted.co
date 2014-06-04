@@ -35,3 +35,5 @@ en:
     registrations:
       user:
         signed_up: 'You are signed up! Please confirm your email address by clicking on the confirmation link in the welcome email.'
+    failure:
+      already_authenticated: ''

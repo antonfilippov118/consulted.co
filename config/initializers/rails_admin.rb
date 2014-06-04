@@ -92,6 +92,11 @@ RailsAdmin.config do |config|
           bindings[:object].leaf?
         end
       end
+      field :unprioritized do
+        visible do
+          bindings[:object].leaf?
+        end
+      end
     end
 
     show do

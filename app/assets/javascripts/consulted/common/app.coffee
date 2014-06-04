@@ -135,6 +135,29 @@ app.service 'OfferData', [
     save: save
 ]
 
+
+app.service 'Contact', [
+  '$http'
+  '$q'
+  Contact = (http, q) ->
+    requestExpert: (offer) ->
+      result =  q.defer()
+      http.post('/contact/find_expert', offer: { slug: offer }).then (response) ->
+        result.resolve yes
+      , (err) ->
+        result.reject no
+      result.promise
+
+    requestServiceOffering: (term) ->
+      result = q.defer()
+      http.post('/contact/find_offer', search: { term: term }).then (response) ->
+        result.resolve yes
+      , (err) ->
+        result.reject no
+      result.promise
+
+]
+
 timeFilters = {
   'minute': "mm"
   'hour': "HH:mm"

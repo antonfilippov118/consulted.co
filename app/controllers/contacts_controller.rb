@@ -16,9 +16,37 @@ class ContactsController < ApplicationController
 
   end
 
+  def find_expert
+    result = FindsTheRightExpert.for find_params
+    if result.success?
+      render json: { success: true }
+    else
+      render json: { error: result.message }
+    end
+  end
+
+  def find_offer
+    result = FindsTheRightOffer.for term_params
+    if result.success?
+      render json: { success: true }
+    else
+      render json: { error: result.message }
+    end
+  end
+
   private
 
   def contact_params
     params.require(:contact).permit :message, :email, :subject, :name
+  end
+
+  def find_params
+    slug = params.require(:offer).permit(:slug).fetch :slug
+    { offer: slug }.merge user: @user
+  end
+
+  def term_params
+    term = params.require(:search).permit(:term).fetch :term
+    { term: term }.merge user: @user
   end
 end

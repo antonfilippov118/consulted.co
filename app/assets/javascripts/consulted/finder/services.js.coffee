@@ -3,7 +3,7 @@ app = angular.module 'consulted.finder.services', []
 app.service 'Configuration', [
   '$rootElement'
   (root) ->
-    _group = false
+    _group = root.data 'group'
     setGroup: (group) ->
       _group = group
     getGroup: -> _group

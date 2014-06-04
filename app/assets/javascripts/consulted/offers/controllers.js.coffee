@@ -38,12 +38,22 @@ app.controller 'OfferCtrl', [
   '$scope'
   'OfferData'
   (scope, OfferData) ->
+    save = (offer, enabled = yes) ->
+      scope.selecting = yes
+      OfferData.save(enabled: enabled, slug: offer.slug).finally () ->
+        OfferData.reload()
+      .finally ->
+        scope.selecting = no
+
+    select = (offer) -> save offer
+    deselect = (offer) -> save offer, no
 
     scope.select = (offer) ->
-      scope.selecting = yes
-      OfferData.save(enabled: yes, slug: offer.slug).finally () ->
-        scope.selecting = no
-        OfferData.reload()
+      return deselect offer if scope.selected(offer)
+      select offer
+
+
+
 
 ]
 

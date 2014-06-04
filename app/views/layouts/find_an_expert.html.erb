@@ -36,9 +36,7 @@
             <div class="text-center" ng-show="searching">
               <i class="fa fa-spin fa-refresh fa-2x"></i>
             </div>
-            <div class="text-center" ng-show="!searching && offers.length == 0">
-              <h3>No results.</h3>
-            </div>
+            <div no-results offers="offers"></div>
             <div ng-show="!searching && offers.length > 0">
               <div class="expert clr" offer="offer" ng-repeat="offer in offers track by offer.id"></div>
             </div>
@@ -50,7 +48,7 @@
           <%= render partial: 'layouts/footer', locals: { inverted: user_signed_in? } %>
           <%= render partial: 'layouts/copy' %>
         </div>
-        <% %w(filter offer contact_expert).each do |partial| %>
+        <% %w(filter offer contact_expert no_results).each do |partial| %>
         <script type="text/ng-template" id="<%= partial %>">
           <%= render partial: "groups/ng/#{partial}"  %>
         </script>

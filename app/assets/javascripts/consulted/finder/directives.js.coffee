@@ -2,6 +2,7 @@ app = angular.module 'consulted.finder.directives', [
   'consulted.finder.controllers'
   'consulted.finder.services'
   'consulted.booking.services'
+  'consulted.common'
 ]
 
 app.directive 'filter', [
@@ -228,4 +229,28 @@ app.directive 'ionRangeMulti', [
 
       el.ionRangeSlider()
 
+]
+
+app.directive 'noResults', [
+  'Contact'
+  '$rootElement'
+  noResultsDirective = (Contact, root) ->
+    replace: yes
+    templateUrl: 'no_results'
+    scope:
+      offers: '='
+    link: (scope, el) ->
+      scope.$watch 'offers', (offers) ->
+        scope.show = offers?.length is 0
+        scope.sent = no
+
+      scope.request = () ->
+        scope.sending = yes
+        offer = root.data 'group'
+        Contact.requestExpert(offer).then (bool) ->
+          scope.sent = bool
+        , (bool) ->
+          scope.sent = bool
+        .finally ->
+          scope.sending = no
 ]

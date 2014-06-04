@@ -36,7 +36,7 @@ app.controller 'CancelCtrl', [
     scope.verb = ->
       return 'Cancel' if call.active
       return 'Abandon' if call.seeker
-      return 'Deny' if call.expert
+      return 'Decline' if call.expert
       'Cancel'
 
     scope.dismiss = () ->
