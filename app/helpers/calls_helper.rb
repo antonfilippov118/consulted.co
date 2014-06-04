@@ -68,7 +68,7 @@ module CallsHelper
       Call::Status::REQUESTED => 'Awaiting confirmation',
       Call::Status::ACTIVE => 'Scheduled',
       Call::Status::CANCELLED => 'Cancelled',
-      Call::Status::DECLINED => 'Declined'
+      Call::Status::DECLINED => 'Cancelled'
     }
   end
 
