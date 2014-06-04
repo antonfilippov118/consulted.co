@@ -229,3 +229,25 @@ app.directive 'ionRangeMulti', [
       el.ionRangeSlider()
 
 ]
+
+app.directive 'noResults', [
+  'Contact'
+  (Contact) ->
+    replace: yes
+    templateUrl: 'no_results'
+    scope:
+      offers: '='
+    link: (scope, el) ->
+      scope.$watch 'offers', (offers) ->
+        scope.show = offers?.length is 0
+        scope.sent = no
+
+      scope.request = () ->
+        scope.sending = yes
+        Contact.requestExpert().then (bool) ->
+          scope.sent = bool
+        , (bool) ->
+          scope.sent = bool
+        .finally ->
+          scope.sending = no
+]

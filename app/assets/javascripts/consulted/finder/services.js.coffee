@@ -3,7 +3,7 @@ app = angular.module 'consulted.finder.services', []
 app.service 'Configuration', [
   '$rootElement'
   (root) ->
-    _group = false
+    _group = root.data 'group'
     setGroup: (group) ->
       _group = group
     getGroup: -> _group
@@ -14,6 +14,23 @@ app.service 'Configuration', [
       from: root.data 'experience-min'
       to: root.data 'experience-max'
 ]
+
+
+app.service 'Contact', [
+  '$http'
+  '$q'
+  'Configuration'
+  Contact = (http, q, Configuration) ->
+    offer = Configuration.getGroup()
+    requestExpert: () ->
+      result =  q.defer()
+      http.post('/contact/find_expert', offer: { slug: offer }).then (response) ->
+        result.resolve yes
+      , (err) ->
+        result.reject no
+      result.promise
+]
+
 
 app.service 'Language', [
   'Search'

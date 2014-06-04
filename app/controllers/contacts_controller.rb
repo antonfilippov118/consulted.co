@@ -16,9 +16,22 @@ class ContactsController < ApplicationController
 
   end
 
+  def find_expert
+    result = FindsTheRightExpert.for find_params
+    if result.success?
+      render json: { success: true }
+    else
+      render json: { error: result.message }
+    end
+  end
+
   private
 
   def contact_params
     params.require(:contact).permit :message, :email, :subject, :name
+  end
+
+  def find_params
+    params.require(:offer).permit :slug
   end
 end
