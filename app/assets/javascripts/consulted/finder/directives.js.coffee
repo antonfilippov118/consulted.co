@@ -205,8 +205,8 @@ app.directive 'ionRangeMulti', [
           type: 'double'
           min: from
           max: to
-          from: from
-          to: to
+          from: ngModel.$viewValue.from
+          to: ngModel.$viewValue.to
           hideMinMax: yes
           postfix: do -> if attrs.postfix then " #{attrs.postfix}" else undefined
           prefix: do -> if attrs.prefix then " #{attrs.prefix}" else undefined
