@@ -146,8 +146,8 @@ timeFilters = {
 angular.forEach timeFilters, (format, key) ->
   app.filter key, ->
     (input) ->
-      if moment.isMoment(input)
-        return input.format format
+      input *= 1000 if angular.isNumber input
+      return input.format format if moment.isMoment(input)
       moment(input).format format
 
 app.filter "week", [() ->
@@ -168,5 +168,6 @@ app.filter 'moment', [
   ($rootElement) ->
     offset = $rootElement.data('offset') || '+00:00'
     (input, format = 'YYYY-MM-DD') ->
+      input *= 1000 if angular.isNumber input
       moment.utc(input).zone(offset).format(format)
 ]

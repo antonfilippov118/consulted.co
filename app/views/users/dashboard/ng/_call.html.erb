@@ -5,7 +5,7 @@
       <a ng-href="/groups/{{call.group.slug}}" target="_blank">{{call.group.name}}</a>
     </td>
     <td>
-      {{call.active_from | moment:'ddd, MMM DD YYYY, HH:mm'}} with {{call.partner_name}} for {{call.length}} minutes
+      {{call.timestamp | moment:'ddd, MMM DD YYYY, HH:mm'}} with {{call.partner_name}} for {{call.length}} minutes
     </td>
     <td ng-hide="call.active">{{call.request_status}}</td>
     <td ng-show="call.active">
