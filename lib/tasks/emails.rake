@@ -7,6 +7,13 @@ namespace :emails do
     end
   end
 
+  task update: :environment do
+    templates.each do |template|
+      next if EmailTemplate.where(name: template[:name]).exists?
+      EmailTemplate.create template
+    end
+  end
+
   def templates
     [
       {
@@ -697,6 +704,82 @@ CONSULTED
 <p>Thanks,<br>CONSULTED</p>),
         text_version: %Q(Hi {{user.name}}!
 You cancelled the call with {{call.seeker.name}}. As per our cancellation policy ({{cancellation_url}}) we may charge a cancellation fee if the call was previously confirmed.
+
+Meeting request details
+
+- Meeting partner: {{call.seeker.name}}
+- Service offering: {{call.name}}
+- Date &amp; Time: {{ date }}
+- Duration: {{ call.duration }} minutes
+- Status: Cancelled
+- Meeting via: Call bridge
+- Language: {{call.languages}}
+- Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
+- Payment: PayPal
+- Meeting partner message: {{call.message}}
+
+Thanks,
+CONSULTED)
+      },
+      {
+        name: 'call_abandoned_by_seeker_to_seeker',
+        subject: 'Call cancelled',
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
+<p><strong>You cancelled the call</strong> with {{call.expert.name}}.</p>
+<h4>Meeting request details</h4>
+<ul>
+<li>Meeting partner: {{call.expert.name}}</li>
+<li>Service offering: {{call.name}}</li>
+<li>Date &amp; Time: {{ date }}</li>
+<li>Duration: {{ call.duration }} minutes</li>
+<li>Status: Cancelled</li>
+<li>Meeting via: Call bridge</li>
+<li>Language: {{call.languages}}</li>
+<li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
+<li>Payment: PayPal</li>
+<li>Your message to the expert: {{call.message}}</li>
+</ul>
+<p>Thanks,<br>CONSULTED</p>),
+        text_version: %Q(Hi {{user.name}}!
+You cancelled the call with {{call.expert.name}}.
+
+Meeting request details
+
+- Meeting partner: {{call.seeker.name}}
+- Service offering: {{call.name}}
+- Date &amp; Time: {{ date }}
+- Duration: {{ call.duration }} minutes
+- Status: Cancelled
+- Meeting via: Call bridge
+- Language: {{call.languages}}
+- Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)
+- Payment: PayPal
+- Your message to the expert: {{call.message}}
+
+Thanks,
+CONSULTED)
+      },
+      {
+        name: 'call_abandoned_by_seeker_to_expert',
+        subject: 'Call cancelled',
+        html_version: %Q(<h3>Hi {{user.name}}!</h3>
+<p>{{call.seeker.name}} cancelled the call on {{date}}</p>
+<h4>Meeting request details</h4>
+<ul>
+<li>Meeting partner: {{call.seeker.name}}</li>
+<li>Service offering: {{call.name}}</li>
+<li>Date &amp; Time: {{ date }}</li>
+<li>Duration: {{ call.duration }} minutes</li>
+<li>Status: Cancelled</li>
+<li>Meeting via: Call bridge</li>
+<li>Language: {{call.languages}}</li>
+<li>Rate: {{rate}} USD (based on {{rate}} USD/hour; includes our fee)</li>
+<li>Payment: PayPal</li>
+<li>Meeting partner message: {{call.message}}</li>
+</ul>
+<p>Thanks,<br>CONSULTED</p>),
+        text_version: %Q(Hi {{user.name}}!
+{{call.seeker.name}} cancelled the call on {{date}}.
 
 Meeting request details
 

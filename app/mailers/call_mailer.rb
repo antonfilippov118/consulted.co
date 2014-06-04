@@ -48,6 +48,14 @@ class CallMailer < ApplicationMailer
     liquid_mail(:call_cancelled_by_expert_to_expert, { to: call.expert.notification_email }, user: call.expert, call: call, date: date(call, :expert), timezone: timezone(call, :expert))
   end
 
+  def call_abandoned_by_seeker_to_expert(call)
+    liquid_mail(:call_abandoned_by_seeker_to_expert, { to: call.expert.notification_email }, user: call.expert, call: call, date: date(call, :expert), timezone: timezone(call, :expert))
+  end
+
+  def call_abandoned_by_seeker_to_seeker(call)
+    liquid_mail(:call_abandoned_by_seeker_to_seeker, { to: call.seeker.notification_email }, user: call.seeker, call: call, date: date(call, :seeker), timezone: timezone(call, :seeker))
+  end
+
   def expert_notification(call)
     liquid_mail(:call_requested_to_expert, { to: call.expert.notification_email }, call: call, user: call.expert, date: date(call, :expert), timezone: timezone(call, :expert))
   end
