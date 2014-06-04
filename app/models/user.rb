@@ -55,6 +55,10 @@ class User
   field :signed_up_via, type: String, default: 'register'
   field :asked_contact_email, type: Boolean, default: false
 
+  # optional address
+  embeds_one :address, class_name: 'User::Address'
+  field :auto_send_invoice, type: Boolean, default: false
+
   #
   # Favorites
   #
@@ -99,14 +103,7 @@ class User
   has_many :offers, dependent: :destroy
   has_many :requests, inverse_of: :seeker, class_name: 'Call', dependent: :destroy
 
-  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities, :favorites
-
-  # TODO: since Mongoid hasn't random, so far this simple method just works.
-  # In future we can add custom mongoid finder module and method to mongoid
-  # criteria.
-  def self.random(count = 1)
-    criteria.to_a.shuffle[0, count]
-  end
+  accepts_nested_attributes_for :user_linkedin_connection, :companies, :educations, :offers, :availabilities, :favorites, :address
 
   def expert?
     can_be_an_expert? && wants_to_be_an_expert?

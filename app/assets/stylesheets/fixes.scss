@@ -310,5 +310,9 @@ span.lang {
   }
 }
 
+.input-label.small {
+  font-size: 14px;
+}
+
 @import 'filters';
 @import 'typeahead';
