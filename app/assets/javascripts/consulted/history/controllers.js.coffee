@@ -7,10 +7,16 @@ app = angular.module 'consulted.history.controllers', [
 app.controller 'TabsCtrl', [
   '$scope'
   'Type'
-  (scope, Type) ->
+  'Calls'
+  '$q'
+  (scope, Type, Calls, q) ->
     scope.offered       = () -> Type.isOffered()
     scope.showRequested = () -> Type.setRequested()
     scope.showOffered   = () -> Type.setOffered()
+
+    q.all([Calls.getRequested(), Calls.getOffered()]).then (data) ->
+      scope.total_requested = () -> data[0].length
+      scope.total_offered = () -> data[1].length
 ]
 
 app.controller 'CallsCtrl', [
@@ -26,6 +32,9 @@ app.controller 'CallsCtrl', [
     scope.isStatus  = (number) -> number is status
     scope.setStatus = (number) -> status = number
     scope.calls = -> filter('status')(_calls, status)
+
+    scope.total_calls = (status) ->
+      filter('status')(_calls, status).length
 
     scope.$on 'reload:calls', -> fetch()
 
@@ -44,6 +53,4 @@ app.controller 'CallsCtrl', [
         scope.loading = no
 
     fetch()
-
-    scope.confirm
 ]

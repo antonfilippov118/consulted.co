@@ -27,7 +27,7 @@ app.service 'Calls', [
 
     get = (path) ->
       result = q.defer()
-      http.get(path).then (response) ->
+      http.get(path, cache: yes).then (response) ->
         result.resolve response.data
       , (err) ->
         result.reject err

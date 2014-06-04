@@ -1,0 +1,47 @@
+<div class="tab-pane" id="settings-address">
+  <div class="row divider">
+    <div class="col-md-7">
+      <%= form_for @user, url: profile_settings_path, remote: true, html: { class: 'form-horizontal' } do |f| -%>
+        <%= f.fields_for :address, @user.address do |ff| %>
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <%= ff.label :street, "Street", class: 'input-label small' %>
+              <%= ff.text_field :street, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-xs-5">
+              <%= ff.label :postal_code, "Postal Code", class: 'input-label small' %>
+              <%= ff.text_field :postal_code, class: 'form-control' %>
+            </div>
+            <div class="col-xs-7">
+              <%= ff.label :city, "City", class: 'input-label small' %>
+              <%= ff.text_field :city, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <%= f.label :country, "Country", class: 'input-label small' %>
+              <%= ff.country_select :country, [@user.country], { iso_codes: true }, class: 'form-control' %>
+            </div>
+          </div>
+        <% end %>
+        <%= f.submit "Save", data: { disable_with: 'Saving...' }, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    <div class="col-md-5">
+      <span class="info flaticon flaticon-info">If you do require an invoice for calls you requested, you can add your address here.</span>
+    </div>
+  </div>
+  <div class="row divider">
+    <div class="col-md-7">
+      <%= form_for @user, url: profile_settings_path, remote: true do |f| -%>
+        <%= f.label :auto_send_invoice, "Automatically send the invoice", class: 'input-label' %>
+        <%= f.select :auto_send_invoice, {'Yes' => true, 'No' => false}, {}, class: 'form-control meeting-setting' %>
+      <% end %>
+    </div>
+    <div class="col-md-5">
+      <span class="info flaticon flaticon-info">We can send your invoice directly to you after it has been generated. Alternatively, you can download your invoices in the <%= link_to 'call history', '/my-calls#/requested' %></span>
+    </div>
+  </div>
+</div>

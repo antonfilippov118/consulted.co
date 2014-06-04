@@ -9,10 +9,10 @@
   </div>
   <ul id="settings-tabs" class="nav nav-tabs">
     <li ng-class="{'active':!offered()}">
-      <a ng-click="showRequested()">Requested</a>
+      <a ng-click="showRequested()">Requested <span class="badge" ng-show="total_requested() > 0">{{total_requested()}}</span></a>
     </li>
     <li ng-class="{'active':offered()}">
-      <a ng-click="showOffered()">Offered</a>
+      <a ng-click="showOffered()">Offered <span class="badge" ng-show="total_offered() > 0">{{total_offered()}}</span></a>
     </li>
   </ul>
 </div>

@@ -4,6 +4,7 @@ class Users::SettingsController < Users::BaseController
 
   def profile
     session.delete :omniauth_return
+    @user.address ||= User::Address.new
   end
 
   def billing
@@ -51,7 +52,7 @@ class Users::SettingsController < Users::BaseController
   private
 
   def user_profile_params
-    params.require(:user).permit :name, :slug, :contact_email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, :shares_career, :shares_education, :shares_summary, :max_meetings_per_day, :start_delay, :twitter_handle, :newsletter, languages: []
+    params.require(:user).permit :name, :slug, :contact_email, :summary, :timezone, :profile_image, :country, :break, :meeting_notification, :notification_time, :shares_career, :shares_education, :shares_summary, :max_meetings_per_day, :start_delay, :twitter_handle, :newsletter, address_attributes: [:city, :postal_code, :street, :country], languages: []
   end
 
   def timezone_params

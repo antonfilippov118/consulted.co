@@ -49,43 +49,6 @@ describe User do
     it { should validate_inclusion_of(:status).to_allow(User::STATUS_LIST) }
   end
 
-  describe '.random' do
-    let(:num) { 3 }
-    let(:users) { [] }
-
-    context 'when users are exist' do
-      before do
-        10.times do |t|
-          user = User.create! name: "Florian#{t}", email: "user#{t}@example.com", password: 'tester', password_confirmation: 'tester', linkedin_network: 10_000
-          if t < num
-            users << user
-          end
-        end
-      end
-
-      it 'should return num of records' do
-        User.random(num).count.should eq num
-      end
-
-      it 'should return random records' do
-        Array.any_instance.stub(:shuffle) { users }
-
-        # NOTE: we can just compare by email as it is a unique field
-        User.random(num).map(&:email).should eq users.map(&:email)
-      end
-    end
-
-    context 'when users are not exist' do
-      before do
-        User.stub(:criteria) { [] }
-      end
-
-      it 'should return empty array if there are no records' do
-        User.random(num).count.should eq 0
-      end
-    end
-  end
-
   describe 'slug creation' do
     it 'should create a slug for a new user' do
       user = User.new valid_params
