@@ -5,7 +5,7 @@ ruby '2.0.0'
 gem 'rails', '4.0.2'
 
 gem 'bson_ext'
-gem 'rabl'
+gem 'rabl-rails'
 gem 'oj'
 gem 'devise'
 gem 'linkedin'

@@ -2,6 +2,7 @@ class Group
   include Mongoid::Document
   include Mongoid::Slug
   include Mongoid::Tree
+  include JSON::Serializable
 
   SPLITTER = ','
 

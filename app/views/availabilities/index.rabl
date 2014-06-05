@@ -1,4 +1,4 @@
-collection @availabilities
+collection :@availabilities
 node :id do |a|
   a.id.to_s
 end

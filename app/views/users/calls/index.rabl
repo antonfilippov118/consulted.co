@@ -1,4 +1,4 @@
-collection @calls
+collection :@calls
 attributes :message, :pin, :length, :status
 child :group do
   attributes :name, :slug

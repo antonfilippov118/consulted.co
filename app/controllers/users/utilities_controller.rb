@@ -6,7 +6,6 @@ class Users::UtilitiesController < ApplicationController
   end
 
   def timezone
-
   end
 
   private

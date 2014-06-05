@@ -1,4 +1,4 @@
-collection @calls
+collection :@calls
 attributes :name, :message, :status, :payment, :length, :active, :payment
 
 node :active_from do |call|

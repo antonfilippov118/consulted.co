@@ -1,4 +1,4 @@
-collection @expert.offers.enabled
+collection :@expert.offers.enabled
 attributes :name, :rate, :experience, :description, :slug, :lengths
 node :likes do |offer|
   []

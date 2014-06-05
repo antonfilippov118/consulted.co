@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   before_filter :service_offering?, only: :show
 
   def index
-    @groups = Group.roots
+    render json: Group.roots.map(&:as_node)
   end
 
   def show

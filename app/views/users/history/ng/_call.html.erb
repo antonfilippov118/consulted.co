@@ -1,7 +1,7 @@
 <tbody>
   <tr>
     <td class="calltable-prop">Date &amp; Time</td>
-    <td class="calltable-value">{{call.active_from | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
+    <td class="calltable-value">{{call.timestamp | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
     <td class="calltable-notes" rowspan="6">Notes</td>
     <td class="calltable-nvalue" rowspan="6">
       <span ng-show="call.message">{{call.message}}</span>

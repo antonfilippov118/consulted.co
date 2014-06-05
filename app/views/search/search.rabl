@@ -1,4 +1,4 @@
-collection @offers
+collection :@offers
 attributes :description, :rate, :experience, :url, :slug, :maximum_length
 node :id do |offer|
   offer.id.to_s

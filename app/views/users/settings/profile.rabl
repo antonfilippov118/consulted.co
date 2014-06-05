@@ -1,4 +1,4 @@
-object @user
+object :@user
 node(:timezone) do
   {
     value: ActiveSupport::TimeZone.new(@user.timezone).to_s,
