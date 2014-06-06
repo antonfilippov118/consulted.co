@@ -158,22 +158,22 @@ describe Call do
 
     it 'should not be can_be_reviewed? if it is completed and already has review' do
       call.update({ status: Call::Status::COMPLETED})
-      call.create_review
+      call.create_review(valid_attrs)
       expect(call.can_be_reviewed?).to be_false
     end
 
     it 'should create review' do
-      call.create_review
+      call.create_review(valid_attrs)
       expect(call.review).not_to be_blank
     end
 
     it 'should create review with an offer attached from the call' do
-      call.create_review
+      call.create_review(valid_attrs)
       expect(call.review.offer).to eq call.offer
     end
 
     it 'should create review with correct call set' do
-      call.create_review
+      call.create_review(valid_attrs)
       expect(call.review.call).to eq call
     end
 
@@ -209,5 +209,6 @@ describe Call do
     expert.offers.create group: group, rate: 200, experience: 20, description: 'foo'
     expert.availabilities.create start: Time.now, end: Time.now + 180.minutes
     expert
+
   end
 end
