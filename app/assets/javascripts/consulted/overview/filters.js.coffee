@@ -1,5 +1,23 @@
 app = angular.module 'consulted.overview.filters', []
 
+app.filter 'reviewable', [
+  ->
+    (input) ->
+      filtered = []
+      for call in input
+        filtered.push call if call.reviewable
+      filtered
+]
+
+app.filter 'notReviewable', [
+  ->
+    (input) ->
+      filtered = []
+      for call in input
+        filtered.push call if !call.reviewable
+      filtered
+]
+
 app.filter 'younger', [
   ->
     (input, days = 7) ->

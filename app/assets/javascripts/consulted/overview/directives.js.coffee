@@ -25,6 +25,14 @@ app.directive 'call', [
           backdrop: 'static'
           resolve:
             call: -> call
+
+      scope.review = (call) ->
+        modal.open
+          templateUrl: 'review'
+          controller: 'ReviewCtrl'
+          backdrop: 'static'
+          resolve:
+            call: -> call
 ]
 
 app.directive 'noCalls', [

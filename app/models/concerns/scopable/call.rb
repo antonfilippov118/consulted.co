@@ -19,6 +19,7 @@ module Scopable
       scope :younger, -> number { where active_from: { :$lte => Time.at(Time.now + number.days) } }
       scope :older, -> number { where active_from: { :$gte => Time.at(Time.now + number.days) } }
       scope :without_invoice, -> { where invoice: nil }
+      scope :can_be_reviewed, -> { where review: nil, status: ::Call::Status::COMPLETED }
     end
   end
 

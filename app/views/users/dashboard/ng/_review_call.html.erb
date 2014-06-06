@@ -1,0 +1,13 @@
+<tbody>
+  <tr class="{{call.class}}">
+    <td>
+      <a ng-href="/groups/{{call.group.slug}}" target="_blank">{{call.group.name}}</a>
+    </td>
+    <td>
+      {{call.timestamp | moment:'ddd, MMM DD YYYY, HH:mm'}} with {{call.partner_name}} for {{call.length}} minutes
+    </td>
+    <td>
+      <a ng-click="review(call)" class="btn btn-primary">Review Now!</a>
+    </td>
+  </tr>
+</tbody>

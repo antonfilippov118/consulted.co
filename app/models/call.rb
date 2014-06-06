@@ -6,6 +6,7 @@ class Call
   include Changeable::Call
   include Pricable::Call
   include Tokenable::Call
+  include Reviewable::Call
 
   class Status
     REQUESTED = 1

@@ -2,8 +2,8 @@
   <tr>
     <td class="calltable-prop">Date &amp; Time</td>
     <td class="calltable-value">{{call.timestamp | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
-    <td class="calltable-notes" rowspan="6">Notes</td>
-    <td class="calltable-nvalue" rowspan="6">
+    <td class="calltable-notes" rowspan="7">Notes</td>
+    <td class="calltable-nvalue" rowspan="7">
       <span ng-show="call.message">{{call.message}}</span>
       <span ng-hide="call.message"><em>There is no message attached to this call.</em></span>
     </td>
@@ -37,10 +37,6 @@
       <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
     </td>
   </tr>
-  <tr ng-show="call.active">
-    <td>PIN</td>
-    <td>{{call.pin}}</td>
-  </tr>
   <tr>
     <td>
       <span ng-show="!call.expert && call.status == 5">
@@ -64,7 +60,7 @@
       <span ng-show="call.controllable">
         <a ng-click="confirm(call)" class="link-confirm" ng-show="!call.active && call.expert">confirm</a>
         <a ng-click="cancel(call)" class="link-cancel" ng-show="!call.active && call.seeker">abandon</a>
-        <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">decline</a>
+        <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">deny</a>
         <a ng-click="cancel(call)" class="link-cancel" ng-show="call.active">cancel</a>
       </span>
     </td>

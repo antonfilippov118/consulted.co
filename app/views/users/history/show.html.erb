@@ -2,13 +2,17 @@
   <div tabs></div>
   <div ng-view></div>
   <% %w(call calls tabs).each do |partial| %>
-    <script type="text/ng-template" id="<%= partial %>">
-    <%= render partial: "users/history/ng/#{partial}" %>
-    </script>
+      <script type="text/ng-template" id="<%= partial %>">
+        <%= render partial: "users/history/ng/#{partial}" %>
+      </script>
   <% end %>
-  <% %w(confirm cancel).each do |partial| %>
-    <script type="text/ng-template" id="<%= partial %>">
-    <%= render partial: "users/dashboard/ng/#{partial}" %>
-    </script>
+  <script type="text/ng-template" id="template/rating/rating.html">
+    <%= render partial: "users/dashboard/ng/rating" %>
+  </script>
+  <% %w(confirm cancel review).each do |partial| %>
+      <script type="text/ng-template" id="<%= partial %>">
+        <%= render partial: "users/dashboard/ng/#{partial}" %>
+      </script>
   <% end %>
+
 </div>

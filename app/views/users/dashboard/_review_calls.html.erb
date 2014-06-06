@@ -1,0 +1,29 @@
+<div class="ovr-reviews" ng-show="review_calls.length > 0">
+  <h2>
+    Calls Waiting for Review
+  </h2>
+
+  <table class="table table-overview-review">
+    <tbody>
+    <tr ng-repeat="call in review_calls | orderBy:'timestamp'">
+      <td>
+        <a ng-href="/groups/{{call.group.slug}}" target="_blank">{{call.group.name}}</a>
+      </td>
+      <td>
+        {{call.timestamp | moment:'ddd, MMM DD YYYY, HH:mm'}} with {{call.partner_name}} for {{call.length}} minutes
+      </td>
+      <td>
+        <a ng-click="review(call)" class="btn btn-primary">Review Now!</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <% %w(review review_call).each do |partial| %>
+      <script type="text/ng-template" id="<%= partial %>">
+        <%= render partial: "users/dashboard/ng/#{partial}" %>
+      </script>
+  <% end %>
+  <script type="text/ng-template" id="template/rating/rating.html">
+    <%= render partial: "users/dashboard/ng/rating" %>
+  </script>
+</div>

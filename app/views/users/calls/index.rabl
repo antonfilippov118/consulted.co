@@ -1,4 +1,26 @@
-collection :@calls
+object false
+
+child @reviewable => :reviewable do
+attributes :length
+node :id do |call|
+  call.id.to_s
+end
+child :group do
+  attributes :name, :slug
+end
+node :status_name do |call|
+  call_status(call)
+end
+node :timestamp do |call|
+  call.active_from.to_i
+end
+node :partner_name do |call|
+  partner_for(call).name
+end
+
+end
+
+child @calls => :calls do
 attributes :message, :pin, :length, :status
 child :group do
   attributes :name, :slug

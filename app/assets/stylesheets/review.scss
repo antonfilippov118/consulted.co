@@ -1,0 +1,142 @@
+.modal-body.review {
+  padding : 16px 20px;
+}
+
+.modal-body.review.bordered {
+  border-top : 1px solid #E5E5E5;
+}
+
+.table-overview-review {
+  margin-bottom : 0px;
+  td {
+    //border    : 0px !important;
+    vertical-align: middle !important;
+  }
+  border-bottom: 1px solid #dddddd;
+}
+.modal-body.review {
+
+  .table.table-rating10 {
+    width: 1%;
+    margin-bottom : 0px;
+    margin-left:auto;
+    margin-right:auto;
+    td {
+      border    : 0px !important;
+      white-space : nowrap;
+    }
+  }
+
+  .rate-the-expert {
+    margin-top : 5px;
+  }
+  .rating-table-wrapper {
+    padding-left : 20px;
+  }
+
+  .table.table-rating {
+    margin-bottom : 5px;
+    td {
+      border : 0px !important;
+
+      .rating-invalid {
+        color : #d9534f !important;
+      }
+
+
+      .fa-star, .glyphicon-star {
+        color : gold;
+      }
+
+      .fa, .glyphicon {
+        padding-left  : 2px;
+        padding-right : 2px;
+      }
+    }
+    td:first-child {
+      white-space : nowrap;
+    }
+    td:last-child {
+      width        : 100%;
+      padding-left : 10px;
+    }
+  }
+}
+
+span.circle-wrapper {
+  padding-right : 8px;
+
+  .circled {
+    background            : #CCCCCC;
+    border-radius         : 0.8em;
+    -moz-border-radius    : 0.8em;
+    -webkit-border-radius : 0.8em;
+    color                 : #FFFFFF;
+    display               : inline-block;
+    font-weight           : bold;
+    line-height           : 1.6em;
+    text-align            : center;
+    width                 : 1.6em;
+  }
+
+  &.circle-selected {
+    .circled {
+      background : #8C8C8C;
+    }
+  }
+}
+
+.circle-invalid {
+  .circled {
+    background : #F3ACA7 !important;
+  }
+}
+/* Code below taken from Animate.css - http://daneden.me/animate */
+
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+@-webkit-keyframes shake {
+  0%, 100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  20%, 60% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  40%, 80% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  20%, 60% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  40%, 80% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+}
+
+.shake {
+  -webkit-animation-name: shake;
+  animation-name: shake;
+}

@@ -36,6 +36,10 @@ node :partner do |call|
     page: expert_page(call.expert)
   }
 end
+child :review do
+  attributes :awesome, :understood_problem, :helped_solve_problem, :knowledgeable, :value_for_money, :would_recommend,
+             :feedback, :would_recommend_consulted
+end
 child :group do
   attributes :slug
 end
