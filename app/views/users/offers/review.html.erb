@@ -59,10 +59,10 @@
             <div class="col-md-8">
               <div class="bigger">
                 <% @expert.languages.each_with_index do |language, index| %>
-                  <span language="<%= language %>" request="request" class="lang"></span><%= ', ' unless index + 1 == @expert.languages.length %>
+                  <span selected="<%= 'true' if @expert.languages.length == 1 %>" language="<%= language %>" request="request" class="lang"></span><%= ', ' unless index + 1 == @expert.languages.length %>
                 <% end %>
               </div>
-              <small>You can select the languages you would like to conduct the call in here, if multiple available</small>
+              <small ng-style="languageStyle()">You can select the languages you would like to conduct the call in here, if multiple available</small>
             </div>
           </div>
           <div class="row">
@@ -107,7 +107,7 @@
             <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short." ng-max-length="500"></textarea>
           </div>
           <div class="clr">
-            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending">Send binding request</button>
+            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending || noLanguages()">Send binding request</button>
           </div>
         </div>
       </div>
