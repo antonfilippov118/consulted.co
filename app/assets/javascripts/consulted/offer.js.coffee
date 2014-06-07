@@ -4,6 +4,8 @@ $ ->
     form.submit()
   $('.meeting-setting').on 'change', ->
     submitForm $(this)
+  $('.meeting-input').on 'blur', () ->
+    submitForm $(this)
   $('.language').on 'click', () ->
     el = $(this)
     id = el.data 'target'
