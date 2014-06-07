@@ -1,5 +1,5 @@
 collection :@calls
-attributes :name, :message, :status, :payment, :length, :active, :payment
+attributes :name, :message, :status, :payment, :length, :active, :payment, :pin
 
 node :active_from do |call|
   call.active_from.to_i * 1000
