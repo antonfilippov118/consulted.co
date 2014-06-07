@@ -32,6 +32,7 @@ app.service 'ExpertOffers', [
       selected = offer
       root.$broadcast 'offer:change', offer
       scroll()
+      return
 
     selected: (offer) ->
       return no unless selected?

@@ -3,14 +3,7 @@
     <i class="fa fa-spinner fa-spin"></i>
   </div>
   <div class="profile-talk" ng-hide="loading">
-    <div class="profile-heading2">Choose how long you want to talk</div>
-    <div class="profile-time clr">
-      <div class="time-select">
-        <div class="time-point" ng-mouseover="show(length)" ng-click="select(length)" ng-mouseleave="hide(length)" ng-class="{'sel':isSelected(length)}" ng-repeat='length in lengths'></div>
-      </div>
-      <div class="greensemi right">
-      <span id="howlong">{{selected()}}</span> minutes</div>
-    </div>
+    <div class="profile-heading2">Choose when you want to talk</div>
     <div class="row">
       <div class="col-md-5">
         <p class="bigger label-select">Available Time Slots</p>
@@ -18,6 +11,14 @@
       <div class="col-md-7">
         <select class='form-control' ng-change="setTime()" ng-model="active_from" ng-options="time.start | moment:'ddd, MMM DD YYYY, HH:mm' for time in times"></select><br>
       </div>
+    </div>
+    <div class="profile-heading2">Choose how long you want to talk</div>
+    <div class="profile-time clr">
+      <div class="time-select">
+        <div class="time-point" ng-mouseover="show(length)" ng-click="select(length)" ng-mouseleave="hide(length)" ng-class="{'sel':isSelected(length)}" ng-repeat='length in lengths'></div>
+      </div>
+      <div class="greensemi right">
+      <span id="howlong">{{selected()}}</span> minutes</div>
     </div>
     <div class="row">
       <div class="col-md-5">
