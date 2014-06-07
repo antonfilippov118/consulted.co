@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <style>
-    <%# render partial: 'pdfs/invoice_styles' %>
+    <%= render partial: 'pdfs/invoice_styles' %>
   </style>
   <%= stylesheet_link_tag(asset_data_base64('application.css')) %>
 </head>
@@ -11,7 +11,7 @@
 <div class="pdf-header">
   <div class="row">
     <div class="col-xs-6">
-      <%= image_tag(asset_data_base64('logo-black.png'), alt: 'logo') %>
+      <%= image_tag(asset_data_base64('logo_black.png'), alt: 'logo', class: 'logo') %>
       <p>
         Consulted, Inc.<br>
         San Francisco, CA 94104<br>
