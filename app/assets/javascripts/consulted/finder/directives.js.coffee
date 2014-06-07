@@ -239,9 +239,10 @@ app.directive 'noResults', [
     templateUrl: 'no_results'
     scope:
       offers: '='
-    link: (scope, el) ->
+    link: (scope, el, attrs) ->
       scope.$watch 'offers', (offers) ->
-        scope.show = offers?.length is 0
+        scope.show = offers?.length is 0 || attrs.show
+        scope.hideTitle = attrs.show
         scope.sent = no
 
       scope.request = () ->

@@ -38,6 +38,7 @@
             <div no-results offers="offers"></div>
             <div ng-show="!searching && offers.length > 0">
               <div class="expert clr" offer="offer" ng-repeat="offer in offers track by offer.id"></div>
+              <div no-results offers="offers" data-show="true"></div>
             </div>
           </div>
         </section>
