@@ -20,7 +20,16 @@ app.service 'Call', [
       http.delete("/calls/#{call.id}/cancel").then (response) ->
         result.resolve response.data
       , (err) ->
-        result.reject err.error
+        result.reject err.data.error
+      .finally reload
+      result.promise
+
+    review: (call, review) ->
+      result = q.defer()
+      http.post("/calls/#{call.id}/review", review).then (response) ->
+        result.resolve response.data
+      , (err) ->
+        result.reject err.data.error
       .finally reload
       result.promise
 
@@ -29,7 +38,7 @@ app.service 'Call', [
       http.put("/calls/#{call.id}/confirm").then (response) ->
         result.resolve response.data
       , (err) ->
-        result.reject err.error
+        result.reject err.data.error
       .finally reload
       result.promise
 

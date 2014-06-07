@@ -75,6 +75,7 @@ Consulted::Application.routes.draw do
     end
 
     resources :calls, only: [:index], controller: 'users/calls' do
+      post :review
       put :confirm
       delete :cancel
     end

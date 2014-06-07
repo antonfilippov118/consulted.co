@@ -1,0 +1,22 @@
+<div class="ovr-reviews">
+  <h2>
+    Calls Waiting for Review
+  </h2>
+
+  <table class="table table-overview-review">
+    <tbody>
+    <tr ng-repeat="call in calls | orderBy:'timestamp'">
+      <td>
+        <a ng-href="/groups/{{call.group.slug}}" target="_blank">{{call.group.name}}</a>
+      </td>
+      <td>
+        {{call.timestamp | moment:'ddd, MMM DD YYYY, HH:mm'}} with {{call.partner_name}} for {{call.length}} minutes
+      </td>
+      <td>
+        <a ng-click="review(call)" class="btn btn-primary">Review Now!</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

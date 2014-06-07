@@ -129,7 +129,63 @@ describe Call do
       end.not_to change(Invoice, :count)
       expect(call.invoice).to be_blank
     end
+  end
 
+  describe 'creating review' do
+    let(:call) { Call.create expert: expert, seeker: seeker, length: 120, active_from: Time.now, offer: expert.offers.first }
+    let(:valid_attrs) do
+      {
+          awesome: true,
+          understood_problem: 3,
+          helped_solve_problem: 1,
+          knowledgeable: 4,
+          value_for_money: 2,
+          would_recommend: 5,
+          would_recommend_consulted: 9,
+          feedback: 'Good!'
+      }
+    end
+
+    it 'should not be can_be_reviewed? if it is not completed' do
+      call.update status: Call::Status::ACTIVE
+      expect(call.can_be_reviewed?).to be_false
+    end
+
+    it 'should be can_be_reviewed? if it is completed and has no reviews' do
+      call.update status: Call::Status::COMPLETED
+      expect(call.can_be_reviewed?).to be_true
+    end
+
+    it 'should not be can_be_reviewed? if it is completed and already has review' do
+      call.update status: Call::Status::COMPLETED
+      call.create_review(valid_attrs)
+      expect(call.can_be_reviewed?).to be_false
+    end
+
+    it 'should create review' do
+      call.create_review(valid_attrs)
+      expect(call.review).not_to be_blank
+    end
+
+    it 'should create review with an offer attached from the call' do
+      call.create_review(valid_attrs)
+      expect(call.review.offer).to eq call.offer
+    end
+
+    it 'should create review with correct call set' do
+      call.create_review(valid_attrs)
+      expect(call.review.call).to eq call
+    end
+
+    it 'should pass attributes to the review (and the offer)' do
+      Review.should_receive(:create!).with(valid_attrs.merge(offer: call.offer)).and_call_original
+      call.create_review(valid_attrs)
+    end
+
+    it 'should raise error if review creation fails' do
+      Review.stub(:create!).and_raise('Validation Error')
+      expect { call.create_review(valid_attrs) }.to raise_error 'Validation Error'
+    end
   end
 
   def seeker
@@ -152,5 +208,6 @@ describe Call do
     expert.offers.create group: group, rate: 200, experience: 20, description: 'foo'
     expert.availabilities.create start: Time.now, end: Time.now + 180.minutes
     expert
+
   end
 end

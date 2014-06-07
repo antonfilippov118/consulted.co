@@ -1,0 +1,130 @@
+<div id="reviewrequest">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="dismiss()">&times;</button>
+      <h4 class="modal-title">Call Review</h4>
+    </div>
+    <div class="modal-body review">
+      <h4>Public Review
+        <small>(optional; shared with all users on Consulted)</small>
+      </h4>
+      <table class="table table-rating table-condensed">
+        <tbody>
+        <tr ng-click="toggleAwesome()">
+          <td>
+            <h4>
+              <span class="label" ng-class="{'label-success':review.awesome, 'label-default':!review.awesome}"><i class="fa fa-check" style="margin-right:5px" ng-show="review.awesome"></i>Awesome</span>
+            </h4>
+          </td>
+          <td class="text-muted">
+            <span ng-hide="isReadonly">
+            <span ng-show="review.awesome">You have awarded “awesome” to the expert for a great consultation</span>
+            <span ng-hide="review.awesome">Click the badge to award an “awesome” to the expert for a great consultation</span>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-body review bordered">
+      <h4>Internal Review
+        <small>(for the expert & Consulted’s quality team only)</small>
+      </h4>
+      <p class="rate-the-expert">Please rate this expert:</p>
+
+      <div class="rating-table-wrapper">
+        <table class="table table-rating table-condensed">
+          <tbody>
+          <tr ng-repeat="rating in ratings">
+            <td>{{rating.text}}</td>
+            <td>
+              <rating value="review[rating.name]" ng-class="{'rating-invalid animated shake':(validations['{{rating.name}}'] == false)}"  max="5" readonly="isReadonly" on-hover="hoveringOver(value, rating.name)"></rating>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!--<div class="rating-table-wrapper">-->
+        <!--<table class="table table-rating table-condensed">-->
+          <!--<tbody>-->
+          <!--<tr>-->
+            <!--<td>Understood my problem</td>-->
+            <!--<td>-->
+              <!--<rating id="understood_problem" value="review.understood_problem" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"></rating>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--<tr>-->
+            <!--<td>Helped me solve my problem</td>-->
+            <!--<td>-->
+              <!--<rating id="helped_solve_problem" value="review.helped_solve_problem" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--<tr>-->
+            <!--<td>Is knowledgeable in {{call.name}}</td>-->
+            <!--<td>-->
+              <!--<rating id="knowledgeable" value="review.knowledgeable" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--<tr>-->
+            <!--<td>Provided good value for money</td>-->
+            <!--<td>-->
+              <!--<rating id="value_for_money" value="review.value_for_money" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--<tr>-->
+            <!--<td>I would recommend the expert to a friend</td>-->
+            <!--<td>-->
+              <!--<rating id="would_recommend" ng-class="{'rating-invalid animated shake':(validations['would_recommend'] == false)}" value="review.would_recommend" max="5" readonly="isReadonly" on-hover="hoveringOver(value,'would_recommend')" on-leave="overStar = null"></rating>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--</tbody>-->
+        <!--</table>-->
+      <!--</div>-->
+      <div class="checkbox" ng-hide="isReadonly">
+        <label>
+          <input type="checkbox" ng-model="review.hasfeedback"> Tick here to provide written feedback to the expert <span class="text-muted">(optional)</span>
+        </label>
+       </div>
+      <div ng-show="isReadonly && review.feedback || !isReadonly && review.hasfeedback">
+        <div class="form-group">
+          <textarea class="form-control" rows="4" ng-disabled="isReadonly" placeholder="Your feedback to the expert" ng-model="review.feedback"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body review bordered">
+      <h4>How much do you like us?</h4>
+
+      <p>How likely are you to recommend Consulted to a friend and colleague?</p>
+
+      <div class="center-block">
+        <table class="table table-rating10 table-condensed">
+          <tr>
+            <td colspan="2">
+              <rating ng-class="{'circle-invalid animated shake':(validations['would_recommend_consulted'] == false)}" value="review.would_recommend_consulted" max="10" readonly="isReadonly" on-hover="hoveringOver(value, 'would_recommend_consulted')"></rating>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-muted text-left">
+              <small><i class="fa fa-long-arrow-left"></i> not likely at all</small>
+            </td>
+            <td class="text-muted text-right">
+              <small>extremely likely <i class="fa fa-long-arrow-right"></i></small>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="text-center" ng-hide="isReadonly">
+        <button type="button" ng-click="submitReview()" class="btn btn-success">Submit</button>
+        <br>
+        <span class="text-muted"><small>(this can’t be changed later)</small></span>
+      </div>
+      <div class="text-center" ng-show="isReadonly">
+        <button type="button" ng-click="dismiss()" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

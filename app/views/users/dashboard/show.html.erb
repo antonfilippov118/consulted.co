@@ -1,12 +1,14 @@
-<div class="dashboard container">
+<div class="dashboard container" ng-app="consulted.overview" ng-controller="TableCtrl">
   <%= render partial: 'layouts/messages' %>
   <div class="overview-head row">
     <div class="col-md-7">
+      <div review_calls="review_calls" ng-show="review_calls.length > 0"></div>
       <h2>
         Upcoming Calls
         <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Overview about your upcoming calls - requested or offered ones"></span><br>
         <small>Dial in: <a href="tel:+1 844-415-4000">+1 844-415-4000</a> (US toll-free) [<%= link_to 'more numbers', 'https://consultedco.zendesk.com/hc/en-us/articles/201304524', target: '_blank' %>]</small>
       </h2>
+
       <div class="ovr-timezone">
         <strong>Your timezone</strong>
         <%= render partial: 'timezone' %>
@@ -17,16 +19,18 @@
     <div class="col-md-offset-1 col-md-4">
       <div id="quickaccess">
         <p id="quickaccess-head">Quick Access</p>
+
         <div id="quickaccess-text">
           <p>I want to...</p>
+
           <div class="clr">
             <%= link_to find_an_expert_path do %>
-              Find an expert
+                Find an expert
             <% end %>
           </div>
           <div class="clr">
             <%= link_to offers_path do %>
-              Offer my time
+                Offer my time
             <% end %>
           </div>
           <div class="clr">
@@ -44,4 +48,12 @@
     </div>
   </div>
   <%= render partial: 'calls' %>
+  <% %w(review review_call review_calls).each do |partial| %>
+    <script type="text/ng-template" id="<%= partial %>">
+      <%= render partial: "users/dashboard/ng/#{partial}" %>
+    </script>
+  <% end %>
+  <script type="text/ng-template" id="template/rating/rating.html">
+    <%= render partial: "users/dashboard/ng/rating" %>
+  </script>
 </div>
