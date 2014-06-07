@@ -2,7 +2,7 @@
   <%= render partial: 'layouts/messages' %>
   <div class="overview-head row">
     <div class="col-md-7">
-      <%= render partial: 'review_calls' %>
+      <div review_calls="review_calls" ng-show="review_calls.length > 0"></div>
       <h2>
         Upcoming Calls
         <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Overview about your upcoming calls - requested or offered ones"></span><br>
@@ -48,4 +48,12 @@
     </div>
   </div>
   <%= render partial: 'calls' %>
+  <% %w(review review_call review_calls).each do |partial| %>
+    <script type="text/ng-template" id="<%= partial %>">
+      <%= render partial: "users/dashboard/ng/#{partial}" %>
+    </script>
+  <% end %>
+  <script type="text/ng-template" id="template/rating/rating.html">
+    <%= render partial: "users/dashboard/ng/rating" %>
+  </script>
 </div>

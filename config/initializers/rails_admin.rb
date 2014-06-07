@@ -255,7 +255,7 @@ RailsAdmin.config do |config|
 
     show
     edit do
-      except %w(Review)
+      except %w(Reviewi)
     end
 
     delete do

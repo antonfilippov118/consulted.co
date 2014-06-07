@@ -59,7 +59,8 @@ module CallsHelper
       Call::Status::REQUESTED => 'Pending your confirmation',
       Call::Status::ACTIVE => 'Scheduled',
       Call::Status::CANCELLED => 'Cancelled',
-      Call::Status::DECLINED => 'Declined'
+      Call::Status::DECLINED => 'Declined',
+      Call::Status::COMPLETED => 'Completed'
     }
   end
 
@@ -68,7 +69,9 @@ module CallsHelper
       Call::Status::REQUESTED => 'Awaiting confirmation',
       Call::Status::ACTIVE => 'Scheduled',
       Call::Status::CANCELLED => 'Cancelled',
-      Call::Status::DECLINED => 'Cancelled'
+      Call::Status::DECLINED => 'Cancelled',
+      Call::Status::COMPLETED => 'Completed'
+
     }
   end
 

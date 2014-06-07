@@ -9,20 +9,13 @@ app.controller 'TableCtrl', [
   'Call'
   '$interval'
   '$filter'
-  '$modal'
-  TableCtrl = (scope, Call, interval, filter, modal) ->
+  TableCtrl = (scope, Call, interval, filter) ->
     scope.loading = yes
 
-    scope.review = (call) ->
-      modal.open
-        templateUrl: 'review'
-        controller: 'ReviewCtrl'
-        backdrop: 'static'
-        resolve:
-          call: -> call
 
     fetch = () ->
       Call.getCalls().then (calls) ->
+        console.log calls
         scope.review_calls = calls.reviewable
         scope.new_calls    = filter('younger')(calls.calls, 7)
         scope.future_calls = filter('older')(calls.calls, 7)

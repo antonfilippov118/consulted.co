@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Review do
   RATINGS = [:understood_problem, :helped_solve_problem, :knowledgeable, :value_for_money, :would_recommend]
-  let(:valid_attrs) { Hash[RATINGS.map { |r| [r, 1]}].merge({would_recommend_consulted: 1}) }
+  let(:valid_attrs) { Hash[RATINGS.map { |r| [r, 1]}].merge({ would_recommend_consulted: 1 }) }
   let(:review) { Review.create!(valid_attrs) }
 
   context 'awesome' do

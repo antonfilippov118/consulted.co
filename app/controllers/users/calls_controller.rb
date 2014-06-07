@@ -31,6 +31,7 @@ class Users::CallsController < Users::BaseController
       render json: { success: true }
     end
   end
+
   private
 
   def call_params

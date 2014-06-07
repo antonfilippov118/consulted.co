@@ -42,3 +42,21 @@ app.directive 'noCalls', [
     scope:
       text: '@'
 ]
+
+app.directive 'reviewCalls', [
+  '$modal'
+  (modal) ->
+    replace: yes
+    scope:
+      calls: '=reviewCalls'
+    templateUrl: 'review_calls'
+    link: (scope) ->
+      scope.review = (call) ->
+        modal.open
+          templateUrl: 'review'
+          controller: 'ReviewCtrl'
+          backdrop: 'static'
+          resolve:
+            call: -> call
+
+]
