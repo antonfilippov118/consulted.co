@@ -147,17 +147,17 @@ describe Call do
     end
 
     it 'should not be can_be_reviewed? if it is not completed' do
-      call.update({ status: Call::Status::ACTIVE})
+      call.update status: Call::Status::ACTIVE
       expect(call.can_be_reviewed?).to be_false
     end
 
     it 'should be can_be_reviewed? if it is completed and has no reviews' do
-      call.update({ status: Call::Status::COMPLETED})
+      call.update status: Call::Status::COMPLETED
       expect(call.can_be_reviewed?).to be_true
     end
 
     it 'should not be can_be_reviewed? if it is completed and already has review' do
-      call.update({ status: Call::Status::COMPLETED})
+      call.update status: Call::Status::COMPLETED
       call.create_review(valid_attrs)
       expect(call.can_be_reviewed?).to be_false
     end
@@ -178,7 +178,7 @@ describe Call do
     end
 
     it 'should pass attributes to the review (and the offer)' do
-      Review.should_receive(:create!).with(valid_attrs.merge({ offer: call.offer })).and_call_original
+      Review.should_receive(:create!).with(valid_attrs.merge(offer: call.offer)).and_call_original
       call.create_review(valid_attrs)
     end
 
@@ -187,7 +187,6 @@ describe Call do
       expect { call.create_review(valid_attrs) }.to raise_error 'Validation Error'
     end
   end
-
 
   def seeker
     user = User.create valid_params

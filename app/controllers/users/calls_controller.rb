@@ -39,7 +39,7 @@ class Users::CallsController < Users::BaseController
   end
 
   def review_params
-    params.permit review: [ :awesome, :understood_problem, :helped_solve_problem, :knowledgeable,
-                            :value_for_money, :would_recommend, :feedback, :would_recommend_consulted ]
+    params.permit review: [:awesome, :understood_problem, :helped_solve_problem, :knowledgeable,
+                           :value_for_money, :would_recommend, :feedback, :would_recommend_consulted]
   end
 end
