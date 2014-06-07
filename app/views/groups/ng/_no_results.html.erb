@@ -1,5 +1,6 @@
 <div ng-show="show" class="text-center">
-  <h3>No results.</h3>
+  <h3 ng-hide="hideTitle">No results.</h3>
+  <br ng-show="hideTitle">
   <% if user_signed_in? %>
     <p>Could not find the right expert? Click below and we will get in touch with you to understand your needs. Based on those we will try our best to find the right one.</p>
     <button ng-hide="sent" ng-click="request()" class="btn btn-primary" ng-disabled="sending">Find the right one</button><br>

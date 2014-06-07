@@ -18,6 +18,14 @@ app.controller 'BookingCtrl', [
 
     scope.$on 'data:ready', (_, data) -> scope.offer = data
 
+    scope.noLanguages = () ->
+      scope.request.languages?.length is 0
+
+    scope.languageStyle = () ->
+      return {} if scope.request.languages.length > 0
+      color: 'red'
+
+
     optimize = () ->
       return unless angular.isObject window.optimizely
       return unless scope.offer

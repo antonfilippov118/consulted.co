@@ -2,11 +2,11 @@
   <div class="tab-pane active" id="calls-offered">
 
     <div class="calltable-type" ng-click="setStatus(1)" ng-class="{'active':isStatus(1)}">Pending <span class="badge" ng-show="total_calls(1) > 0">{{total_calls(1)}}</span></div>
-    <div class="calltable-type" ng-click="setStatus(3)" ng-class="{'active':isStatus(3)}">Active <span class="badge" ng-show="total_calls(3) > 0">{{total_calls(3)}}</span></div>
     <div class="calltable-type" ng-click="setStatus(2)" ng-class="{'active':isStatus(2)}">
       <span ng-show="offered()">Declined <span class="badge" ng-show="total_calls(2) > 0">{{total_calls(2)}}</span></span>
       <span ng-hide="offered()">Abandoned <span class="badge" ng-show="total_calls(2) > 0">{{total_calls(2)}}</span></span>
     </div>
+    <div class="calltable-type" ng-click="setStatus(3)" ng-class="{'active':isStatus(3)}">Active <span class="badge" ng-show="total_calls(3) > 0">{{total_calls(3)}}</span></div>
     <div class="calltable-type" ng-click="setStatus(4)" ng-class="{'active':isStatus(4)}">Cancelled <span class="badge" ng-show="total_calls(4) > 0">{{total_calls(4)}}</span></div>
     <div class="calltable-type" ng-click="setStatus(5)" ng-class="{'active':isStatus(5)}">Completed <span class="badge" ng-show="total_calls(5) > 0">{{total_calls(5)}}</span></div>
     <div ng-hide="offered()" class="calltable-type" ng-click="setStatus(6)" ng-class="{'active':isStatus(6)}">Disputed <span class="badge" ng-show="total_calls(6) > 0">{{total_calls(6)}}</span></div>

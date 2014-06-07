@@ -47,7 +47,14 @@
             <% end %>
           </div>
           <div class="expert-end right">
-            <%= link_to 'Remove from my bookmarks', favorite_path(expert), class: 'btn btn-primary', remote: true, method: :put, data: { disable_width: 'Removing...'} %>
+            <div class="clr">
+              <%= link_to 'Schedule a call', expert_page(expert), class: 'btn btn-primary' %>
+              <br><br>
+            </div>
+            <div class="clr">
+              <%= link_to 'Remove from my bookmarks', favorite_path(expert), remote: true, method: :put, data: { disable_width: 'Removing...'} %>
+            </div>
+
           </div>
         </div>
       </div>

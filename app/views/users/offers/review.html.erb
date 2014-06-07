@@ -59,10 +59,10 @@
             <div class="col-md-8">
               <div class="bigger">
                 <% @expert.languages.each_with_index do |language, index| %>
-                  <span language="<%= language %>" request="request" class="lang"></span><%= ', ' unless index + 1 == @expert.languages.length %>
+                  <span selected="<%= 'true' if @expert.languages.length == 1 %>" language="<%= language %>" request="request" class="lang"></span><%= ', ' unless index + 1 == @expert.languages.length %>
                 <% end %>
               </div>
-              <small>You can select the languages you are comfortable speaking during the call here</small>
+              <small ng-style="languageStyle()">You can select the languages you would like to conduct the call in here, if multiple available</small>
             </div>
           </div>
           <div class="row">
@@ -82,7 +82,7 @@
             </div>
             <div class="col-md-8">
               <p>
-                <small>Your call partners has 24 hours to accept or decline your request. We will send you a email.</small>
+                <small>Your call partner has 24 hours to accept or decline your request. We will inform you by email.</small>
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="col-md-8">
               <p>
-                <small>You may cancel your request until the person has accepted. After that will be a charge. See <a href="https://consultedco.zendesk.com/hc/en-us/articles/201322580" target="_blank">cancellation policy</a>.</small>
+                <small>You may cancel your request until your call partner has accepted without charge. After that there will be a fee. See our <a href="https://consultedco.zendesk.com/hc/en-us/articles/201322580" target="_blank">cancellation policy</a>.</small>
               </p>
             </div>
           </div>
@@ -107,7 +107,7 @@
             <textarea ng-model="request.message" class="form-control" rows="10" placeholder="You can leave here a quick note about the topic. Keep it short." ng-max-length="500"></textarea>
           </div>
           <div class="clr">
-            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending">Send binding request</button>
+            <button ng-click="confirm()" class="btn btn-primary" ng-disabled="sending || noLanguages()">Send binding request</button>
           </div>
         </div>
       </div>

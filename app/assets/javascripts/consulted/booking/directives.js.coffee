@@ -86,12 +86,11 @@ app.directive 'language', [
     scope:
       request: '='
       language: '@'
-    link: (scope, el) ->
+    link: (scope, el, attrs) ->
       {language} = scope
       scope.request.languages = [] unless angular.isArray scope.request.languages
-      scope.request.languages.push language
       scope.active = () -> language in scope.request.languages
-
+      scope.request.languages.push language if attrs.selected
       scope.toggle = () ->
         idx = scope.request.languages.indexOf language
         if idx > -1

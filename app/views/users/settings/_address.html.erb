@@ -6,27 +6,32 @@
           <div class="row form-group">
             <div class="col-xs-12">
               <%= ff.label :street, "Street", class: 'input-label small' %>
-              <%= ff.text_field :street, class: 'form-control' %>
+              <%= ff.text_field :street, class: 'form-control meeting-input' %>
             </div>
           </div>
           <div class="row form-group">
             <div class="col-xs-5">
               <%= ff.label :postal_code, "Postal Code", class: 'input-label small' %>
-              <%= ff.text_field :postal_code, class: 'form-control' %>
+              <%= ff.text_field :postal_code, class: 'form-control meeting-input' %>
             </div>
             <div class="col-xs-7">
               <%= ff.label :city, "City", class: 'input-label small' %>
-              <%= ff.text_field :city, class: 'form-control' %>
+              <%= ff.text_field :city, class: 'form-control meeting-input' %>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <%= ff.label :state, "State", class: 'input-label small' %>
+              <%= ff.text_field :state, class: 'form-control meeting-input' %>
             </div>
           </div>
           <div class="row form-group">
             <div class="col-xs-12">
               <%= f.label :country, "Country", class: 'input-label small' %>
-              <%= ff.country_select :country, [@user.country], { iso_codes: true }, class: 'form-control' %>
+              <%= ff.country_select :country, [@user.country], { iso_codes: true }, class: 'form-control meeting-setting' %>
             </div>
           </div>
         <% end %>
-        <%= f.submit "Save", data: { disable_with: 'Saving...' }, class: 'btn btn-primary' %>
       <% end %>
     </div>
     <div class="col-md-5">

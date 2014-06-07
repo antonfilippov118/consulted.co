@@ -4,6 +4,7 @@ class OffersController < ApplicationController
     if @expert.nil?
       render json: []
     end
+    @offers = @expert.offers.enabled
   end
 
   def show
