@@ -45,43 +45,6 @@
         </table>
       </div>
 
-
-      <!--<div class="rating-table-wrapper">-->
-        <!--<table class="table table-rating table-condensed">-->
-          <!--<tbody>-->
-          <!--<tr>-->
-            <!--<td>Understood my problem</td>-->
-            <!--<td>-->
-              <!--<rating id="understood_problem" value="review.understood_problem" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"></rating>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>Helped me solve my problem</td>-->
-            <!--<td>-->
-              <!--<rating id="helped_solve_problem" value="review.helped_solve_problem" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>Is knowledgeable in {{call.name}}</td>-->
-            <!--<td>-->
-              <!--<rating id="knowledgeable" value="review.knowledgeable" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>Provided good value for money</td>-->
-            <!--<td>-->
-              <!--<rating id="value_for_money" value="review.value_for_money" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>I would recommend the expert to a friend</td>-->
-            <!--<td>-->
-              <!--<rating id="would_recommend" ng-class="{'rating-invalid animated shake':(validations['would_recommend'] == false)}" value="review.would_recommend" max="5" readonly="isReadonly" on-hover="hoveringOver(value,'would_recommend')" on-leave="overStar = null"></rating>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--</tbody>-->
-        <!--</table>-->
-      <!--</div>-->
       <div class="checkbox" ng-hide="isReadonly">
         <label>
           <input type="checkbox" ng-model="review.hasfeedback"> Tick here to provide written feedback to the expert <span class="text-muted">(optional)</span>
@@ -93,7 +56,8 @@
         </div>
       </div>
     </div>
-    <div class="modal-body review bordered">
+
+    <div ng-hide="call.expert" class="modal-body review bordered">
       <h4>How much do you like us?</h4>
 
       <p>How likely are you to recommend Consulted to a friend and colleague?</p>
