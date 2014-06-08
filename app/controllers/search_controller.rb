@@ -9,4 +9,8 @@ class SearchController < ApplicationController
     @dates  = search_params[:days] || []
     @offers = result.fetch :offers
   end
+
+  def tree
+    title! 'Find an expert - All service offerings'
+  end
 end

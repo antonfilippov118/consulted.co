@@ -110,7 +110,8 @@ Consulted::Application.routes.draw do
     get :regions, to: 'utilities#region'
   end
 
-  get :find_an_expert, controller: 'search', action: :show
+  get '/find_an_expert', controller: 'search', action: :show
+  get '/find_an_expert/tree', controller: 'search', action: :tree
 
   post :search, to: 'search#search'
 
