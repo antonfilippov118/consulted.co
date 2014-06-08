@@ -1,68 +1,91 @@
 <tbody>
-  <tr>
-    <td class="calltable-prop">Date &amp; Time</td>
-    <td class="calltable-value">{{call.timestamp | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
-    <td class="calltable-notes" rowspan="7">Notes</td>
-    <td class="calltable-nvalue" rowspan="7">
-      <span ng-show="call.message">{{call.message}}</span>
-      <span ng-hide="call.message"><em>There is no message attached to this call.</em></span>
-    </td>
-  </tr>
-  <tr>
-    <td>Service offering</td>
-    <td><a ng-href="<%= groups_path %>/{{call.group.slug}}" target="_blank">{{call.name}}</a></td>
-  </tr>
-  <tr>
-    <td>Meeting partner</td>
-    <td>
-      <img class="callpart-img" ng-src="{{call.partner.profile_image_url}}" alt="{{call.partner.name}}">
-      <p class="callpart-name">
-        <a ng-href="{{call.partner.page}}" ng-show="call.seeker">{{call.partner_name}}</a>
-        <span ng-hide="call.seeker">{{call.partner_name}}</span>
-      </p>
-      <p class="callpart-links">
-        <a ng-href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="call.partner.linkedin"></a>
-        <a ng-href="{{call.partner.twitter}}" target="_blank" ng-show="call.partner.twitter" class="flaticon flaticon-twitter"></a>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <span ng-show="call.expert">Payment</span>
-      <span ng-hide="call.expert">Cost</span>
-    </td>
-    <td>
-      <span ng-show="call.expert">{{call.payment | currency}}</span>
-      <span ng-hide="call.expert">{{call.cost | currency}}</span>
-      <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
-    </td>
-  </tr>
-  <tr>
-    <td>
+<tr>
+  <td class="calltable-prop">Date &amp; Time</td>
+  <td class="calltable-value">{{call.timestamp | moment: 'ddd, MMM DD YYYY, HH:mm'}} for {{call.length}} min</td>
+  <td class="calltable-notes" rowspan="7">Notes</td>
+  <td class="calltable-nvalue" rowspan="7">
+    <span ng-show="call.message">{{call.message}}</span>
+    <span ng-hide="call.message"><em>There is no message attached to this call.</em></span>
+  </td>
+</tr>
+<tr>
+  <td>Service offering</td>
+  <td><a ng-href="<%= groups_path %>/{{call.group.slug}}" target="_blank">{{call.name}}</a></td>
+</tr>
+<tr>
+  <td>Meeting partner</td>
+  <td>
+    <img class="callpart-img" ng-src="{{call.partner.profile_image_url}}" alt="{{call.partner.name}}">
+    <p class="callpart-name">
+      <a ng-href="{{call.partner.page}}" ng-show="call.seeker">{{call.partner_name}}</a>
+      <span ng-hide="call.seeker">{{call.partner_name}}</span>
+    </p>
+    <p class="callpart-links">
+      <a ng-href="{{call.partner.linkedin}}" target="_blank" class="flaticon flaticon-linkedin" ng-show="call.partner.linkedin"></a>
+      <a ng-href="{{call.partner.twitter}}" target="_blank" ng-show="call.partner.twitter" class="flaticon flaticon-twitter"></a>
+    </p>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span ng-show="call.expert">Payment</span>
+    <span ng-hide="call.expert">Cost</span>
+  </td>
+  <td>
+    <span ng-show="call.expert">{{call.payment | currency}}</span>
+    <span ng-hide="call.expert">{{call.cost | currency}}</span>
+    <span ng-show="call.expert" class='flaticon flaticon-help' tooltip="Our fee is already deducted"></span>
+  </td>
+</tr>
+<tr ng-show="call.active">
+  <td>PIN</td>
+  <td>{{call.pin}}</td>
+</tr>
+<tr>
+  <td>
       <span ng-show="!call.expert && call.status == 5">
         Invoice
       </span>
-    </td>
-    <td>
+  </td>
+  <td>
       <span ng-show="!call.expert && call.status == 5">
           <span ng-show="call.invoice_pdf_url == null"><em>Invoice will be available <%= Settings.call_dispute_period %> hours after the call.</em></span>
           <span ng-hide="call.invoice_pdf_url == null"><a ng-href="{{call.invoice_pdf_url}}" class="btn btn-default">View Invoice</a></span>
       </span>
-    </td>
-  </tr>
-  <tr>
-    <td>
+  </td>
+</tr>
+<tr>
+  <td>
+      <span ng-show="call.status == 5">
+        Review
+      </span>
+  </td>
+  <td>
+      <span ng-show="call.status == 5">
+        <span ng-show="call.expert">
+          <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
+          <span ng-hide="call.review"><em>Client has not yet reviewed your service.</em></span>
+        </span>
+        <span ng-hide="call.expert">
+          <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
+          <span ng-hide="call.review"><a ng-click="review(call)" class="btn btn-primary">Review Now!</a></span>
+        </span>
+      </span>
+  </td>
+</tr>
+<tr>
+  <td>
       <span ng-show="call.controllable">
         Action
       </span>
-    </td>
-    <td>
+  </td>
+  <td>
       <span ng-show="call.controllable">
         <a ng-click="confirm(call)" class="link-confirm" ng-show="!call.active && call.expert">confirm</a>
         <a ng-click="cancel(call)" class="link-cancel" ng-show="!call.active && call.seeker">abandon</a>
-        <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">deny</a>
+        <a ng-click="cancel(call)" class="link-deny" ng-show="!call.active && call.expert">decline</a>
         <a ng-click="cancel(call)" class="link-cancel" ng-show="call.active">cancel</a>
       </span>
-    </td>
-  </tr>
+  </td>
+</tr>
 </tbody>
