@@ -1,14 +1,12 @@
-<table class="table table-responsive offerings-table">
-  <thead>
-    <tr>
-      <th ng-repeat="group in groups">{{group.name}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td ng-repeat="group in groups">
-        <div ng-hide="group.children.length == 0" group="child" ng-repeat="child in group.children | orderBy:'name'"></div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container offerings-table">
+  <div class="row top-row">
+    <div class="col-md-3 heading" ng-repeat="group in groups | orderBy:'name'">
+      <h4>{{group.name}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3" ng-repeat="group in groups">
+      <div ng-hide="group.children.length == 0" group="child" ng-repeat="child in group.children | orderBy:'name'"></div>
+    </div>
+  </div>
+</div>

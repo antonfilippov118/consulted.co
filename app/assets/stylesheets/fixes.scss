@@ -318,15 +318,8 @@ span.lang {
   h5 {
     font-weight: bold;
   }
-  td {
-    width: 25%;
-    .group {
-      border-bottom: 1px solid #eee;
-      padding: 5px;
-      &:last-child {
-        border: none;
-      }
-    }
+  .top-row {
+    border-bottom: 1px solid #eee;
   }
   ul {
     margin: 0px 0px 0px 20px;
