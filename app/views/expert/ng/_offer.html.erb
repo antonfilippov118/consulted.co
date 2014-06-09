@@ -26,10 +26,10 @@
     <div class="col-md-2">
       <div class="expert-pph text-center">
         <span class="price">${{offer.rate}}</span>/hour</div>
-      <div class="expert-rating" ng-show="offer.likes.length > 0">
-        <div class="rating-hand">5</div>
-        at avg. $65
-        <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></span>
+      <div class="expert-rating" ng-show="offer.likes > 0">
+        <div class="rating-hand">{{offer.likes}}</div>
+        at avg. {{offer.cost_average | currency}}
+        <span class="flaticon flaticon-help help" data-toggle="tooltip" data-placement="top" title="" data-original-title="‘Awesome count’ shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate ‘awesomes’ were collected"></span>
       </div>
     </div>
   </div>

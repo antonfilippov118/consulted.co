@@ -9,7 +9,7 @@
     <a ng-click="open = !open">{{child.name}}</a>
     <div ng-show="open">
       <ul>
-        <li ng-repeat="group in child.children">
+        <li ng-repeat="group in child.children | orderBy:'name'">
           <span child="group"></span>
         </li>
       </ul>

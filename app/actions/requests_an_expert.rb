@@ -23,7 +23,7 @@ class RequestsAnExpert
         length    = params.fetch :length
         offer     = params.fetch :offer
         message   = params.fetch :message
-        languages = params[:languages] || []
+        language  = params[:language]
 
         if expert.is_a? String
           expert = User.experts.find expert
@@ -34,7 +34,7 @@ class RequestsAnExpert
         context[:length]      = length
         context[:seeker]      = seeker
         context[:message]     = message
-        context[:languages]   = languages
+        context[:language]    = language
         context[:active_from] = DateTime.parse active
       rescue => e
         context.fail! e
@@ -54,7 +54,7 @@ class RequestsAnExpert
     include LightService::Action
 
     executed do |context|
-      context[:call] = Call.create context.slice(:seeker, :expert, :offer, :length, :message, :active_from, :languages)
+      context[:call] = Call.create context.slice(:seeker, :expert, :offer, :length, :message, :active_from, :language)
     end
   end
 

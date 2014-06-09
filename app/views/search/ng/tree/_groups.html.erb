@@ -7,7 +7,7 @@
   <tbody>
     <tr>
       <td ng-repeat="group in groups">
-        <div group="child" ng-repeat="child in group.children"></div>
+        <div ng-hide="group.children.length == 0" group="child" ng-repeat="child in group.children | orderBy:'name'"></div>
       </td>
     </tr>
   </tbody>

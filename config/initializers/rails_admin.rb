@@ -37,6 +37,8 @@ RailsAdmin.config do |config|
         end
       end
 
+      field :newsletter
+
       field :password
       field :password_confirmation
     end

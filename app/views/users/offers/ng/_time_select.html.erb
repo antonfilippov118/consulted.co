@@ -28,7 +28,9 @@
         <p class="bigger label-select">
           {{request.active_from | moment:'ddd, MMM DD YYYY HH:mm'}}
           <a ng-click="add(5)" ng-show="addable(5)">[+ 5 min]</a>
-          <a ng-click="add(-5)" ng-show="subtrapctable(5)">[- 5 min]</a>
+          <a ng-click="add(60)" ng-show="addable(60)">[+ 60 min]</a>
+          <a ng-click="add(-60)" ng-show="subtractable(60)">[- 60 min]</a>
+          <a ng-click="add(-5)" ng-show="subtractable(60)">[- 5 min]</a>
         </p>
 
       </div>

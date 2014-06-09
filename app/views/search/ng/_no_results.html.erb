@@ -1,7 +1,7 @@
 <div ng-show="show" class="text-center">
   <h1>No results</h1>
   <% if user_signed_in? %>
-    <p>Could not find a suitable service offering? Click below and we will get in touch with you (your email) to understand your needs. Based on those we will try our best to find the right one or you.</p>
+    <p><em>Could not find a suitable service offering? Click below and we will get in touch with you (your email) to understand your needs. Based on those we will try our best to find the right one or you.</em></p>
 
     <button ng-hide="sent" ng-click="request()" class="btn btn-primary" ng-disabled="sending">Find the right one</button><br>
     <span ng-show="sending"><i class="fa fa-spinner fa-spin"></i></span>

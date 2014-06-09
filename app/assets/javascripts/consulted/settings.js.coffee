@@ -38,16 +38,19 @@ $ ->
       el = $(element)
       el.addClass 'chk'
       el.removeClass 'crs'
-    submitHandler: (form) ->
-      $('#save_user_email').hide()
-      $('#unlock_user_email').show()
-      $('#user_contact_email').attr 'readonly', yes
-      $.rails.handleRemote( $(form) );
 
   $('#unlock_user_email').click () ->
     $('#user_contact_email').removeAttr 'readonly'
     $(this).hide()
     $('#save_user_email').show()
+
+  $('#save_user_email').click () ->
+    return if $('#user_contact_email').hasClass 'error'
+    $('#user_contact_email').attr 'readonly', yes
+    $(this).hide()
+    $('#unlock_user_email').show()
+
+
 
 
 

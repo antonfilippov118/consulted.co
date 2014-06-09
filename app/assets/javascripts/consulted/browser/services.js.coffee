@@ -20,12 +20,18 @@ app.service 'Scroll', [
   '$window'
   '$timeout'
   ($window, $timeout) ->
+    getHeight = (depth) ->
+      return 690 if depth is 0
+      console.log depth
+      $("#height_#{depth}").offset().top
+
+
     scroll: (group, event) ->
       if $($window).width() <= 480
         {depth} = group
         try
-          height = $("#height_#{depth}").offset().top
           $timeout ->
+            height = getHeight(depth)
             $('body').animate({scrollTop: height}, 500)
           , 200
         catch e

@@ -1,5 +1,5 @@
 <% if @success %>
-CONSULTED.trigger 'Another confirmation email has been sent.'
+CONSULTED.trigger 'Confirmation email sent!'
 <% else %>
 CONSULTED.trigger 'There was an error sending the confirmation.'
 <% end %>

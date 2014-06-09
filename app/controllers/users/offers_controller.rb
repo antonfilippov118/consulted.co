@@ -51,7 +51,7 @@ class Users::OffersController < Users::BaseController
   end
 
   def request_params
-    params.require(:call).permit :message, :offer, :expert, :length, :start, :active_from, languages: []
+    params.require(:call).permit :message, :offer, :expert, :length, :start, :active_from, :language
   end
 
   def user_is_expert?

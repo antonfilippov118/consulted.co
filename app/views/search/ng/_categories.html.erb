@@ -1,6 +1,5 @@
 <div>
   <div class="clr selectoffer-cats" ng-repeat="level in crumbs" ng-hide="last(level)">
-    <div id="height_1"></div>
     <div
       class="selectoffer-cat"
       ng-repeat="child in level.children | orderBy:'name'"
@@ -10,6 +9,7 @@
         {{child.name}}
     </div>
   </div>
+  <div id="height_1"></div>
   <div class="row pool clr" ng-hide="group.depth === 0">
     <div class="col-md-4">
       <div class="clr selectoffer-subcats">

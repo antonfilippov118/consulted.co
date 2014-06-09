@@ -5,6 +5,12 @@
         <%= f.fields_for :address, @user.address do |ff| %>
           <div class="row form-group">
             <div class="col-xs-12">
+              <%= ff.label :company, 'Company (if applicable)', class: 'input-label small' %>
+              <%= ff.text_field :company, class: 'form-control meeting-input' %>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-xs-12">
               <%= ff.label :street, "Street", class: 'input-label small' %>
               <%= ff.text_field :street, class: 'form-control meeting-input' %>
             </div>
@@ -21,7 +27,7 @@
           </div>
           <div class="row form-group">
             <div class="col-xs-12">
-              <%= ff.label :state, "State", class: 'input-label small' %>
+              <%= ff.label :state, "State (if applicable)", class: 'input-label small' %>
               <%= ff.text_field :state, class: 'form-control meeting-input' %>
             </div>
           </div>

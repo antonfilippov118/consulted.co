@@ -12,7 +12,7 @@ class CompletesCalls
     include LightService::Action
 
     executed do |context|
-      context[:calls] = Call.active.where active_to: { :$lte => Time.now - 30.minutes }
+      context[:calls] = Call.active.where active_to: { :$lte => Time.now - 5.minutes }
     end
   end
 

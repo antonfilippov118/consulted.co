@@ -38,7 +38,7 @@ class Call
   field :rating_reminder_sent_at, type: DateTime
   field :confirmed_at, type: DateTime
   field :cancelled_at, type: DateTime
-  field :languages, type: Array, default: []
+  field :language, type: String, default: ''
 
   index pin: 1, status: 1
 

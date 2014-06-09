@@ -30,7 +30,7 @@
             <p class="bigger prop">Offered time slot, minutes
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="Select the different durations you would can be booked at"></span>
             </p>
-            <small>We will apply based rate accordingly.</small>
+            <small>We will apply based rate accordingly</small>
           </div>
           <div class="col-md-6 text-center">
             <div class="time-select">
@@ -39,7 +39,7 @@
             <div class="time-legend">
               <div class="legend" ng-repeat="time in times">{{time}}</div>
             </div>
-            <div ng-show="noTimeSelected(offer)" class="time-legend" style="color:red;">Please select at least one time.</div>
+            <div ng-show="noTimeSelected(offer)" class="time-legend" style="color:red;">Please select at least one time</div>
           </div>
         </div>
         <div class="row setupoffr-row">
@@ -61,12 +61,12 @@
             </p>
           </div>
           <div class="col-md-6 text-center">
-            <div class="expert-rating" ng-show="offer.likes.length > 0">
-              <div class="rating-hand">0</div>
-              at avg. $65
+            <div class="expert-rating" ng-show="offer.likes > 0">
+              <div class="rating-hand">{{offer.likes}}</div>
+              at avg. {{offer.cost_average | currency}}
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="‘Awesome count’ shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate ‘awesomes’ were collected"></span>
             </div>
-            <div class="expert-rating" ng-show="offer.likes.length === 0" style="padding:5px">
+            <div class="expert-rating" ng-show="offer.likes > 0" style="padding:5px">
               You have no awesomes for this offer yet.
             </div>
           </div>
