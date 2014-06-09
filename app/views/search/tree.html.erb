@@ -1,0 +1,20 @@
+<div id="offers" ng-app="consulted.offers_tree">
+  <p class="back-home text-left clr"><span class="flaticon flaticon-arrowleft"></span>
+    <%= link_to 'back to overview', find_an_expert_path  %>
+  </p>
+  <h2>Service offerings</h2>
+  <div ng-controller="GroupsCtrl">
+    <div ng-show="loading" class="text-center">
+      <i class="fa fa-spin fa-spinner fa-2x"></i>
+    </div>
+    <div data-groups></div>
+  </div>
+  <% %w(groups group child).each do |partial| %>
+    <script type="text/ng-template" id="<%= partial %>">
+      <%= render partial: "search/ng/tree/#{partial}" %>
+    </script>
+  <% end %>
+  <script type="text/ng-template" id="learn">
+    <%= render partial: 'search/ng/learn' %>
+  </script>
+</div>

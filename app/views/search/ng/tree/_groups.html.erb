@@ -1,0 +1,14 @@
+<table class="table table-responsive offerings-table">
+  <thead>
+    <tr>
+      <th ng-repeat="group in groups">{{group.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td ng-repeat="group in groups">
+        <div group="child" ng-repeat="child in group.children"></div>
+      </td>
+    </tr>
+  </tbody>
+</table>
