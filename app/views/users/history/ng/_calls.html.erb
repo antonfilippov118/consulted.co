@@ -23,7 +23,7 @@
       <p>There was an error retrieving your calls</p>
     </div>
     <div class="text-center" ng-show="!loading && calls().length === 0">
-      <p>You have no calls matching these criteria</p>
+      <p><em>You have no calls matching these criteria</em></p>
     </div>
     <table class="table calltable" ng-show="!loading && calls().length > 0">
       <tbody call="call" ng-repeat="call in calls() | orderBy:'timestamp':true"></tbody>
