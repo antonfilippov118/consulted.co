@@ -61,12 +61,12 @@
             </p>
           </div>
           <div class="col-md-6 text-center">
-            <div class="expert-rating" ng-show="offer.likes.length > 0">
-              <div class="rating-hand">0</div>
-              at avg. $65
+            <div class="expert-rating" ng-show="offer.likes > 0">
+              <div class="rating-hand">{{offer.likes}}</div>
+              at avg. {{offer.cost_average | currency}}
               <span class="flaticon flaticon-help help" tooltip-placement="top" tooltip="‘Awesome count’ shows the average rate per hour of the last 5 awesome counts – provides a good indication to advice seekers at which rate ‘awesomes’ were collected"></span>
             </div>
-            <div class="expert-rating" ng-show="offer.likes.length === 0" style="padding:5px">
+            <div class="expert-rating" ng-show="offer.likes > 0" style="padding:5px">
               You have no awesomes for this offer yet.
             </div>
           </div>

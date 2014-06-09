@@ -1,14 +1,7 @@
 collection :@offers
-attributes :description, :rate, :experience, :url, :slug, :maximum_length
+attributes :description, :rate, :experience, :url, :slug, :maximum_length, :likes
 node :id do |offer|
   offer.id.to_s
-end
-node :awesomes do |offer|
-    offer.reviews.awesomes.count
-end
-
-node :awesomes_rate do |offer|
-    offer.recent_awesome_calls_cost
 end
 
 child :expert => :expert do
