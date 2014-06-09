@@ -54,23 +54,19 @@
       </span>
   </td>
 </tr>
-<tr>
+<tr ng-show="call.status == 5">
   <td>
-      <span ng-show="call.status == 5">
-        Review
-      </span>
+    Review
   </td>
   <td>
-      <span ng-show="call.status == 5">
-        <span ng-show="call.expert">
-          <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
-          <span ng-hide="call.review"><em>Client has not yet reviewed your service.</em></span>
-        </span>
-        <span ng-hide="call.expert">
-          <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
-          <span ng-hide="call.review"><a ng-click="review(call)" class="btn btn-primary">Review Now!</a></span>
-        </span>
-      </span>
+    <span ng-show="call.expert">
+      <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
+      <span ng-hide="call.review"><em>Client has not yet reviewed your service.</em></span>
+    </span>
+    <span ng-hide="call.expert">
+      <span ng-show="call.review"><a ng-click="review(call)" class="btn btn-default">View Review</a></span>
+      <span ng-hide="call.review"><a ng-click="review(call)" class="btn btn-primary">Review Now!</a></span>
+    </span>
   </td>
 </tr>
 <tr>
