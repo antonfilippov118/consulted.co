@@ -1,7 +1,9 @@
 <div>
   <div ng-show="child.children.length == 0">
     <a ng-href="/groups/{{child.slug}}">{{child.name}}</a>
-    <a ng-click="learn(child)">learn more</a>
+    <small>
+      <a ng-click="learn(child)">learn more</a>
+    </small>
   </div>
   <div ng-hide="child.children.length == 0">
     <a ng-click="open = !open">{{child.name}}</a>
