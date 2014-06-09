@@ -180,11 +180,15 @@ app.controller "BrowseCtrl", [
   '$scope'
   'GroupData'
   '$location'
-  BrowseCtrl = (scope, GroupData, location) ->
+  'Scroll'
+  BrowseCtrl = (scope, GroupData, location, Scroll) ->
     GroupData.getGroups()
     scope.hide = location.path() is '/search'
     scope.select = (path) ->
-      location.path path
+      GroupData.findGroup(path).then (group) ->
+        Scroll.scroll(group)
+      .finally ->
+        location.path path
 
     scope.$on 'search:enable', () ->
       scope.hide = yes
