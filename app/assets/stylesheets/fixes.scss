@@ -314,5 +314,29 @@ span.lang {
   font-size: 14px;
 }
 
+.offerings-table {
+  h5 {
+    font-weight: bold;
+  }
+  td {
+    .group {
+      border-bottom: 1px solid #eee;
+      padding: 5px;
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+  ul {
+    margin: 0px 0px 0px 20px;
+    padding: 0;
+    list-style: disc;
+    li {
+      margin: 0;
+      padding: 3px;
+    }
+  }
+}
+
 @import 'filters';
 @import 'typeahead';

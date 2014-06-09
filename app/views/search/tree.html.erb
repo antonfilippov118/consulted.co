@@ -9,9 +9,12 @@
     </div>
     <div data-groups></div>
   </div>
-  <% %w(groups group).each do |partial| %>
+  <% %w(groups group child).each do |partial| %>
     <script type="text/ng-template" id="<%= partial %>">
       <%= render partial: "search/ng/tree/#{partial}" %>
     </script>
   <% end %>
+  <script type="text/ng-template" id="learn">
+    <%= render partial: 'search/ng/learn' %>
+  </script>
 </div>

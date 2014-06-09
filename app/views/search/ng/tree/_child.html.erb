@@ -1,0 +1,17 @@
+<div>
+  <div ng-show="child.children.length == 0">
+    <a ng-href="/groups/{{child.slug}}">{{child.name}}</a>
+    <a ng-click="learn(child)">learn more</a>
+  </div>
+  <div ng-hide="child.children.length == 0">
+    <a ng-click="open = !open">{{child.name}}</a>
+    <div ng-show="open">
+      <ul>
+        <li ng-repeat="group in child.children">
+          <span child="group"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
