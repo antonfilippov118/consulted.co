@@ -20,7 +20,7 @@ child :@reviewable => :reviewable do
 end
 
 child :@calls => :calls do
-  attributes :message, :pin, :length, :status
+  attributes :message, :pin, :length, :status, :language
   child :group do
     attributes :name, :slug
   end

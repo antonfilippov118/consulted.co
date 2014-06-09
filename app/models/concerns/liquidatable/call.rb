@@ -16,7 +16,7 @@ module Liquidatable
 
     def call_languages
       {
-        'languages' => languages.map(&:capitalize).join(', ')
+        'languages' => language
       }
     end
 
