@@ -54,7 +54,7 @@
   <td>
       <span ng-show="!call.expert && call.status == 5">
           <span ng-show="call.invoice_pdf_url == null"><em>Invoice will be available <%= Settings.call_dispute_period %> hours after the call.</em></span>
-          <span ng-hide="call.invoice_pdf_url == null"><a ng-href="{{call.invoice_pdf_url}}" class="btn btn-default">View Invoice</a></span>
+          <span ng-hide="call.invoice_pdf_url == null"><a ng-href="{{call.invoice_pdf_url}}" target="_blank" class="btn btn-default">View Invoice</a></span>
       </span>
   </td>
 </tr>
